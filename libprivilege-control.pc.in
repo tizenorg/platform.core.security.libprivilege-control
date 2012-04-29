@@ -1,0 +1,11 @@
+prefix=@PREFIX@
+exec_prefix=@EXEC_PREFIX@
+libdir=@LIBDIR@
+includedir=@INCLUDEDIR@
+
+Name: libprivilege-control 
+Description: Library to control privilege of application
+Version: @VERSION@
+Requires: openssl
+Libs: -L${libdir} -lprivilege-control
+Cflags: -I${includedir}/

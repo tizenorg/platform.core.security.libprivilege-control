@@ -1,0 +1,7 @@
+libprivilege-control (0.0.2-40) unstable; urgency=low
+
+  * Remove 'inhouse' directory
+  * Tag: libprivilege-control_0.0.2-40
+  * Git: pkgs/l/libprivilege-control
+
+ -- Kidong Kim <kd0228.kim@samsung.com>  Thu, 09 Feb 2012 17:41:32 +0900
