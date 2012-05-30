@@ -5,6 +5,7 @@ Release:    1.1
 Group:      System/Security
 License:    Apache 2.0
 Source0:    %{name}-%{version}.tar.gz
+Source1001: packaging/libprivilege-control.manifest 
 BuildRequires:  cmake
 BuildRequires: pkgconfig(openssl)
 BuildRequires: pkgconfig(security-server)
@@ -33,6 +34,7 @@ Library to control privilege of application files
 %setup -q
 
 %build
+cp %{SOURCE1001} .
 cmake . -DCMAKE_INSTALL_PREFIX=%{_prefix}
 
 make %{?jobs:-j%jobs}
@@ -80,6 +82,7 @@ ln -sf /opt/etc/group /etc/group
 
 # FIXME: should split to separate binaries package
 %files
+%manifest libprivilege-control.manifest
 /usr/lib/*.so.*
 /usr/bin/debug-util
 /usr/bin/kill_app
@@ -88,10 +91,12 @@ ln -sf /opt/etc/group /etc/group
 /lib/udev/rules.d/95-permissions-slp.rules
 
 %files conf
+%manifest libprivilege-control.manifest
 /opt/etc/group
 /opt/etc/passwd
 
 %files devel
+%manifest libprivilege-control.manifest
 /usr/include/*.h
 /usr/lib/*.so
 /usr/lib/pkgconfig/*.pc
