@@ -1,0 +1,3 @@
+* Wed Jun 20 2012 Patrick McCarty <patrick.mccarty@linux.intel.com> d93cf56
+- Add symlinks to /etc/{group,passwd}; fix udev rule path
+

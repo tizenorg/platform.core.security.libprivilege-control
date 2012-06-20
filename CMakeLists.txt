@@ -88,7 +88,7 @@ INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/include/privilege-control.h DESTINATIO
 INSTALL(FILES ${datfiles} DESTINATION /usr/share/privilege-control)
 INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/app_group_list DESTINATION /usr/share/privilege-control)
 INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/dev_group_list DESTINATION /usr/share/privilege-control)
-INSTALL(FILES ${udevfiles} DESTINATION /lib/udev/rules.d)
+INSTALL(FILES ${udevfiles} DESTINATION ${LIBDIR}/udev/rules.d)
 INSTALL(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/slp-su DESTINATION bin)
 INSTALL(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/debug-util DESTINATION bin)
 INSTALL(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/kill_app DESTINATION bin)
