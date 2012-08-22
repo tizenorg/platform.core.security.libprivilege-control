@@ -1,13 +1,12 @@
 Name:       libprivilege-control
 Summary:    Library to control privilege of application
-Version:	0.0.2
-Release:    1.1
+Version:    0.0.6
+Release:    1
 Group:      System/Security
 License:    Apache 2.0
 Source0:    %{name}-%{version}.tar.gz
-BuildRequires:  cmake
-BuildRequires: pkgconfig(openssl)
-BuildRequires: pkgconfig(security-server)
+BuildRequires: cmake
+BuildRequires: pkgconfig(libsmack)
 
 %description
 development package of library to control privilege of in-house application
@@ -21,7 +20,7 @@ Requires:   %{name} = %{version}-%{release}
 Library to control privilege of application (devel)
 
 %package conf
-Summary:    Control privilege of application files 
+Summary:    Control privilege of application files
 Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 
@@ -77,15 +76,11 @@ fi
 ln -sf /opt/etc/group /etc/group
 
 
-
-# FIXME: should split to separate binaries package
 %files
 /usr/lib/*.so.*
-/usr/bin/debug-util
-/usr/bin/kill_app
 /usr/bin/slp-su
 /usr/share/privilege-control/*
-/lib/udev/rules.d/95-permissions-slp.rules
+/lib/udev/rules.d/*
 
 %files conf
 /opt/etc/group

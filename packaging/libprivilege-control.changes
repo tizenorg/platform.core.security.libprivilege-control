@@ -1,0 +1,17 @@
+* Mon Aug 08 2012 Tomasz Swierczek - 0.0.6
+- Another attempt to push to OBS
+- Changed udev configuration file (rear_flash)
+* Thu Aug 02 2012 Rafal Krypa - 0.0.5
+- Fix generated Smack labels for WRT widgets.
+- Extend semantics of SMACK configuration files for WRT.
+- Add missing permissions for WRT widgets.
+* Fri Jul 27 2012 Rafal Krypa - 0.0.4
+- Remove debug-util and kill_app.
+- Some udev rules fixed by Kidong Kim.
+* Tue Jul 17 2012 Rafal Krypa - 0.0.3
+- Add initial mapping of wrt devcaps to SMACK accesses.
+- Pass some path definitions as compiler macros instead of hardcoding in source.
+- Remove APIs - add & delete user and group for 3rd party applications.
+- Packaging: fix udev rules installation in the spec file.
+- Add SMACK functions for WRT.
+- Add API function set_exec_label.

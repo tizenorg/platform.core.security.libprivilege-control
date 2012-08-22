@@ -1,7 +1,7 @@
 /*
  * libprivilege control
  *
- * Copyright (c) 2000 - 2012 Samsung Electronics Co., Ltd All Rights Reserved 
+ * Copyright (c) 2000 - 2012 Samsung Electronics Co., Ltd All Rights Reserved
  *
  * Contact: Kidong Kim <kd0228.kim@samsung.com>
  *
@@ -21,6 +21,10 @@
 
 #ifndef _PRIVILEGE_CONTROL_H_
 #define _PRIVILEGE_CONTROL_H_
+
+/* Macros for converting preprocessor token to string */
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,10 +47,79 @@ int control_privilege(void);
 
 int set_privilege(const char* pkg_name);
 
-/* added APIs - add & delete user and group for 3rd party applications */
-int add_user_and_group(const char* pkg_name, const char* permissions);
+/**
+ * Set process SMACK label from EXEC label of a file.
+ * This function is emulating EXEC label behaviour of SMACK for programs
+ * run by dlopen/dlsym instead of execv.
+ *
+ * @param path file path to take label from
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int set_exec_label(const char* path);
 
-int delete_user_and_group(const char* pkg_name);
+/* APIs for WRT */
+
+/**
+ * Reset all SMACK permissions for a widget.
+ * This function should be called during preparation for widget run.
+ * It would be a good idea to also call it after widget has terminated.
+ * It must be called by privileged user.
+ *
+ * @param widget_id widget identifier from WRT
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int wrt_permissions_reset(unsigned long long widget_id);
+
+/**
+ * Grant SMACK permissions required to use selected devcaps.
+ * This function should be called during preparation for widget run
+ * (after wrt_permissions_reset()) and whenever widget is supposed to
+ * gain any new devcap permissions.
+ * It must be called by privileged user.
+ *
+ * @param widget_id widget identifier from WRT
+ * @param devcap_list array of devcap names, last element must be NULL
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int wrt_permissions_add(unsigned long long widget_id, const char** devcap_list);
+
+/**
+ * Recursively set SMACK labels for a widget source directory.
+ * This function should be called once during widget installation, after
+ * widget's source is unpacked in it's destination directory.
+ * Results will be persistent on the file system.
+ * It must be called by privileged user.
+ *
+ * @param widget_id widget identifier from WRT
+ * @param path parent directory path with widget's source
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int wrt_set_src_dir(unsigned long long widget_id, const char *path);
+
+/**
+ * Recursively set SMACK labels for a widget data directory.
+ * This function should be called once during widget installation, after
+ * widget's initial data is unpacked in it's destination directory.
+ * Results will be persistent on the file system.
+ * It must be called by privileged user.
+ *
+ * @param widget_id widget identifier from WRT
+ * @param path parent directory path with widget's data
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int wrt_set_data_dir(unsigned long long widget_id, const char *path);
+
+/**
+ * Assign SMACK label to a process and drop root permissions.
+ * Also grant default SMACK permissions (not related to any devcaps).
+ * This function should be called by before executing widget code.
+ * It must be called by privileged user. After the function returns,
+ * privileges will be dropped.
+ *
+ * @param widget_id widget identifier from WRT
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int wrt_set_privilege(unsigned long long widget_id);
 
 #ifdef __cplusplus
 }

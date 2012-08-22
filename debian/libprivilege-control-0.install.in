@@ -1,8 +1,6 @@
 /usr/lib/libprivilege-control.so
 /usr/lib/libprivilege-control.so.*
 /usr/bin/slp-su
-/usr/bin/debug-util
-/usr/bin/kill_app
 /usr/share/privilege-control/*
 /opt/etc/passwd
 /opt/etc/group

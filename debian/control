@@ -1,7 +1,7 @@
 Source: libprivilege-control
 Priority: extra
 Maintainer: Kidong Kim <kd0228.kim@samsung.com>
-Build-Depends: debhelper (>= 5), autotools-dev, libsecurity-server-client-dev, libssl-dev, openssl
+Build-Depends: debhelper (>= 5), autotools-dev, libsmack-dev
 Standards-Version: 3.7.2
 Section: base
 Homepage: N/A
@@ -9,7 +9,7 @@ Homepage: N/A
 Package: libprivilege-control-dev
 Section: libs
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libprivilege-control-0 (= ${Source-Version}), libssl-dev
+Depends: ${shlibs:Depends}, ${misc:Depends}, libprivilege-control-0 (= ${Source-Version})
 Description: development pacakge of library to control privilege of in-house application
 
 Package: libprivilege-control-0
