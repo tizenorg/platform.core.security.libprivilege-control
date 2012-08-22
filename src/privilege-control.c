@@ -71,7 +71,7 @@ API int control_privilege(void)
 	if(getuid() == APP_UID)	// current user is 'app'
 		return PC_OPERATION_SUCCESS;
 
-	if(set_privilege("com.samsung.") == PC_OPERATION_SUCCESS)
+	if(set_privilege("org.tizen.") == PC_OPERATION_SUCCESS)
 		return PC_OPERATION_SUCCESS;
 	else
 		return PC_ERR_NOT_PERMITTED;
@@ -161,7 +161,7 @@ API int set_privilege(const char* pkg_name)
 		/*
 		 * in case of dialer, add admin to glist
 		 */
-		if(!strncmp(pkg_name, "com.samsung.phone", 17) || !strncmp(pkg_name, "org.tizen.phone", 15))
+		if(!strncmp(pkg_name, "org.tizen.phone", 15))
 		{
 			glist = (gid_t*)realloc(glist, sizeof(gid_t) * (glist_cnt + 1));
 			glist[glist_cnt] = ADMIN_GROUP;	// 6504
