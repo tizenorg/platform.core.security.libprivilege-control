@@ -34,7 +34,8 @@ SUBSYSTEM=="leds",      ATTR{brightness}=="?*", RUN+="/bin/chmod 0664 %S/%p/brig
 SUBSYSTEM=="backlight", ATTR{brightness}=="?*", RUN+="/bin/chmod 0664 %S/%p/brightness", RUN+="/bin/chown :system_bklight %S/%p/brightness"
 
 # flash (7/16 added)
-SUBSYSTEM=="flash",    RUN+="/bin/chmod 0666 %S/%p/rear_flash"
+SUBSYSTEM=="camera",    RUN+="/bin/chmod 0666 %S/%p/rear_flash"
+SUBSYSTEM=="camera",    RUN+="/bin/chmod 0666 %S/%p/max_brightness"
 
 # mDNIe
 DRIVER=="mdnie",	RUN+="/bin/chmod 0666 %S/%p/mode"
