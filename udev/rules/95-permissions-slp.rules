@@ -44,6 +44,11 @@ DRIVER=="mdnie",	RUN+="/bin/chmod 0666 %S/%p/tone"
 DRIVER=="mdnie",	RUN+="/bin/chmod 0666 %S/%p/outdoor"
 DRIVER=="mdnie",	RUN+="/bin/chmod 0666 %S/%p/tune"
 
+# haptic
+SUBSYSTEM=="haptic",	RUN+="/bin/chmod 0666 %S/%p/level"
+SUBSYSTEM=="haptic",	RUN+="/bin/chmod 0666 %S/%p/enable"
+SUBSYSTEM=="haptic",	RUN+="/bin/chmod 0666 %S/%p/oneshot"
+
 # Video4Linux
 SUBSYSTEM!="video4linux", GOTO="v4l_slp_end"
 IMPORT{program}="v4l_id %N"
