@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 	{
 		case 0:		// child
 			{
-				if(set_privilege(argv[1]) == 0)	// success
+				if(set_app_privilege(argv[1], NULL, NULL) == 0)	// success
 				{
 					fprintf(stderr, "%s", "[LOG] Success to execute set_privilege()\n");
 				}
