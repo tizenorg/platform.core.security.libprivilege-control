@@ -1,10 +1,13 @@
+%define udev_libdir /usr/lib/udev
+
 Name:       libprivilege-control
 Summary:    Library to control privilege of application
-Version:    0.0.6
+Version:    0.0.12
 Release:    1
 Group:      System/Security
 License:    Apache 2.0
 Source0:    %{name}-%{version}.tar.gz
+Source1:    %{name}-conf.manifest
 BuildRequires: cmake
 BuildRequires: pkgconfig(libsmack)
 
@@ -23,6 +26,7 @@ Library to control privilege of application (devel)
 Summary:    Control privilege of application files
 Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
+Requires:   /usr/bin/chsmack
 
 %description conf
 Library to control privilege of application files
@@ -38,8 +42,14 @@ make %{?jobs:-j%jobs}
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/license
+cp LICENSE %{buildroot}/usr/share/license/%{name}
 %make_install
-
+cp -a %{SOURCE1} %{buildroot}%{_datadir}/
+install -D -d %{buildroot}/etc/rc.d/rc3.d/
+install -D -d %{buildroot}/etc/rc.d/rc4.d/
+ln -sf ../init.d/smack_default_labeling %{buildroot}/etc/rc.d/rc3.d/S45smack_default_labeling
+ln -sf ../init.d/smack_default_labeling %{buildroot}/etc/rc.d/rc4.d/S45smack_default_labeling
 
 %post
 if [ ! -e "/home/app" ]
@@ -77,16 +87,20 @@ ln -sf /opt/etc/group /etc/group
 
 
 %files
-/usr/lib/*.so.*
-/usr/bin/slp-su
-/usr/share/privilege-control/*
-/lib/udev/rules.d/*
+%{_libdir}/*.so.*
+%{_bindir}/slp-su
+%{_datarootdir}/privilege-control/*
+%{udev_libdir}/rules.d/*
+%{_datadir}/license/%{name}
 
 %files conf
 /opt/etc/group
 /opt/etc/passwd
+/opt/etc/smack/*
+%attr(755,root,root) /etc/rc.d/*
+%manifest %{_datadir}/%{name}-conf.manifest
 
 %files devel
-/usr/include/*.h
-/usr/lib/*.so
-/usr/lib/pkgconfig/*.pc
+%{_includedir}/*.h
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/*.pc

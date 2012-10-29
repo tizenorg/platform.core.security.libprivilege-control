@@ -43,32 +43,47 @@ extern "C" {
 #define PC_ERR_INVALID_OPERATION	-5
 
 /* APIs - used by applications */
-int control_privilege(void);
+int control_privilege(void) __attribute__((deprecated));
 
-int set_privilege(const char* pkg_name);
+int set_privilege(const char* pkg_name) __attribute__((deprecated));
 
 /**
- * Set process SMACK label from EXEC label of a file.
- * This function is emulating EXEC label behaviour of SMACK for programs
- * run by dlopen/dlsym instead of execv.
+ * Set DAC and SMACK privileges for application.
+ * This function is meant to be call by the application launcher just before
+ * it launches an application. It will setup DAC and SMACK privileges based
+ * on app type and accesses.
+ * It must be called with root privileges, which will be dropped in the function.
  *
- * @param path file path to take label from
+ * @param name package name
+ * @param type application type (currently distinguished types: "wgt" and other)
+ * @param path file system path to the binary
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int set_exec_label(const char* path);
+int set_app_privilege(const char* name, const char* type, const char* path);
 
 /* APIs for WRT */
 
 /**
+* Set DAC and SMACK privileges for web application.
+* This is a specialized version of set_app_privilege() to be called by WRT
+* when it is being launched from the console instead of AUL.
+*
+* @param widget_id widget identificator
+* @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+*/
+int wrt_set_privilege(const char* widget_id);
+
+/**
  * Reset all SMACK permissions for a widget.
- * This function should be called during preparation for widget run.
- * It would be a good idea to also call it after widget has terminated.
+ * This function should be called when previously granted permissions
+ * for a widget are no longer needed (e.g. after its termination or
+ * deinstallation).
  * It must be called by privileged user.
  *
  * @param widget_id widget identifier from WRT
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int wrt_permissions_reset(unsigned long long widget_id);
+int wrt_permissions_reset(const char* widget_id);
 
 /**
  * Grant SMACK permissions required to use selected devcaps.
@@ -81,7 +96,7 @@ int wrt_permissions_reset(unsigned long long widget_id);
  * @param devcap_list array of devcap names, last element must be NULL
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int wrt_permissions_add(unsigned long long widget_id, const char** devcap_list);
+int wrt_permissions_add(const char* widget_id, const char** devcap_list);
 
 /**
  * Recursively set SMACK labels for a widget source directory.
@@ -94,7 +109,7 @@ int wrt_permissions_add(unsigned long long widget_id, const char** devcap_list);
  * @param path parent directory path with widget's source
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int wrt_set_src_dir(unsigned long long widget_id, const char *path);
+int wrt_set_src_dir(const char* widget_id, const char *path);
 
 /**
  * Recursively set SMACK labels for a widget data directory.
@@ -107,19 +122,17 @@ int wrt_set_src_dir(unsigned long long widget_id, const char *path);
  * @param path parent directory path with widget's data
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int wrt_set_data_dir(unsigned long long widget_id, const char *path);
+int wrt_set_data_dir(const char* widget_id, const char *path);
 
 /**
- * Assign SMACK label to a process and drop root permissions.
- * Also grant default SMACK permissions (not related to any devcaps).
- * This function should be called by before executing widget code.
- * It must be called by privileged user. After the function returns,
- * privileges will be dropped.
+ * For a UNIX socket endpoint determine if the other side is a widget
+ * and return its widget id.
  *
- * @param widget_id widget identifier from WRT
- * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ * @param sockfd socket file descriptor
+ * @return id of the connecting widget on success, NULL on failure.
+ * Caller is responsible for freeing the return widget id.
  */
-int wrt_set_privilege(unsigned long long widget_id);
+char* wrt_widget_id_from_socket(int sockfd);
 
 #ifdef __cplusplus
 }
