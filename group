@@ -69,7 +69,6 @@ db_wrt:x:6026:app
 camera:x:6501:app,media
 message:x:6502:app
 myfiles:x:6503:app
-admin:x:6504:
 pulse:x:6507:
 pulse-access:x:6505:root,app,media
 pulse-rt:x:6506:root,app,media

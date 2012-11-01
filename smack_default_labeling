@@ -4,6 +4,9 @@ chown 5000:5000 /home/app
 find /home/app -print0 | xargs -0 chsmack -a 'system::homedir'
 find /home/app -type d -print0 | xargs -0 chsmack -t
 
+chsmack -a 'system::vconf' /opt/var/kdb/db
+chsmack -t /opt/var/kdb/db
+
 # set vconf label when first boot
 if [ ! -e /opt/etc/.vconf_labeling ]; then
 	find /opt/var/kdb/db -print0 | xargs -0 chsmack -a 'system::vconf'
@@ -68,7 +71,7 @@ chsmack -a 'aul::db' /opt/dbspace/.mida.db*
 chsmack -a 'wrt-commons::db_wrt' /opt/dbspace/.wrt.db*
 chsmack -a 'wrt-commons::db_wrt_autosave' /opt/dbspace/.wrt_autosave.db*
 chsmack -a 'msg-service::db' /opt/dbspace/.msg_service.db*
-chsmack -a 'libslp-calendar::db' /opt/dbspace/.calendar-svc.db*
+chsmack -a 'calendar-service::db' /opt/dbspace/.calendar-svc.db*
 chsmack -a 'email-service::db' /opt/dbspace/.email-service.db*
 chsmack -a 'push-service::db' /opt/dbspace/.push.db*
 chsmack -a 'browser::db_external' /opt/dbspace/.browser-history.db*

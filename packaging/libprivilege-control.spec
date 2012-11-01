@@ -2,7 +2,7 @@
 
 Name:       libprivilege-control
 Summary:    Library to control privilege of application
-Version:    0.0.12
+Version:    0.0.13
 Release:    1
 Group:      System/Security
 License:    Apache 2.0

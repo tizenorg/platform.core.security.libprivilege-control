@@ -39,7 +39,6 @@
 
 #define APP_GID	5000
 #define APP_UID	5000
-#define ADMIN_GROUP	6504
 #define DEVELOPER_GID	5100
 #define DEVELOPER_UID	5100
 
@@ -165,16 +164,6 @@ static int set_dac(const char* pkg_name)
 		}
 		fclose(fp_group);
 		fp_group = NULL;
-
-		/*
-		 * in case of dialer, add admin to glist
-		 */
-		if(!strncmp(pkg_name, "com.samsung.phone", 17) || !strncmp(pkg_name, "org.tizen.phone", 15))
-		{
-			glist = (gid_t*)realloc(glist, sizeof(gid_t) * (glist_cnt + 1));
-			glist[glist_cnt] = ADMIN_GROUP;	// 6504
-			glist_cnt++;
-		}
 
 		/*
 		 * setgroups()
