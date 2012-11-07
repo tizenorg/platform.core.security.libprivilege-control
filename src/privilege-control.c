@@ -110,19 +110,19 @@ static int set_dac(const char* pkg_name)
 	{
 		if(!strncmp(pkg_name, "developer", 9))
 		{
-			strncpy(usr.user_name, DEV_USER_NAME, strlen(DEV_USER_NAME));
+			strncpy(usr.user_name, DEV_USER_NAME, sizeof(usr.user_name));
 			usr.uid = DEVELOPER_UID;
 			usr.gid = DEVELOPER_GID;
-			strncpy(usr.home_dir, DEV_HOME_DIR, strlen(DEV_HOME_DIR));
-			strncpy(usr.group_list, DEV_GROUP_PATH, strlen(DEV_GROUP_PATH));
+			strncpy(usr.home_dir, DEV_HOME_DIR, sizeof(usr.home_dir));
+			strncpy(usr.group_list, DEV_GROUP_PATH, sizeof(usr.group_list));
 		}
 		else
 		{
-			strncpy(usr.user_name, APP_USER_NAME, strlen(APP_USER_NAME));
+			strncpy(usr.user_name, APP_USER_NAME, sizeof(usr.user_name));
 			usr.uid = APP_UID;
 			usr.gid = APP_GID;
-			strncpy(usr.home_dir, APP_HOME_DIR, strlen(APP_HOME_DIR));
-			strncpy(usr.group_list, APP_GROUP_PATH, strlen(APP_GROUP_PATH));
+			strncpy(usr.home_dir, APP_HOME_DIR, sizeof(usr.home_dir));
+			strncpy(usr.group_list, APP_GROUP_PATH, sizeof(usr.group_list));
 		}
 
 		/*
@@ -137,13 +137,6 @@ static int set_dac(const char* pkg_name)
 
 		while(fgets(buf, 10, fp_group) != NULL)
 		{
-			if(buf == NULL)
-			{
-				fprintf(stderr, "[ERR] Fail to get gid\n");
-				result = PC_ERR_INVALID_OPERATION;
-				goto error;
-			}
-
 			errno = 0;
 			temp_gid = strtoul(buf, 0, 10);
 			if(errno != 0)	// error occured during strtoul()
@@ -219,6 +212,8 @@ static int set_dac(const char* pkg_name)
 	result = PC_OPERATION_SUCCESS;
 
 error:
+    if(fp_group != NULL)
+        fclose(fp_group);
 	if(glist != NULL)
 		free(glist);
 
