@@ -40,6 +40,9 @@ make %{?jobs:-j%jobs}
 rm -rf %{buildroot}
 %make_install
 
+mkdir -p %{buildroot}/etc
+mv %{buildroot}/opt/etc/passwd %{buildroot}/etc/passwd
+mv %{buildroot}/opt/etc/group %{buildroot}/etc/group
 
 %post
 if [ ! -e "/home/app" ]
@@ -62,20 +65,6 @@ then
         mkdir -p /usr/share/privilege-control/
 fi
 
-%post conf
-if [ -e "/etc/passwd" ]
-then
-        rm -f /etc/passwd
-fi
-ln -sf /opt/etc/passwd /etc/passwd
-
-if [ -e "/etc/group" ]
-then
-        rm -f /etc/group
-fi
-ln -sf /opt/etc/group /etc/group
-
-
 %files
 /usr/lib/*.so.*
 /usr/bin/slp-su
@@ -83,8 +72,8 @@ ln -sf /opt/etc/group /etc/group
 /lib/udev/rules.d/*
 
 %files conf
-/opt/etc/group
-/opt/etc/passwd
+/etc/group
+/etc/passwd
 
 %files devel
 /usr/include/*.h
