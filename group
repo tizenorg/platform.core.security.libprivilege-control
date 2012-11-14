@@ -70,7 +70,6 @@ db_wrt:x:6026:app
 camera:x:6501:app,media
 message:x:6502:app
 myfiles:x:6503:app
-admin:x:6504:
 pulse:x:6507:
 pulse-access:x:6505:root,app,media
 pulse-rt:x:6506:root,app,media
@@ -98,6 +97,7 @@ vconf_sync:x:6523:app
 ss_drmkey:x:6601:app
 ss_ssaccount:x:6602:app
 ss_activesync:x:6603:app
+ss_privatekey:x:6604:app
 system_time:x:6701:app
 system_bklight:x:6702:app
 system_torch:x:6703:app

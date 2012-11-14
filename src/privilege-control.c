@@ -30,6 +30,7 @@
 #include <fts.h>
 #include <errno.h>
 #include <math.h>
+#include <ctype.h>
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <sys/smack.h>
@@ -38,7 +39,6 @@
 
 #define APP_GID	5000
 #define APP_UID	5000
-#define ADMIN_GROUP	6504
 #define DEVELOPER_GID	5100
 #define DEVELOPER_UID	5100
 
@@ -51,12 +51,19 @@
 #define APP_GROUP_PATH	TOSTRING(SHAREDIR) "/app_group_list"
 #define DEV_GROUP_PATH	TOSTRING(SHAREDIR) "/dev_group_list"
 
+#define SMACK_WRT_LABEL_PREFIX  "wrt_widget_"
 #define SMACK_SRC_FILE_SUFFIX   "_src_file"
 #define SMACK_SRC_DIR_SUFFIX    "_src_dir"
 #define SMACK_DATA_SUFFIX       "_data"
 #define WRT_BASE_DEVCAP         "WRT"
+#define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
+#define WRT_PKG_TYPE            "wgt"
 
 #ifdef USE_PRIVILEGE_CONTROL
+
+#ifdef SMACK_ENABLED
+static int set_smack_for_wrt(const char* widget_id);
+#endif // SMACK_ENABLED
 
 typedef struct {
 	char user_name[10];
@@ -71,13 +78,13 @@ API int control_privilege(void)
 	if(getuid() == APP_UID)	// current user is 'app'
 		return PC_OPERATION_SUCCESS;
 
-	if(set_privilege("org.tizen.") == PC_OPERATION_SUCCESS)
+	if(set_app_privilege("com.samsung.", NULL, NULL) == PC_OPERATION_SUCCESS)
 		return PC_OPERATION_SUCCESS;
 	else
 		return PC_ERR_NOT_PERMITTED;
 }
 
-API int set_privilege(const char* pkg_name)
+static int set_dac(const char* pkg_name)
 {
 	FILE* fp_group = NULL;	// /etc/group
 	uid_t t_uid = -1;		// uid of current process
@@ -159,16 +166,6 @@ API int set_privilege(const char* pkg_name)
 		fp_group = NULL;
 
 		/*
-		 * in case of dialer, add admin to glist
-		 */
-		if(!strncmp(pkg_name, "org.tizen.phone", 15))
-		{
-			glist = (gid_t*)realloc(glist, sizeof(gid_t) * (glist_cnt + 1));
-			glist[glist_cnt] = ADMIN_GROUP;	// 6504
-			glist_cnt++;
-		}
-
-		/*
 		 * setgroups()
 		 */
 		if(setgroups(glist_cnt, glist) != 0)
@@ -228,7 +225,16 @@ error:
 	return result;
 }
 
-API int set_exec_label(const char* path)
+#ifdef SMACK_ENABLED
+/**
+ * Set process SMACK label from EXEC label of a file.
+ * This function is emulating EXEC label behaviour of SMACK for programs
+ * run by dlopen/dlsym instead of execv.
+ *
+ * @param path file path to take label from
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+static int set_smack_from_binary(const char* path)
 {
 	int ret;
 	char* label;
@@ -247,12 +253,113 @@ API int set_exec_label(const char* path)
 	return ret;
 }
 
-static inline char* wrt_smack_label(unsigned long long widget_id, const char* suffix)
+static int is_widget(const char* path)
+{
+	char buf[sizeof(WRT_CLIENT_PATH)];
+	int ret;
+
+	ret = readlink(path, buf, sizeof(WRT_CLIENT_PATH));
+	if (ret == -1 || ret == sizeof(WRT_CLIENT_PATH))
+		return 0;
+	buf[ret] = '\0';
+
+	return (!strcmp(WRT_CLIENT_PATH, buf));
+}
+
+/**
+ * Partially verify, that the type given for app is correct.
+ * This function will use some heuristics to check whether the app type is right.
+ * It is intended for security hardening to catch privilege setting for the
+ * app type not corresponding to the actual binary.
+ * Beware - when it detects an anomaly, the whole process will be terminated.
+ *
+ * @param type claimed application type
+ * @param path file path to executable
+ * @return return void on success, terminate the process on error
+ */
+static void verify_app_type(const char* type, const char* path)
+{
+	/* TODO: this should actually be treated as error, but until the old
+	 * set_privilege API is removed, it must be ignored */
+	if (path == NULL)
+		return; /* good */
+
+	if (type == NULL)
+		exit(EXIT_FAILURE); /* bad */
+
+	if (is_widget(path)) {
+		if (!strcmp(type, WRT_PKG_TYPE))
+			return; /* good */
+	} else {
+		if (type == NULL || strcmp(type, WRT_PKG_TYPE))
+			return /* good */;
+	}
+
+	/* bad */
+	exit(EXIT_FAILURE);
+}
+
+static const char* parse_widget_id(const char* path)
+{
+	const char* basename = strrchr(path, '/');
+
+	if (basename == NULL)
+		basename = path;
+	else
+		++basename;
+
+	return basename;
+}
+#endif // SMACK_ENABLED
+
+API int set_app_privilege(const char* name, const char* type, const char* path)
+{
+#ifdef SMACK_ENABLED
+	int ret = PC_OPERATION_SUCCESS;
+
+	verify_app_type(type, path);
+	if (!strcmp(type, WRT_PKG_TYPE)) {
+		const char* widget_id = parse_widget_id(path);
+		if (widget_id == NULL)
+			ret = PC_ERR_INVALID_PARAM;
+		else
+			ret = set_smack_for_wrt(widget_id);
+	} else
+		if (path != NULL)
+		ret = set_smack_from_binary(path);
+
+	if (ret != PC_OPERATION_SUCCESS)
+		return ret;
+#endif // SMACK_ENABLED
+
+	return set_dac(name);
+}
+
+API int set_privilege(const char* pkg_name)
+{
+	return set_app_privilege(pkg_name, NULL, NULL);
+}
+
+API int wrt_set_privilege(const char* widget_id)
+{
+#ifdef SMACK_ENABLED
+	int ret;
+
+	ret = set_smack_for_wrt(widget_id);
+	if (ret != PC_OPERATION_SUCCESS)
+		return ret;
+#endif // SMACK_ENABLED
+
+	return set_dac("com.samsung.");
+}
+
+#ifdef SMACK_ENABLED
+static inline char* wrt_smack_label(const char* widget_id, const char* suffix)
 {
 	int ret;
 	char* label;
 
-	ret = asprintf(&label, "wrt_widget_%llu%s", widget_id,
+	ret = asprintf(&label, "%s%s%s", SMACK_WRT_LABEL_PREFIX, widget_id,
 		(suffix ? suffix : ""));
 
 	if (ret == -1)
@@ -284,8 +391,8 @@ static inline int devcap_to_smack(struct smack_accesses* smack, const char* widg
 	while (1) {
 		char smack_label[SMACK_LABEL_LEN + 1];
 		char smack_perm[10];
-		char* smack_subject;
-		char* smack_object;
+		const char* smack_subject;
+		const char* smack_object;
 
 		if (fscanf(file, "%" TOSTRING(SMACK_LABEL_LEN) "s", smack_label) != 1)
 			goto out;
@@ -317,10 +424,12 @@ out:
 		fclose(file);
 	return ret;
 }
+#endif // SMACK_ENABLED
 
-API int wrt_permissions_reset(unsigned long long widget_id)
+API int wrt_permissions_reset(const char* widget_id)
 {
 	int ret = PC_OPERATION_SUCCESS;
+#ifdef SMACK_ENABLED
 	char* label = NULL;
 
 	label = wrt_smack_label(widget_id, NULL);
@@ -331,12 +440,14 @@ API int wrt_permissions_reset(unsigned long long widget_id)
 		ret = PC_ERR_INVALID_OPERATION;
 
 	free(label);
+#endif // SMACK_ENABLED
 	return ret;
 }
 
-API int wrt_permissions_add(unsigned long long widget_id, const char** devcap_list)
+API int wrt_permissions_add(const char* widget_id, const char** devcap_list)
 {
 	int ret = PC_OPERATION_SUCCESS;
+#ifdef SMACK_ENABLED
 	char* widget_label = NULL;
 	struct smack_accesses* smack = NULL;
 	int i;
@@ -364,9 +475,11 @@ API int wrt_permissions_add(unsigned long long widget_id, const char** devcap_li
 out:
 	smack_accesses_free(smack);
 	free(widget_label);
+#endif // SMACK_ENABLED
 	return ret;
 }
 
+#ifdef SMACK_ENABLED
 static int dir_set_smack_r(const char *path, const char* label,
 		enum smack_label_type type, mode_t type_mask)
 {
@@ -400,13 +513,15 @@ out:
 		fts_close(fts);
 	return ret;
 }
+#endif // SMACK_ENABLED
 
-API int wrt_set_src_dir(unsigned long long widget_id, const char *path)
+API int wrt_set_src_dir(const char* widget_id, const char *path)
 {
+	int ret = PC_OPERATION_SUCCESS;
+#ifdef SMACK_ENABLED
 	char* widget_label = NULL;
 	char* src_label_dir = NULL;
 	char* src_label_file = NULL;
-	int ret;
 
 	ret = PC_ERR_MEM_OPERATION;
 
@@ -434,15 +549,17 @@ out:
 	free(widget_label);
 	free(src_label_dir);
 	free(src_label_file);
+#endif // SMACK_ENABLED
 	return ret;
 }
 
-API int wrt_set_data_dir(unsigned long long widget_id, const char *path)
+API int wrt_set_data_dir(const char* widget_id, const char *path)
 {
+	int ret = PC_OPERATION_SUCCESS;
+#ifdef SMACK_ENABLED
 	char* widget_label = NULL;
 	char* data_label = NULL;
 	struct stat st;
-	int ret;
 
 	ret = PC_ERR_FILE_OPERATION;
 	/* Check whether path exists */
@@ -489,10 +606,12 @@ API int wrt_set_data_dir(unsigned long long widget_id, const char *path)
 out:
 	free(widget_label);
 	free(data_label);
+#endif // SMACK_ENABLED
 	return ret;
 }
 
-API int wrt_set_privilege(unsigned long long widget_id)
+#ifdef SMACK_ENABLED
+static int set_smack_for_wrt(const char* widget_id)
 {
 	char* widget_label = NULL;
 	char* src_label_file = NULL;
@@ -520,6 +639,10 @@ API int wrt_set_privilege(unsigned long long widget_id)
 		goto out;
 
 	if (smack_accesses_new(&smack) != 0)
+		goto out;
+
+	ret = wrt_permissions_reset(widget_id);
+	if (ret != PC_OPERATION_SUCCESS)
 		goto out;
 
 	ret = PC_ERR_INVALID_OPERATION;
@@ -559,11 +682,29 @@ out:
 	free(src_label_dir);
 	free(data_label);
 
-	if (ret)
-		return ret;
-	else
-		/* TODO: are widgets supposed to get a dedicated user id? */
-		return set_privilege("wrt-widget");
+	return ret;
+}
+#endif // SMACK_ENABLED
+
+API char* wrt_widget_id_from_socket(int sockfd)
+{
+	char* smack_label;
+	char* widget_id;
+	int ret;
+
+	ret = smack_new_label_from_socket(sockfd, &smack_label);
+	if (ret != 0)
+		return NULL;
+
+	if (strncmp(smack_label, SMACK_WRT_LABEL_PREFIX,
+		    strlen(SMACK_WRT_LABEL_PREFIX))) {
+		free(smack_label);
+		return NULL;
+	}
+
+	widget_id = strdup(smack_label + strlen(SMACK_WRT_LABEL_PREFIX));
+	free(smack_label);
+	return widget_id;
 }
 
 #else // USE_PRIVILEGE_CONTROL
@@ -578,33 +719,44 @@ API int set_privilege(const char* pkg_name)
 	return 0;
 }
 
+API int set_app_privilege(const char* name, const char* type, const char* path)
+{
+	return 0;
+}
+
+API int wrt_set_privilege(const char* widget_id)
+{
+	return 0;
+}
+
 API int set_exec_label(const char* path)
 {
 	return 0;
 }
 
-API int wrt_permissions_reset(unsigned long long widget_id)
+API int wrt_permissions_reset(const char* widget_id)
 {
 	return 0;
 }
 
-API int wrt_permissions_add(unsigned long long widget_id, char** devcap_list)
+API int wrt_permissions_add(const char* widget_id, char** devcap_list)
 {
 	return 0;
 }
 
-API int wrt_set_src_dir(unsigned long long widget_id, const char *path)
+API int wrt_set_src_dir(const char* widget_id, const char *path)
 {
 	return 0;
 }
 
-API int wrt_set_data_dir(unsigned long long widget_id, const char *path)
+API int wrt_set_data_dir(const char* widget_id, const char *path)
 {
 	return 0;
 }
 
-API int wrt_set_privilege(unsigned long long widget_id)
+API char* wrt_widget_id_from_socket(int sockfd)
 {
 	return 0;
 }
+
 #endif // USE_PRIVILEGE_CONTROL
