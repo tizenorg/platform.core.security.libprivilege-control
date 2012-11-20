@@ -71,7 +71,7 @@ chsmack -a 'aul::db' /opt/dbspace/.mida.db*
 chsmack -a 'wrt-commons::db_wrt' /opt/dbspace/.wrt.db*
 chsmack -a 'wrt-commons::db_wrt_autosave' /opt/dbspace/.wrt_autosave.db*
 chsmack -a 'msg-service::db' /opt/dbspace/.msg_service.db*
-chsmack -a 'calendar-service::db' /opt/dbspace/.calendar-svc.db*
+chsmack -a 'libslp-calendar::db' /opt/usr/dbspace/.calendar-svc.db*
 chsmack -a 'email-service::db' /opt/dbspace/.email-service.db*
 chsmack -a 'push-service::db' /opt/dbspace/.push.db*
 chsmack -a 'browser::db_external' /opt/dbspace/.browser-history.db*
