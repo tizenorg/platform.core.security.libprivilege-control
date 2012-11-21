@@ -21,6 +21,9 @@ FOREACH(flag ${pkgs_CFLAGS})
 	SET(EXTRA_CFLAGS "${EXTRA_CFLAGS} ${flag}")
 ENDFOREACH(flag)
 
+SET(CMAKE_C_FLAGS_CCOV "--coverage")
+SET(CMAKE_CXX_FLAGS_CCOV "--coverage")
+
 SET(src_dir "./src")
 SET(include_dir "./include")
 
