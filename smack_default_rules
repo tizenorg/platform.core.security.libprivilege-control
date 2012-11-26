@@ -30,7 +30,7 @@ _ aul::db rw
 _ wrt-commons::db_wrt rw
 _ wrt-commons::db_wrt_autosave rw
 _ msg-service::db rw
-_ libslp-calendar::db rw
+_ calendar-service::db rw
 _ email-service::db rw
 _ push-service::db rw
 _ browser::db_external rw
