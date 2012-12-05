@@ -76,6 +76,7 @@ chsmack -a 'email-service::db' /opt/dbspace/.email-service.db*
 chsmack -a 'push-service::db' /opt/dbspace/.push.db*
 chsmack -a 'browser::db_external' /opt/dbspace/.browser-history.db*
 chsmack -a 'browser::db_external' /opt/dbspace/.internet_bookmark.db*
+chsmack -a 'browser::db' /opt/apps/org.tizen.browser/data/db/.browser*
 chsmack -a 'mdm-server::db' /opt/dbspace/.mdm.db*
 chsmack -a 'eas-engine::db' /opt/dbspace/.eas-common.db*
 chsmack -a 'drmfw::db' /opt/dbspace/.drm.db*

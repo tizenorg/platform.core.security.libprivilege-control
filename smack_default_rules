@@ -33,6 +33,7 @@ _ msg-service::db rw
 _ calendar-service::db rw
 _ email-service::db rw
 _ push-service::db rw
+_ browser::db rw
 _ browser::db_external rw
 _ mdm-server::db rw
 _ eas-engine::db rw
