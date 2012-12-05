@@ -45,6 +45,11 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/license
 cp LICENSE %{buildroot}/usr/share/license/%{name}
 %make_install
+
+mkdir -p %{buildroot}/etc
+mv %{buildroot}/opt/etc/passwd %{buildroot}/etc/passwd
+mv %{buildroot}/opt/etc/group %{buildroot}/etc/group
+
 cp -a %{SOURCE1} %{buildroot}%{_datadir}/
 install -D -d %{buildroot}/etc/rc.d/rc3.d/
 install -D -d %{buildroot}/etc/rc.d/rc4.d/
@@ -74,20 +79,6 @@ fi
 
 ln -s %{udev_libdir}/rules.d/95-permissions-slp.rules /lib/udev/rules.d/95-permissions-slp.rules
 
-%post conf
-if [ -e "/etc/passwd" ]
-then
-        rm -f /etc/passwd
-fi
-ln -sf /opt/etc/passwd /etc/passwd
-
-if [ -e "/etc/group" ]
-then
-        rm -f /etc/group
-fi
-ln -sf /opt/etc/group /etc/group
-
-
 %files
 %{_libdir}/*.so.*
 %{_bindir}/slp-su
@@ -96,8 +87,8 @@ ln -sf /opt/etc/group /etc/group
 %{_datadir}/license/%{name}
 
 %files conf
-/opt/etc/group
-/opt/etc/passwd
+/etc/group
+/etc/passwd
 /opt/etc/smack/*
 %attr(755,root,root) /etc/rc.d/*
 %manifest %{_datadir}/%{name}-conf.manifest
