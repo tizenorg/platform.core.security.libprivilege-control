@@ -64,7 +64,7 @@ chsmack -a 'wrt-security::db_ace' /opt/dbspace/.ace.db*
 chsmack -a 'wrt-security::db_vcore' /opt/dbspace/.vcore.db*
 chsmack -a 'libslp-alarm::db' /opt/dbspace/.alarm.db*
 chsmack -a 'alarm-server::db' /opt/dbspace/.alarmmgr.db*
-chsmack -a 'appsvc::db' /opt/dbspace/.appsvc.db*
+chsmack -a 'app-svc::db' /opt/dbspace/.appsvc.db*
 chsmack -a 'allshare::db' /opt/dbspace/.asf_server.db*
 chsmack -a 'libsocial-service::db' /opt/dbspace/.urlcache.db*
 chsmack -a 'aul::db' /opt/dbspace/.mida.db*

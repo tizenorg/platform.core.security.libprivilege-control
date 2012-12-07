@@ -23,7 +23,7 @@ _ wrt-security::db_ace rw
 _ wrt-security::db_vcore rw
 _ libslp-alarm::db rw
 _ alarm-server::db rw
-_ appsvc::db rw
+_ app-svc::db rw
 _ allshare::db rw
 _ libsocial-service::db rw
 _ aul::db rw
