@@ -89,6 +89,7 @@ ln -s %{udev_libdir}/rules.d/95-permissions-slp.rules /lib/udev/rules.d/95-permi
 %{_bindir}/slp-su
 %{_datarootdir}/privilege-control/*
 %{udev_libdir}/rules.d/*
+%attr(755,root,root) %{udev_libdir}/uname_env
 %{_datadir}/license/%{name}
 
 %files conf

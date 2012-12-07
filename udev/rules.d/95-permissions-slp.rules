@@ -15,7 +15,6 @@ KERNEL=="pcmC0D[0-9]c",		MODE="0660", GROUP="recording"
 KERNEL=="controlC0",		MODE="0660", GROUP="audio"
 KERNEL=="pcmC0D[0-9]p",		MODE="0660", GROUP="audio"
 KERNEL=="fb[0-9]",		MODE="0660", GROUP="video"
-KERNEL=="video[0-9]",		MODE="0660", GROUP="video"
 KERNEL=="s3c-mem",		MODE="0660", GROUP="video"
 KERNEL=="umts_csd",		MODE="0660", GROUP="video_tel"
 
@@ -52,12 +51,14 @@ SUBSYSTEM=="haptic",	RUN+="/bin/chmod 0666 %S/%p/oneshot"
 
 # Video4Linux
 SUBSYSTEM!="video4linux", GOTO="v4l_slp_end"
-IMPORT{program}="v4l_id %N"
-#KERNEL=="video*",  SYMLINK+="camera", GROUP="camera", MODE="0660"
+IMPORT{program}="uname_env kernel-release"
 
-# FIXME: video drivers on Proxima have invalid V4L capabilities, workaround by limiting to fimc1
-KERNEL=="video*", ATTR{name}=="s3c-fimc1", ENV{ID_V4L_CAPABILITIES}=="*:capture:*", SYMLINK+="camera", GROUP="camera", MODE="0660"
+KERNEL=="video0", ENV{UNAME_KERNEL_RELEASE}=="3.0.*", GROUP="camera", MODE="0660", GOTO="v4l_slp_end"
+KERNEL=="video1", ENV{UNAME_KERNEL_RELEASE}=="3.4.*", GROUP="camera", MODE="0660", GOTO="v4l_slp_end"
+KERNEL=="video3", ENV{UNAME_KERNEL_RELEASE}=="3.4.*", GROUP="camera", MODE="0660", GOTO="v4l_slp_end"
 
+# Remaining video devices
+KERNEL=="video[0-9]", MODE="0660", GROUP="video"
 LABEL="v4l_slp_end"
 
 LABEL="permissions_slp_end"
