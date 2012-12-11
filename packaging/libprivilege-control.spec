@@ -8,6 +8,7 @@ Group:      System/Security
 License:    Apache 2.0
 Source0:    %{name}-%{version}.tar.gz
 Source1:    %{name}-conf.manifest
+Source2:    smack-default-labeling.service
 BuildRequires: cmake
 BuildRequires: pkgconfig(libsmack)
 
@@ -56,6 +57,10 @@ install -D -d %{buildroot}/etc/rc.d/rc4.d/
 ln -sf ../init.d/smack_default_labeling %{buildroot}/etc/rc.d/rc3.d/S45smack_default_labeling
 ln -sf ../init.d/smack_default_labeling %{buildroot}/etc/rc.d/rc4.d/S45smack_default_labeling
 
+mkdir -p %{buildroot}%{_libdir}/systemd/system/basic.target.wants
+install -m 644 %{SOURCE2} %{buildroot}%{_libdir}/systemd/system/
+ln -s ../smack-default-labeling.service %{buildroot}%{_libdir}/systemd/system/basic.target.wants/
+
 %post
 if [ ! -e "/home/app" ]
 then
@@ -91,6 +96,8 @@ ln -s %{udev_libdir}/rules.d/95-permissions-slp.rules /lib/udev/rules.d/95-permi
 /etc/passwd
 /opt/etc/smack/*
 %attr(755,root,root) /etc/rc.d/*
+%{_libdir}/systemd/system/smack-default-labeling.service
+%{_libdir}/systemd/system/basic.target.wants/smack-default-labeling.service
 %manifest %{_datadir}/%{name}-conf.manifest
 
 %files devel
