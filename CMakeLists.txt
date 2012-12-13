@@ -37,6 +37,9 @@ ADD_DEFINITIONS("-Wall -Werror")
 # Temporary turn off setting Smack
 #ADD_DEFINITIONS("-DSMACK_ENABLED")
 
+# Temporary turn off setting Smack for WRT
+#ADD_DEFINITIONS("-DWRT_SMACK_ENABLED")
+
 ###################################################################################################
 ## for libprivilege-control.so (library)
 SET(libprivilege-control_SOURCES ${src_dir}/privilege-control.c)

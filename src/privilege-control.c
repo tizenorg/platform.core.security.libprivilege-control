@@ -61,9 +61,13 @@
 
 #ifdef USE_PRIVILEGE_CONTROL
 
-#ifdef SMACK_ENABLED
+#ifndef SMACK_ENABLED
+#undef WRT_SMACK_ENABLED
+#endif
+
+#ifdef WRT_SMACK_ENABLED
 static int set_smack_for_wrt(const char* widget_id);
-#endif // SMACK_ENABLED
+#endif // WRT_SMACK_ENABLED
 
 typedef struct {
 	char user_name[10];
@@ -317,8 +321,10 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 		const char* widget_id = parse_widget_id(path);
 		if (widget_id == NULL)
 			ret = PC_ERR_INVALID_PARAM;
+#ifdef WRT_SMACK_ENABLED
 		else
 			ret = set_smack_for_wrt(widget_id);
+#endif
 	} else
 		if (path != NULL)
 		ret = set_smack_from_binary(path);
@@ -337,18 +343,18 @@ API int set_privilege(const char* pkg_name)
 
 API int wrt_set_privilege(const char* widget_id)
 {
-#ifdef SMACK_ENABLED
+#ifdef WRT_SMACK_ENABLED
 	int ret;
 
 	ret = set_smack_for_wrt(widget_id);
 	if (ret != PC_OPERATION_SUCCESS)
 		return ret;
-#endif // SMACK_ENABLED
+#endif // WRT_SMACK_ENABLED
 
 	return set_dac("com.samsung.");
 }
 
-#ifdef SMACK_ENABLED
+#ifdef WRT_SMACK_ENABLED
 static inline char* wrt_smack_label(const char* widget_id, const char* suffix)
 {
 	int ret;
@@ -419,12 +425,12 @@ out:
 		fclose(file);
 	return ret;
 }
-#endif // SMACK_ENABLED
+#endif // WRT_SMACK_ENABLED
 
 API int wrt_permissions_reset(const char* widget_id)
 {
 	int ret = PC_OPERATION_SUCCESS;
-#ifdef SMACK_ENABLED
+#ifdef WRT_SMACK_ENABLED
 	char* label = NULL;
 
 	label = wrt_smack_label(widget_id, NULL);
@@ -435,14 +441,14 @@ API int wrt_permissions_reset(const char* widget_id)
 		ret = PC_ERR_INVALID_OPERATION;
 
 	free(label);
-#endif // SMACK_ENABLED
+#endif // WRT_SMACK_ENABLED
 	return ret;
 }
 
 API int wrt_permissions_add(const char* widget_id, const char** devcap_list)
 {
 	int ret = PC_OPERATION_SUCCESS;
-#ifdef SMACK_ENABLED
+#ifdef WRT_SMACK_ENABLED
 	char* widget_label = NULL;
 	struct smack_accesses* smack = NULL;
 	int i;
@@ -470,11 +476,11 @@ API int wrt_permissions_add(const char* widget_id, const char** devcap_list)
 out:
 	smack_accesses_free(smack);
 	free(widget_label);
-#endif // SMACK_ENABLED
+#endif // WRT_SMACK_ENABLED
 	return ret;
 }
 
-#ifdef SMACK_ENABLED
+#ifdef WRT_SMACK_ENABLED
 static int dir_set_smack_r(const char *path, const char* label,
 		enum smack_label_type type, mode_t type_mask)
 {
@@ -508,12 +514,12 @@ out:
 		fts_close(fts);
 	return ret;
 }
-#endif // SMACK_ENABLED
+#endif // WRT_SMACK_ENABLED
 
 API int wrt_set_src_dir(const char* widget_id, const char *path)
 {
 	int ret = PC_OPERATION_SUCCESS;
-#ifdef SMACK_ENABLED
+#ifdef WRT_SMACK_ENABLED
 	char* widget_label = NULL;
 	char* src_label_dir = NULL;
 	char* src_label_file = NULL;
@@ -544,14 +550,14 @@ out:
 	free(widget_label);
 	free(src_label_dir);
 	free(src_label_file);
-#endif // SMACK_ENABLED
+#endif // WRT_SMACK_ENABLED
 	return ret;
 }
 
 API int wrt_set_data_dir(const char* widget_id, const char *path)
 {
 	int ret = PC_OPERATION_SUCCESS;
-#ifdef SMACK_ENABLED
+#ifdef WRT_SMACK_ENABLED
 	char* widget_label = NULL;
 	char* data_label = NULL;
 	struct stat st;
@@ -601,11 +607,11 @@ API int wrt_set_data_dir(const char* widget_id, const char *path)
 out:
 	free(widget_label);
 	free(data_label);
-#endif // SMACK_ENABLED
+#endif // WRT_SMACK_ENABLED
 	return ret;
 }
 
-#ifdef SMACK_ENABLED
+#ifdef WRT_SMACK_ENABLED
 static int set_smack_for_wrt(const char* widget_id)
 {
 	char* widget_label = NULL;
@@ -679,7 +685,7 @@ out:
 
 	return ret;
 }
-#endif // SMACK_ENABLED
+#endif // WRT_SMACK_ENABLED
 
 API char* wrt_widget_id_from_socket(int sockfd)
 {
