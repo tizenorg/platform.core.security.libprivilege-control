@@ -95,6 +95,7 @@ chsmack -a 'phone-misc::db' /opt/dbspace/.phone-misc.db*
 chsmack -a 'webkit::db' /opt/dbspace/.webkit
 chsmack -a 'webkit::db' /opt/dbspace/.webkit/*
 chsmack -a 'worldclock::db' /opt/dbspace/.worldclock.db*
+chsmack -a 'resman::db' /opt/dbspace/.resman.db*
 
 # set app db label
 chsmack -a 'live-magazine::db' /opt/dbspace/.magazine.db*

@@ -48,5 +48,6 @@ _ oma-ds-service::db rw
 _ phone-misc::db rw
 _ webkit::db rw
 _ worldclock::db rw
+_ resman::db rw
 _ live-magazine::db rw
 _ live-magazine::data arwxt
