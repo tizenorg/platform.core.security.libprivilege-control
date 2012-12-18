@@ -57,7 +57,6 @@
 #define SMACK_DATA_SUFFIX       "_data"
 #define WRT_BASE_DEVCAP         "WRT"
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
-#define WRT_PKG_TYPE            "wgt"
 
 #ifdef USE_PRIVILEGE_CONTROL
 
@@ -68,6 +67,11 @@
 #ifdef WRT_SMACK_ENABLED
 static int set_smack_for_wrt(const char* widget_id);
 #endif // WRT_SMACK_ENABLED
+
+typedef enum {
+	PKG_TYPE_WGT,
+	PKG_TYPE_OTHER
+} pkg_type_t;
 
 typedef struct {
 	char user_name[10];
@@ -276,22 +280,19 @@ static int is_widget(const char* path)
  * @param path file path to executable
  * @return return void on success, terminate the process on error
  */
-static void verify_app_type(const char* type, const char* path)
+static pkg_type_t verify_app_type(const char* type, const char* path)
 {
 	/* TODO: this should actually be treated as error, but until the old
 	 * set_privilege API is removed, it must be ignored */
 	if (path == NULL)
-		return; /* good */
-
-	if (type == NULL)
-		exit(EXIT_FAILURE); /* bad */
+		return PKG_TYPE_OTHER; /* good */
 
 	if (is_widget(path)) {
-		if (!strcmp(type, WRT_PKG_TYPE))
-			return; /* good */
+		if (!strcmp(type, "wgt"))
+			return PKG_TYPE_WGT; /* good */
 	} else {
-		if (type == NULL || strcmp(type, WRT_PKG_TYPE))
-			return /* good */;
+		if (type == NULL || strcmp(type, "wgt"))
+			return PKG_TYPE_OTHER; /* good */
 	}
 
 	/* bad */
@@ -314,20 +315,23 @@ static const char* parse_widget_id(const char* path)
 API int set_app_privilege(const char* name, const char* type, const char* path)
 {
 #ifdef SMACK_ENABLED
+	const char* widget_id;
 	int ret = PC_OPERATION_SUCCESS;
 
-	verify_app_type(type, path);
-	if (!strcmp(type, WRT_PKG_TYPE)) {
-		const char* widget_id = parse_widget_id(path);
+	switch(verify_app_type(type, path)) {
+	case PKG_TYPE_WGT:
+		widget_id = parse_widget_id(path);
 		if (widget_id == NULL)
 			ret = PC_ERR_INVALID_PARAM;
 #ifdef WRT_SMACK_ENABLED
 		else
 			ret = set_smack_for_wrt(widget_id);
 #endif
-	} else
+		break;
+	case PKG_TYPE_OTHER:
 		if (path != NULL)
 		ret = set_smack_from_binary(path);
+	}
 
 	if (ret != PC_OPERATION_SUCCESS)
 		return ret;
