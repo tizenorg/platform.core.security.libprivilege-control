@@ -1,5 +1,9 @@
 #!/bin/sh
 
+DBSPACE=/opt/dbspace
+APPS_DIR=/opt/apps
+SHARE_DIR=/opt/share
+
 chown 5000:5000 /home/app
 find /home/app -print0 | xargs -0 chsmack -a 'system::homedir'
 find /home/app -type d -print0 | xargs -0 chsmack -t
@@ -54,55 +58,55 @@ echo "127.0.0.1 -CIPSO" >> /smack/netlabel
 echo "192.168.129.1 @" >> /smack/netlabel
 
 # Set label to database files
-chsmack -a 'ail::db' /opt/dbspace/.app_info.db*
-chsmack -a 'media-data::db' /opt/dbspace/.media.db*
-chsmack -a 'syspopup::db' /opt/dbspace/.syspopup.db*
-chsmack -a 'notification::db' /opt/dbspace/.notification.db*
-chsmack -a 'rua::db' /opt/dbspace/.rua.db*
-chsmack -a 'libaccounts-svc::db' /opt/dbspace/.account.db*
-chsmack -a 'wrt-security::db_ace' /opt/dbspace/.ace.db*
-chsmack -a 'wrt-security::db_vcore' /opt/dbspace/.vcore.db*
-chsmack -a 'libslp-alarm::db' /opt/dbspace/.alarm.db*
-chsmack -a 'alarm-server::db' /opt/dbspace/.alarmmgr.db*
-chsmack -a 'app-svc::db' /opt/dbspace/.appsvc.db*
-chsmack -a 'allshare::db' /opt/dbspace/.asf_server.db*
-chsmack -a 'libsocial-service::db' /opt/dbspace/.urlcache.db*
-chsmack -a 'aul::db' /opt/dbspace/.mida.db*
-chsmack -a 'wrt-commons::db_wrt' /opt/dbspace/.wrt.db*
-chsmack -a 'wrt-commons::db_wrt_autosave' /opt/dbspace/.wrt_autosave.db*
-chsmack -a 'msg-service::db' /opt/dbspace/.msg_service.db*
-chsmack -a 'calendar-service::db' /opt/usr/dbspace/.calendar-svc.db*
-chsmack -a 'email-service::db' /opt/dbspace/.email-service.db*
-chsmack -a 'push-service::db' /opt/dbspace/.push.db*
-chsmack -a 'browser::db_external' /opt/dbspace/.browser-history.db*
-chsmack -a 'browser::db_external' /opt/dbspace/.internet_bookmark.db*
-chsmack -a 'browser::db' /opt/apps/org.tizen.browser/data/db/.browser*
-chsmack -a 'mdm-server::db' /opt/dbspace/.mdm.db*
-chsmack -a 'eas-engine::db' /opt/dbspace/.eas-common.db*
-chsmack -a 'drmfw::db' /opt/dbspace/.drm.db*
-chsmack -a 'telephony_framework::db' /opt/dbspace/.dnet.db*
-chsmack -a 'bt_share::db' /opt/dbspace/.bluetooth_trasnfer.db*
-chsmack -a 'contacts-service::db' /opt/dbspace/.contacts-svc.db*
-chsmack -a 'oma-dm-service::db' /opt/dbspace/.dm_service.db*
-chsmack -a 'drmfw::db' /opt/dbspace/.dsapps.db*
-chsmack -a 'kies-via-wifi::db' /opt/dbspace/.kies_device.db*
-chsmack -a 'telephony_framework::db' /opt/dbspace/.mcc_mnc_oper_list.db*
-chsmack -a 'libslp-memo::db' /opt/dbspace/.memo.db*
-chsmack -a 'oma-dm-service::db' /opt/dbspace/.momanager.db*
-chsmack -a 'mss-server::db' /opt/dbspace/.mss_server.db*
-chsmack -a 'oma-dm-service::db' /opt/dbspace/.omadmagent.db*
-chsmack -a 'oma-ds-service::db' /opt/dbspace/.omasyncagent.db*
-chsmack -a 'phone-misc::db' /opt/dbspace/.phone-misc.db*
-chsmack -a 'webkit::db' /opt/dbspace/.webkit
-chsmack -a 'webkit::db' /opt/dbspace/.webkit/*
-chsmack -a 'worldclock::db' /opt/dbspace/.worldclock.db*
-chsmack -a 'resman::db' /opt/dbspace/.resman.db*
+chsmack -a 'ail::db' $DBSPACE/.app_info.db*
+chsmack -a 'media-data::db' $DBSPACE/.media.db*
+chsmack -a 'syspopup::db' $DBSPACE/.syspopup.db*
+chsmack -a 'notification::db' $DBSPACE/.notification.db*
+chsmack -a 'rua::db' $DBSPACE/.rua.db*
+chsmack -a 'libaccounts-svc::db' $DBSPACE/.account.db*
+chsmack -a 'wrt-security::db_ace' $DBSPACE/.ace.db*
+chsmack -a 'wrt-security::db_vcore' $DBSPACE/.vcore.db*
+chsmack -a 'libslp-alarm::db' $DBSPACE/.alarm.db*
+chsmack -a 'alarm-server::db' $DBSPACE/.alarmmgr.db*
+chsmack -a 'app-svc::db' $DBSPACE/.appsvc.db*
+chsmack -a 'allshare::db' $DBSPACE/.asf_server.db*
+chsmack -a 'libsocial-service::db' $DBSPACE/.urlcache.db*
+chsmack -a 'aul::db' $DBSPACE/.mida.db*
+chsmack -a 'wrt-commons::db_wrt' $DBSPACE/.wrt.db*
+chsmack -a 'wrt-commons::db_wrt_autosave' $DBSPACE/.wrt_autosave.db*
+chsmack -a 'msg-service::db' $DBSPACE/.msg_service.db*
+chsmack -a 'calendar-service::db' $DBSPACE/.calendar-svc.db*
+chsmack -a 'email-service::db' $DBSPACE/.email-service.db*
+chsmack -a 'push-service::db' $DBSPACE/.push.db*
+chsmack -a 'browser::db_external' $DBSPACE/.browser-history.db*
+chsmack -a 'browser::db_external' $DBSPACE/.internet_bookmark.db*
+chsmack -a 'browser::db' $APPS_DIR/org.tizen.browser/data/db/.browser*
+chsmack -a 'mdm-server::db' $DBSPACE/.mdm.db*
+chsmack -a 'eas-engine::db' $DBSPACE/.eas-common.db*
+chsmack -a 'drmfw::db' $DBSPACE/.drm.db*
+chsmack -a 'telephony_framework::db' $DBSPACE/.dnet.db*
+chsmack -a 'bt_share::db' $DBSPACE/.bluetooth_trasnfer.db*
+chsmack -a 'contacts-service::db' $DBSPACE/.contacts-svc.db*
+chsmack -a 'oma-dm-service::db' $DBSPACE/.dm_service.db*
+chsmack -a 'drmfw::db' $DBSPACE/.dsapps.db*
+chsmack -a 'kies-via-wifi::db' $DBSPACE/.kies_device.db*
+chsmack -a 'telephony_framework::db' $DBSPACE/.mcc_mnc_oper_list.db*
+chsmack -a 'libslp-memo::db' $DBSPACE/.memo.db*
+chsmack -a 'oma-dm-service::db' $DBSPACE/.momanager.db*
+chsmack -a 'mss-server::db' $DBSPACE/.mss_server.db*
+chsmack -a 'oma-dm-service::db' $DBSPACE/.omadmagent.db*
+chsmack -a 'oma-ds-service::db' $DBSPACE/.omasyncagent.db*
+chsmack -a 'phone-misc::db' $DBSPACE/.phone-misc.db*
+chsmack -a 'webkit::db' $DBSPACE/.webkit
+chsmack -a 'webkit::db' $DBSPACE/.webkit/*
+chsmack -a 'worldclock::db' $DBSPACE/.worldclock.db*
+chsmack -a 'resman::db' $DBSPACE/.resman.db*
 
 # set app db label
-chsmack -a 'live-magazine::db' /opt/dbspace/.magazine.db*
+chsmack -a 'live-magazine::db' $DBSPACE/.magazine.db*
 chsmack -a 'live-magazine::data' /opt/live/etc
 chsmack -t /opt/live/etc
-find /opt/share/live_magazine -print0 | xargs -0 chsmack -a 'live-magazine::data'
-find /opt/share/live_magazine -type d -print0 | xargs -0 chsmack -t
-chsmack -a 'dailybriefing' /opt/apps/com.samsung.dailybriefing-common/data/db/*
-chsmack -a 'menu-screen' /opt/apps/com.samsung.menu-screen/data/.menu.db*
+find $SHARE_DIR/live_magazine -print0 | xargs -0 chsmack -a 'live-magazine::data'
+find $SHARE_DIR/live_magazine -type d -print0 | xargs -0 chsmack -t
+chsmack -a 'dailybriefing' $APPS_DIR/com.samsung.dailybriefing-common/data/db/*
+chsmack -a 'menu-screen' $APPS_DIR/com.samsung.menu-screen/data/.menu.db*
