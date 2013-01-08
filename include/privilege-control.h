@@ -134,6 +134,45 @@ int wrt_set_data_dir(const char* widget_id, const char *path);
  */
 char* wrt_widget_id_from_socket(int sockfd);
 
+/**
+ * Grant SMACK permissions based on permissions list.
+ * It is intended to be called during app installation.
+ * It will construct SMACK rules based on permissions list, grant them
+ * and store it in a file, so they will be automatically granted on
+ * system boot.
+ * It must be called by privileged user.
+ *
+ * @param app_id application identifier
+ * @param perm_list array of permission names, last element must be NULL
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_add_permissions(const char* app_id, const char** perm_list);
+
+/**
+ * Revoke SMACK permissions from an application.
+ * This function should be called during app deinstallation.
+ * It will revoke all SMACK rules previously granted by  app_add_permissions().
+ * It will also remove a rules file from disk.
+ * It must be called by privileged user.
+ *
+ * @param app_id application identifier
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_revoke_permissions(const char* app_id);
+
+/**
+ * Recursively set SMACK labels for an application directory.
+ * This function should be called once during app installation.
+ * Results will be persistent on the file system.
+ * It must be called by privileged user.
+ *
+ * @param app_id application identifier
+ * @param path directory path
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_label_dir(const char* app_id, const char* path);
+
+
 #ifdef __cplusplus
 }
 #endif // __cplusplus

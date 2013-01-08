@@ -31,8 +31,10 @@
 #include <errno.h>
 #include <math.h>
 #include <ctype.h>
+#include <fcntl.h>
 #include <sys/time.h>
 #include <sys/stat.h>
+#include <sys/file.h>
 #include <sys/smack.h>
 
 #include "privilege-control.h"
@@ -50,6 +52,8 @@
 
 #define APP_GROUP_PATH	TOSTRING(SHAREDIR) "/app_group_list"
 #define DEV_GROUP_PATH	TOSTRING(SHAREDIR) "/dev_group_list"
+
+#define SMACK_RULES_DIR  "/etc/smack/accesses.d/"
 
 #define SMACK_APP_LABEL         "~APP~"
 #define SMACK_WRT_LABEL_PREFIX  "wrt_widget_"
@@ -491,7 +495,6 @@ out:
 	return ret;
 }
 
-#ifdef WRT_SMACK_ENABLED
 static int dir_set_smack_r(const char *path, const char* label,
 		enum smack_label_type type, mode_t type_mask)
 {
@@ -525,7 +528,6 @@ out:
 		fts_close(fts);
 	return ret;
 }
-#endif // WRT_SMACK_ENABLED
 
 API int wrt_set_src_dir(const char* widget_id, const char *path)
 {
@@ -717,4 +719,143 @@ API char* wrt_widget_id_from_socket(int sockfd)
 	widget_id = strdup(smack_label + strlen(SMACK_WRT_LABEL_PREFIX));
 	free(smack_label);
 	return widget_id;
+}
+
+API int app_add_permissions(const char* app_id, const char** perm_list)
+{
+	char* path = NULL;
+	int i, ret;
+	int fd = -1;
+	struct smack_accesses *smack = NULL;
+
+#ifdef SMACK_ENABLED
+	if (asprintf(&path, SMACK_RULES_DIR "/%s", app_id) == -1) {
+		ret = PC_ERR_MEM_OPERATION;
+		goto out;
+	}
+
+	if (smack_accesses_new(&smack)) {
+		ret = PC_ERR_MEM_OPERATION;
+		goto out;
+	}
+
+	fd = open(path, O_CREAT, O_RDWR);
+	if (fd == -1) {
+		ret = PC_ERR_FILE_OPERATION;
+		goto out;
+	}
+
+	if (flock(fd, LOCK_EX)) {
+		ret = PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	if (smack_accesses_add_from_file(smack, fd)) {
+		ret = PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	/* Rewind the file */
+	if (lseek(fd, 0, SEEK_SET) == -1) {
+		ret = PC_ERR_FILE_OPERATION;
+		goto out;
+	}
+
+	for (i = 0; perm_list[i] != NULL; ++i) {
+		ret = perm_to_smack(smack, app_id, perm_list[i]);
+		if (ret != PC_OPERATION_SUCCESS)
+			goto out;
+	}
+
+	if (smack_accesses_apply(smack)) {
+		ret = PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	if (smack_accesses_save(smack, fd)) {
+		ret = PC_ERR_FILE_OPERATION;
+		goto out;
+	}
+#endif
+
+	ret = PC_OPERATION_SUCCESS;
+out:
+	if (fd != -1)
+		close(fd);
+	if (smack != NULL)
+		smack_accesses_free(smack);
+	free(path);
+
+	return ret;
+}
+
+API int app_revoke_permissions(const char* app_id)
+{
+	char* path = NULL;
+	int ret;
+	int fd = -1;
+	struct smack_accesses *smack = NULL;
+
+#ifdef SMACK_ENABLED
+	if (asprintf(&path, SMACK_RULES_DIR "/%s", app_id) == -1) {
+		ret = PC_ERR_MEM_OPERATION;
+		goto out;
+	}
+
+	if (smack_accesses_new(&smack)) {
+		ret = PC_ERR_MEM_OPERATION;
+		goto out;
+	}
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1) {
+		ret = PC_ERR_FILE_OPERATION;
+		goto out;
+	}
+
+	if (flock(fd, LOCK_EX | LOCK_NB)) {
+		/* Non-blocking lock request on a file failed. */
+		ret = PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	if (unlink(path)) {
+		ret = PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	if (smack_accesses_add_from_file(smack, fd)) {
+		ret = PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	if (smack_accesses_clear(smack)) {
+		ret = PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	if (smack_revoke_subject(app_id)) {
+		ret = PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+#endif
+
+	ret = PC_OPERATION_SUCCESS;
+out:
+	if (fd != -1)
+		close(fd);
+	if (smack != NULL)
+		smack_accesses_free(smack);
+	free(path);
+
+	return ret;
+}
+
+API int app_label_dir(const char* app_id, const char* path)
+{
+#ifdef SMACK_ENABLED
+	return dir_set_smack_r(path, app_id, SMACK_LABEL_ACCESS, ~0);
+#else
+	return PC_OPERATION_SUCCESS;
+#endif
 }
