@@ -58,8 +58,6 @@
 #define WRT_BASE_DEVCAP         "WRT"
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
 
-#ifdef USE_PRIVILEGE_CONTROL
-
 #ifndef SMACK_ENABLED
 #undef WRT_SMACK_ENABLED
 #endif
@@ -711,57 +709,3 @@ API char* wrt_widget_id_from_socket(int sockfd)
 	free(smack_label);
 	return widget_id;
 }
-
-#else // USE_PRIVILEGE_CONTROL
-
-API int control_privilege(void)
-{
-	return 0;
-}
-
-API int set_privilege(const char* pkg_name)
-{
-	return 0;
-}
-
-API int set_app_privilege(const char* name, const char* type, const char* path)
-{
-	return 0;
-}
-
-API int wrt_set_privilege(const char* widget_id)
-{
-	return 0;
-}
-
-API int set_exec_label(const char* path)
-{
-	return 0;
-}
-
-API int wrt_permissions_reset(const char* widget_id)
-{
-	return 0;
-}
-
-API int wrt_permissions_add(const char* widget_id, char** devcap_list)
-{
-	return 0;
-}
-
-API int wrt_set_src_dir(const char* widget_id, const char *path)
-{
-	return 0;
-}
-
-API int wrt_set_data_dir(const char* widget_id, const char *path)
-{
-	return 0;
-}
-
-API char* wrt_widget_id_from_socket(int sockfd)
-{
-	return 0;
-}
-
-#endif // USE_PRIVILEGE_CONTROL

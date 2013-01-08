@@ -29,7 +29,6 @@ SET(include_dir "./include")
 
 ## Additional flag
 ADD_DEFINITIONS("-fvisibility=hidden")
-ADD_DEFINITIONS("-DUSE_PRIVILEGE_CONTROL")
 ADD_DEFINITIONS("-DSHAREDIR=${SHAREDIR}")
 ADD_DEFINITIONS("-DHOMEDIR=${HOMEDIR}")
 ADD_DEFINITIONS("-Wall -Werror")
