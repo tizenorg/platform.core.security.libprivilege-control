@@ -1,2 +1,2 @@
-vconf_drm	rwx
-db-drm	rw
+~APP~ vconf_drm	rwx
+~APP~ db-drm	rw

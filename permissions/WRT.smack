@@ -1,18 +1,18 @@
-_ rw
-db-wrt w
-isf_data r
-db-app_info rw
-vconf rwx
-vconf_setting rw
-db-vcore rw
-db-ace rw
-db-wrt rw
-font_config r
-dbus rw
-xorg wx
-timezone_data rx
-system_logging w
-home_dir rx
-browser x
-console rwx
-@ launcher rx
+~APP~ _ rw
+~APP~ db-wrt w
+~APP~ isf_data r
+~APP~ db-app_info rw
+~APP~ vconf rwx
+~APP~ vconf_setting rw
+~APP~ db-vcore rw
+~APP~ db-ace rw
+~APP~ db-wrt rw
+~APP~ font_config r
+~APP~ dbus rw
+~APP~ xorg wx
+~APP~ timezone_data rx
+~APP~ system_logging w
+~APP~ home_dir rx
+~APP~ browser x
+~APP~ console rwx
+launcher ~APP~ rx

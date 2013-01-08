@@ -51,6 +51,7 @@
 #define APP_GROUP_PATH	TOSTRING(SHAREDIR) "/app_group_list"
 #define DEV_GROUP_PATH	TOSTRING(SHAREDIR) "/dev_group_list"
 
+#define SMACK_APP_LABEL         "~APP~"
 #define SMACK_WRT_LABEL_PREFIX  "wrt_widget_"
 #define SMACK_SRC_FILE_SUFFIX   "_src_file"
 #define SMACK_SRC_DIR_SUFFIX    "_src_dir"
@@ -375,15 +376,28 @@ static inline char* wrt_smack_label(const char* widget_id, const char* suffix)
 
 	return label;
 }
+#endif // WRT_SMACK_ENABLED
 
-static inline int devcap_to_smack(struct smack_accesses* smack, const char* widget_label, const char* devcap)
+static inline int perm_to_smack(struct smack_accesses* smack, const char* app_label, const char* perm)
 {
 	int ret = PC_OPERATION_SUCCESS;
 	char* path = NULL;
+	char* format_string = NULL;
 	FILE* file = NULL;
+	char smack_subject[SMACK_LABEL_LEN + 1];
+	char smack_object[SMACK_LABEL_LEN + 1];
+	char smack_accesses[10];
 
-	if (asprintf(&path, TOSTRING(SHAREDIR) "/%s.smack", devcap) == -1)
-		return PC_ERR_MEM_OPERATION;
+	if (asprintf(&path, TOSTRING(SHAREDIR) "/%s.smack", perm) == -1) {
+		ret = PC_ERR_MEM_OPERATION;
+		goto out;
+	}
+
+	if (asprintf(&format_string,"%%%ds %%%ds %%%ds\n",
+			SMACK_LABEL_LEN, SMACK_LABEL_LEN, sizeof(smack_accesses)) == -1) {
+		ret = PC_ERR_MEM_OPERATION;
+		goto out;
+	}
 
 	file = fopen(path, "r");
 	if (file == NULL) {
@@ -392,30 +406,16 @@ static inline int devcap_to_smack(struct smack_accesses* smack, const char* widg
 	}
 
 	while (1) {
-		char smack_label[SMACK_LABEL_LEN + 1];
-		char smack_perm[10];
-		const char* smack_subject;
-		const char* smack_object;
-
-		if (fscanf(file, "%" TOSTRING(SMACK_LABEL_LEN) "s", smack_label) != 1)
-			goto out;
-		if (!strcmp(smack_label, "@")) {
-			/* Detected format: @ <LABEL> <PERM>
-			 * Meaning: give <LABEL> access to this widget for <PERM> */
-			if (fscanf(file, "%" TOSTRING(SMACK_LABEL_LEN) "s", smack_label) != 1)
-				goto out;
-			smack_subject = smack_label;
-			smack_object = widget_label;
-		} else {
-			/* Expecting default format: @ <PERM>
-			 * Meaning: give this widget access to <LABEL> for <PERM> */
-			smack_subject = widget_label;
-			smack_object = smack_label;
-		}
-		if (fscanf(file, "%8s\n", smack_perm) != 1)
+		if (fscanf(file, format_string, smack_subject, smack_object, smack_accesses) != 1)
 			goto out;
 
-		if (smack_accesses_add_modify(smack, smack_subject, smack_object, smack_perm, "") != 0) {
+		if (!strcmp(smack_subject, SMACK_APP_LABEL))
+			strcpy(smack_subject, app_label);
+
+		if (!strcmp(smack_object, SMACK_APP_LABEL))
+			strcpy(smack_subject, app_label);
+
+		if (smack_accesses_add_modify(smack, smack_subject, smack_object, smack_accesses, "") != 0) {
 			ret = PC_ERR_INVALID_OPERATION;
 			goto out;
 		}
@@ -423,11 +423,11 @@ static inline int devcap_to_smack(struct smack_accesses* smack, const char* widg
 
 out:
 	free(path);
+	free(format_string);
 	if (file != NULL)
 		fclose(file);
 	return ret;
 }
-#endif // WRT_SMACK_ENABLED
 
 API int wrt_permissions_reset(const char* widget_id)
 {
@@ -465,7 +465,16 @@ API int wrt_permissions_add(const char* widget_id, const char** devcap_list)
 	}
 
 	for (i = 0; devcap_list[i] != NULL; ++i) {
-		ret = devcap_to_smack(smack, widget_label, devcap_list[i]);
+		char* perm = NULL;
+
+		/* Prepend devcap with "WRT_" */
+		if (asprintf(&perm, "%s_%s", WRT_BASE_DEVCAP, devcap_list[i]) == -1) {
+			ret = PC_ERR_MEM_OPERATION;
+			goto out;
+		}
+
+		ret = perm_to_smack(smack, widget_label, perm);
+		free(perm);
 		if (ret != PC_OPERATION_SUCCESS)
 			goto out;
 	}
@@ -671,7 +680,7 @@ static int set_smack_for_wrt(const char* widget_id)
 	if (smack_accesses_add(smack, widget_label, data_label, "rwxat") != 0)
 		goto out;
 
-	ret = devcap_to_smack(smack, widget_label, WRT_BASE_DEVCAP);
+	ret = perm_to_smack(smack, widget_label, WRT_BASE_DEVCAP);
 	if (ret != PC_OPERATION_SUCCESS)
 		goto out;
 
