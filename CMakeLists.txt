@@ -66,7 +66,6 @@ SET_TARGET_PROPERTIES(slp-su PROPERTIES COMPILE_FLAGS "${slp-su_CFLAGS}")
 
 CONFIGURE_FILE(libprivilege-control.pc.in libprivilege-control.pc @ONLY)
 
-FILE(GLOB datfiles ${CMAKE_CURRENT_SOURCE_DIR}/permissions/*.dat)
 FILE(GLOB smackfiles ${CMAKE_CURRENT_SOURCE_DIR}/permissions/*.smack)
 
 INSTALL(TARGETS privilege-control DESTINATION lib COMPONENT RuntimeLibraries)
@@ -76,7 +75,6 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/group DESTINATION /opt/etc/)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/smack_default_rules DESTINATION /opt/etc/smack/accesses.d/ RENAME default)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/smack_default_labeling DESTINATION /etc/rc.d/init.d/)
 INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/include/privilege-control.h DESTINATION include)
-INSTALL(FILES ${datfiles} DESTINATION ${SHAREDIR})
 INSTALL(FILES ${smackfiles} DESTINATION ${SHAREDIR})
 INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/app_group_list DESTINATION ${SHAREDIR})
 INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/dev_group_list DESTINATION ${SHAREDIR})
