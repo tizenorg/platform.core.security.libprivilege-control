@@ -1,3 +1,48 @@
+libprivilege-control (1:0.0.18) unstable; urgency=low
+
+  [ Halton Huo ]
+  * Modify label for browser db files
+
+  [ Rafal Krypa ]
+  * Separate ifdefs for Smack support for WRT.
+  * Re-enable Smack setting for native apps.
+  * Fix app type checking in set_app_privilege().
+  * smack_default_labeling: use variables for various /opt/* paths.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Tue, 08 Jan 2013 11:27:37 +0100
+
+libprivilege-control (1:0.0.15) unstable; urgency=low
+
+  [ Karol Lewandowski ]
+  * systemd: Add systemd unit to set default smack labels
+
+  [ Zbigniew Kostrzewa ]
+  * Add build type required for code coverage analysis
+
+  [ Rafal Krypa ]
+  * udev: change heuristics for guessing camera device nodes
+
+  [ Kidong Kim ]
+  * fix udev and add new db
+
+ -- Kidong Kim <kd0228.kim@samsung.com>  Thu, 13 Dec 2012 11:26:57 +0900
+
+libprivilege-control (1:0.0.14) unstable; urgency=low
+
+  [ Kidong Kim ]
+  * make symbolic link of udev rules file
+
+  [ Yin Kangkai ]
+  * Move passwd and group back from /opt/etc to /etc/
+
+ -- Kidong Kim <kd0228.kim@samsung.com>  Wed, 05 Dec 2012 19:03:09 +0900
+
+libprivilege-control (1:0.0.13) unstable; urgency=low
+
+  * remove admin group
+
+ -- Kidong Kim <kd0228.kim@samsung.com>  Thu, 01 Nov 2012 16:17:12 +0900
+
 libprivilege-control (0.0.12) unstable; urgency=low
 
   [ Rafal Krypa ]
