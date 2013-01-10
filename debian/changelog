@@ -1,3 +1,18 @@
+libprivilege-control (0.0.19) unstable; urgency=low
+
+  [ Tomasz Swierczek ]
+  * Removed "Epoch" from spec file.
+
+  [ Rafal Krypa ]
+  * Remove stale permission files.
+  * Introduce WRT_ prefix in smack for current SMACK configuration files.
+  * Drop legacy USE_PRIVILEGE_CONTROL ifdef.
+  * Change syntax of SMACK config files.
+  * New API for native/OSP installer.
+  * Add SMACK config for OSP apps.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Thu, 10 Jan 2013 17:42:37 +0100
+
 libprivilege-control (1:0.0.18) unstable; urgency=low
 
   [ Halton Huo ]

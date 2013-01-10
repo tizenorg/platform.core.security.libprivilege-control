@@ -1,3 +1,12 @@
+* Tue Jan 10 2012 Rafal Krypa - 0.0.19
+- Removed "Epoch" from spec file.
+- Remove stale permission files.
+- Introduce WRT_ prefix in smack for current SMACK configuration files.
+- Drop legacy USE_PRIVILEGE_CONTROL ifdef.
+- Change syntax of SMACK config files.
+- New API for native/OSP installer.
+- Add SMACK config for OSP apps.
+
 * Tue Jan 08 2012 Rafal Krypa - 1:0.0.18
 - Modify label for browser db files
 - Separate ifdefs for Smack support for WRT.
