@@ -417,7 +417,7 @@ static inline int perm_to_smack(struct smack_accesses* smack, const char* app_la
 			strcpy(smack_subject, app_label);
 
 		if (!strcmp(smack_object, SMACK_APP_LABEL))
-			strcpy(smack_subject, app_label);
+			strcpy(smack_object, app_label);
 
 		if (smack_accesses_add_modify(smack, smack_subject, smack_object, smack_accesses, "") != 0) {
 			ret = PC_ERR_INVALID_OPERATION;
