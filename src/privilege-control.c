@@ -739,7 +739,7 @@ API int app_add_permissions(const char* app_id, const char** perm_list)
 		goto out;
 	}
 
-	fd = open(path, O_CREAT, O_RDWR);
+	fd = open(path, O_CREAT|O_RDWR, 0644);
 	if (fd == -1) {
 		ret = PC_ERR_FILE_OPERATION;
 		goto out;
