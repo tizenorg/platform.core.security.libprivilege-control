@@ -11,6 +11,7 @@ Source1:    %{name}-conf.manifest
 Source2:    smack-default-labeling.service
 BuildRequires: cmake
 BuildRequires: pkgconfig(libsmack)
+BuildRequires: pkgconfig(dlog)
 
 %description
 development package of library to control privilege of in-house application

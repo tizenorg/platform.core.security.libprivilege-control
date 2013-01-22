@@ -24,23 +24,43 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <dlog.h>
 
 #include "privilege-control.h"
 
+#ifdef LOG_TAG
+    #undef LOG_TAG
+#endif // LOG_TAG
+#ifndef LOG_TAG
+    #define LOG_TAG "PRIVILEGE_CONTROL"
+#endif // LOG_TAG
+
+// conditional_log macro for dlogutil (debug)
+#ifdef DLOG_ENABLED
+#define C_LOGD(...) LOGD(__VA_ARGS__)
+#define C_LOGE(...) LOGE(__VA_ARGS__)
+#else
+#define C_LOGD(...) do { } while(0)
+#define C_LOGE(...) do { } while(0)
+#endif //DLOG_ENABLED
+
 void print_usage(void)
 {
+    C_LOGD("Enter function: %s", __func__);
 	printf("%s", "Usage: slp-su [PKG_NAME]\n\n");
 	printf("%s", "Execute new shell which be belonged to user related with PKG_NAME\n\n");
 }
 
 int main(int argc, char* argv[])
 {
+    C_LOGD("Enter function: %s", __func__);
 	pid_t pid = -1;
 	char* buf = NULL;
 
 	if(argc != 2)
 	{
 		fprintf(stderr, "%s", "[ERR] Check your argument.\n\n");
+		C_LOGE("");
 		print_usage();
 		return 0;
 	}
@@ -53,10 +73,12 @@ int main(int argc, char* argv[])
 				if(set_app_privilege(argv[1], NULL, NULL) == 0)	// success
 				{
 					fprintf(stderr, "%s", "[LOG] Success to execute set_privilege()\n");
+					C_LOGD("[LOG] Success to execute set_privilege()");
 				}
 				else
 				{
 					fprintf(stderr, "%s", "[ERR] Fail to execute set_privilege()\n");
+					C_LOGE("[ERR] Fail to execute set_privilege()");
 					exit(1);
 				}
 
@@ -64,29 +86,35 @@ int main(int argc, char* argv[])
 				if(buf == NULL)	// fail
 				{
 					fprintf(stderr, "%s", "[ERR] Fail to execute getenv()\n");
+					C_LOGE("[ERR] Fail to execute getenv()");
 					exit(0);
 				}
 				else
 				{
 					fprintf(stderr, "%s: [%s]%s", "[LOG] HOME", buf, "\n");
+					C_LOGD("[LOG] HOME [%s]", buf);
 				}
 				
 				if(chdir(buf) == 0)	// success
 				{
 					fprintf(stderr, "%s", "[LOG] Success to change working directory\n");
+					C_LOGD("[LOG] Success to change working directory");
 				}
 				else
 				{
 					fprintf(stderr, "%s", "[ERR] Fail to execute chdir()\n");
+					C_LOGE("[ERR] Fail to execute chdir()");
 					exit(0);
 				}
 				
+				C_LOGD("execl \"/bin/sh\"");
 				execl("/bin/sh", "/bin/sh", NULL);
 				break;
 			}
 		case -1:	// error
 			{
 				fprintf(stderr, "%s", "[ERR] Fail to execute fork()\n");
+				C_LOGE("[ERR] Fail to execute fork()");
 				exit(1);
 				break;
 			}
@@ -94,6 +122,7 @@ int main(int argc, char* argv[])
 			{
 				wait((int*)0);
 				fprintf(stderr, "%s", "[LOG] Parent end\n");
+				C_LOGE("[LOG] Parent end");
 				exit(0);
 			}
 	}
