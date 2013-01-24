@@ -52,3 +52,5 @@ _ worldclock::db rw
 _ resman::db rw
 _ live-magazine::db rw
 _ live-magazine::data arwxt
+_ wrt-commons::db_wrt_custom_handler rw
+
