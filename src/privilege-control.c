@@ -486,7 +486,7 @@ static inline int perm_to_smack(struct smack_accesses* smack, const char* app_la
 	}
 
 	while (1) {
-		if (fscanf(file, format_string, smack_subject, smack_object, smack_accesses) != 1) {
+		if (fscanf(file, format_string, smack_subject, smack_object, smack_accesses) != 3) {
 			C_LOGE("fscanf failed");
 			goto out;
 		}
