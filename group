@@ -128,6 +128,7 @@ asm:x:6823:app
 message_sync:x:6824:app
 message_lbs:x:6825:app
 bt_use:x:6827:app,pulse,system
+crash:x:6828:app,system,media,developer,pulse
 system:x:1000:
 bluetooth:x:1002:
 graphics:x:1003:
