@@ -639,17 +639,10 @@ API int wrt_set_src_dir(const char* widget_id, const char *path)
 	C_LOGD("Path: %s", path);
 	int ret = PC_OPERATION_SUCCESS;
 #ifdef WRT_SMACK_ENABLED
-	char* widget_label = NULL;
 	char* src_label_dir = NULL;
 	char* src_label_file = NULL;
 
 	ret = PC_ERR_MEM_OPERATION;
-
-	widget_label = wrt_smack_label(widget_id, NULL);
-	if (widget_label == NULL) {
-		C_LOGE("widget_label is NULL");
-		goto out;
-	}
 
 	src_label_dir = wrt_smack_label(widget_id, SMACK_SRC_DIR_SUFFIX);
 	if (src_label_dir == NULL) {
@@ -674,7 +667,6 @@ API int wrt_set_src_dir(const char* widget_id, const char *path)
 	ret = dir_set_smack_r(path, src_label_file, SMACK_LABEL_ACCESS, ~S_IFDIR);
 
 out:
-	free(widget_label);
 	free(src_label_dir);
 	free(src_label_file);
 #endif // WRT_SMACK_ENABLED
@@ -687,7 +679,6 @@ API int wrt_set_data_dir(const char* widget_id, const char *path)
 	C_LOGD("Path: %s", path);
 	int ret = PC_OPERATION_SUCCESS;
 #ifdef WRT_SMACK_ENABLED
-	char* widget_label = NULL;
 	char* data_label = NULL;
 	struct stat st;
 
@@ -722,12 +713,6 @@ API int wrt_set_data_dir(const char* widget_id, const char *path)
 
 	ret = PC_ERR_MEM_OPERATION;
 
-	widget_label = wrt_smack_label(widget_id, NULL);
-	if (widget_label == NULL) {
-		C_LOGE("widget_label is NULL");
-		goto out;
-	}
-
 	data_label = wrt_smack_label(widget_id, SMACK_DATA_SUFFIX);
 	if (data_label == NULL) {
 		C_LOGE("data_label is NULL");
@@ -749,7 +734,6 @@ API int wrt_set_data_dir(const char* widget_id, const char *path)
 	}
 
 out:
-	free(widget_label);
 	free(data_label);
 #endif // WRT_SMACK_ENABLED
 	return ret;
