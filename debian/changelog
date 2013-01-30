@@ -1,3 +1,25 @@
+libprivilege-control (0.0.20.TIZEN) unstable; urgency=low
+
+  [ Mariusz Domanski ]
+  * Prevent related bugfixes.
+
+  [ Kidong Kim ]
+  * add new default smack rule.
+  * add new group for crash-logger.
+  * add new smack label - system::crash.
+
+  [ Jan Olszak ]
+  * Bug fix in adding permissions.
+
+  [ Janusz Kozerski ]
+  * Implement logging in libprivilege-control.
+
+  [ Rafal Krypa ]
+  * Fix parsing of Smack config files.
+  * Remove some unnecessary code from wrt_set_src_dir() and wrt_set_data_dir().
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Wed, 30 Jan 2013 17:13:18 +0100
+
 libprivilege-control (0.0.19) unstable; urgency=low
 
   [ Tomasz Swierczek ]

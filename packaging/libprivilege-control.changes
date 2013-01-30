@@ -1,3 +1,13 @@
+* Tue Jan 30 2012 Rafal Krypa - 0.0.20.TIZEN
+- Prevent related bugfixes.
+- add new default smack rule.
+- add new group for crash-logger.
+- add new smack label - system::crash.
+- Bug fix in adding permissions.
+- Implement logging in libprivilege-control.
+- Fix parsing of Smack config files.
+- Remove some unnecessary code from wrt_set_src_dir() and wrt_set_data_dir().
+
 * Tue Jan 10 2012 Rafal Krypa - 0.0.19
 - Removed "Epoch" from spec file.
 - Remove stale permission files.
