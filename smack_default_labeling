@@ -8,11 +8,10 @@ chown 5000:5000 /home/app
 find /home/app -print0 | xargs -0 chsmack -a 'system::homedir'
 find /home/app -type d -print0 | xargs -0 chsmack -t
 
-chsmack -a 'system::vconf' /opt/var/kdb/db
-chsmack -t /opt/var/kdb/db
-
 # set vconf label when first boot
 if [ ! -e /opt/etc/.vconf_labeling ]; then
+	chsmack -a 'system::vconf' /opt/var/kdb/db
+	chsmack -t /opt/var/kdb/db
 	find /opt/var/kdb/db -print0 | xargs -0 chsmack -a 'system::vconf'
 	find /opt/var/kdb/db -type d -print0 | xargs -0 chsmack -t
 	find /opt/var/kdb/file -print0 | xargs -0 chsmack -a 'system::vconf'
@@ -110,3 +109,6 @@ find $SHARE_DIR/live_magazine -print0 | xargs -0 chsmack -a 'live-magazine::data
 find $SHARE_DIR/live_magazine -type d -print0 | xargs -0 chsmack -t
 chsmack -a 'dailybriefing' $APPS_DIR/com.samsung.dailybriefing-common/data/db/*
 chsmack -a 'menu-screen' $APPS_DIR/com.samsung.menu-screen/data/.menu.db*
+
+find /opt/usr/share/crash -print0 | xargs -0 chsmack -a 'system::crash'
+find /opt/usr/share/crash -type d -print0 | xargs -0 chsmack -t
