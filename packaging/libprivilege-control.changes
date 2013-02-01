@@ -1,3 +1,7 @@
+* Fri Feb 01 2012 Rafal Krypa - 0.0.21.TIZEN
+- add new label and change label - system::core -> sys-assert::core
+- Adding new API for setting label and transmute on directory
+
 * Tue Jan 30 2012 Rafal Krypa - 0.0.20.TIZEN
 - Prevent related bugfixes.
 - add new default smack rule.

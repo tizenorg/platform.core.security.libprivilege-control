@@ -1,3 +1,13 @@
+libprivilege-control (0.0.21.TIZEN) unstable; urgency=low
+
+  [ Kidong Kim ]
+  * add new label and change label - system::core -> sys-assert::core
+
+  [ Zofia Abramowska ]
+  * Adding new API for setting label and transmute on directory
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Fri, 01 Feb 2013 17:22:44 +0100
+
 libprivilege-control (0.0.20.TIZEN) unstable; urgency=low
 
   [ Mariusz Domanski ]
