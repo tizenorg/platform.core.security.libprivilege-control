@@ -110,5 +110,5 @@ find $SHARE_DIR/live_magazine -type d -print0 | xargs -0 chsmack -t
 chsmack -a 'dailybriefing' $APPS_DIR/com.samsung.dailybriefing-common/data/db/*
 chsmack -a 'menu-screen' $APPS_DIR/com.samsung.menu-screen/data/.menu.db*
 
-find /opt/usr/share/crash -print0 | xargs -0 chsmack -a 'system::crash'
-find /opt/usr/share/crash -type d -print0 | xargs -0 chsmack -t
+find /opt/usr/media -print0 | xargs -0 chsmack -a 'system::media'
+find /opt/usr/media -type d -print0 | xargs -0 chsmack -t

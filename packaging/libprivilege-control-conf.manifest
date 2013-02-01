@@ -17,7 +17,7 @@
 			<label name="system::use_internet"/>
 			<label name="system::homedir"/>
 			<label name="system::syslogd"/>
-			<label name="system::crash"/>
+			<label name="system::media"/>
 		</provide>
 	</define>
 	<request>
