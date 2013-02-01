@@ -1021,12 +1021,22 @@ out:
 	return ret;
 }
 
-API int app_label_dir(const char* app_id, const char* path)
+API int app_label_dir(const char* label, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
 #ifdef SMACK_ENABLED
-	return dir_set_smack_r(path, app_id, SMACK_LABEL_ACCESS, ~0);
+	return dir_set_smack_r(path, label, SMACK_LABEL_ACCESS, ~0);
 #else
 	return PC_OPERATION_SUCCESS;
+#endif
+}
+
+API int app_transmute_dir(const char* on, const char* path)
+{
+    C_LOGD("Enter function: %s", __func__);
+#ifdef SMACK_ENABLED
+    return dir_set_smack_r(path, on, SMACK_LABEL_TRANSMUTE, S_IFDIR);
+#else
+    return PC_OPERATION_SUCCESS;
 #endif
 }

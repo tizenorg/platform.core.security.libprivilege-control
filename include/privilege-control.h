@@ -166,12 +166,25 @@ int app_revoke_permissions(const char* app_id);
  * Results will be persistent on the file system.
  * It must be called by privileged user.
  *
- * @param app_id application identifier
+ * @param label label name
  * @param path directory path
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int app_label_dir(const char* app_id, const char* path);
+int app_label_dir(const char* label, const char* path);
 
+/**
+ * Recursively set transmute for an application directory.
+ * This function should be called once during app installation.
+ * Results will be persistent on the file system.
+ * It must be called by privileged user.
+ *
+ * @param on settings for transmute
+ *   if equal to "" or "0", transmute will be turned off
+ *   if equal to "1", transmute will be turned on
+ * @param path directory path
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_transmute_dir(const char* on, const char* path);
 
 #ifdef __cplusplus
 }
