@@ -83,7 +83,6 @@ then
         mkdir -p /usr/share/privilege-control/
 fi
 
-ln -s %{udev_libdir}/rules.d/95-permissions-slp.rules /lib/udev/rules.d/95-permissions-slp.rules
 
 %files
 %{_libdir}/*.so.*
