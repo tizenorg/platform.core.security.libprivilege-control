@@ -870,6 +870,76 @@ API char* wrt_widget_id_from_socket(int sockfd)
 	return widget_id;
 }
 
+
+static int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int *fd)
+{
+	C_LOGD("Enter function: %s", __func__);
+
+	char* path = NULL;
+	int ret;
+
+	if (asprintf(&path, SMACK_RULES_DIR "/%s", app_id) == -1) {
+		ret = PC_ERR_MEM_OPERATION;
+		C_LOGE("asprintf failed");
+		goto out;
+	}
+
+	if (smack_accesses_new(smack)) {
+		ret = PC_ERR_MEM_OPERATION;
+		C_LOGE("smack_accesses_new failed");
+		goto out;
+	}
+
+	*fd = open(path, O_CREAT|O_RDWR, 0644);
+	if (*fd == -1) {
+		ret = PC_ERR_FILE_OPERATION;
+		C_LOGE("file open failed");
+		goto out;
+	}
+
+	if (flock(*fd, LOCK_EX)) {
+		ret = PC_ERR_INVALID_OPERATION;
+		C_LOGE("flock failed");
+		goto out;
+	}
+
+	if (smack_accesses_add_from_file(*smack, *fd)) {
+		ret = PC_ERR_INVALID_OPERATION;
+		C_LOGE("smack_accesses_add_from_file failed");
+		goto out;
+	}
+
+	/* Rewind the file */
+	if (lseek(*fd, 0, SEEK_SET) == -1) {
+		ret = PC_ERR_FILE_OPERATION;
+		C_LOGE("lseek failed");
+		goto out;
+	}
+
+	ret = PC_OPERATION_SUCCESS;
+
+out:
+	free(path);
+
+	return ret;
+}
+
+static int save_smack_to_file(struct smack_accesses *smack, int fd)
+{
+	if (smack_accesses_apply(smack)) {
+		C_LOGE("smack_accesses_apply failed");
+		return PC_ERR_INVALID_OPERATION;
+	}
+
+	if (smack_accesses_save(smack, fd)) {
+		C_LOGE("smack_accesses_save failed");
+		return PC_ERR_INVALID_OPERATION;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
+
 API int app_add_permissions(const char* app_id, const char** perm_list)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -879,44 +949,12 @@ API int app_add_permissions(const char* app_id, const char** perm_list)
 	struct smack_accesses *smack = NULL;
 
 #ifdef SMACK_ENABLED
-	if (asprintf(&path, SMACK_RULES_DIR "/%s", app_id) == -1) {
-		ret = PC_ERR_MEM_OPERATION;
-		C_LOGE("asprintf failed");
+
+	ret = load_smack_from_file(app_id, &smack, &fd);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("load_smack_from_file failed");
 		goto out;
 	}
-
-	if (smack_accesses_new(&smack)) {
-		ret = PC_ERR_MEM_OPERATION;
-		C_LOGE("smack_accesses_new failed");
-		goto out;
-	}
-
-	fd = open(path, O_CREAT|O_RDWR, 0644);
-	if (fd == -1) {
-		ret = PC_ERR_FILE_OPERATION;
-		C_LOGE("file open failed");
-		goto out;
-	}
-
-	if (flock(fd, LOCK_EX)) {
-		ret = PC_ERR_INVALID_OPERATION;
-		C_LOGE("flock failed");
-		goto out;
-	}
-
-	if (smack_accesses_add_from_file(smack, fd)) {
-		ret = PC_ERR_INVALID_OPERATION;
-		C_LOGE("smack_accesses_add_from_file failed");
-		goto out;
-	}
-
-	/* Rewind the file */
-	if (lseek(fd, 0, SEEK_SET) == -1) {
-		ret = PC_ERR_FILE_OPERATION;
-		C_LOGE("lseek failed");
-		goto out;
-	}
-
 	for (i = 0; perm_list[i] != NULL; ++i) {
 		ret = perm_to_smack(smack, app_id, perm_list[i]);
 		C_LOGD("perm_to_smack params: app_id: %s, perm_list[%d]: %s", app_id, i, perm_list[i]);
@@ -926,15 +964,9 @@ API int app_add_permissions(const char* app_id, const char** perm_list)
 		}
 	}
 
-	if (smack_accesses_apply(smack)) {
-		ret = PC_ERR_INVALID_OPERATION;
-		C_LOGE("smack_accesses_apply failed");
-		goto out;
-	}
-
-	if (smack_accesses_save(smack, fd)) {
-		ret = PC_ERR_FILE_OPERATION;
-		C_LOGE("smack_accesses_save failed");
+	ret = save_smack_to_file(smack, fd);
+	if(ret != PC_OPERATION_SUCCESS){
+		C_LOGE("save_smack_to_file failed");
 		goto out;
 	}
 #endif
@@ -1025,18 +1057,74 @@ API int app_label_dir(const char* label, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
 #ifdef SMACK_ENABLED
-	return dir_set_smack_r(path, label, SMACK_LABEL_ACCESS, ~0);
+
+	int ret = PC_OPERATION_SUCCESS;
+
+	//setting label on everything in given directory and below
+	ret = dir_set_smack_r(path, label, SMACK_LABEL_ACCESS, ~0);
+	if (PC_OPERATION_SUCCESS != ret)
+		return ret;
+
+	//setting execute label for executable files
+	ret = dir_set_smack_r(path, label, SMACK_LABEL_EXEC, S_IFREG | S_IXUSR);
+
+	return ret;
 #else
 	return PC_OPERATION_SUCCESS;
 #endif
 }
 
-API int app_transmute_dir(const char* on, const char* path)
+API int app_label_shared_dir(const char* app_label, const char* shared_label, const char* path)
 {
-    C_LOGD("Enter function: %s", __func__);
+	C_LOGD("Enter function: %s", __func__);
 #ifdef SMACK_ENABLED
-    return dir_set_smack_r(path, on, SMACK_LABEL_TRANSMUTE, S_IFDIR);
+	int ret;
+	int fd = -1;
+	struct smack_accesses *smack = NULL;
+
+
+	//setting label on everything in given directory and below
+	ret = dir_set_smack_r(path, shared_label, SMACK_LABEL_ACCESS, ~0);
+	if(ret != PC_OPERATION_SUCCESS){
+		C_LOGE("dir_set_smakc_r failed");
+		goto out;
+	}
+
+	//setting transmute on dir
+	ret = dir_set_smack_r(path, "1", SMACK_LABEL_TRANSMUTE, S_IFDIR);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("dir_set_smakc_r failed");
+		goto out;
+	}
+
+	ret = load_smack_from_file(app_label, &smack, &fd);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("load_smack_from_file failed");
+		goto out;
+	}
+
+	//setting access rule for application
+	if (smack_accesses_add(smack, app_label,shared_label, "wrxat") == -1) {
+		C_LOGE("smack_accesses_add failed");
+		goto out;
+	}
+
+	ret = save_smack_to_file(smack, fd);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("save_smack_to_file failed");
+		goto out;
+	}
+
+	ret = PC_OPERATION_SUCCESS;
+out:
+	if (fd != -1)
+		close(fd);
+	if (smack != NULL)
+		smack_accesses_free(smack);
+	return ret;
 #else
-    return PC_OPERATION_SUCCESS;
+	return PC_OPERATION_SUCCESS;
 #endif
 }
+
+
