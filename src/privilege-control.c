@@ -613,8 +613,8 @@ static int dir_set_smack_r(const char *path, const char* label,
 			goto out;
 		}
 
-		C_LOGD("smack_lsetlabel (label: %s (type: %d), path: %s)", label, type, ftsent->fts_path);
 		if (ftsent->fts_statp->st_mode & S_IFMT & type_mask)
+			C_LOGD("smack_lsetlabel (label: %s (type: %d), path: %s)", label, type, ftsent->fts_path);
 			if (smack_lsetlabel(ftsent->fts_path, label, type) != 0) {
 				C_LOGE("smack_lsetlabel failed");
 				goto out;
