@@ -53,5 +53,5 @@ _ resman::db rw
 _ live-magazine::db rw
 _ live-magazine::data arwxt
 _ wrt-commons::db_wrt_custom_handler rw
-_ system::media arwxt 
-_ sys-assert::core arwxt 
+_ system::media arwxt
+_ sys-assert::core arwxt
