@@ -279,9 +279,9 @@ static int set_smack_from_binary(const char* path)
 	char* label;
 
 	C_LOGD("Path: %s", path);
-	ret = smack_lgetlabel(path, &label, SMACK_LABEL_EXEC);
+	ret = smack_getlabel(path, &label, SMACK_LABEL_EXEC);
 	if (ret != 0) {
-		C_LOGE("smack_lgetlabel returned PC_ERR_INVALID_OPERATION");
+		C_LOGE("Getting exec label from file %s failed", path);
 		return PC_ERR_INVALID_OPERATION;
 	}
 
