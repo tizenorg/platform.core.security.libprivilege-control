@@ -613,7 +613,7 @@ static int dir_set_smack_r(const char *path, const char* label,
 			goto out;
 		}
 
-		if (ftsent->fts_statp->st_mode & S_IFMT & type_mask)
+		if (ftsent->fts_statp->st_mode & type_mask)
 			C_LOGD("smack_lsetlabel (label: %s (type: %d), path: %s)", label, type, ftsent->fts_path);
 			if (smack_lsetlabel(ftsent->fts_path, label, type) != 0) {
 				C_LOGE("smack_lsetlabel failed");
@@ -1060,13 +1060,18 @@ API int app_label_dir(const char* label, const char* path)
 
 	int ret = PC_OPERATION_SUCCESS;
 
-	//setting label on everything in given directory and below
+	//setting access label on everything in given directory and below
 	ret = dir_set_smack_r(path, label, SMACK_LABEL_ACCESS, ~0);
 	if (PC_OPERATION_SUCCESS != ret)
 		return ret;
 
-	//setting execute label for executable files
-	ret = dir_set_smack_r(path, label, SMACK_LABEL_EXEC, S_IFREG | S_IXUSR);
+	//setting execute label for everything with permission to execute
+	ret = dir_set_smack_r(path, label, SMACK_LABEL_EXEC, S_IXUSR);
+	if (PC_OPERATION_SUCCESS != ret)
+		return ret;
+
+	//removing execute label from directories
+	ret = dir_set_smack_r(path, "", SMACK_LABEL_EXEC, S_IFMT & ~S_IFREG);
 
 	return ret;
 #else
