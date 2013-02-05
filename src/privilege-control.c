@@ -613,12 +613,13 @@ static int dir_set_smack_r(const char *path, const char* label,
 			goto out;
 		}
 
-		if (ftsent->fts_statp->st_mode & type_mask)
+		if (ftsent->fts_statp->st_mode & type_mask) {
 			C_LOGD("smack_lsetlabel (label: %s (type: %d), path: %s)", label, type, ftsent->fts_path);
 			if (smack_lsetlabel(ftsent->fts_path, label, type) != 0) {
 				C_LOGE("smack_lsetlabel failed");
 				goto out;
 			}
+		}
 	}
 
 	/* If last call to fts_read() set errno, we need to return error. */
