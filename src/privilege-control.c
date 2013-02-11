@@ -57,7 +57,7 @@
 
 #define SMACK_RULES_DIR  "/etc/smack/accesses.d/"
 
-#define SMACK_APP_LABEL         "~APP~"
+#define SMACK_APP_LABEL_TEMPLATE "~APP~"
 #define SMACK_WRT_LABEL_PREFIX  "wrt_widget_"
 #define SMACK_SRC_FILE_SUFFIX   "_src_file"
 #define SMACK_SRC_DIR_SUFFIX    "_src_dir"
@@ -90,9 +90,9 @@ static int set_smack_for_wrt(const char* widget_id);
 #endif //DLOG_ENABLED
 
 typedef enum {
-	PKG_TYPE_WGT,
-	PKG_TYPE_OTHER
-} pkg_type_t;
+	APP_TYPE_WGT,
+	APP_TYPE_OTHER,
+} app_type_t;
 
 typedef struct {
 	char user_name[10];
@@ -332,25 +332,25 @@ static int is_widget(const char* path)
  * @param path file path to executable
  * @return return void on success, terminate the process on error
  */
-static pkg_type_t verify_app_type(const char* type, const char* path)
+static app_type_t verify_app_type(const char* type, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
 	/* TODO: this should actually be treated as error, but until the old
 	 * set_privilege API is removed, it must be ignored */
 	if (path == NULL) {
 		C_LOGD("PKG_TYPE_OTHER");
-		return PKG_TYPE_OTHER; /* good */
+		return APP_TYPE_OTHER; /* good */
 	}
 
 	if (is_widget(path)) {
 		if (!strcmp(type, "wgt")) {
 			C_LOGD("PKG_TYPE_WGT");
-			return PKG_TYPE_WGT; /* good */
+			return APP_TYPE_WGT; /* good */
 		}
 	} else {
 		if (type == NULL || strcmp(type, "wgt")){
 			C_LOGD("PKG_TYPE_OTHER");
-			return PKG_TYPE_OTHER; /* good */
+			return APP_TYPE_OTHER; /* good */
 		}
 	}
 
@@ -383,7 +383,7 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 	int ret = PC_OPERATION_SUCCESS;
 
 	switch(verify_app_type(type, path)) {
-	case PKG_TYPE_WGT:
+	case APP_TYPE_WGT:
 		widget_id = parse_widget_id(path);
 		if (widget_id == NULL) {
 			C_LOGE("PC_ERR_INVALID_PARAM");
@@ -394,7 +394,7 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 			ret = set_smack_for_wrt(widget_id);
 #endif
 		break;
-	case PKG_TYPE_OTHER:
+	case APP_TYPE_OTHER:
 		if (path != NULL)
 		ret = set_smack_from_binary(path);
 	}
@@ -491,10 +491,10 @@ static inline int perm_to_smack(struct smack_accesses* smack, const char* app_la
 			goto out;
 		}
 
-		if (!strcmp(smack_subject, SMACK_APP_LABEL))
+		if (!strcmp(smack_subject, SMACK_APP_LABEL_TEMPLATE))
 			strcpy(smack_subject, app_label);
 
-		if (!strcmp(smack_object, SMACK_APP_LABEL))
+		if (!strcmp(smack_object, SMACK_APP_LABEL_TEMPLATE))
 			strcpy(smack_object, app_label);
 
 		C_LOGD("smack_accesses_add_modify (subject: %s, object: %s, access: %s)", smack_subject, smack_object, smack_accesses);
