@@ -153,6 +153,7 @@ char* app_id_from_socket(int sockfd);
  * system boot.
  * It must be called by privileged user.
  *
+ *
  * @param app_id application identifier
  * @param perm_list array of permission names, last element must be NULL
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
@@ -162,7 +163,7 @@ int app_add_permissions(const char* app_id, const char** perm_list);
 /**
  * Revoke SMACK permissions from an application.
  * This function should be called during app deinstallation.
- * It will revoke all SMACK rules previously granted by  app_add_permissions().
+ * It will revoke all SMACK rules previously granted by app_add_permissions().
  * It will also remove a rules file from disk.
  * It must be called by privileged user.
  *
@@ -170,6 +171,16 @@ int app_add_permissions(const char* app_id, const char** perm_list);
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
 int app_revoke_permissions(const char* app_id);
+
+/**
+ * Reset SMACK permissions for an application by revoking all previously
+ * granted rules and enabling them again from a rules file from disk.
+ * It must be called by privileged user.
+ *
+ * @param app_id application identifier
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_reset_permissions(const char* app_id);
 
 /**
  * Recursively set SMACK access labels for an application directory
