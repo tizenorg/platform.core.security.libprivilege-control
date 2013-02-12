@@ -127,12 +127,23 @@ int wrt_set_data_dir(const char* widget_id, const char *path);
 /**
  * For a UNIX socket endpoint determine if the other side is a widget
  * and return its widget id.
+ * This function is deprecated due to unification of app labels.
+ * Use app_id_from_socket() instead.
  *
  * @param sockfd socket file descriptor
  * @return id of the connecting widget on success, NULL on failure.
  * Caller is responsible for freeing the return widget id.
  */
-char* wrt_widget_id_from_socket(int sockfd);
+char* wrt_widget_id_from_socket(int sockfd) __attribute__((deprecated));
+
+/**
+ * For a UNIX socket endpoint determine the other side's app_id.
+ *
+ * @param sockfd socket file descriptor
+ * @return id of the connecting widget on success, NULL on failure.
+ * Caller is responsible for freeing the return widget id.
+ */
+char* app_id_from_socket(int sockfd);
 
 /**
  * Grant SMACK permissions based on permissions list.
