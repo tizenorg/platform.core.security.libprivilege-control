@@ -740,105 +740,20 @@ out:
 static int set_smack_for_wrt(const char* widget_id)
 {
 	C_LOGD("Enter function: %s", __func__);
-	char* widget_label = NULL;
-	char* src_label_file = NULL;
-	char* src_label_dir = NULL;
-	char* data_label = NULL;
-	struct smack_accesses* smack = NULL;
 	int ret;
 
-	ret = PC_ERR_MEM_OPERATION;
-
-	widget_label = app_id2smack(widget_id, NULL);
-	C_LOGD("widget id: %s", widget_id);
-	if (widget_label == NULL) {
-		C_LOGE("widget_label is NULL");
-		goto out;
-	}
-
-	src_label_file = wrt_smack_label(widget_id, SMACK_SRC_FILE_SUFFIX);
-	if (src_label_file == NULL) {
-		C_LOGE("src_label_file is NULL");
-		goto out;
-	}
-
-	src_label_dir = wrt_smack_label(widget_id, SMACK_SRC_DIR_SUFFIX);
-	if (src_label_file == NULL) {
-		C_LOGE("src_label_file is NULL");
-		goto out;
-	}
-
-	data_label = wrt_smack_label(widget_id, SMACK_DATA_SUFFIX);
-	if (data_label == NULL) {
-		C_LOGE("data_label is NULL");
-		goto out;
-	}
-
-	if (smack_accesses_new(&smack) != 0) {
-		C_LOGE("smack_accesses_new failed");
-		goto out;
-	}
-
-	ret = wrt_permissions_reset(widget_id);
+	ret = app_reset_permissions(widget_id);
 	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("wrt_permissions_reset failed");
-		goto out;
+		C_LOGE("app_reset_permissions failed");
+		return ret;
 	}
 
-	ret = PC_ERR_INVALID_OPERATION;
-
-	if (smack_set_label_for_self(widget_label) != 0) {
+	if (smack_set_label_for_self(widget_id) != 0) {
 		C_LOGE("smack_set_label_for_self failed");
-		goto out;
+		return PC_ERR_INVALID_OPERATION;
 	}
 
-	/* Allow widget to only read and execute it's source directories */
-	C_LOGD("Adding implicit Smack rule: %s %s %s", widget_label, src_label_dir, "rx");
-	if (smack_accesses_add(smack, widget_label, src_label_dir, "rx") != 0) {
-		C_LOGE("smack_accesses_add failed (rx)");
-		goto out;
-	}
-
-	/* Allow widget to only read read it's source files */
-	C_LOGD("Adding implicit Smack rule: %s %s %s", widget_label, src_label_file, "r");
-	if (smack_accesses_add(smack, widget_label, src_label_file, "r") != 0) {
-		C_LOGE("smack_accesses_add failed (r)");
-		goto out;
-	}
-
-	/* Allow widget to do everything with it's data */
-	/*
-	 * FIXME: If a malicious widget finds a way to execute files, it will be
-	 * able to execute it's data files, which are fully controlled by the
-	 * widget itself. This currently cannot be prevented by SMACK, so other
-	 * means must be used.
-	 */
-	C_LOGD("Adding implicit Smack rule: %s %s %s", widget_label, data_label, "rwxat");
-	if (smack_accesses_add(smack, widget_label, data_label, "rwxat") != 0) {
-		C_LOGE("smack_accesses_add failed (rwxat)");
-		goto out;
-	}
-
-	C_LOGD("Adding Smack rules from pseudo-devcap %s", WRT_BASE_DEVCAP);
-	ret = perm_to_smack(smack, widget_label, WRT_BASE_DEVCAP);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("perm_to_smack failed");
-		goto out;
-	}
-
-	if (smack_accesses_apply(smack) != 0) {
-		C_LOGE("smack_accesses_apply failed");
-		ret = PC_ERR_INVALID_OPERATION;
-	}
-
-out:
-	smack_accesses_free(smack);
-	free(widget_label);
-	free(src_label_file);
-	free(src_label_dir);
-	free(data_label);
-
-	return ret;
+	return PC_OPERATION_SUCCESS;
 }
 #endif // WRT_SMACK_ENABLED
 
