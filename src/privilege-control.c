@@ -64,13 +64,7 @@
 #define WRT_BASE_DEVCAP         "WRT"
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
 
-#ifndef SMACK_ENABLED
-#undef WRT_SMACK_ENABLED
-#endif
-
-#ifdef WRT_SMACK_ENABLED
 static int set_smack_for_wrt(const char* widget_id);
-#endif // WRT_SMACK_ENABLED
 
 #ifdef LOG_TAG
     #undef LOG_TAG
@@ -388,14 +382,13 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 			C_LOGE("PC_ERR_INVALID_PARAM");
 			ret = PC_ERR_INVALID_PARAM;
 		}
-#ifdef WRT_SMACK_ENABLED
 		else
 			ret = set_smack_for_wrt(widget_id);
-#endif
 		break;
 	case APP_TYPE_OTHER:
 		if (path != NULL)
-		ret = set_smack_from_binary(path);
+			ret = set_smack_from_binary(path);
+		break;
 	}
 
 	if (ret != PC_OPERATION_SUCCESS)
@@ -409,44 +402,6 @@ API int set_privilege(const char* pkg_name)
 {
 	C_LOGD("Enter function: %s", __func__);
 	return set_app_privilege(pkg_name, NULL, NULL);
-}
-
-API int wrt_set_privilege(const char* widget_id)
-{
-	C_LOGD("Enter function: %s", __func__);
-#ifdef WRT_SMACK_ENABLED
-	int ret;
-
-	ret = set_smack_for_wrt(widget_id);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("set_smack_for_wrt returned error");
-		return ret;
-	}
-#endif // WRT_SMACK_ENABLED
-
-	return set_dac("com.samsung.");
-}
-
-static inline char* app_id2smack(const char* app_id, const char* suffix)
-{
-	C_LOGD("Enter function: %s", __func__);
-	int ret;
-	char* label;
-
-	ret = asprintf(&label, "%s%s", app_id, (suffix ? suffix : ""));
-
-	if (ret == -1) {
-		C_LOGE("asprintf failed");
-		return NULL;
-	}
-
-	if (strlen(label) > SMACK_LABEL_LEN) {
-		C_LOGE("strlen(label) [%s] > SMACK_LABEL_LEN", label);
-		free(label);
-		return NULL;
-	}
-
-	return label;
 }
 
 static inline int perm_to_smack(struct smack_accesses* smack, const char* app_label, const char* perm)
@@ -509,82 +464,6 @@ out:
 	return ret;
 }
 
-API int wrt_permissions_reset(const char* widget_id)
-{
-	C_LOGD("Enter function: %s", __func__);
-	int ret = PC_OPERATION_SUCCESS;
-#ifdef WRT_SMACK_ENABLED
-	char* label = NULL;
-
-	label = wrt_smack_label(widget_id, NULL);
-	if (label == NULL) {
-		C_LOGE("app_smack_label failed");
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	if (smack_revoke_subject(label)) {
-		C_LOGE("smack_revoke_subject failed");
-		ret = PC_ERR_INVALID_OPERATION;
-	}
-
-	free(label);
-#endif // WRT_SMACK_ENABLED
-	return ret;
-}
-
-API int wrt_permissions_add(const char* widget_id, const char** devcap_list)
-{
-	C_LOGD("Enter function: %s", __func__);
-	int ret = PC_OPERATION_SUCCESS;
-#ifdef WRT_SMACK_ENABLED
-	char* widget_label = NULL;
-	struct smack_accesses* smack = NULL;
-	int i;
-
-	widget_label = app_id2smack(widget_id, NULL);
-	if (widget_label == NULL) {
-		C_LOGE("app_smack_label failed");
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	if (smack_accesses_new(&smack)) {
-		C_LOGE("smack_accesses_new failed");
-		ret = PC_ERR_MEM_OPERATION;
-		goto out;
-	}
-
-	for (i = 0; devcap_list[i] != NULL; ++i) {
-		char* perm = NULL;
-
-		/* Prepend devcap with "WRT_" */
-		if (asprintf(&perm, "%s_%s", WRT_BASE_DEVCAP, devcap_list[i]) == -1) {
-			C_LOGE("asprintf failed");
-			ret = PC_ERR_MEM_OPERATION;
-			goto out;
-		}
-
-		C_LOGD("Adding permission %s", perm);
-		ret = perm_to_smack(smack, widget_label, perm);
-		free(perm);
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("perm_to_smack failed (%d)", ret);
-			goto out;
-		}
-	}
-
-	if (smack_accesses_apply(smack) != 0) {
-		C_LOGE("smack_accesses_apply failed");
-		ret = PC_ERR_INVALID_OPERATION;
-		goto out;
-	}
-
-out:
-	smack_accesses_free(smack);
-	free(widget_label);
-#endif // WRT_SMACK_ENABLED
-	return ret;
-}
-
 static int dir_set_smack_r(const char *path, const char* label,
 		enum smack_label_type type, mode_t type_mask)
 {
@@ -630,113 +509,6 @@ out:
 	return ret;
 }
 
-API int wrt_set_src_dir(const char* widget_id, const char *path)
-{
-	C_LOGD("Enter function: %s", __func__);
-	C_LOGD("Path: %s", path);
-	int ret = PC_OPERATION_SUCCESS;
-#ifdef WRT_SMACK_ENABLED
-	char* src_label_dir = NULL;
-	char* src_label_file = NULL;
-
-	ret = PC_ERR_MEM_OPERATION;
-
-	src_label_dir = app_id2smack(widget_id, SMACK_SRC_DIR_SUFFIX);
-	if (src_label_dir == NULL) {
-		C_LOGE("src_label_dir is NULL");
-		goto out;
-	}
-
-	src_label_file = wrt_smack_label(widget_id, SMACK_SRC_FILE_SUFFIX);
-	if (src_label_file == NULL) {
-		C_LOGE("src_label_file in NULL");
-		goto out;
-	}
-
-	/* Set label for directories */
-	ret = dir_set_smack_r(path, src_label_dir, SMACK_LABEL_ACCESS, S_IFDIR);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("dir_set_smack_r failed");
-		goto out;
-	}
-
-	/* Set label for non-directories */
-	ret = dir_set_smack_r(path, src_label_file, SMACK_LABEL_ACCESS, ~S_IFDIR);
-
-out:
-	free(src_label_dir);
-	free(src_label_file);
-#endif // WRT_SMACK_ENABLED
-	return ret;
-}
-
-API int wrt_set_data_dir(const char* widget_id, const char *path)
-{
-	C_LOGD("Enter function: %s", __func__);
-	C_LOGD("Path: %s", path);
-	int ret = PC_OPERATION_SUCCESS;
-#ifdef WRT_SMACK_ENABLED
-	char* data_label = NULL;
-	struct stat st;
-
-	ret = PC_ERR_FILE_OPERATION;
-	/* Check whether path exists */
-	if (lstat(path, &st) == 0) {
-		if (!S_ISDIR(st.st_mode)) {
-			/* Exists, but it's not a directory? */
-			C_LOGE("Exists, but it's not a directory?");
-			goto out;
-		}
-	} else {
-		if (errno != ENOENT) {
-			/* Some other error than "no such file or directory" */
-			C_LOGE("Other error: %s", strerror(errno));
-			goto out;
-		}
-		if (mkdir(path, S_IRWXU) != 0) {
-			/* Error while creating the directory */
-			C_LOGE("Error while creating the directory");
-			goto out;
-		}
-		if (chown(path, APP_UID, APP_GID)) {
-			/* Error while setting the directory owner */
-			C_LOGE("Error while setting the directory owner");
-			int e = errno;
-			rmdir(path);
-			errno = e;
-			goto out;
-		}
-	}
-
-	ret = PC_ERR_MEM_OPERATION;
-
-	data_label = app_id2smack(widget_id, SMACK_DATA_SUFFIX);
-	if (data_label == NULL) {
-		C_LOGE("data_label is NULL");
-		goto out;
-	}
-
-	/* Set label for everything inside data path */
-	ret = dir_set_smack_r(path, data_label, SMACK_LABEL_ACCESS, ~0);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("dir_set_smack_r failed");
-		goto out;
-	}
-
-	/* Enable transmute on all directories */
-	ret = dir_set_smack_r(path, "1", SMACK_LABEL_TRANSMUTE, S_IFDIR);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("dir_set_smack_r failed");
-		goto out;
-	}
-
-out:
-	free(data_label);
-#endif // WRT_SMACK_ENABLED
-	return ret;
-}
-
-#ifdef WRT_SMACK_ENABLED
 static int set_smack_for_wrt(const char* widget_id)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -754,12 +526,6 @@ static int set_smack_for_wrt(const char* widget_id)
 	}
 
 	return PC_OPERATION_SUCCESS;
-}
-#endif // WRT_SMACK_ENABLED
-
-API char* wrt_widget_id_from_socket(int sockfd)
-{
-	return app_id_from_socket(sockfd);
 }
 
 API char* app_id_from_socket(int sockfd)

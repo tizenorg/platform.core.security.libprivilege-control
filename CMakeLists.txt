@@ -36,9 +36,6 @@ ADD_DEFINITIONS("-Wall -Werror")
 ADD_DEFINITIONS("-DSMACK_ENABLED")
 ADD_DEFINITIONS("-DDLOG_ENABLED")    #enables dlogutil logs
 
-# Temporary turn off setting Smack for WRT
-#ADD_DEFINITIONS("-DWRT_SMACK_ENABLED")
-
 ###################################################################################################
 ## for libprivilege-control.so (library)
 INCLUDE_DIRECTORIES(${pkgs_INCLUDE_DIRS})
