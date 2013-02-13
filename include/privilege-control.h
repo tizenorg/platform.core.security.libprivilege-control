@@ -161,6 +161,19 @@ char* app_id_from_socket(int sockfd);
 int app_add_permissions(const char* app_id, const char** perm_list);
 
 /**
+ * Grant temporary SMACK permissions based on permissions list.
+ * It will construct SMACK rules based on permissions list, grant them,
+ * but not store it anywhere, so they won't be granted again on system boot.
+ * It must be called by privileged user.
+ *
+ *
+ * @param app_id application identifier
+ * @param perm_list array of permission names, last element must be NULL
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_add_volatile_permissions(const char* app_id, const char** perm_list);
+
+/**
  * Revoke SMACK permissions from an application.
  * This function should be called during app deinstallation.
  * It will revoke all SMACK rules previously granted by app_add_permissions().

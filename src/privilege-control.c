@@ -908,23 +908,7 @@ static int load_smack_from_file(const char* app_id, struct smack_accesses** smac
 	return PC_OPERATION_SUCCESS;
 }
 
-static int save_smack_to_file(struct smack_accesses *smack, int fd)
-{
-	if (smack_accesses_apply(smack)) {
-		C_LOGE("smack_accesses_apply failed");
-		return PC_ERR_INVALID_OPERATION;
-	}
-
-	if (smack_accesses_save(smack, fd)) {
-		C_LOGE("smack_accesses_save failed");
-		return PC_ERR_INVALID_OPERATION;
-	}
-
-	return PC_OPERATION_SUCCESS;
-}
-
-
-API int app_add_permissions(const char* app_id, const char** perm_list)
+static int app_add_permissions_internal(const char* app_id, const char** perm_list, int permanent)
 {
 	C_LOGD("Enter function: %s", __func__);
 	char* smack_path = NULL;
@@ -948,9 +932,15 @@ API int app_add_permissions(const char* app_id, const char** perm_list)
 		}
 	}
 
-	ret = save_smack_to_file(smack, fd);
-	if(ret != PC_OPERATION_SUCCESS){
-		C_LOGE("save_smack_to_file failed");
+	if (smack_accesses_apply(smack)) {
+		C_LOGE("smack_accesses_apply failed");
+		ret = PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	if (permanent && smack_accesses_save(smack, fd)) {
+		C_LOGE("smack_accesses_save failed");
+		ret = PC_ERR_INVALID_OPERATION;
 		goto out;
 	}
 #endif
@@ -964,6 +954,18 @@ out:
 	free(smack_path);
 
 	return ret;
+}
+
+API int app_add_permissions(const char* app_id, const char** perm_list)
+{
+	C_LOGD("Enter function: %s", __func__);
+	return app_add_permissions_internal(app_id, perm_list, 1);
+}
+
+API int app_add_volatile_permissions(const char* app_id, const char** perm_list)
+{
+	C_LOGD("Enter function: %s", __func__);
+	return app_add_permissions_internal(app_id, perm_list, 0);
 }
 
 static int app_revoke_permissions_internal(const char* app_id, int permanent)
@@ -1094,9 +1096,15 @@ API int app_label_shared_dir(const char* app_label, const char* shared_label, co
 		goto out;
 	}
 
-	ret = save_smack_to_file(smack, fd);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("save_smack_to_file failed");
+	if (smack_accesses_apply(smack)) {
+		C_LOGE("smack_accesses_apply failed");
+		ret =  PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	if (smack_accesses_save(smack, fd)) {
+		C_LOGE("smack_accesses_save failed");
+		ret =  PC_ERR_INVALID_OPERATION;
 		goto out;
 	}
 
