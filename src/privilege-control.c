@@ -64,7 +64,9 @@
 #define WRT_BASE_DEVCAP         "WRT"
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
 
+#ifdef SMACK_ENABLED
 static int set_smack_for_wrt(const char* widget_id);
+#endif
 
 #ifdef LOG_TAG
     #undef LOG_TAG
@@ -464,6 +466,7 @@ out:
 	return ret;
 }
 
+#ifdef SMACK_ENABLED
 static int dir_set_smack_r(const char *path, const char* label,
 		enum smack_label_type type, mode_t type_mask)
 {
@@ -527,14 +530,15 @@ static int set_smack_for_wrt(const char* widget_id)
 
 	return PC_OPERATION_SUCCESS;
 }
+#endif
 
 API char* app_id_from_socket(int sockfd)
 {
 	C_LOGD("Enter function: %s", __func__);
+#ifdef SMACK_ENABLED
 	char* app_id;
 	int ret;
 
-#ifdef SMACK_ENABLED
 	ret = smack_new_label_from_socket(sockfd, &app_id);
 	if (ret != 0) {
 		C_LOGE("smack_new_label_from_socket failed");
@@ -549,6 +553,7 @@ API char* app_id_from_socket(int sockfd)
 #endif
 }
 
+#ifdef SMACK_ENABLED
 static int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int *fd, char** path)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -588,16 +593,17 @@ static int load_smack_from_file(const char* app_id, struct smack_accesses** smac
 
 	return PC_OPERATION_SUCCESS;
 }
+#endif
 
 static int app_add_permissions_internal(const char* app_id, const char** perm_list, int permanent)
 {
 	C_LOGD("Enter function: %s", __func__);
+#ifdef SMACK_ENABLED
 	char* smack_path = NULL;
 	int i, ret;
 	int fd = -1;
 	struct smack_accesses *smack = NULL;
 
-#ifdef SMACK_ENABLED
 
 	ret = load_smack_from_file(app_id, &smack, &fd, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS) {
@@ -624,7 +630,6 @@ static int app_add_permissions_internal(const char* app_id, const char** perm_li
 		ret = PC_ERR_INVALID_OPERATION;
 		goto out;
 	}
-#endif
 
 	ret = PC_OPERATION_SUCCESS;
 out:
@@ -635,6 +640,9 @@ out:
 	free(smack_path);
 
 	return ret;
+#else
+	return PC_OPERATION_SUCCESS;
+#endif
 }
 
 API int app_add_permissions(const char* app_id, const char** perm_list)
@@ -652,12 +660,12 @@ API int app_add_volatile_permissions(const char* app_id, const char** perm_list)
 static int app_revoke_permissions_internal(const char* app_id, int permanent)
 {
 	C_LOGD("Enter function: %s", __func__);
+#ifdef SMACK_ENABLED
 	char* smack_path = NULL;
 	int ret;
 	int fd = -1;
 	struct smack_accesses *smack = NULL;
 
-#ifdef SMACK_ENABLED
 	ret = load_smack_from_file(app_id, &smack, &fd, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("load_smack_from_file failed");
@@ -681,7 +689,6 @@ static int app_revoke_permissions_internal(const char* app_id, int permanent)
 		C_LOGE("unlink failed");
 		goto out;
 	}
-#endif
 
 	ret = PC_OPERATION_SUCCESS;
 out:
@@ -692,6 +699,9 @@ out:
 	free(smack_path);
 
 	return ret;
+#else
+	return PC_OPERATION_SUCCESS;
+#endif
 }
 
 API int app_revoke_permissions(const char* app_id)
