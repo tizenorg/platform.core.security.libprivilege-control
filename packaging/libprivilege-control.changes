@@ -1,3 +1,14 @@
+* Thu Feb 14 2013 Tomasz Swierczek - 0.0.24.TIZEN
+- Refactoring: adjust names of some internal identifiers.
+- Refactoring: removed compilation warnings when SMACK is disabled.
+- Disabled SMACK operation for tizendev.org.
+- Remove prefix from process labels of WRT applications.
+- Provide app_reset_permissions() API function.
+- Provide app_add_volatile_permissions() API function.
+- Rewrite internal function set_smack_for_wrt().
+- Recreate Smack configuration files for WRT devcaps.
+- Remove legacy code for WRT, enable new WRT functionality.
+
 * Wed Feb 06 2013 Tomasz Swierczek - 0.0.23.TIZEN
 - Fixing bug in setting execute label for executable files.
 - Correct bug in dir_set_smack_r() introduced by previous fix.
