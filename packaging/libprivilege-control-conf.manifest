@@ -1,0 +1,26 @@
+<manifest>
+	<define>
+		<domain name="system"/>
+		<provide>
+			<label name="system::vconf"/>
+			<label name="system::camera"/>
+			<label name="system::app_logging"/>
+			<label name="system::sys_logging"/>
+			<label name="system::audio"/>
+			<label name="system::recording"/>
+			<label name="system::hwcodec"/>
+			<label name="system::video"/>
+			<label name="system::system_bklight"/>
+			<label name="system::system_torch"/>
+			<label name="system::video_tel"/>
+			<label name="system::radio"/>
+			<label name="system::use_internet"/>
+			<label name="system::homedir"/>
+			<label name="system::syslogd"/>
+			<label name="system::media"/>
+		</provide>
+	</define>
+	<request>
+		<domain name="_"/>
+	</request>
+</manifest>

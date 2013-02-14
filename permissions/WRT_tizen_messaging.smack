@@ -1,0 +1,5 @@
+~APP~ db-media	rw
+~APP~ msg-server	w
+~APP~ db-email-service	rw
+~APP~ email-service	w
+~APP~ db-msg_service	rw
