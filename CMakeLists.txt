@@ -33,7 +33,7 @@ ADD_DEFINITIONS("-DSHAREDIR=${SHAREDIR}")
 ADD_DEFINITIONS("-DHOMEDIR=${HOMEDIR}")
 ADD_DEFINITIONS("-Wall -Werror")
 
-ADD_DEFINITIONS("-DSMACK_ENABLED")
+#ADD_DEFINITIONS("-DSMACK_ENABLED")
 ADD_DEFINITIONS("-DDLOG_ENABLED")    #enables dlogutil logs
 
 ###################################################################################################
