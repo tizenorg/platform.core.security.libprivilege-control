@@ -1,0 +1,99 @@
+* Tue Jan 10 2012 Rafal Krypa - 0.0.19
+- Removed "Epoch" from spec file.
+- Remove stale permission files.
+- Introduce WRT_ prefix in smack for current SMACK configuration files.
+- Drop legacy USE_PRIVILEGE_CONTROL ifdef.
+- Change syntax of SMACK config files.
+- New API for native/OSP installer.
+- Add SMACK config for OSP apps.
+
+* Tue Jan 08 2012 Rafal Krypa - 1:0.0.18
+- Modify label for browser db files
+- Separate ifdefs for Smack support for WRT.
+- Re-enable Smack setting for native apps.
+- Fix app type checking in set_app_privilege().
+- smack_default_labeling: use variables for various /opt/* paths.
+
+* Thu Dec 13 2012 Kidong Kim - 1:0.0.15
+- systemd: Add systemd unit to set default smack labels
+- Add build type required for code coverage analysis
+- udev: change heuristics for guessing camera device nodes
+- fix udev and add new db
+
+* Wed Dec 05 2012 Kidong Kim - 1:0.0.14
+- make symbolic link of udev rules file
+- Move passwd and group back from /opt/etc to /etc/
+
+* Thu Nov 01 2012 Kidong Kim - 1:0.0.13
+- remove admin group
+
+* Tue Oct 16 2012 Rafal Krypa - 0.0.12
+- Merge versions 0.0.7.4 and 0.0.11.
+- Change widget id type from int to string.
+- License file copied to /usr/share/license/
+
+* Fri Sep 14 2012 Rafal Krypa - 0.0.11
+- Fix definitions passed in CMake.
+- Add API function wrt_set_privilege() for setting web app privilege from inside WRT.
+
+* Thu Sep 13 2012 Rafal Krypa - 0.0.10
+- Revert automatic tests of SMACK API to fix build dependench cycle.
+- packaging: use macros for installation directories.
+
+* Thu Sep 13 2012 Rafal Krypa - 0.0.9
+- Added automatic tests of SMACK API.
+- Provide udev rules file in the new location, for udev v182.
+
+* Fri Sep  7 2012 Rafal Krypa - 0.0.8
+- udev: set haptic devices to world readable and writable.
+- Restructure setting of compilation flags in CmakeLists.
+- Temporary turn off setting up of Smack labels and rules.
+- Always call wrt_permissions_reset() internally during privilege setup for Widgets.
+- Define a type for WRT widget id. Make it reflect the actual id type in WRT database.
+- Add wrt_widget_id_from_socket() API function for reading widget id from UNIX sockets.
+- Deprecate another old function for privilege control.
+- Fix: remove unused variable.
+- Fix: preserve const qualifier for strings.
+- Fix: don't define functions that won't be used to avoid warnings.
+- Compile with -Wall and -Werror to catch compilation warnings.
+
+* Wed Sep 10 2012 Rafal Krypa - 0.0.7.4
+- udev: set haptic devices to world readable and writable.
+
+* Tue Sep 25 2012 Kidong Kim - 0.0.7.3-1
+- give all rules on device nodes
+
+* Fri Sep 21 2012 Rafal Krypa - 0.0.7.3
+- packaging: add initial manifest file.
+- Add configuration for default Smack rules and labels for the system.
+
+* Wed Sep 19 2012 Rafal Krypa - 0.0.7.2
+- Re-release, no source changes.
+
+* Wed Sep 19 2012 Rafal Krypa - 0.0.7.1
+- Provide udev rules file in the new location, for udev v182.
+
+* Fri Aug 24 2012 Rafal Krypa - 0.0.7
+- Introduce new function set_app_privilege() for comprehensive permissions setup.
+- Modify udev rules as per Mr. Kidong Kim request.
+
+* Mon Aug 08 2012 Tomasz Swierczek - 0.0.6
+- Another attempt to push to OBS
+- Changed udev configuration file (rear_flash)
+
+* Thu Aug 02 2012 Rafal Krypa - 0.0.5
+- Fix generated Smack labels for WRT widgets.
+- Extend semantics of SMACK configuration files for WRT.
+- Add missing permissions for WRT widgets.
+
+* Fri Jul 27 2012 Rafal Krypa - 0.0.4
+- Remove debug-util and kill_app.
+- Some udev rules fixed by Kidong Kim.
+
+* Tue Jul 17 2012 Rafal Krypa - 0.0.3
+- Add initial mapping of wrt devcaps to SMACK accesses.
+- Pass some path definitions as compiler macros instead of hardcoding in source.
+- Remove APIs - add & delete user and group for 3rd party applications.
+- Packaging: fix udev rules installation in the spec file.
+- Add SMACK functions for WRT.
+- Add API function set_exec_label.
