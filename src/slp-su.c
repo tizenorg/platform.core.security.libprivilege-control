@@ -35,14 +35,19 @@
     #define LOG_TAG "PRIVILEGE_CONTROL"
 #endif // LOG_TAG
 
-// conditional_log macro for dlogutil (debug)
-#ifdef DLOG_ENABLED
+// conditional log macro for dlogutil (debug)
+#ifdef DDLOG_DEBUG_ENABLED
 #define C_LOGD(...) LOGD(__VA_ARGS__)
-#define C_LOGE(...) LOGE(__VA_ARGS__)
 #else
 #define C_LOGD(...) do { } while(0)
+#endif //DLOG_DEBUG_ENABLED
+
+// conditional log macro for dlogutil (error)
+#ifdef DDLOG_ERROR_ENABLED
+#define C_LOGE(...) LOGE(__VA_ARGS__)
+#else
 #define C_LOGE(...) do { } while(0)
-#endif //DLOG_ENABLED
+#endif //DLOG_ERROR_ENABLED
 
 void print_usage(void)
 {

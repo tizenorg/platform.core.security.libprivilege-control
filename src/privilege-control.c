@@ -75,14 +75,20 @@ static int set_smack_for_wrt(const char* widget_id);
     #define LOG_TAG "PRIVILEGE_CONTROL"
 #endif // LOG_TAG
 
-// conditional_log macro for dlogutil (debug)
-#ifdef DLOG_ENABLED
+// conditional log macro for dlogutil (debug)
+#ifdef DDLOG_DEBUG_ENABLED
 #define C_LOGD(...) LOGD(__VA_ARGS__)
-#define C_LOGE(...) LOGE(__VA_ARGS__)
 #else
 #define C_LOGD(...) do { } while(0)
+#endif //DDLOG_DEBUG_ENABLED
+
+// conditional log macro for dlogutil (error)
+#ifdef DLOG_ERROR_ENABLED
+#define C_LOGE(...) LOGE(__VA_ARGS__)
+#else
 #define C_LOGE(...) do { } while(0)
-#endif //DLOG_ENABLED
+#endif //DLOG_ERROR_ENABLED
+
 
 typedef enum {
 	APP_TYPE_WGT,
