@@ -126,7 +126,7 @@ typedef struct {
 API int control_privilege(void)
 {
 	C_LOGD("Enter function: %s", __func__);
-    if(getuid() == APP_UID)	// current user is 'app'
+	if(getuid() == APP_UID)	// current user is 'app'
 		return PC_OPERATION_SUCCESS;
 
 	if(set_app_privilege("com.samsung.", NULL, NULL) == PC_OPERATION_SUCCESS)
@@ -276,8 +276,8 @@ static int set_dac(const char* pkg_name)
 	result = PC_OPERATION_SUCCESS;
 
 error:
-    if(fp_group != NULL)
-        fclose(fp_group);
+	if(fp_group != NULL)
+		fclose(fp_group);
 	if(glist != NULL)
 		free(glist);
 
@@ -397,9 +397,9 @@ static const char* parse_widget_id(const char* path)
 
 API int set_app_privilege(const char* name, const char* type, const char* path)
 {
-    C_LOGD("Enter function: %s", __func__);
+	C_LOGD("Enter function: %s", __func__);
 	C_LOGD("Function params: name = %s, type = %s, path = %s", name, type, path);
-    IFNOSMACK(set_dac(name));
+	IFNOSMACK(set_dac(name));
 #ifdef SMACK_ENABLED
 	const char* widget_id;
 	int ret = PC_OPERATION_SUCCESS;
@@ -430,7 +430,7 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 
 API int set_privilege(const char* pkg_name)
 {
-    C_LOGD("Enter function: %s", __func__);
+	C_LOGD("Enter function: %s", __func__);
 	return set_app_privilege(pkg_name, NULL, NULL);
 }
 
@@ -562,8 +562,8 @@ static int set_smack_for_wrt(const char* widget_id)
 
 API char* app_id_from_socket(int sockfd)
 {
-    C_LOGD("Enter function: %s", __func__);
-    IFNOSMACK(PC_OPERATION_SUCCESS);
+	C_LOGD("Enter function: %s", __func__);
+	IFNOSMACK(PC_OPERATION_SUCCESS);
 #ifdef SMACK_ENABLED
 	char* app_id;
 	int ret;
@@ -676,15 +676,15 @@ out:
 
 API int app_add_permissions(const char* app_id, const char** perm_list)
 {
-    C_LOGD("Enter function: %s", __func__);
-    IFNOSMACK(PC_OPERATION_SUCCESS);
+	C_LOGD("Enter function: %s", __func__);
+	IFNOSMACK(PC_OPERATION_SUCCESS);
 	return app_add_permissions_internal(app_id, perm_list, 1);
 }
 
 API int app_add_volatile_permissions(const char* app_id, const char** perm_list)
 {
-    C_LOGD("Enter function: %s", __func__);
-    IFNOSMACK(PC_OPERATION_SUCCESS);
+	C_LOGD("Enter function: %s", __func__);
+	IFNOSMACK(PC_OPERATION_SUCCESS);
 	return app_add_permissions_internal(app_id, perm_list, 0);
 }
 
@@ -737,15 +737,15 @@ out:
 
 API int app_revoke_permissions(const char* app_id)
 {
-    C_LOGD("Enter function: %s", __func__);
-    IFNOSMACK(PC_OPERATION_SUCCESS);
+	C_LOGD("Enter function: %s", __func__);
+	IFNOSMACK(PC_OPERATION_SUCCESS);
 	return app_revoke_permissions_internal(app_id, 1);
 }
 
 API int app_reset_permissions(const char* app_id)
 {
-    C_LOGD("Enter function: %s", __func__);
-    IFNOSMACK(PC_OPERATION_SUCCESS);
+	C_LOGD("Enter function: %s", __func__);
+	IFNOSMACK(PC_OPERATION_SUCCESS);
 	int ret;
 
 	ret = app_revoke_permissions_internal(app_id, 0);
@@ -760,8 +760,8 @@ API int app_reset_permissions(const char* app_id)
 
 API int app_label_dir(const char* label, const char* path)
 {
-    C_LOGD("Enter function: %s", __func__);
-    IFNOSMACK(PC_OPERATION_SUCCESS);
+	C_LOGD("Enter function: %s", __func__);
+	IFNOSMACK(PC_OPERATION_SUCCESS);
 #ifdef SMACK_ENABLED
 
 	int ret = PC_OPERATION_SUCCESS;
@@ -788,7 +788,7 @@ API int app_label_dir(const char* label, const char* path)
 API int app_label_shared_dir(const char* app_label, const char* shared_label, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
-    IFNOSMACK(PC_OPERATION_SUCCESS);
+	IFNOSMACK(PC_OPERATION_SUCCESS);
 #ifdef SMACK_ENABLED
 	char* smack_path = NULL;
 	int ret;
