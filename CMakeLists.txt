@@ -72,6 +72,7 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libprivilege-control.pc DESTINATION li
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/passwd DESTINATION /opt/etc/)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/group DESTINATION /opt/etc/)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/smack_default_rules DESTINATION /opt/etc/smack/)
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/smack_default_rules DESTINATION /opt/etc/smack/accesses.d/)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/smack_application_rules DESTINATION /opt/etc/smack/)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/smack_default_labeling DESTINATION /etc/rc.d/init.d/)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/smack_rules DESTINATION /etc/rc.d/init.d/)
