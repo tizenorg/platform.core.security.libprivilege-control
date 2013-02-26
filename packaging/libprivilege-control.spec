@@ -57,6 +57,8 @@ install -D -d %{buildroot}/etc/rc.d/rc3.d/
 install -D -d %{buildroot}/etc/rc.d/rc4.d/
 ln -sf ../init.d/smack_default_labeling %{buildroot}/etc/rc.d/rc3.d/S45smack_default_labeling
 ln -sf ../init.d/smack_default_labeling %{buildroot}/etc/rc.d/rc4.d/S45smack_default_labeling
+ln -sf ../init.d/smack_rules %{buildroot}/etc/rc.d/rc3.d/S02smack_rules
+ln -sf ../init.d/smack_rules %{buildroot}/etc/rc.d/rc4.d/S02smack_rules
 
 mkdir -p %{buildroot}%{_libdir}/systemd/system/basic.target.wants
 install -m 644 %{SOURCE2} %{buildroot}%{_libdir}/systemd/system/

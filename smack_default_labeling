@@ -1,12 +1,16 @@
 #!/bin/sh
 
 DBSPACE=/opt/dbspace
+DBSPACE_RW=/opt/usr/dbspace
 APPS_DIR=/opt/apps
 SHARE_DIR=/opt/share
 
 chown 5000:5000 /home/app
 find /home/app -print0 | xargs -0 chsmack -a 'system::homedir'
 find /home/app -type d -print0 | xargs -0 chsmack -t
+
+find /opt/usr/media -print0 | xargs -0 chsmack -a 'system::media'
+find /opt/usr/media -type d -print0 | xargs -0 chsmack -t
 
 # set vconf label when first boot
 if [ ! -e /opt/etc/.vconf_labeling ]; then
@@ -22,34 +26,17 @@ if [ ! -e /opt/etc/.vconf_labeling ]; then
 fi
 
 # Set device node permissions for security
-chsmack -a 'system::camera' /dev/video1
-chsmack -a 'system::camera' /dev/s3c-jpg
-chsmack -a 'system::app_logging' /dev/log_main
-chsmack -a 'system::app_logging' /dev/log_events
-chsmack -a 'system::app_logging' /dev/log_radio
-chsmack -a 'system::sys_logging' /dev/log_system
-chsmack -a 'system::audio' /dev/snd/
-chsmack -a 'system::audio' /dev/snd/controlC0
-chsmack -a 'system::audio' /dev/snd/pcmC0D0p
-chsmack -a 'system::audio' /dev/snd/pcmC0D1p
-chsmack -a 'system::audio' /dev/snd/pcmC0D2p
-chsmack -a 'system::audio' /dev/snd/pcmC0D3p
-chsmack -a 'system::audio' /dev/snd/timer
-chsmack -a 'system::recording' /dev/snd/pcmC0D0c
-chsmack -a 'system::recording' /dev/snd/pcmC0D1c
-chsmack -a 'system::recording' /dev/snd/pcmC0D2c
-chsmack -a 'system::recording' /dev/snd/pcmC0D3c
-chsmack -a 'system::hwcodec' /dev/s3c-mfc
-chsmack -a 'system::hwcodec' /dev/video5
-chsmack -a 'system::hwcodec' /dev/video6
-chsmack -a 'system::video' /dev/fb0
-chsmack -a 'system::video' /dev/video0
-chsmack -a 'system::video' /dev/video2
-chsmack -a 'system::video' /dev/video3
-chsmack -a 'system::video' /dev/s3c-mem
-chsmack -a 'system::radio' /dev/radio0
 chsmack -a 'system::system_bklight' /sys/class/backlight/*/brightness
-chsmack -a 'system::system_torch' /sys/class/leds/leds-torch/brightness
+chsmack -a '*' /sys/class/haptic/motor/level
+chsmack -a '*' /sys/class/haptic/motor/enable
+chsmack -a '*' /sys/class/haptic/motor/oneshot
+chsmack -a '*' /sys/class/extension/mdnie/mode
+chsmack -a '*' /sys/class/extension/mdnie/scenario
+chsmack -a '*' /sys/class/extension/mdnie/tone
+chsmack -a '*' /sys/class/extension/mdnie/outdoor
+chsmack -a '*' /sys/class/extension/mdnie/tune
+chsmack -a '*' /sys/class/camera/flash/rear_flash
+chsmack -a '*' /sys/class/camera/flash/max_brightness
 
 echo "0.0.0.0/1 system::use_internet" >> /smack/netlabel
 echo "128.0.0.0/1 system::use_internet" >> /smack/netlabel
@@ -57,58 +44,30 @@ echo "127.0.0.1 -CIPSO" >> /smack/netlabel
 echo "192.168.129.1 @" >> /smack/netlabel
 
 # Set label to database files
-chsmack -a 'ail::db' $DBSPACE/.app_info.db*
-chsmack -a 'media-data::db' $DBSPACE/.media.db*
-chsmack -a 'syspopup::db' $DBSPACE/.syspopup.db*
-chsmack -a 'notification::db' $DBSPACE/.notification.db*
-chsmack -a 'rua::db' $DBSPACE/.rua.db*
 chsmack -a 'libaccounts-svc::db' $DBSPACE/.account.db*
 chsmack -a 'wrt-security::db_ace' $DBSPACE/.ace.db*
-chsmack -a 'wrt-security::db_vcore' $DBSPACE/.vcore.db*
 chsmack -a 'libslp-alarm::db' $DBSPACE/.alarm.db*
 chsmack -a 'alarm-server::db' $DBSPACE/.alarmmgr.db*
+chsmack -a 'ail::db' $DBSPACE/.app_info.db*
 chsmack -a 'app-svc::db' $DBSPACE/.appsvc.db*
-chsmack -a 'allshare::db' $DBSPACE/.asf_server.db*
-chsmack -a 'libsocial-service::db' $DBSPACE/.urlcache.db*
-chsmack -a 'aul::db' $DBSPACE/.mida.db*
-chsmack -a 'wrt-commons::db_wrt' $DBSPACE/.wrt.db*
-chsmack -a 'wrt-commons::db_wrt_autosave' $DBSPACE/.wrt_autosave.db*
-chsmack -a 'msg-service::db' $DBSPACE/.msg_service.db*
-chsmack -a 'calendar-service::db' $DBSPACE/.calendar-svc.db*
-chsmack -a 'email-service::db' $DBSPACE/.email-service.db*
-chsmack -a 'push-service::db' $DBSPACE/.push.db*
-chsmack -a 'browser::db_external' $DBSPACE/.browser-history.db*
-chsmack -a 'browser::db_external' $DBSPACE/.internet_bookmark.db*
-chsmack -a 'browser::db' $APPS_DIR/org.tizen.browser/data/db/.browser*
-chsmack -a 'mdm-server::db' $DBSPACE/.mdm.db*
-chsmack -a 'eas-engine::db' $DBSPACE/.eas-common.db*
-chsmack -a 'drmfw::db' $DBSPACE/.drm.db*
-chsmack -a 'telephony_framework::db' $DBSPACE/.dnet.db*
 chsmack -a 'bt_share::db' $DBSPACE/.bluetooth_trasnfer.db*
-chsmack -a 'contacts-service::db' $DBSPACE/.contacts-svc.db*
-chsmack -a 'oma-dm-service::db' $DBSPACE/.dm_service.db*
-chsmack -a 'drmfw::db' $DBSPACE/.dsapps.db*
-chsmack -a 'kies-via-wifi::db' $DBSPACE/.kies_device.db*
+chsmack -a 'telephony_framework::db' $DBSPACE/.dnet.db*
 chsmack -a 'telephony_framework::db' $DBSPACE/.mcc_mnc_oper_list.db*
 chsmack -a 'libslp-memo::db' $DBSPACE/.memo.db*
-chsmack -a 'oma-dm-service::db' $DBSPACE/.momanager.db*
-chsmack -a 'mss-server::db' $DBSPACE/.mss_server.db*
-chsmack -a 'oma-dm-service::db' $DBSPACE/.omadmagent.db*
-chsmack -a 'oma-ds-service::db' $DBSPACE/.omasyncagent.db*
-chsmack -a 'phone-misc::db' $DBSPACE/.phone-misc.db*
-chsmack -a 'webkit::db' $DBSPACE/.webkit
-chsmack -a 'webkit::db' $DBSPACE/.webkit/*
+chsmack -a 'aul::db' $DBSPACE/.mida.db*
+chsmack -a 'notification::db' $DBSPACE/.notification.db*
+chsmack -a 'push-service::db' $DBSPACE/.push.db*
+chsmack -a 'rua::db' $DBSPACE/.rua.db*
+chsmack -a 'syspopup::db' $DBSPACE/.syspopup.db*
 chsmack -a 'worldclock::db' $DBSPACE/.worldclock.db*
-chsmack -a 'resman::db' $DBSPACE/.resman.db*
+chsmack -a 'wrt-commons::db_wrt' $DBSPACE/.wrt.db*
+chsmack -a 'wrt-commons::db_wrt_autosave' $DBSPACE/.wrt_autosave.db*
 
-# set app db label
-chsmack -a 'live-magazine::db' $DBSPACE/.magazine.db*
-chsmack -a 'live-magazine::data' /opt/live/etc
-chsmack -t /opt/live/etc
-find $SHARE_DIR/live_magazine -print0 | xargs -0 chsmack -a 'live-magazine::data'
-find $SHARE_DIR/live_magazine -type d -print0 | xargs -0 chsmack -t
-chsmack -a 'dailybriefing' $APPS_DIR/com.samsung.dailybriefing-common/data/db/*
-chsmack -a 'menu-screen' $APPS_DIR/com.samsung.menu-screen/data/.menu.db*
-
-find /opt/usr/media -print0 | xargs -0 chsmack -a 'system::media'
-find /opt/usr/media -type d -print0 | xargs -0 chsmack -t
+chsmack -a 'browser::db_external' $DBSPACE_RW/.browser-history.db*
+chsmack -a 'calendar-service::db' $DBSPACE_RW/.calendar-svc.db*
+chsmack -a 'contacts-service::db' $DBSPACE_RW/.contacts-svc.db*
+chsmack -a 'email-service::db' $DBSPACE_RW/.email-service.db*
+chsmack -a 'browser::db_external' $DBSPACE_RW/.internet_bookmark.db*
+chsmack -a 'media-data::db' $DBSPACE_RW/.media.db*
+chsmack -a 'msg-service::db' $DBSPACE_RW/.msg_service.db*
+chsmack -a 'browser::db' $APPS_DIR/org.tizen.browser/data/db/.browser*

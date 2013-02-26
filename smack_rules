@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/usr/bin/smackload /opt/etc/smack/smack_default_rules
+/usr/bin/smackload /opt/etc/smack/smack_application_rules
