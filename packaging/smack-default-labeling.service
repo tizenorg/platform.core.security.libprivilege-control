@@ -7,7 +7,7 @@ Before=multi-user.target
 
 [Service]
 Type=oneshot
-ExecStart=/etc/rc.d/init.d/smack_default_labeling
+ExecStart=/etc/rc.d/init.d/smack_default_labeling ; /etc/rc.d/init.d/smack_rules
 
 [Install]
 WantedBy=basic.target
