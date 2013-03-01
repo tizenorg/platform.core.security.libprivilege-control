@@ -89,27 +89,6 @@ static int set_smack_for_wrt(const char* widget_id);
 #define C_LOGE(...) do { } while(0)
 #endif //DLOG_ERROR_ENABLED
 
-
-static int nosmack = -1;
-
-#define IFNOSMACK(ret)                                               \
-do {                                                                 \
-    if (-1 == nosmack) {                                             \
-        int fd = open("/smack/load2", O_WRONLY);                     \
-        if (-1 == fd) {                                              \
-            C_LOGD("Libprivilage-control: no smack found on phone"); \
-            nosmack = 1;                                             \
-        } else {                                                     \
-            C_LOGD("Libprivilege-control: found smack on phone");    \
-            close(fd);                                               \
-            nosmack = 0;                                             \
-        }                                                            \
-    }                                                                \
-    if (1 == nosmack) {                                              \
-        return (ret);                                                \
-    }                                                                \
-} while(0)
-
 typedef enum {
 	APP_TYPE_WGT,
 	APP_TYPE_OTHER,
@@ -122,6 +101,25 @@ typedef struct {
 	char home_dir[64];
 	char group_list[64];
 } new_user;
+
+static inline int have_smack(void)
+{
+	static int have_smack = -1;
+
+	if (-1 == have_smack) {
+		int fd = open("/smack/load2", O_WRONLY);
+		if (-1 == fd) {
+			C_LOGD("Libprivilage-control: no smack found on phone");
+			have_smack = 0;
+		} else {
+			C_LOGD("Libprivilege-control: found smack on phone");
+			close(fd);
+			have_smack = 1;
+		}
+	}
+
+	return have_smack;
+}
 
 API int control_privilege(void)
 {
@@ -300,6 +298,9 @@ static int set_smack_from_binary(const char* path)
 	char* label;
 
 	C_LOGD("Path: %s", path);
+	if (!have_smack())
+		return PC_OPERATION_SUCCESS;
+
 	ret = smack_getlabel(path, &label, SMACK_LABEL_EXEC);
 	if (ret != 0) {
 		C_LOGE("Getting exec label from file %s failed", path);
@@ -399,7 +400,6 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
 	C_LOGD("Function params: name = %s, type = %s, path = %s", name, type, path);
-	IFNOSMACK(set_dac(name));
 #ifdef SMACK_ENABLED
 	const char* widget_id;
 	int ret = PC_OPERATION_SUCCESS;
@@ -543,6 +543,8 @@ out:
 static int set_smack_for_wrt(const char* widget_id)
 {
 	C_LOGD("Enter function: %s", __func__);
+	if (!have_smack())
+		return PC_OPERATION_SUCCESS;
 /*
 	int ret;
 	ret = app_reset_permissions(widget_id);
@@ -563,7 +565,9 @@ static int set_smack_for_wrt(const char* widget_id)
 API char* app_id_from_socket(int sockfd)
 {
 	C_LOGD("Enter function: %s", __func__);
-	IFNOSMACK(PC_OPERATION_SUCCESS);
+	if (!have_smack())
+		return NULL;
+
 #ifdef SMACK_ENABLED
 	char* app_id;
 	int ret;
@@ -633,7 +637,6 @@ static int app_add_permissions_internal(const char* app_id, const char** perm_li
 	int fd = -1;
 	struct smack_accesses *smack = NULL;
 
-
 	ret = load_smack_from_file(app_id, &smack, &fd, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("load_smack_from_file failed");
@@ -648,7 +651,7 @@ static int app_add_permissions_internal(const char* app_id, const char** perm_li
 		}
 	}
 
-	if (smack_accesses_apply(smack)) {
+	if (have_smack() && smack_accesses_apply(smack)) {
 		C_LOGE("smack_accesses_apply failed");
 		ret = PC_ERR_INVALID_OPERATION;
 		goto out;
@@ -677,14 +680,12 @@ out:
 API int app_add_permissions(const char* app_id, const char** perm_list)
 {
 	C_LOGD("Enter function: %s", __func__);
-	IFNOSMACK(PC_OPERATION_SUCCESS);
 	return app_add_permissions_internal(app_id, perm_list, 1);
 }
 
 API int app_add_volatile_permissions(const char* app_id, const char** perm_list)
 {
 	C_LOGD("Enter function: %s", __func__);
-	IFNOSMACK(PC_OPERATION_SUCCESS);
 	return app_add_permissions_internal(app_id, perm_list, 0);
 }
 
@@ -703,13 +704,13 @@ static int app_revoke_permissions_internal(const char* app_id, int permanent)
 		goto out;
 	}
 
-	if (smack_accesses_clear(smack)) {
+	if (have_smack() && smack_accesses_clear(smack)) {
 		ret = PC_ERR_INVALID_OPERATION;
 		C_LOGE("smack_accesses_clear failed");
 		goto out;
 	}
 
-	if (smack_revoke_subject(app_id)) {
+	if (have_smack() && smack_revoke_subject(app_id)) {
 		ret = PC_ERR_INVALID_OPERATION;
 		C_LOGE("smack_revoke_subject failed");
 		goto out;
@@ -738,14 +739,12 @@ out:
 API int app_revoke_permissions(const char* app_id)
 {
 	C_LOGD("Enter function: %s", __func__);
-	IFNOSMACK(PC_OPERATION_SUCCESS);
 	return app_revoke_permissions_internal(app_id, 1);
 }
 
 API int app_reset_permissions(const char* app_id)
 {
 	C_LOGD("Enter function: %s", __func__);
-	IFNOSMACK(PC_OPERATION_SUCCESS);
 	int ret;
 
 	ret = app_revoke_permissions_internal(app_id, 0);
@@ -761,7 +760,6 @@ API int app_reset_permissions(const char* app_id)
 API int app_label_dir(const char* label, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
-	IFNOSMACK(PC_OPERATION_SUCCESS);
 #ifdef SMACK_ENABLED
 
 	int ret = PC_OPERATION_SUCCESS;
@@ -788,7 +786,6 @@ API int app_label_dir(const char* label, const char* path)
 API int app_label_shared_dir(const char* app_label, const char* shared_label, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
-	IFNOSMACK(PC_OPERATION_SUCCESS);
 #ifdef SMACK_ENABLED
 	char* smack_path = NULL;
 	int ret;
@@ -822,7 +819,7 @@ API int app_label_shared_dir(const char* app_label, const char* shared_label, co
 		goto out;
 	}
 
-	if (smack_accesses_apply(smack)) {
+	if (have_smack() && smack_accesses_apply(smack)) {
 		C_LOGE("smack_accesses_apply failed");
 		ret =  PC_ERR_INVALID_OPERATION;
 		goto out;
