@@ -1,4 +1,4 @@
-%define udev_libdir /usr/lib/udev
+#%define udev_libdir /usr/lib/udev
 
 Name:       libprivilege-control
 Summary:    Library to control privilege of application
@@ -90,8 +90,8 @@ fi
 %{_libdir}/*.so.*
 %{_bindir}/slp-su
 %{_datarootdir}/privilege-control/*
-%{udev_libdir}/rules.d/*
-%attr(755,root,root) %{udev_libdir}/uname_env
+#%{udev_libdir}/rules.d/*
+#%attr(755,root,root) %{udev_libdir}/uname_env
 %{_datadir}/license/%{name}
 
 %files conf
