@@ -1,0 +1,13 @@
+[Unit]
+Description=Default SMACK labeling
+DefaultDependencies=no
+Requires=smack.service local-fs.target
+After=smack.service local-fs.target
+Before=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/etc/rc.d/init.d/smack_default_labeling
+
+[Install]
+WantedBy=basic.target

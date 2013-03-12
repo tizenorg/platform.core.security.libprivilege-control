@@ -1,0 +1,181 @@
+libprivilege-control (0.0.19) unstable; urgency=low
+
+  [ Tomasz Swierczek ]
+  * Removed "Epoch" from spec file.
+
+  [ Rafal Krypa ]
+  * Remove stale permission files.
+  * Introduce WRT_ prefix in smack for current SMACK configuration files.
+  * Drop legacy USE_PRIVILEGE_CONTROL ifdef.
+  * Change syntax of SMACK config files.
+  * New API for native/OSP installer.
+  * Add SMACK config for OSP apps.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Thu, 10 Jan 2013 17:42:37 +0100
+
+libprivilege-control (1:0.0.18) unstable; urgency=low
+
+  [ Halton Huo ]
+  * Modify label for browser db files
+
+  [ Rafal Krypa ]
+  * Separate ifdefs for Smack support for WRT.
+  * Re-enable Smack setting for native apps.
+  * Fix app type checking in set_app_privilege().
+  * smack_default_labeling: use variables for various /opt/* paths.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Tue, 08 Jan 2013 11:27:37 +0100
+
+libprivilege-control (1:0.0.15) unstable; urgency=low
+
+  [ Karol Lewandowski ]
+  * systemd: Add systemd unit to set default smack labels
+
+  [ Zbigniew Kostrzewa ]
+  * Add build type required for code coverage analysis
+
+  [ Rafal Krypa ]
+  * udev: change heuristics for guessing camera device nodes
+
+  [ Kidong Kim ]
+  * fix udev and add new db
+
+ -- Kidong Kim <kd0228.kim@samsung.com>  Thu, 13 Dec 2012 11:26:57 +0900
+
+libprivilege-control (1:0.0.14) unstable; urgency=low
+
+  [ Kidong Kim ]
+  * make symbolic link of udev rules file
+
+  [ Yin Kangkai ]
+  * Move passwd and group back from /opt/etc to /etc/
+
+ -- Kidong Kim <kd0228.kim@samsung.com>  Wed, 05 Dec 2012 19:03:09 +0900
+
+libprivilege-control (1:0.0.13) unstable; urgency=low
+
+  * remove admin group
+
+ -- Kidong Kim <kd0228.kim@samsung.com>  Thu, 01 Nov 2012 16:17:12 +0900
+
+libprivilege-control (0.0.12) unstable; urgency=low
+
+  [ Rafal Krypa ]
+  * Merge versions 0.0.7.4 and 0.0.11.
+  * Change widget id type from int to string.
+
+  [ Krzysztof Jackiewicz ]
+  * License file copied to /usr/share/license/
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Tue, 16 Oct 2012 11:37:34 +0900
+
+libprivilege-control (0.0.11) unstable; urgency=low
+
+  * Fix definitions passed in CMake.
+  * Add API function wrt_set_privilege() for setting web app privilege from inside WRT.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Fri, 14 Sep 2012 20:26:42 +0200
+
+libprivilege-control (0.0.10) unstable; urgency=low
+
+  * Revert automatic tests of SMACK API to fix build dependench cycle.
+  * packaging: use macros for installation directories.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Thu, 13 Sep 2012 12:57:49 +0200
+
+libprivilege-control (0.0.9) unstable; urgency=low
+
+  [ Pawel Polawski ]
+  * Added automatic tests of SMACK API.
+
+  [ Rafal Krypa ]
+  * Provide udev rules file in the new location, for udev v182.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Thu, 13 Sep 2012 10:50:41 +0200
+
+libprivilege-control (0.0.8) unstable; urgency=low
+
+  * udev: set haptic devices to world readable and writable.
+  * Restructure setting of compilation flags in CmakeLists.
+  * Temporary turn off setting up of Smack labels and rules.
+  * Always call wrt_permissions_reset() internally during privilege setup for Widgets.
+  * Define a type for WRT widget id. Make it reflect the actual id type in WRT database.
+  * Add wrt_widget_id_from_socket() API function for reading widget id from UNIX sockets.
+  * Deprecate another old function for privilege control.
+  * Fix: remove unused variable.
+  * Fix: preserve const qualifier for strings.
+  * Fix: don't define functions that won't be used to avoid warnings.
+  * Compile with -Wall and -Werror to catch compilation warnings.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Fri, 07 Sep 2012 15:11:28 +0200
+
+libprivilege-control (0.0.7.4) unstable; urgency=low
+
+  * udev: set haptic devices to world readable and writable.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Wed, 10 Oct 2012 15:13:16 +0900
+
+libprivilege-control (0.0.7.3-1) unstable; urgency=low
+
+  * give all rules on device nodes
+
+ -- Kidong Kim <kd0228.kim@samsung.com>  Tue, 25 Sep 2012 15:36:45 +0200
+
+libprivilege-control (0.0.7.3) unstable; urgency=low
+
+  * packaging: add initial manifest file.
+  * Add configuration for default Smack rules and labels for the system.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Fri, 21 Sep 2012 13:43:03 +0200
+
+libprivilege-control (0.0.7.2) unstable; urgency=low
+
+  * Re-release, no source changes.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Thu, 20 Sep 2012 11:16:46 +0200
+
+libprivilege-control (0.0.7.1) unstable; urgency=low
+
+  * Provide udev rules file in the new location, for udev v182.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Wed, 19 Sep 2012 13:21:31 +0200
+
+libprivilege-control (0.0.7) unstable; urgency=low
+
+  * Introduce new function set_app_privilege() for comprehensive permissions setup.
+  * Modify udev rules as per Mr. Kidong Kim request.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Fri, 24 Aug 2012 16:48:16 +0200
+
+libprivilege-control (0.0.6) unstable; urgency=low
+
+  * Another attempt to push package to OBS
+  * Changed 'flash_power' to 'rear_flash' in udev configuration
+
+ -- Tomasz Swierczek <t.swierczek@samsung.com>  Mon, 06 Aug 2012 10:51:00 +0200
+
+libprivilege-control (0.0.5) unstable; urgency=low
+
+  * Fix generated Smack labels for WRT widgets.
+  * Extend semantics of SMACK configuration files for WRT.
+  * Add missing permissions for WRT widgets.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Thu, 02 Aug 2012 11:41:45 +0200
+
+libprivilege-control (0.0.4) unstable; urgency=low
+
+  * Remove debug-util and kill_app.
+  * Some udev rules fixed by Kidong Kim.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Fri, 27 Jul 2012 11:59:21 +0200
+
+libprivilege-control (0.0.3) unstable; urgency=low
+
+  * Add initial mapping of wrt devcaps to SMACK accesses.
+  * Pass some path definitions as compiler macros instead of hardcoding in source.
+  * Remove APIs - add & delete user and group for 3rd party applications.
+  * Packaging: fix udev rules installation in the spec file.
+  * Add SMACK functions for WRT.
+  * Add API function set_exec_label.
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Tue, 17 Jul 2012 18:56:44 +0200
