@@ -1,3 +1,39 @@
+* Thu Feb 14 2013 Tomasz Swierczek - 0.0.24.TIZEN
+- Refactoring: adjust names of some internal identifiers.
+- Refactoring: removed compilation warnings when SMACK is disabled.
+- Disabled SMACK operation for tizendev.org.
+- Remove prefix from process labels of WRT applications.
+- Provide app_reset_permissions() API function.
+- Provide app_add_volatile_permissions() API function.
+- Rewrite internal function set_smack_for_wrt().
+- Recreate Smack configuration files for WRT devcaps.
+- Remove legacy code for WRT, enable new WRT functionality.
+
+* Wed Feb 06 2013 Tomasz Swierczek - 0.0.23.TIZEN
+- Fixing bug in setting execute label for executable files.
+- Correct bug in dir_set_smack_r() introduced by previous fix.
+- Fix implementation of setting process label from Smack exec label.
+- Removed white spaces at the end of lines in smack_default_rules file
+
+* Tue Feb 5 2013 Tomasz Swierczek - 0.0.22.TIZEN
+- Added new API for setting access/execute labels and transmute on OSP apps directories
+- Fixed dlog usage
+- Reverted "make symbolic link of udev rules file" (commit c3a7c9d1188f08fdc950858c589173bb5bb0c817)
+
+* Fri Feb 01 2012 Rafal Krypa - 0.0.21.TIZEN
+- add new label and change label - system::core -> sys-assert::core
+- Adding new API for setting label and transmute on directory
+
+* Tue Jan 30 2012 Rafal Krypa - 0.0.20.TIZEN
+- Prevent related bugfixes.
+- add new default smack rule.
+- add new group for crash-logger.
+- add new smack label - system::crash.
+- Bug fix in adding permissions.
+- Implement logging in libprivilege-control.
+- Fix parsing of Smack config files.
+- Remove some unnecessary code from wrt_set_src_dir() and wrt_set_data_dir().
+
 * Tue Jan 10 2012 Rafal Krypa - 0.0.19
 - Removed "Epoch" from spec file.
 - Remove stale permission files.

@@ -1,8 +1,8 @@
-%define udev_libdir /usr/lib/udev
+#%define udev_libdir /usr/lib/udev
 
 Name:       libprivilege-control
 Summary:    Library to control privilege of application
-Version:    0.0.19
+Version:    0.0.24.TIZEN
 Release:    1
 Group:      System/Security
 License:    Apache 2.0
@@ -11,6 +11,7 @@ Source1:    %{name}-conf.manifest
 Source2:    smack-default-labeling.service
 BuildRequires: cmake
 BuildRequires: pkgconfig(libsmack)
+BuildRequires: pkgconfig(dlog)
 
 %description
 development package of library to control privilege of in-house application
@@ -44,7 +45,7 @@ make %{?jobs:-j%jobs}
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/license
-cp LICENSE.APLv2.0 %{buildroot}/usr/share/license/%{name}
+cp LICENSE %{buildroot}/usr/share/license/%{name}
 %make_install
 
 mkdir -p %{buildroot}/etc
@@ -84,14 +85,13 @@ then
         mkdir -p /usr/share/privilege-control/
 fi
 
-ln -s %{udev_libdir}/rules.d/95-permissions-slp.rules /lib/udev/rules.d/95-permissions-slp.rules
 
 %files
 %{_libdir}/*.so.*
 %{_bindir}/slp-su
 %{_datarootdir}/privilege-control/*
-%{udev_libdir}/rules.d/*
-%attr(755,root,root) %{udev_libdir}/uname_env
+#%{udev_libdir}/rules.d/*
+#%attr(755,root,root) %{udev_libdir}/uname_env
 %{_datadir}/license/%{name}
 
 %files conf

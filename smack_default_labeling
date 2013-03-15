@@ -26,17 +26,17 @@ if [ ! -e /opt/etc/.vconf_labeling ]; then
 fi
 
 # Set device node permissions for security
-chsmack -a 'system::system_bklight' /sys/class/backlight/*/brightness
-chsmack -a '*' /sys/class/haptic/motor/level
-chsmack -a '*' /sys/class/haptic/motor/enable
-chsmack -a '*' /sys/class/haptic/motor/oneshot
-chsmack -a '*' /sys/class/extension/mdnie/mode
-chsmack -a '*' /sys/class/extension/mdnie/scenario
-chsmack -a '*' /sys/class/extension/mdnie/tone
-chsmack -a '*' /sys/class/extension/mdnie/outdoor
-chsmack -a '*' /sys/class/extension/mdnie/tune
-chsmack -a '*' /sys/class/camera/flash/rear_flash
-chsmack -a '*' /sys/class/camera/flash/max_brightness
+#chsmack -a 'system::system_bklight' /sys/class/backlight/*/brightness
+#chsmack -a '*' /sys/class/haptic/motor/level
+#chsmack -a '*' /sys/class/haptic/motor/enable
+#chsmack -a '*' /sys/class/haptic/motor/oneshot
+#chsmack -a '*' /sys/class/extension/mdnie/mode
+#chsmack -a '*' /sys/class/extension/mdnie/scenario
+#chsmack -a '*' /sys/class/extension/mdnie/tone
+#chsmack -a '*' /sys/class/extension/mdnie/outdoor
+#chsmack -a '*' /sys/class/extension/mdnie/tune
+#chsmack -a '*' /sys/class/camera/flash/rear_flash
+#chsmack -a '*' /sys/class/camera/flash/max_brightness
 
 echo "0.0.0.0/1 system::use_internet" >> /smack/netlabel
 echo "128.0.0.0/1 system::use_internet" >> /smack/netlabel
