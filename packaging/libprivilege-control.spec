@@ -38,6 +38,7 @@ Library to control privilege of application files
 %setup -q
 
 %build
+export CFLAGS="${CFLAGS} -Wno-implicit-function-declaration"
 cmake . -DCMAKE_INSTALL_PREFIX=%{_prefix} -DCMAKE_BUILD_TYPE=%{?build_type:%build_type}
 
 make %{?jobs:-j%jobs}
