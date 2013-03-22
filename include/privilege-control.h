@@ -148,6 +148,20 @@ int app_label_dir(const char* app_label, const char* path);
 int app_label_shared_dir(const char* app_label, const char* shared_label,
 						 const char* path);
 
+/**
+ * Make two applications "friends", by giving them both full permissions on
+ * each other.
+ * Results will be persistent on the file system. Must be called after
+ * app_add_permissions() has been called for each application.
+ * It must be called by privileged user.
+ *
+ * @param app_id1 first application identifier
+ * @param app_id2 second application identifier
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_add_friend(const char* app_id1, const char* app_id2);
+
+
 #ifdef __cplusplus
 }
 #endif // __cplusplus

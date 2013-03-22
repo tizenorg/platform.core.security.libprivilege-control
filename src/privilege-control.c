@@ -844,3 +844,63 @@ out:
 	return PC_OPERATION_SUCCESS;
 #endif
 }
+
+API int app_add_friend(const char* app_id1, const char* app_id2)
+{
+	C_LOGD("Enter function: %s", __func__);
+#ifdef SMACK_ENABLED
+	int ret;
+	int fd1 = -1, fd2 = -1;
+	char* smack_path1 = NULL;
+	char* smack_path2 = NULL;
+	struct smack_accesses* smack1 = NULL;
+	struct smack_accesses* smack2 = NULL;
+
+	ret = load_smack_from_file(app_id1, &smack1, &fd1, &smack_path1);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("load_smack_from_file failed");
+		goto out;
+	}
+
+	ret = load_smack_from_file(app_id2, &smack2, &fd2, &smack_path2);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("load_smack_from_file failed");
+		goto out;
+	}
+
+	if (smack_accesses_add(smack1, app_id1, app_id2, "wrxat") == -1 ||
+		(smack_accesses_add(smack2, app_id2, app_id1, "wrxat") == -1)) {
+		C_LOGE("smack_accesses_add failed");
+		goto out;
+	}
+
+	if (have_smack() &&
+		(smack_accesses_apply(smack1) || smack_accesses_apply(smack2))) {
+		C_LOGE("smack_accesses_apply failed");
+		ret =  PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	if (smack_accesses_save(smack1, fd1) || smack_accesses_save(smack2, fd2)) {
+		C_LOGE("smack_accesses_save failed");
+		ret =  PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	ret = PC_OPERATION_SUCCESS;
+
+out:
+	if (fd1 != -1)
+		close(fd1);
+	if (fd2 != -1)
+		close(fd2);
+	smack_accesses_free(smack1);
+	smack_accesses_free(smack2);
+	free(smack_path1);
+	free(smack_path2);
+
+	return ret;
+#else
+	return PC_OPERATION_SUCCESS;
+#endif
+}
