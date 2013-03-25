@@ -71,6 +71,32 @@ int set_app_privilege(const char* name, const char* type, const char* path);
 char* app_id_from_socket(int sockfd);
 
 /**
+ * Inform about installation of a new app.
+ * It is intended to be called during app installation.
+ * It will create an empty SMACK rules file used by other functions operating
+ * on permissions. It is needed for tracking lifetime of an app.
+ * It must be called by privileged user, befor using any other app_* function.
+ *
+ *
+ * @param app_id application identifier
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_install(const char* app_id);
+
+/**
+ * Inform about deinstallation of an app.
+ * It will remove the SMACK rules file, enabling future installation of app
+ * with the same identifier. It is needed for tracking lifetime of an app.
+ * You should call app_revoke_permissions() before this function.
+ * It must be called by privileged user.
+ *
+ *
+ * @param app_id application identifier
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_uninstall(const char* app_id);
+
+/**
  * Grant SMACK permissions based on permissions list.
  * It is intended to be called during app installation.
  * It will construct SMACK rules based on permissions list, grant them

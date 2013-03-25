@@ -587,15 +587,25 @@ API char* app_id_from_socket(int sockfd)
 }
 
 #ifdef SMACK_ENABLED
-static int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int *fd, char** path)
+static int smack_file_name(const char* app_id, char** path)
 {
-	C_LOGD("Enter function: %s", __func__);
-
 	if (asprintf(path, SMACK_RULES_DIR "/%s", app_id) == -1) {
 		C_LOGE("asprintf failed");
 		*path = NULL;
 		return PC_ERR_MEM_OPERATION;
 	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
+static int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int *fd, char** path)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+
+	ret = smack_file_name(app_id, path);
+	if (ret != PC_OPERATION_SUCCESS)
+		return ret;
 
 	if (smack_accesses_new(smack)) {
 		C_LOGE("smack_accesses_new failed");
@@ -604,7 +614,7 @@ static int load_smack_from_file(const char* app_id, struct smack_accesses** smac
 
 	*fd = open(*path, O_CREAT|O_RDWR, 0644);
 	if (*fd == -1) {
-		C_LOGE("file open failed");
+		C_LOGE("file open failed: %s", strerror(errno));
 		return PC_ERR_FILE_OPERATION;
 	}
 
@@ -689,7 +699,7 @@ API int app_add_volatile_permissions(const char* app_id, const char** perm_list)
 	return app_add_permissions_internal(app_id, perm_list, 0);
 }
 
-static int app_revoke_permissions_internal(const char* app_id, int permanent)
+API int app_revoke_permissions(const char* app_id)
 {
 	C_LOGD("Enter function: %s", __func__);
 #ifdef SMACK_ENABLED
@@ -716,12 +726,6 @@ static int app_revoke_permissions_internal(const char* app_id, int permanent)
 		goto out;
 	}
 
-	if (permanent && unlink(smack_path)) {
-		ret = PC_ERR_INVALID_OPERATION;
-		C_LOGE("unlink failed");
-		goto out;
-	}
-
 	ret = PC_OPERATION_SUCCESS;
 out:
 	if (fd != -1)
@@ -736,18 +740,12 @@ out:
 #endif
 }
 
-API int app_revoke_permissions(const char* app_id)
-{
-	C_LOGD("Enter function: %s", __func__);
-	return app_revoke_permissions_internal(app_id, 1);
-}
-
 API int app_reset_permissions(const char* app_id)
 {
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
 
-	ret = app_revoke_permissions_internal(app_id, 0);
+	ret = app_revoke_permissions(app_id);
 	if (ret) {
 		C_LOGE("Revoking permissions failed");
 		return ret;
@@ -903,4 +901,52 @@ out:
 #else
 	return PC_OPERATION_SUCCESS;
 #endif
+}
+
+API int app_install(const char* app_id)
+{
+	char* smack_path = NULL;
+	int ret, fd = -1;
+
+	ret = smack_file_name(app_id, &smack_path);
+	if (ret != PC_OPERATION_SUCCESS)
+		goto out;
+
+	fd = open(smack_path, O_RDWR|O_EXCL, 0644);
+	if (fd == -1) {
+		C_LOGE("file open failed: %s", strerror(errno));
+		ret = PC_ERR_FILE_OPERATION;
+	}
+
+	ret = PC_OPERATION_SUCCESS;
+
+out:
+	free(smack_path);
+	if (fd != -1)
+		close(fd);
+
+	return ret;
+}
+
+API int app_uninstall(const char* app_id)
+{
+	char* smack_path = NULL;
+	int ret;
+
+	ret = smack_file_name(app_id, &smack_path);
+	if (ret != PC_OPERATION_SUCCESS)
+		goto out;
+
+	if (unlink(smack_path)) {
+		C_LOGE("unlink failed: ", strerror(errno));
+		ret = PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	ret = PC_OPERATION_SUCCESS;
+
+out:
+	free(smack_path);
+
+	return ret;
 }
