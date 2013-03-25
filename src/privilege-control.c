@@ -37,7 +37,7 @@
 #include <sys/file.h>
 #include <sys/smack.h>
 #include <dlog.h>
-#include <string.h>
+#include <stdbool.h>
 
 #include "privilege-control.h"
 
@@ -88,11 +88,6 @@ static int set_smack_for_wrt(const char* widget_id);
 #else
 #define C_LOGE(...) do { } while(0)
 #endif //DLOG_ERROR_ENABLED
-
-typedef enum {
-	APP_TYPE_WGT,
-	APP_TYPE_OTHER,
-} app_type_t;
 
 typedef struct {
 	char user_name[10];
@@ -415,7 +410,7 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 		else
 			ret = set_smack_for_wrt(widget_id);
 		break;
-	case APP_TYPE_OTHER:
+	default:
 		if (path != NULL)
 			ret = set_smack_from_binary(path);
 		break;
@@ -434,7 +429,7 @@ API int set_privilege(const char* pkg_name)
 	return set_app_privilege(pkg_name, NULL, NULL);
 }
 
-static inline int perm_to_smack(struct smack_accesses* smack, const char* app_label, const char* perm)
+static inline int perm_to_smack(struct smack_accesses* smack, const char* app_label, app_type_t app_type, const char* perm)
 {
 	C_LOGD("Enter function: %s", __func__);
 	int ret = PC_OPERATION_SUCCESS;
@@ -444,8 +439,31 @@ static inline int perm_to_smack(struct smack_accesses* smack, const char* app_la
 	char smack_subject[SMACK_LABEL_LEN + 1];
 	char smack_object[SMACK_LABEL_LEN + 1];
 	char smack_accesses[10];
+	char* app_type_prefix;
+	const char* perm_suffix;
 
-	if (asprintf(&path, TOSTRING(SHAREDIR) "/%s.smack", perm) == -1) {
+	switch (app_type) {
+	case APP_TYPE_WGT:
+		app_type_prefix = "WRT_";
+		break;
+	case APP_TYPE_OSP:
+		app_type_prefix = "OSP_";
+		break;
+	case APP_TYPE_OTHER:
+		app_type_prefix = ""; /* FIXME: remove this once app_add_permissions() is removed */
+		break;
+	default:
+		C_LOGE("Unknown app type %d", app_type);
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	perm_suffix = strrchr(perm, '/');
+	if (perm_suffix)
+		++perm_suffix;
+	else
+		perm_suffix = perm;
+
+	if (asprintf(&path, TOSTRING(SHAREDIR) "/%s%s.smack", app_type_prefix, perm_suffix) == -1) {
 		C_LOGE("asprintf failed");
 		ret = PC_ERR_MEM_OPERATION;
 		goto out;
@@ -638,7 +656,7 @@ static int load_smack_from_file(const char* app_id, struct smack_accesses** smac
 }
 #endif
 
-static int app_add_permissions_internal(const char* app_id, const char** perm_list, int permanent)
+static int app_add_permissions_internal(const char* app_id, app_type_t app_type, const char** perm_list, int permanent)
 {
 	C_LOGD("Enter function: %s", __func__);
 #ifdef SMACK_ENABLED
@@ -653,7 +671,7 @@ static int app_add_permissions_internal(const char* app_id, const char** perm_li
 		goto out;
 	}
 	for (i = 0; perm_list[i] != NULL; ++i) {
-		ret = perm_to_smack(smack, app_id, perm_list[i]);
+		ret = perm_to_smack(smack, app_id, app_type, perm_list[i]);
 		C_LOGD("perm_to_smack params: app_id: %s, perm_list[%d]: %s", app_id, i, perm_list[i]);
 		if (ret != PC_OPERATION_SUCCESS){
 			C_LOGE("perm_to_smack failed");
@@ -690,13 +708,19 @@ out:
 API int app_add_permissions(const char* app_id, const char** perm_list)
 {
 	C_LOGD("Enter function: %s", __func__);
-	return app_add_permissions_internal(app_id, perm_list, 1);
+	return app_add_permissions_internal(app_id, APP_TYPE_OTHER, perm_list, 1);
 }
 
 API int app_add_volatile_permissions(const char* app_id, const char** perm_list)
 {
 	C_LOGD("Enter function: %s", __func__);
-	return app_add_permissions_internal(app_id, perm_list, 0);
+	return app_add_permissions_internal(app_id, APP_TYPE_OTHER, perm_list, 0);
+}
+
+API int app_enable_permissions(const char* app_id, app_type_t app_type, const char** perm_list, bool persistent)
+{
+	C_LOGD("Enter function: %s", __func__);
+	return app_add_permissions_internal(app_id, app_type, perm_list, persistent);
 }
 
 API int app_revoke_permissions(const char* app_id)
@@ -752,7 +776,7 @@ API int app_reset_permissions(const char* app_id)
 	}
 
 	/* Add empty permissions set to trigger re-read of rules */
-	return app_add_permissions(app_id, (const char*[]){NULL});
+	return app_enable_permissions(app_id, APP_TYPE_OTHER, (const char*[]){NULL}, 0);
 }
 
 API int app_label_dir(const char* label, const char* path)

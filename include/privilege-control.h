@@ -19,6 +19,8 @@
  *
  */
 
+#include <stdbool.h>
+
 #ifndef _PRIVILEGE_CONTROL_H_
 #define _PRIVILEGE_CONTROL_H_
 
@@ -41,6 +43,12 @@ extern "C" {
 #define PC_ERR_NOT_PERMITTED		-3
 #define PC_ERR_INVALID_PARAM		-4
 #define PC_ERR_INVALID_OPERATION	-5
+
+typedef enum {
+       APP_TYPE_WGT,
+       APP_TYPE_OSP,
+       APP_TYPE_OTHER,
+} app_type_t;
 
 /* APIs - used by applications */
 int control_privilege(void) __attribute__((deprecated));
@@ -103,26 +111,45 @@ int app_uninstall(const char* app_id);
  * and store it in a file, so they will be automatically granted on
  * system boot.
  * It must be called by privileged user.
+ * THIS FUNCTION IS NOW DEPRECATED. app_enable_permissions() SHOULD BE USED INSTEAD.
  *
  *
  * @param app_id application identifier
  * @param perm_list array of permission names, last element must be NULL
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int app_add_permissions(const char* app_id, const char** perm_list);
+int app_add_permissions(const char* app_id, const char** perm_list)  __attribute__((deprecated));
 
 /**
  * Grant temporary SMACK permissions based on permissions list.
  * It will construct SMACK rules based on permissions list, grant them,
  * but not store it anywhere, so they won't be granted again on system boot.
  * It must be called by privileged user.
+ * THIS FUNCTION IS NOW DEPRECATED. app_enable_permissions() SHOULD BE USED INSTEAD.
  *
  *
  * @param app_id application identifier
  * @param perm_list array of permission names, last element must be NULL
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int app_add_volatile_permissions(const char* app_id, const char** perm_list);
+int app_add_volatile_permissions(const char* app_id, const char** perm_list)  __attribute__((deprecated));
+
+/**
+ * Grant SMACK permissions based on permissions list.
+ * It is intended to be called during app installation.
+ * It will construct SMACK rules based on permissions list, grant them
+ * and store it in a file, so they will be automatically granted on
+ * system boot, when persistent mode is enabled.
+ * It must be called by privileged user.
+ *
+ *
+ * @param app_id application identifier
+ * @param app_type application type
+ * @param perm_list array of permission names, last element must be NULL
+ * @param persistent boolean for choosing between persistent and temporary rules
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_enable_permissions(const char* app_id, app_type_t app_type, const char** perm_list, bool persistent);
 
 /**
  * Revoke SMACK permissions from an application.
