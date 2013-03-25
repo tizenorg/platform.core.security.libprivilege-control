@@ -39,7 +39,7 @@ Library to control privilege of application files
 
 %build
 export CFLAGS="${CFLAGS} -Wno-implicit-function-declaration"
-cmake . -DCMAKE_INSTALL_PREFIX=%{_prefix} -DCMAKE_BUILD_TYPE=%{?build_type:%build_type}
+%cmake . -DCMAKE_BUILD_TYPE=%{?build_type:%build_type}
 
 make %{?jobs:-j%jobs}
 
@@ -61,9 +61,9 @@ ln -sf ../init.d/smack_default_labeling %{buildroot}/etc/rc.d/rc4.d/S45smack_def
 ln -sf ../init.d/smack_rules %{buildroot}/etc/rc.d/rc3.d/S02smack_rules
 ln -sf ../init.d/smack_rules %{buildroot}/etc/rc.d/rc4.d/S02smack_rules
 
-mkdir -p %{buildroot}%{_libdir}/systemd/system/basic.target.wants
-install -m 644 %{SOURCE2} %{buildroot}%{_libdir}/systemd/system/
-ln -s ../smack-default-labeling.service %{buildroot}%{_libdir}/systemd/system/basic.target.wants/
+mkdir -p %{buildroot}/usr/lib/systemd/system/basic.target.wants
+install -m 644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/
+ln -s ../smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/
 
 %post
 if [ ! -e "/home/app" ]
@@ -100,8 +100,8 @@ fi
 /etc/passwd
 /opt/etc/smack/*
 %attr(755,root,root) /etc/rc.d/*
-%{_libdir}/systemd/system/smack-default-labeling.service
-%{_libdir}/systemd/system/basic.target.wants/smack-default-labeling.service
+/usr/lib/systemd/system/smack-default-labeling.service
+/usr/lib/systemd/system/basic.target.wants/smack-default-labeling.service
 %manifest %{_datadir}/%{name}-conf.manifest
 
 %files devel
