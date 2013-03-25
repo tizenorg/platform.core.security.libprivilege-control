@@ -471,8 +471,8 @@ static int perm_to_smack(struct smack_accesses* smack, const char* app_label, ap
 		goto out;
 	}
 
-	if (asprintf(&format_string,"%%%ds %%%ds %%%ds\n",
-			SMACK_LABEL_LEN, SMACK_LABEL_LEN, sizeof(smack_accesses)) == -1) {
+	if (asprintf(&format_string,"%%%ds %%%ds %%%lus\n",
+			SMACK_LABEL_LEN, SMACK_LABEL_LEN, (unsigned long)sizeof(smack_accesses)) == -1) {
 		C_LOGE("asprintf failed");
 		ret = PC_ERR_MEM_OPERATION;
 		goto out;
