@@ -480,7 +480,7 @@ static inline int perm_to_smack(struct smack_accesses* smack, const char* app_la
 	C_LOGD("path = %s", path);
 	if (file == NULL) {
 		C_LOGE("fopen failed");
-		ret = PC_ERR_FILE_OPERATION;
+		ret = PC_OPERATION_SUCCESS;
 		goto out;
 	}
 
