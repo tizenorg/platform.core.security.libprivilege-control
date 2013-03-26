@@ -429,6 +429,7 @@ API int set_privilege(const char* pkg_name)
 	return set_app_privilege(pkg_name, NULL, NULL);
 }
 
+#ifdef SMACK_ENABLED
 static inline const char* app_type_name(app_type_t app_type)
 {
 	switch (app_type) {
@@ -513,7 +514,6 @@ out:
 	return ret;
 }
 
-#ifdef SMACK_ENABLED
 static int dir_set_smack_r(const char *path, const char* label,
 		enum smack_label_type type, mode_t type_mask)
 {
@@ -605,7 +605,7 @@ API char* app_id_from_socket(int sockfd)
 #endif
 }
 
-#ifdef SMACK_ENABLED
+
 static int smack_file_name(const char* app_id, char** path)
 {
 	if (asprintf(path, SMACK_RULES_DIR "/%s", app_id) == -1) {
@@ -617,6 +617,7 @@ static int smack_file_name(const char* app_id, char** path)
 	return PC_OPERATION_SUCCESS;
 }
 
+#ifdef SMACK_ENABLED
 static int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int *fd, char** path)
 {
 	C_LOGD("Enter function: %s", __func__);
