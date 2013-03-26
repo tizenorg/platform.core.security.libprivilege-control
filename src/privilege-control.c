@@ -429,7 +429,19 @@ API int set_privilege(const char* pkg_name)
 	return set_app_privilege(pkg_name, NULL, NULL);
 }
 
-static inline int perm_to_smack(struct smack_accesses* smack, const char* app_label, app_type_t app_type, const char* perm)
+static inline const char* app_type_name(app_type_t app_type)
+{
+	switch (app_type) {
+	case APP_TYPE_WGT:
+		return "WRT";
+	case APP_TYPE_OSP:
+		return "OSP";
+	default:
+		return NULL;
+	}
+}
+
+static int perm_to_smack(struct smack_accesses* smack, const char* app_label, app_type_t app_type, const char* perm)
 {
 	C_LOGD("Enter function: %s", __func__);
 	int ret = PC_OPERATION_SUCCESS;
@@ -439,23 +451,10 @@ static inline int perm_to_smack(struct smack_accesses* smack, const char* app_la
 	char smack_subject[SMACK_LABEL_LEN + 1];
 	char smack_object[SMACK_LABEL_LEN + 1];
 	char smack_accesses[10];
-	char* app_type_prefix;
+	const char* app_type_prefix;
 	const char* perm_suffix;
 
-	switch (app_type) {
-	case APP_TYPE_WGT:
-		app_type_prefix = "WRT_";
-		break;
-	case APP_TYPE_OSP:
-		app_type_prefix = "OSP_";
-		break;
-	case APP_TYPE_OTHER:
-		app_type_prefix = ""; /* FIXME: remove this once app_add_permissions() is removed */
-		break;
-	default:
-		C_LOGE("Unknown app type %d", app_type);
-		return PC_ERR_INVALID_PARAM;
-	}
+	app_type_prefix = app_type_name(app_type);
 
 	perm_suffix = strrchr(perm, '/');
 	if (perm_suffix)
@@ -463,7 +462,9 @@ static inline int perm_to_smack(struct smack_accesses* smack, const char* app_la
 	else
 		perm_suffix = perm;
 
-	if (asprintf(&path, TOSTRING(SHAREDIR) "/%s%s.smack", app_type_prefix, perm_suffix) == -1) {
+	ret = asprintf(&path, TOSTRING(SHAREDIR) "/%s%s%s.smack",
+			app_type_prefix ? app_type_prefix : "", app_type_prefix ? "_" : "", perm_suffix);
+	if (ret == -1) {
 		C_LOGE("asprintf failed");
 		ret = PC_ERR_MEM_OPERATION;
 		goto out;
@@ -664,12 +665,25 @@ static int app_add_permissions_internal(const char* app_id, app_type_t app_type,
 	int i, ret;
 	int fd = -1;
 	struct smack_accesses *smack = NULL;
+	const char* base_perm = NULL;
 
 	ret = load_smack_from_file(app_id, &smack, &fd, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("load_smack_from_file failed");
 		goto out;
 	}
+
+	/* Implicitly enable base permission for an app_type */
+	base_perm = app_type_name(app_type);
+	if (base_perm) {
+		C_LOGD("perm_to_smack params: app_id: %s, %s", app_id, base_perm);
+		ret = perm_to_smack(smack, app_id, APP_TYPE_OTHER, base_perm);
+		if (ret != PC_OPERATION_SUCCESS){
+			C_LOGE("perm_to_smack failed");
+			goto out;
+		}
+	}
+
 	for (i = 0; perm_list[i] != NULL; ++i) {
 		ret = perm_to_smack(smack, app_id, app_type, perm_list[i]);
 		C_LOGD("perm_to_smack params: app_id: %s, perm_list[%d]: %s", app_id, i, perm_list[i]);
