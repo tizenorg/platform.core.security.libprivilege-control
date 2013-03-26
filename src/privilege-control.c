@@ -867,6 +867,13 @@ out:
 #endif
 }
 
+API int add_shared_dir_readers(const char* shared_label, const char** app_list)
+{
+	// TODO this needs to be fully implemented
+	C_LOGD("Enter function: %s", __func__);
+	return PC_OPERATION_SUCCESS;
+}
+
 API int app_add_friend(const char* app_id1, const char* app_id2)
 {
 	C_LOGD("Enter function: %s", __func__);

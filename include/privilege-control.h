@@ -201,6 +201,19 @@ int app_label_dir(const char* app_label, const char* path);
 int app_label_shared_dir(const char* app_label, const char* shared_label,
 						 const char* path);
 
+
+
+/**
+ * Add SMACK rx rules for application identifiers to shared_label.
+ * This function should be called during app installation.
+ * It must be called by privileged user.
+ *
+ * @param shared_label label of the shared resource
+ * @param app_list list of application SMACK identifiers
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int add_shared_dir_readers(const char* shared_label, const char** app_list);
+
 /**
  * Make two applications "friends", by giving them both full permissions on
  * each other.
