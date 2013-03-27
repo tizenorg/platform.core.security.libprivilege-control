@@ -76,7 +76,7 @@ static int set_smack_for_wrt(const char* widget_id);
 #endif // LOG_TAG
 
 // conditional log macro for dlogutil (debug)
-#ifdef DDLOG_DEBUG_ENABLED
+#ifdef DLOG_DEBUG_ENABLED
 #define C_LOGD(...) LOGD(__VA_ARGS__)
 #else
 #define C_LOGD(...) do { } while(0)
