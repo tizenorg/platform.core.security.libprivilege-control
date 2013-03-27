@@ -445,7 +445,7 @@ static inline const char* app_type_name(app_type_t app_type)
 static int perm_to_smack(struct smack_accesses* smack, const char* app_label, app_type_t app_type, const char* perm)
 {
 	C_LOGD("Enter function: %s", __func__);
-	int ret = PC_OPERATION_SUCCESS;
+	int ret;
 	char* path = NULL;
 	char* format_string = NULL;
 	FILE* file = NULL;
@@ -486,12 +486,8 @@ static int perm_to_smack(struct smack_accesses* smack, const char* app_label, ap
 		goto out;
 	}
 
-	while (1) {
-		if (fscanf(file, format_string, smack_subject, smack_object, smack_accesses) != 3) {
-			C_LOGE("fscanf failed");
-			goto out;
-		}
-
+	ret = PC_OPERATION_SUCCESS;
+	while (fscanf(file, format_string, smack_subject, smack_object, smack_accesses) == 3) {
 		if (!strcmp(smack_subject, SMACK_APP_LABEL_TEMPLATE))
 			strcpy(smack_subject, app_label);
 
