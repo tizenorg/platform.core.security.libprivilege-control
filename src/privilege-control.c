@@ -958,10 +958,11 @@ API int app_install(const char* app_id)
 	if (ret != PC_OPERATION_SUCCESS)
 		goto out;
 
-	fd = open(smack_path, O_RDWR|O_EXCL, 0644);
+	fd = open(smack_path, O_RDWR|O_EXCL|O_CREAT, 0644);
 	if (fd == -1) {
 		C_LOGE("file open failed: %s", strerror(errno));
 		ret = PC_ERR_FILE_OPERATION;
+		goto out;
 	}
 
 	ret = PC_OPERATION_SUCCESS;
