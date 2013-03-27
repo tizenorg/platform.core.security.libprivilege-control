@@ -682,8 +682,8 @@ static int app_add_permissions_internal(const char* app_id, app_type_t app_type,
 	}
 
 	for (i = 0; perm_list[i] != NULL; ++i) {
-		ret = perm_to_smack(smack, app_id, app_type, perm_list[i]);
 		C_LOGD("perm_to_smack params: app_id: %s, perm_list[%d]: %s", app_id, i, perm_list[i]);
+		ret = perm_to_smack(smack, app_id, app_type, perm_list[i]);
 		if (ret != PC_OPERATION_SUCCESS){
 			C_LOGE("perm_to_smack failed");
 			goto out;
