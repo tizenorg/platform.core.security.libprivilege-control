@@ -19,6 +19,8 @@
  *
  */
 
+#include <stdbool.h>
+
 #ifndef _PRIVILEGE_CONTROL_H_
 #define _PRIVILEGE_CONTROL_H_
 
@@ -41,6 +43,12 @@ extern "C" {
 #define PC_ERR_NOT_PERMITTED		-3
 #define PC_ERR_INVALID_PARAM		-4
 #define PC_ERR_INVALID_OPERATION	-5
+
+typedef enum {
+       APP_TYPE_WGT,
+       APP_TYPE_OSP,
+       APP_TYPE_OTHER,
+} app_type_t;
 
 /* APIs - used by applications */
 int control_privilege(void) __attribute__((deprecated));
@@ -71,32 +79,77 @@ int set_app_privilege(const char* name, const char* type, const char* path);
 char* app_id_from_socket(int sockfd);
 
 /**
+ * Inform about installation of a new app.
+ * It is intended to be called during app installation.
+ * It will create an empty SMACK rules file used by other functions operating
+ * on permissions. It is needed for tracking lifetime of an app.
+ * It must be called by privileged user, befor using any other app_* function.
+ *
+ *
+ * @param app_id application identifier
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_install(const char* app_id);
+
+/**
+ * Inform about deinstallation of an app.
+ * It will remove the SMACK rules file, enabling future installation of app
+ * with the same identifier. It is needed for tracking lifetime of an app.
+ * You should call app_revoke_permissions() before this function.
+ * It must be called by privileged user.
+ *
+ *
+ * @param app_id application identifier
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_uninstall(const char* app_id);
+
+/**
  * Grant SMACK permissions based on permissions list.
  * It is intended to be called during app installation.
  * It will construct SMACK rules based on permissions list, grant them
  * and store it in a file, so they will be automatically granted on
  * system boot.
  * It must be called by privileged user.
+ * THIS FUNCTION IS NOW DEPRECATED. app_enable_permissions() SHOULD BE USED INSTEAD.
  *
  *
  * @param app_id application identifier
  * @param perm_list array of permission names, last element must be NULL
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int app_add_permissions(const char* app_id, const char** perm_list);
+int app_add_permissions(const char* app_id, const char** perm_list)  __attribute__((deprecated));
 
 /**
  * Grant temporary SMACK permissions based on permissions list.
  * It will construct SMACK rules based on permissions list, grant them,
  * but not store it anywhere, so they won't be granted again on system boot.
  * It must be called by privileged user.
+ * THIS FUNCTION IS NOW DEPRECATED. app_enable_permissions() SHOULD BE USED INSTEAD.
  *
  *
  * @param app_id application identifier
  * @param perm_list array of permission names, last element must be NULL
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int app_add_volatile_permissions(const char* app_id, const char** perm_list);
+int app_add_volatile_permissions(const char* app_id, const char** perm_list)  __attribute__((deprecated));
+
+/**
+ * Grant SMACK permissions based on permissions list.
+ * It is intended to be called during app installation.
+ * It will construct SMACK rules based on permissions list, grant them
+ * and store it in a file, so they will be automatically granted on
+ * system boot, when persistent mode is enabled.
+ * It must be called by privileged user.
+ *
+ *
+ * @param app_id application identifier
+ * @param app_type application type
+ * @param perm_list array of permission names, last element must be NULL
+ * @param persistent boolean for choosing between persistent and temporary rules
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_enable_permissions(const char* app_id, app_type_t app_type, const char** perm_list, bool persistent);
 
 /**
  * Revoke SMACK permissions from an application.
@@ -147,6 +200,33 @@ int app_label_dir(const char* app_label, const char* path);
  */
 int app_label_shared_dir(const char* app_label, const char* shared_label,
 						 const char* path);
+
+
+
+/**
+ * Add SMACK rx rules for application identifiers to shared_label.
+ * This function should be called during app installation.
+ * It must be called by privileged user.
+ *
+ * @param shared_label label of the shared resource
+ * @param app_list list of application SMACK identifiers
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int add_shared_dir_readers(const char* shared_label, const char** app_list);
+
+/**
+ * Make two applications "friends", by giving them both full permissions on
+ * each other.
+ * Results will be persistent on the file system. Must be called after
+ * app_add_permissions() has been called for each application.
+ * It must be called by privileged user.
+ *
+ * @param app_id1 first application identifier
+ * @param app_id2 second application identifier
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_add_friend(const char* app_id1, const char* app_id2);
+
 
 #ifdef __cplusplus
 }

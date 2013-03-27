@@ -2,7 +2,7 @@
 
 Name:       libprivilege-control
 Summary:    Library to control privilege of application
-Version:    0.0.24.TIZEN
+Version:    0.0.25.TIZEN
 Release:    1
 Group:      System/Security
 License:    Apache 2.0
@@ -38,6 +38,7 @@ Library to control privilege of application files
 %setup -q
 
 %build
+export CFLAGS="${CFLAGS} -Wno-implicit-function-declaration"
 cmake . -DCMAKE_INSTALL_PREFIX=%{_prefix} -DCMAKE_BUILD_TYPE=%{?build_type:%build_type}
 
 make %{?jobs:-j%jobs}
