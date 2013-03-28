@@ -947,6 +947,7 @@ out:
 
 API int app_install(const char* app_id)
 {
+	C_LOGD("Enter function: %s", __func__);
 	char* smack_path = NULL;
 	int ret, fd = -1;
 
@@ -973,6 +974,7 @@ out:
 
 API int app_uninstall(const char* app_id)
 {
+	C_LOGD("Enter function: %s", __func__);
 	char* smack_path = NULL;
 	int ret;
 
