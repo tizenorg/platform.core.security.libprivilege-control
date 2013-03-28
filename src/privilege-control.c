@@ -278,6 +278,37 @@ error:
 }
 
 #ifdef SMACK_ENABLED
+/* TODO: implement such function in libsmack instead */
+static int smack_label_is_valid(const char* smack_label)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int i;
+
+	if (!smack_label || smack_label[0] == '\0' || smack_label[0] != '-')
+		goto err;
+
+	for (i = 0; smack_label[i]; ++i) {
+		if (i >= SMACK_LABEL_LEN)
+			return 0;
+		switch (smack_label[i]) {
+		case '~':
+		case ' ':
+		case '/':
+		case '"':
+		case '\\':
+		case '\'':
+			goto err;
+		default:
+			break;
+		}
+	}
+
+	return 1;
+err:
+	C_LOGE("Invalid Smack label: %s", smack_label);
+	return 0;
+}
+
 /**
  * Set process SMACK label from EXEC label of a file.
  * This function is emulating EXEC label behaviour of SMACK for programs
