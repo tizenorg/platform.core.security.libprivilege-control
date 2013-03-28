@@ -406,7 +406,7 @@ static app_type_t verify_app_type(const char* type, const char* path)
 	C_LOGE("EXIT_FAILURE");
 	exit(EXIT_FAILURE);
 }
-/*
+
 static const char* parse_widget_id(const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -419,7 +419,7 @@ static const char* parse_widget_id(const char* path)
 
 	C_LOGD("return widget id: %s", basename);
 	return basename;
-}*/
+}
 #endif // SMACK_ENABLED
 
 API int set_app_privilege(const char* name, const char* type, const char* path)
@@ -432,8 +432,7 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 
 	switch(verify_app_type(type, path)) {
 	case APP_TYPE_WGT:
-		//widget_id = parse_widget_id(path);
-		widget_id = name;
+		widget_id = parse_widget_id(path);
 		if (widget_id == NULL) {
 			C_LOGE("PC_ERR_INVALID_PARAM");
 			ret = PC_ERR_INVALID_PARAM;
@@ -591,14 +590,14 @@ static int set_smack_for_wrt(const char* widget_id)
 	C_LOGD("Enter function: %s", __func__);
 	if (!have_smack())
 		return PC_OPERATION_SUCCESS;
-/*
 	int ret;
+
 	ret = app_reset_permissions(widget_id);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("app_reset_permissions failed");
 		return ret;
 	}
-*/
+
 	if (smack_set_label_for_self(widget_id) != 0) {
 		C_LOGE("smack_set_label_for_self failed");
 		return PC_ERR_INVALID_OPERATION;
