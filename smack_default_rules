@@ -14,6 +14,7 @@
 57r43275q7 browser-provider arwxt
 57r43275q7 browser::db arwxt
 57r43275q7 browser::db_external arwxt
+57r43275q7 bt-service arwxt
 57r43275q7 bt_agent arwxt
 57r43275q7 bt_agent::bt_hfp_agent arwxt
 57r43275q7 bt_agent::bt_map_agent arwxt
@@ -204,6 +205,7 @@ _ bluez arwxt
 _ browser-provider arwxt
 _ browser::db arwxt
 _ browser::db_external arwxt
+_ bt-service arwxt
 _ bt_agent arwxt
 _ bt_agent::bt_hfp_agent arwxt
 _ bt_agent::bt_map_agent arwxt
@@ -394,6 +396,7 @@ ail bluez arwxt
 ail browser-provider arwxt
 ail browser::db arwxt
 ail browser::db_external arwxt
+ail bt-service arwxt
 ail bt_agent arwxt
 ail bt_agent::bt_hfp_agent arwxt
 ail bt_agent::bt_map_agent arwxt
@@ -584,6 +587,7 @@ alarm-server bluez arwxt
 alarm-server browser-provider arwxt
 alarm-server browser::db arwxt
 alarm-server browser::db_external arwxt
+alarm-server bt-service arwxt
 alarm-server bt_agent arwxt
 alarm-server bt_agent::bt_hfp_agent arwxt
 alarm-server bt_agent::bt_map_agent arwxt
@@ -774,6 +778,7 @@ aospd00043 bluez arwxt
 aospd00043 browser-provider arwxt
 aospd00043 browser::db arwxt
 aospd00043 browser::db_external arwxt
+aospd00043 bt-service arwxt
 aospd00043 bt_agent arwxt
 aospd00043 bt_agent::bt_hfp_agent arwxt
 aospd00043 bt_agent::bt_map_agent arwxt
@@ -964,6 +969,7 @@ app-svc bluez arwxt
 app-svc browser-provider arwxt
 app-svc browser::db arwxt
 app-svc browser::db_external arwxt
+app-svc bt-service arwxt
 app-svc bt_agent arwxt
 app-svc bt_agent::bt_hfp_agent arwxt
 app-svc bt_agent::bt_map_agent arwxt
@@ -1154,6 +1160,7 @@ app2sd bluez arwxt
 app2sd browser-provider arwxt
 app2sd browser::db arwxt
 app2sd browser::db_external arwxt
+app2sd bt-service arwxt
 app2sd bt_agent arwxt
 app2sd bt_agent::bt_hfp_agent arwxt
 app2sd bt_agent::bt_map_agent arwxt
@@ -1344,6 +1351,7 @@ aul bluez arwxt
 aul browser-provider arwxt
 aul browser::db arwxt
 aul browser::db_external arwxt
+aul bt-service arwxt
 aul bt_agent arwxt
 aul bt_agent::bt_hfp_agent arwxt
 aul bt_agent::bt_map_agent arwxt
@@ -1534,6 +1542,7 @@ bluetooth-tools bluez arwxt
 bluetooth-tools browser-provider arwxt
 bluetooth-tools browser::db arwxt
 bluetooth-tools browser::db_external arwxt
+bluetooth-tools bt-service arwxt
 bluetooth-tools bt_agent arwxt
 bluetooth-tools bt_agent::bt_hfp_agent arwxt
 bluetooth-tools bt_agent::bt_map_agent arwxt
@@ -1724,6 +1733,7 @@ bluez bluetooth-tools arwxt
 bluez browser-provider arwxt
 bluez browser::db arwxt
 bluez browser::db_external arwxt
+bluez bt-service arwxt
 bluez bt_agent arwxt
 bluez bt_agent::bt_hfp_agent arwxt
 bluez bt_agent::bt_map_agent arwxt
@@ -1914,6 +1924,7 @@ browser-provider bluetooth-tools arwxt
 browser-provider bluez arwxt
 browser-provider browser::db arwxt
 browser-provider browser::db_external arwxt
+browser-provider bt-service arwxt
 browser-provider bt_agent arwxt
 browser-provider bt_agent::bt_hfp_agent arwxt
 browser-provider bt_agent::bt_map_agent arwxt
@@ -2088,6 +2099,197 @@ browser-provider xorg arwxt
 browser-provider zeromq arwxt
 
 
+bt-service 57r43275q7 arwxt
+bt-service _ arwxt
+bt-service ail arwxt
+bt-service ail::db arwxt
+bt-service alarm-server arwxt
+bt-service alarm-server::db arwxt
+bt-service aospd00043 arwxt
+bt-service app-svc arwxt
+bt-service app-svc::db arwxt
+bt-service app2sd arwxt
+bt-service aul arwxt
+bt-service aul::db arwxt
+bt-service bluetooth-tools arwxt
+bt-service bluez arwxt
+bt-service browser-provider arwxt
+bt-service browser::db arwxt
+bt-service browser::db_external arwxt
+bt-service bt_agent arwxt
+bt-service bt_agent::bt_hfp_agent arwxt
+bt-service bt_agent::bt_map_agent arwxt
+bt-service bt_agent::bt_pb_agent arwxt
+bt-service bt_firmware arwxt
+bt-service bt_share arwxt
+bt-service bt_share::db arwxt
+bt-service calendar-service arwxt
+bt-service calendar-service::db arwxt
+bt-service cbhm arwxt
+bt-service cert-svc arwxt
+bt-service connman arwxt
+bt-service contacts-service arwxt
+bt-service contacts-service::db arwxt
+bt-service cp7ipabg4k arwxt
+bt-service cups arwxt
+bt-service data-provider-master arwxt
+bt-service data-provider-master::share arwxt
+bt-service dbus arwxt
+bt-service default-fonts-fc-sdk arwxt
+bt-service default-fonts-fc-sdk::config arwxt
+bt-service device::app_logging arwxt
+bt-service device::audio arwxt
+bt-service device::camera arwxt
+bt-service device::hwcodec arwxt
+bt-service device::recording arwxt
+bt-service device::sys_logging arwxt
+bt-service device::system_bklight arwxt
+bt-service device::video arwxt
+bt-service dlogutil arwxt
+bt-service dlogutil::dlogscript arwxt
+bt-service download-provider arwxt
+bt-service e17 arwxt
+bt-service e17-data arwxt
+bt-service efreet arwxt
+bt-service email-service arwxt
+bt-service email-service::db arwxt
+bt-service gi2qxenosh arwxt
+bt-service isf arwxt
+bt-service libaccounts-svc arwxt
+bt-service libaccounts-svc::db arwxt
+bt-service libslp-alarm arwxt
+bt-service libslp-alarm::db arwxt
+bt-service libslp-memo arwxt
+bt-service libslp-memo::db arwxt
+bt-service libug-phone arwxt
+bt-service location_fw arwxt
+bt-service location_fw::server arwxt
+bt-service media-data arwxt
+bt-service media-data::db arwxt
+bt-service media-server arwxt
+bt-service miracast-server arwxt
+bt-service mobileprint arwxt
+bt-service msg-service arwxt
+bt-service msg-service::db arwxt
+bt-service net-config arwxt
+bt-service nfc-manager arwxt
+bt-service notification arwxt
+bt-service notification::db arwxt
+bt-service obexd arwxt
+bt-service obexd::client arwxt
+bt-service oma-ds-agent arwxt
+bt-service org.tizen.app-selector arwxt
+bt-service org.tizen.bluetooth-share-ui arwxt
+bt-service org.tizen.browser arwxt
+bt-service org.tizen.bt-syspopup arwxt
+bt-service org.tizen.calculator arwxt
+bt-service org.tizen.calendar arwxt
+bt-service org.tizen.call arwxt
+bt-service org.tizen.camera-app arwxt
+bt-service org.tizen.ciss arwxt
+bt-service org.tizen.clock arwxt
+bt-service org.tizen.contacts arwxt
+bt-service org.tizen.contacts-viewer arwxt
+bt-service org.tizen.crash-popup arwxt
+bt-service org.tizen.data-provider-master arwxt
+bt-service org.tizen.data-provider-slave arwxt
+bt-service org.tizen.data-provider-webapp-slave arwxt
+bt-service org.tizen.download-manager arwxt
+bt-service org.tizen.draglock arwxt
+bt-service org.tizen.email arwxt
+bt-service org.tizen.gallery arwxt
+bt-service org.tizen.image-viewer arwxt
+bt-service org.tizen.indicator arwxt
+bt-service org.tizen.lockscreen arwxt
+bt-service org.tizen.memo arwxt
+bt-service org.tizen.menu-screen arwxt
+bt-service org.tizen.message arwxt
+bt-service org.tizen.music-player arwxt
+bt-service org.tizen.myfile arwxt
+bt-service org.tizen.net-popup arwxt
+bt-service org.tizen.phone arwxt
+bt-service org.tizen.pwlock arwxt
+bt-service org.tizen.quickpanel arwxt
+bt-service org.tizen.sat-ui arwxt
+bt-service org.tizen.setting arwxt
+bt-service org.tizen.smartsearch arwxt
+bt-service org.tizen.taskmgr arwxt
+bt-service org.tizen.tickernoti-syspopup arwxt
+bt-service org.tizen.usb-syspopup arwxt
+bt-service org.tizen.video-player arwxt
+bt-service org.tizen.volume arwxt
+bt-service osp arwxt
+bt-service osp-app-service arwxt
+bt-service osp-channel-service arwxt
+bt-service osp-connectivity-service arwxt
+bt-service osp-installer arwxt
+bt-service osp-livebox-service arwxt
+bt-service osp-search-service arwxt
+bt-service osp-security-service arwxt
+bt-service pims-ipc arwxt
+bt-service pkgmgr arwxt
+bt-service pkgmgr-client arwxt
+bt-service pkgmgr-info arwxt
+bt-service pkgmgr-installer arwxt
+bt-service pkgmgr-parser arwxt
+bt-service pkgmgr-server arwxt
+bt-service power_manager arwxt
+bt-service pulseaudio arwxt
+bt-service push-service arwxt
+bt-service push-service::db arwxt
+bt-service q7097a278m arwxt
+bt-service rua arwxt
+bt-service rua::db arwxt
+bt-service security-server arwxt
+bt-service sensor-framework arwxt
+bt-service sjjevolsjk arwxt
+bt-service smartcard-service arwxt
+bt-service sound_server arwxt
+bt-service sqlfs arwxt
+bt-service starter arwxt
+bt-service stt-server arwxt
+bt-service svi-data arwxt
+bt-service sys-assert arwxt
+bt-service sys-assert::core arwxt
+bt-service sys-assert::core-launcher arwxt
+bt-service syspopup arwxt
+bt-service syspopup::db arwxt
+bt-service system arwxt
+bt-service system-server arwxt
+bt-service system::ext_storage arwxt
+bt-service system::homedir arwxt
+bt-service system::media arwxt
+bt-service system::use_internet arwxt
+bt-service system::vconf arwxt
+bt-service telephony_framework arwxt
+bt-service telephony_framework::db arwxt
+bt-service thumb-server arwxt
+bt-service tts-server arwxt
+bt-service ug-camera-efl arwxt
+bt-service ug-image-viewer-efl arwxt
+bt-service ug_bluetooth arwxt
+bt-service usb-printer-detector arwxt
+bt-service usb-server arwxt
+bt-service usb-server::usb-r arwxt
+bt-service usb-server::usb-rx arwxt
+bt-service usb-syspopup arwxt
+bt-service usb-syspopup::usb-rx arwxt
+bt-service webkit2-efl arwxt
+bt-service wifi_direct_manager arwxt
+bt-service worldclock arwxt
+bt-service worldclock::db arwxt
+bt-service wrt arwxt
+bt-service wrt-commons arwxt
+bt-service wrt-commons::db_wrt arwxt
+bt-service wrt-commons::db_wrt_autosave arwxt
+bt-service wrt-commons::db_wrt_custom_handler arwxt
+bt-service wrt-installer arwxt
+bt-service wrt-plugins-common arwxt
+bt-service wrt-security::db_ace arwxt
+bt-service xorg arwxt
+bt-service zeromq arwxt
+
+
 bt_agent 57r43275q7 arwxt
 bt_agent _ arwxt
 bt_agent ail arwxt
@@ -2105,6 +2307,7 @@ bt_agent bluez arwxt
 bt_agent browser-provider arwxt
 bt_agent browser::db arwxt
 bt_agent browser::db_external arwxt
+bt_agent bt-service arwxt
 bt_agent bt_agent::bt_hfp_agent arwxt
 bt_agent bt_agent::bt_map_agent arwxt
 bt_agent bt_agent::bt_pb_agent arwxt
@@ -2295,6 +2498,7 @@ bt_agent::bt_hfp_agent bluez arwxt
 bt_agent::bt_hfp_agent browser-provider arwxt
 bt_agent::bt_hfp_agent browser::db arwxt
 bt_agent::bt_hfp_agent browser::db_external arwxt
+bt_agent::bt_hfp_agent bt-service arwxt
 bt_agent::bt_hfp_agent bt_agent arwxt
 bt_agent::bt_hfp_agent bt_agent::bt_map_agent arwxt
 bt_agent::bt_hfp_agent bt_agent::bt_pb_agent arwxt
@@ -2485,6 +2689,7 @@ bt_agent::bt_map_agent bluez arwxt
 bt_agent::bt_map_agent browser-provider arwxt
 bt_agent::bt_map_agent browser::db arwxt
 bt_agent::bt_map_agent browser::db_external arwxt
+bt_agent::bt_map_agent bt-service arwxt
 bt_agent::bt_map_agent bt_agent arwxt
 bt_agent::bt_map_agent bt_agent::bt_hfp_agent arwxt
 bt_agent::bt_map_agent bt_agent::bt_pb_agent arwxt
@@ -2675,6 +2880,7 @@ bt_agent::bt_pb_agent bluez arwxt
 bt_agent::bt_pb_agent browser-provider arwxt
 bt_agent::bt_pb_agent browser::db arwxt
 bt_agent::bt_pb_agent browser::db_external arwxt
+bt_agent::bt_pb_agent bt-service arwxt
 bt_agent::bt_pb_agent bt_agent arwxt
 bt_agent::bt_pb_agent bt_agent::bt_hfp_agent arwxt
 bt_agent::bt_pb_agent bt_agent::bt_map_agent arwxt
@@ -2865,6 +3071,7 @@ bt_firmware bluez arwxt
 bt_firmware browser-provider arwxt
 bt_firmware browser::db arwxt
 bt_firmware browser::db_external arwxt
+bt_firmware bt-service arwxt
 bt_firmware bt_agent arwxt
 bt_firmware bt_agent::bt_hfp_agent arwxt
 bt_firmware bt_agent::bt_map_agent arwxt
@@ -3055,6 +3262,7 @@ bt_share bluez arwxt
 bt_share browser-provider arwxt
 bt_share browser::db arwxt
 bt_share browser::db_external arwxt
+bt_share bt-service arwxt
 bt_share bt_agent arwxt
 bt_share bt_agent::bt_hfp_agent arwxt
 bt_share bt_agent::bt_map_agent arwxt
@@ -3245,6 +3453,7 @@ calendar-service bluez arwxt
 calendar-service browser-provider arwxt
 calendar-service browser::db arwxt
 calendar-service browser::db_external arwxt
+calendar-service bt-service arwxt
 calendar-service bt_agent arwxt
 calendar-service bt_agent::bt_hfp_agent arwxt
 calendar-service bt_agent::bt_map_agent arwxt
@@ -3435,6 +3644,7 @@ cbhm bluez arwxt
 cbhm browser-provider arwxt
 cbhm browser::db arwxt
 cbhm browser::db_external arwxt
+cbhm bt-service arwxt
 cbhm bt_agent arwxt
 cbhm bt_agent::bt_hfp_agent arwxt
 cbhm bt_agent::bt_map_agent arwxt
@@ -3625,6 +3835,7 @@ connman bluez arwxt
 connman browser-provider arwxt
 connman browser::db arwxt
 connman browser::db_external arwxt
+connman bt-service arwxt
 connman bt_agent arwxt
 connman bt_agent::bt_hfp_agent arwxt
 connman bt_agent::bt_map_agent arwxt
@@ -3815,6 +4026,7 @@ contacts-service bluez arwxt
 contacts-service browser-provider arwxt
 contacts-service browser::db arwxt
 contacts-service browser::db_external arwxt
+contacts-service bt-service arwxt
 contacts-service bt_agent arwxt
 contacts-service bt_agent::bt_hfp_agent arwxt
 contacts-service bt_agent::bt_map_agent arwxt
@@ -4005,6 +4217,7 @@ cp7ipabg4k bluez arwxt
 cp7ipabg4k browser-provider arwxt
 cp7ipabg4k browser::db arwxt
 cp7ipabg4k browser::db_external arwxt
+cp7ipabg4k bt-service arwxt
 cp7ipabg4k bt_agent arwxt
 cp7ipabg4k bt_agent::bt_hfp_agent arwxt
 cp7ipabg4k bt_agent::bt_map_agent arwxt
@@ -4195,6 +4408,7 @@ cups bluez arwxt
 cups browser-provider arwxt
 cups browser::db arwxt
 cups browser::db_external arwxt
+cups bt-service arwxt
 cups bt_agent arwxt
 cups bt_agent::bt_hfp_agent arwxt
 cups bt_agent::bt_map_agent arwxt
@@ -4385,6 +4599,7 @@ data-provider-master bluez arwxt
 data-provider-master browser-provider arwxt
 data-provider-master browser::db arwxt
 data-provider-master browser::db_external arwxt
+data-provider-master bt-service arwxt
 data-provider-master bt_agent arwxt
 data-provider-master bt_agent::bt_hfp_agent arwxt
 data-provider-master bt_agent::bt_map_agent arwxt
@@ -4575,6 +4790,7 @@ dbus bluez arwxt
 dbus browser-provider arwxt
 dbus browser::db arwxt
 dbus browser::db_external arwxt
+dbus bt-service arwxt
 dbus bt_agent arwxt
 dbus bt_agent::bt_hfp_agent arwxt
 dbus bt_agent::bt_map_agent arwxt
@@ -4765,6 +4981,7 @@ default-fonts-fc-sdk bluez arwxt
 default-fonts-fc-sdk browser-provider arwxt
 default-fonts-fc-sdk browser::db arwxt
 default-fonts-fc-sdk browser::db_external arwxt
+default-fonts-fc-sdk bt-service arwxt
 default-fonts-fc-sdk bt_agent arwxt
 default-fonts-fc-sdk bt_agent::bt_hfp_agent arwxt
 default-fonts-fc-sdk bt_agent::bt_map_agent arwxt
@@ -4955,6 +5172,7 @@ dlogutil bluez arwxt
 dlogutil browser-provider arwxt
 dlogutil browser::db arwxt
 dlogutil browser::db_external arwxt
+dlogutil bt-service arwxt
 dlogutil bt_agent arwxt
 dlogutil bt_agent::bt_hfp_agent arwxt
 dlogutil bt_agent::bt_map_agent arwxt
@@ -5145,6 +5363,7 @@ download-provider bluez arwxt
 download-provider browser-provider arwxt
 download-provider browser::db arwxt
 download-provider browser::db_external arwxt
+download-provider bt-service arwxt
 download-provider bt_agent arwxt
 download-provider bt_agent::bt_hfp_agent arwxt
 download-provider bt_agent::bt_map_agent arwxt
@@ -5335,6 +5554,7 @@ e17 bluez arwxt
 e17 browser-provider arwxt
 e17 browser::db arwxt
 e17 browser::db_external arwxt
+e17 bt-service arwxt
 e17 bt_agent arwxt
 e17 bt_agent::bt_hfp_agent arwxt
 e17 bt_agent::bt_map_agent arwxt
@@ -5525,6 +5745,7 @@ e17-data bluez arwxt
 e17-data browser-provider arwxt
 e17-data browser::db arwxt
 e17-data browser::db_external arwxt
+e17-data bt-service arwxt
 e17-data bt_agent arwxt
 e17-data bt_agent::bt_hfp_agent arwxt
 e17-data bt_agent::bt_map_agent arwxt
@@ -5715,6 +5936,7 @@ efreet bluez arwxt
 efreet browser-provider arwxt
 efreet browser::db arwxt
 efreet browser::db_external arwxt
+efreet bt-service arwxt
 efreet bt_agent arwxt
 efreet bt_agent::bt_hfp_agent arwxt
 efreet bt_agent::bt_map_agent arwxt
@@ -5905,6 +6127,7 @@ email-service bluez arwxt
 email-service browser-provider arwxt
 email-service browser::db arwxt
 email-service browser::db_external arwxt
+email-service bt-service arwxt
 email-service bt_agent arwxt
 email-service bt_agent::bt_hfp_agent arwxt
 email-service bt_agent::bt_map_agent arwxt
@@ -6095,6 +6318,7 @@ gi2qxenosh bluez arwxt
 gi2qxenosh browser-provider arwxt
 gi2qxenosh browser::db arwxt
 gi2qxenosh browser::db_external arwxt
+gi2qxenosh bt-service arwxt
 gi2qxenosh bt_agent arwxt
 gi2qxenosh bt_agent::bt_hfp_agent arwxt
 gi2qxenosh bt_agent::bt_map_agent arwxt
@@ -6285,6 +6509,7 @@ isf bluez arwxt
 isf browser-provider arwxt
 isf browser::db arwxt
 isf browser::db_external arwxt
+isf bt-service arwxt
 isf bt_agent arwxt
 isf bt_agent::bt_hfp_agent arwxt
 isf bt_agent::bt_map_agent arwxt
@@ -6475,6 +6700,7 @@ libaccounts-svc bluez arwxt
 libaccounts-svc browser-provider arwxt
 libaccounts-svc browser::db arwxt
 libaccounts-svc browser::db_external arwxt
+libaccounts-svc bt-service arwxt
 libaccounts-svc bt_agent arwxt
 libaccounts-svc bt_agent::bt_hfp_agent arwxt
 libaccounts-svc bt_agent::bt_map_agent arwxt
@@ -6665,6 +6891,7 @@ libslp-alarm bluez arwxt
 libslp-alarm browser-provider arwxt
 libslp-alarm browser::db arwxt
 libslp-alarm browser::db_external arwxt
+libslp-alarm bt-service arwxt
 libslp-alarm bt_agent arwxt
 libslp-alarm bt_agent::bt_hfp_agent arwxt
 libslp-alarm bt_agent::bt_map_agent arwxt
@@ -6855,6 +7082,7 @@ libslp-memo bluez arwxt
 libslp-memo browser-provider arwxt
 libslp-memo browser::db arwxt
 libslp-memo browser::db_external arwxt
+libslp-memo bt-service arwxt
 libslp-memo bt_agent arwxt
 libslp-memo bt_agent::bt_hfp_agent arwxt
 libslp-memo bt_agent::bt_map_agent arwxt
@@ -7045,6 +7273,7 @@ libug-phone bluez arwxt
 libug-phone browser-provider arwxt
 libug-phone browser::db arwxt
 libug-phone browser::db_external arwxt
+libug-phone bt-service arwxt
 libug-phone bt_agent arwxt
 libug-phone bt_agent::bt_hfp_agent arwxt
 libug-phone bt_agent::bt_map_agent arwxt
@@ -7235,6 +7464,7 @@ location_fw bluez arwxt
 location_fw browser-provider arwxt
 location_fw browser::db arwxt
 location_fw browser::db_external arwxt
+location_fw bt-service arwxt
 location_fw bt_agent arwxt
 location_fw bt_agent::bt_hfp_agent arwxt
 location_fw bt_agent::bt_map_agent arwxt
@@ -7425,6 +7655,7 @@ location_fw::server bluez arwxt
 location_fw::server browser-provider arwxt
 location_fw::server browser::db arwxt
 location_fw::server browser::db_external arwxt
+location_fw::server bt-service arwxt
 location_fw::server bt_agent arwxt
 location_fw::server bt_agent::bt_hfp_agent arwxt
 location_fw::server bt_agent::bt_map_agent arwxt
@@ -7615,6 +7846,7 @@ media-data bluez arwxt
 media-data browser-provider arwxt
 media-data browser::db arwxt
 media-data browser::db_external arwxt
+media-data bt-service arwxt
 media-data bt_agent arwxt
 media-data bt_agent::bt_hfp_agent arwxt
 media-data bt_agent::bt_map_agent arwxt
@@ -7805,6 +8037,7 @@ media-server bluez arwxt
 media-server browser-provider arwxt
 media-server browser::db arwxt
 media-server browser::db_external arwxt
+media-server bt-service arwxt
 media-server bt_agent arwxt
 media-server bt_agent::bt_hfp_agent arwxt
 media-server bt_agent::bt_map_agent arwxt
@@ -7995,6 +8228,7 @@ miracast-server bluez arwxt
 miracast-server browser-provider arwxt
 miracast-server browser::db arwxt
 miracast-server browser::db_external arwxt
+miracast-server bt-service arwxt
 miracast-server bt_agent arwxt
 miracast-server bt_agent::bt_hfp_agent arwxt
 miracast-server bt_agent::bt_map_agent arwxt
@@ -8185,6 +8419,7 @@ mobileprint bluez arwxt
 mobileprint browser-provider arwxt
 mobileprint browser::db arwxt
 mobileprint browser::db_external arwxt
+mobileprint bt-service arwxt
 mobileprint bt_agent arwxt
 mobileprint bt_agent::bt_hfp_agent arwxt
 mobileprint bt_agent::bt_map_agent arwxt
@@ -8375,6 +8610,7 @@ msg-service bluez arwxt
 msg-service browser-provider arwxt
 msg-service browser::db arwxt
 msg-service browser::db_external arwxt
+msg-service bt-service arwxt
 msg-service bt_agent arwxt
 msg-service bt_agent::bt_hfp_agent arwxt
 msg-service bt_agent::bt_map_agent arwxt
@@ -8565,6 +8801,7 @@ net-config bluez arwxt
 net-config browser-provider arwxt
 net-config browser::db arwxt
 net-config browser::db_external arwxt
+net-config bt-service arwxt
 net-config bt_agent arwxt
 net-config bt_agent::bt_hfp_agent arwxt
 net-config bt_agent::bt_map_agent arwxt
@@ -8755,6 +8992,7 @@ nfc-manager bluez arwxt
 nfc-manager browser-provider arwxt
 nfc-manager browser::db arwxt
 nfc-manager browser::db_external arwxt
+nfc-manager bt-service arwxt
 nfc-manager bt_agent arwxt
 nfc-manager bt_agent::bt_hfp_agent arwxt
 nfc-manager bt_agent::bt_map_agent arwxt
@@ -8945,6 +9183,7 @@ notification bluez arwxt
 notification browser-provider arwxt
 notification browser::db arwxt
 notification browser::db_external arwxt
+notification bt-service arwxt
 notification bt_agent arwxt
 notification bt_agent::bt_hfp_agent arwxt
 notification bt_agent::bt_map_agent arwxt
@@ -9135,6 +9374,7 @@ obexd bluez arwxt
 obexd browser-provider arwxt
 obexd browser::db arwxt
 obexd browser::db_external arwxt
+obexd bt-service arwxt
 obexd bt_agent arwxt
 obexd bt_agent::bt_hfp_agent arwxt
 obexd bt_agent::bt_map_agent arwxt
@@ -9325,6 +9565,7 @@ obexd::client bluez arwxt
 obexd::client browser-provider arwxt
 obexd::client browser::db arwxt
 obexd::client browser::db_external arwxt
+obexd::client bt-service arwxt
 obexd::client bt_agent arwxt
 obexd::client bt_agent::bt_hfp_agent arwxt
 obexd::client bt_agent::bt_map_agent arwxt
@@ -9515,6 +9756,7 @@ oma-ds-agent bluez arwxt
 oma-ds-agent browser-provider arwxt
 oma-ds-agent browser::db arwxt
 oma-ds-agent browser::db_external arwxt
+oma-ds-agent bt-service arwxt
 oma-ds-agent bt_agent arwxt
 oma-ds-agent bt_agent::bt_hfp_agent arwxt
 oma-ds-agent bt_agent::bt_map_agent arwxt
@@ -9705,6 +9947,7 @@ org.tizen.app-selector bluez arwxt
 org.tizen.app-selector browser-provider arwxt
 org.tizen.app-selector browser::db arwxt
 org.tizen.app-selector browser::db_external arwxt
+org.tizen.app-selector bt-service arwxt
 org.tizen.app-selector bt_agent arwxt
 org.tizen.app-selector bt_agent::bt_hfp_agent arwxt
 org.tizen.app-selector bt_agent::bt_map_agent arwxt
@@ -9895,6 +10138,7 @@ org.tizen.bluetooth-share-ui bluez arwxt
 org.tizen.bluetooth-share-ui browser-provider arwxt
 org.tizen.bluetooth-share-ui browser::db arwxt
 org.tizen.bluetooth-share-ui browser::db_external arwxt
+org.tizen.bluetooth-share-ui bt-service arwxt
 org.tizen.bluetooth-share-ui bt_agent arwxt
 org.tizen.bluetooth-share-ui bt_agent::bt_hfp_agent arwxt
 org.tizen.bluetooth-share-ui bt_agent::bt_map_agent arwxt
@@ -10085,6 +10329,7 @@ org.tizen.browser bluez arwxt
 org.tizen.browser browser-provider arwxt
 org.tizen.browser browser::db arwxt
 org.tizen.browser browser::db_external arwxt
+org.tizen.browser bt-service arwxt
 org.tizen.browser bt_agent arwxt
 org.tizen.browser bt_agent::bt_hfp_agent arwxt
 org.tizen.browser bt_agent::bt_map_agent arwxt
@@ -10275,6 +10520,7 @@ org.tizen.bt-syspopup bluez arwxt
 org.tizen.bt-syspopup browser-provider arwxt
 org.tizen.bt-syspopup browser::db arwxt
 org.tizen.bt-syspopup browser::db_external arwxt
+org.tizen.bt-syspopup bt-service arwxt
 org.tizen.bt-syspopup bt_agent arwxt
 org.tizen.bt-syspopup bt_agent::bt_hfp_agent arwxt
 org.tizen.bt-syspopup bt_agent::bt_map_agent arwxt
@@ -10465,6 +10711,7 @@ org.tizen.calculator bluez arwxt
 org.tizen.calculator browser-provider arwxt
 org.tizen.calculator browser::db arwxt
 org.tizen.calculator browser::db_external arwxt
+org.tizen.calculator bt-service arwxt
 org.tizen.calculator bt_agent arwxt
 org.tizen.calculator bt_agent::bt_hfp_agent arwxt
 org.tizen.calculator bt_agent::bt_map_agent arwxt
@@ -10655,6 +10902,7 @@ org.tizen.calendar bluez arwxt
 org.tizen.calendar browser-provider arwxt
 org.tizen.calendar browser::db arwxt
 org.tizen.calendar browser::db_external arwxt
+org.tizen.calendar bt-service arwxt
 org.tizen.calendar bt_agent arwxt
 org.tizen.calendar bt_agent::bt_hfp_agent arwxt
 org.tizen.calendar bt_agent::bt_map_agent arwxt
@@ -10845,6 +11093,7 @@ org.tizen.call bluez arwxt
 org.tizen.call browser-provider arwxt
 org.tizen.call browser::db arwxt
 org.tizen.call browser::db_external arwxt
+org.tizen.call bt-service arwxt
 org.tizen.call bt_agent arwxt
 org.tizen.call bt_agent::bt_hfp_agent arwxt
 org.tizen.call bt_agent::bt_map_agent arwxt
@@ -11035,6 +11284,7 @@ org.tizen.camera-app bluez arwxt
 org.tizen.camera-app browser-provider arwxt
 org.tizen.camera-app browser::db arwxt
 org.tizen.camera-app browser::db_external arwxt
+org.tizen.camera-app bt-service arwxt
 org.tizen.camera-app bt_agent arwxt
 org.tizen.camera-app bt_agent::bt_hfp_agent arwxt
 org.tizen.camera-app bt_agent::bt_map_agent arwxt
@@ -11225,6 +11475,7 @@ org.tizen.ciss bluez arwxt
 org.tizen.ciss browser-provider arwxt
 org.tizen.ciss browser::db arwxt
 org.tizen.ciss browser::db_external arwxt
+org.tizen.ciss bt-service arwxt
 org.tizen.ciss bt_agent arwxt
 org.tizen.ciss bt_agent::bt_hfp_agent arwxt
 org.tizen.ciss bt_agent::bt_map_agent arwxt
@@ -11415,6 +11666,7 @@ org.tizen.clock bluez arwxt
 org.tizen.clock browser-provider arwxt
 org.tizen.clock browser::db arwxt
 org.tizen.clock browser::db_external arwxt
+org.tizen.clock bt-service arwxt
 org.tizen.clock bt_agent arwxt
 org.tizen.clock bt_agent::bt_hfp_agent arwxt
 org.tizen.clock bt_agent::bt_map_agent arwxt
@@ -11605,6 +11857,7 @@ org.tizen.contacts bluez arwxt
 org.tizen.contacts browser-provider arwxt
 org.tizen.contacts browser::db arwxt
 org.tizen.contacts browser::db_external arwxt
+org.tizen.contacts bt-service arwxt
 org.tizen.contacts bt_agent arwxt
 org.tizen.contacts bt_agent::bt_hfp_agent arwxt
 org.tizen.contacts bt_agent::bt_map_agent arwxt
@@ -11795,6 +12048,7 @@ org.tizen.contacts-viewer bluez arwxt
 org.tizen.contacts-viewer browser-provider arwxt
 org.tizen.contacts-viewer browser::db arwxt
 org.tizen.contacts-viewer browser::db_external arwxt
+org.tizen.contacts-viewer bt-service arwxt
 org.tizen.contacts-viewer bt_agent arwxt
 org.tizen.contacts-viewer bt_agent::bt_hfp_agent arwxt
 org.tizen.contacts-viewer bt_agent::bt_map_agent arwxt
@@ -11985,6 +12239,7 @@ org.tizen.crash-popup bluez arwxt
 org.tizen.crash-popup browser-provider arwxt
 org.tizen.crash-popup browser::db arwxt
 org.tizen.crash-popup browser::db_external arwxt
+org.tizen.crash-popup bt-service arwxt
 org.tizen.crash-popup bt_agent arwxt
 org.tizen.crash-popup bt_agent::bt_hfp_agent arwxt
 org.tizen.crash-popup bt_agent::bt_map_agent arwxt
@@ -12175,6 +12430,7 @@ org.tizen.data-provider-master bluez arwxt
 org.tizen.data-provider-master browser-provider arwxt
 org.tizen.data-provider-master browser::db arwxt
 org.tizen.data-provider-master browser::db_external arwxt
+org.tizen.data-provider-master bt-service arwxt
 org.tizen.data-provider-master bt_agent arwxt
 org.tizen.data-provider-master bt_agent::bt_hfp_agent arwxt
 org.tizen.data-provider-master bt_agent::bt_map_agent arwxt
@@ -12365,6 +12621,7 @@ org.tizen.data-provider-slave bluez arwxt
 org.tizen.data-provider-slave browser-provider arwxt
 org.tizen.data-provider-slave browser::db arwxt
 org.tizen.data-provider-slave browser::db_external arwxt
+org.tizen.data-provider-slave bt-service arwxt
 org.tizen.data-provider-slave bt_agent arwxt
 org.tizen.data-provider-slave bt_agent::bt_hfp_agent arwxt
 org.tizen.data-provider-slave bt_agent::bt_map_agent arwxt
@@ -12555,6 +12812,7 @@ org.tizen.data-provider-webapp-slave bluez arwxt
 org.tizen.data-provider-webapp-slave browser-provider arwxt
 org.tizen.data-provider-webapp-slave browser::db arwxt
 org.tizen.data-provider-webapp-slave browser::db_external arwxt
+org.tizen.data-provider-webapp-slave bt-service arwxt
 org.tizen.data-provider-webapp-slave bt_agent arwxt
 org.tizen.data-provider-webapp-slave bt_agent::bt_hfp_agent arwxt
 org.tizen.data-provider-webapp-slave bt_agent::bt_map_agent arwxt
@@ -12745,6 +13003,7 @@ org.tizen.download-manager bluez arwxt
 org.tizen.download-manager browser-provider arwxt
 org.tizen.download-manager browser::db arwxt
 org.tizen.download-manager browser::db_external arwxt
+org.tizen.download-manager bt-service arwxt
 org.tizen.download-manager bt_agent arwxt
 org.tizen.download-manager bt_agent::bt_hfp_agent arwxt
 org.tizen.download-manager bt_agent::bt_map_agent arwxt
@@ -12935,6 +13194,7 @@ org.tizen.draglock bluez arwxt
 org.tizen.draglock browser-provider arwxt
 org.tizen.draglock browser::db arwxt
 org.tizen.draglock browser::db_external arwxt
+org.tizen.draglock bt-service arwxt
 org.tizen.draglock bt_agent arwxt
 org.tizen.draglock bt_agent::bt_hfp_agent arwxt
 org.tizen.draglock bt_agent::bt_map_agent arwxt
@@ -13125,6 +13385,7 @@ org.tizen.email bluez arwxt
 org.tizen.email browser-provider arwxt
 org.tizen.email browser::db arwxt
 org.tizen.email browser::db_external arwxt
+org.tizen.email bt-service arwxt
 org.tizen.email bt_agent arwxt
 org.tizen.email bt_agent::bt_hfp_agent arwxt
 org.tizen.email bt_agent::bt_map_agent arwxt
@@ -13315,6 +13576,7 @@ org.tizen.gallery bluez arwxt
 org.tizen.gallery browser-provider arwxt
 org.tizen.gallery browser::db arwxt
 org.tizen.gallery browser::db_external arwxt
+org.tizen.gallery bt-service arwxt
 org.tizen.gallery bt_agent arwxt
 org.tizen.gallery bt_agent::bt_hfp_agent arwxt
 org.tizen.gallery bt_agent::bt_map_agent arwxt
@@ -13505,6 +13767,7 @@ org.tizen.image-viewer bluez arwxt
 org.tizen.image-viewer browser-provider arwxt
 org.tizen.image-viewer browser::db arwxt
 org.tizen.image-viewer browser::db_external arwxt
+org.tizen.image-viewer bt-service arwxt
 org.tizen.image-viewer bt_agent arwxt
 org.tizen.image-viewer bt_agent::bt_hfp_agent arwxt
 org.tizen.image-viewer bt_agent::bt_map_agent arwxt
@@ -13695,6 +13958,7 @@ org.tizen.indicator bluez arwxt
 org.tizen.indicator browser-provider arwxt
 org.tizen.indicator browser::db arwxt
 org.tizen.indicator browser::db_external arwxt
+org.tizen.indicator bt-service arwxt
 org.tizen.indicator bt_agent arwxt
 org.tizen.indicator bt_agent::bt_hfp_agent arwxt
 org.tizen.indicator bt_agent::bt_map_agent arwxt
@@ -13885,6 +14149,7 @@ org.tizen.lockscreen bluez arwxt
 org.tizen.lockscreen browser-provider arwxt
 org.tizen.lockscreen browser::db arwxt
 org.tizen.lockscreen browser::db_external arwxt
+org.tizen.lockscreen bt-service arwxt
 org.tizen.lockscreen bt_agent arwxt
 org.tizen.lockscreen bt_agent::bt_hfp_agent arwxt
 org.tizen.lockscreen bt_agent::bt_map_agent arwxt
@@ -14075,6 +14340,7 @@ org.tizen.memo bluez arwxt
 org.tizen.memo browser-provider arwxt
 org.tizen.memo browser::db arwxt
 org.tizen.memo browser::db_external arwxt
+org.tizen.memo bt-service arwxt
 org.tizen.memo bt_agent arwxt
 org.tizen.memo bt_agent::bt_hfp_agent arwxt
 org.tizen.memo bt_agent::bt_map_agent arwxt
@@ -14265,6 +14531,7 @@ org.tizen.menu-screen bluez arwxt
 org.tizen.menu-screen browser-provider arwxt
 org.tizen.menu-screen browser::db arwxt
 org.tizen.menu-screen browser::db_external arwxt
+org.tizen.menu-screen bt-service arwxt
 org.tizen.menu-screen bt_agent arwxt
 org.tizen.menu-screen bt_agent::bt_hfp_agent arwxt
 org.tizen.menu-screen bt_agent::bt_map_agent arwxt
@@ -14455,6 +14722,7 @@ org.tizen.message bluez arwxt
 org.tizen.message browser-provider arwxt
 org.tizen.message browser::db arwxt
 org.tizen.message browser::db_external arwxt
+org.tizen.message bt-service arwxt
 org.tizen.message bt_agent arwxt
 org.tizen.message bt_agent::bt_hfp_agent arwxt
 org.tizen.message bt_agent::bt_map_agent arwxt
@@ -14645,6 +14913,7 @@ org.tizen.music-player bluez arwxt
 org.tizen.music-player browser-provider arwxt
 org.tizen.music-player browser::db arwxt
 org.tizen.music-player browser::db_external arwxt
+org.tizen.music-player bt-service arwxt
 org.tizen.music-player bt_agent arwxt
 org.tizen.music-player bt_agent::bt_hfp_agent arwxt
 org.tizen.music-player bt_agent::bt_map_agent arwxt
@@ -14835,6 +15104,7 @@ org.tizen.myfile bluez arwxt
 org.tizen.myfile browser-provider arwxt
 org.tizen.myfile browser::db arwxt
 org.tizen.myfile browser::db_external arwxt
+org.tizen.myfile bt-service arwxt
 org.tizen.myfile bt_agent arwxt
 org.tizen.myfile bt_agent::bt_hfp_agent arwxt
 org.tizen.myfile bt_agent::bt_map_agent arwxt
@@ -15025,6 +15295,7 @@ org.tizen.net-popup bluez arwxt
 org.tizen.net-popup browser-provider arwxt
 org.tizen.net-popup browser::db arwxt
 org.tizen.net-popup browser::db_external arwxt
+org.tizen.net-popup bt-service arwxt
 org.tizen.net-popup bt_agent arwxt
 org.tizen.net-popup bt_agent::bt_hfp_agent arwxt
 org.tizen.net-popup bt_agent::bt_map_agent arwxt
@@ -15215,6 +15486,7 @@ org.tizen.phone bluez arwxt
 org.tizen.phone browser-provider arwxt
 org.tizen.phone browser::db arwxt
 org.tizen.phone browser::db_external arwxt
+org.tizen.phone bt-service arwxt
 org.tizen.phone bt_agent arwxt
 org.tizen.phone bt_agent::bt_hfp_agent arwxt
 org.tizen.phone bt_agent::bt_map_agent arwxt
@@ -15405,6 +15677,7 @@ org.tizen.pwlock bluez arwxt
 org.tizen.pwlock browser-provider arwxt
 org.tizen.pwlock browser::db arwxt
 org.tizen.pwlock browser::db_external arwxt
+org.tizen.pwlock bt-service arwxt
 org.tizen.pwlock bt_agent arwxt
 org.tizen.pwlock bt_agent::bt_hfp_agent arwxt
 org.tizen.pwlock bt_agent::bt_map_agent arwxt
@@ -15595,6 +15868,7 @@ org.tizen.quickpanel bluez arwxt
 org.tizen.quickpanel browser-provider arwxt
 org.tizen.quickpanel browser::db arwxt
 org.tizen.quickpanel browser::db_external arwxt
+org.tizen.quickpanel bt-service arwxt
 org.tizen.quickpanel bt_agent arwxt
 org.tizen.quickpanel bt_agent::bt_hfp_agent arwxt
 org.tizen.quickpanel bt_agent::bt_map_agent arwxt
@@ -15785,6 +16059,7 @@ org.tizen.sat-ui bluez arwxt
 org.tizen.sat-ui browser-provider arwxt
 org.tizen.sat-ui browser::db arwxt
 org.tizen.sat-ui browser::db_external arwxt
+org.tizen.sat-ui bt-service arwxt
 org.tizen.sat-ui bt_agent arwxt
 org.tizen.sat-ui bt_agent::bt_hfp_agent arwxt
 org.tizen.sat-ui bt_agent::bt_map_agent arwxt
@@ -15975,6 +16250,7 @@ org.tizen.setting bluez arwxt
 org.tizen.setting browser-provider arwxt
 org.tizen.setting browser::db arwxt
 org.tizen.setting browser::db_external arwxt
+org.tizen.setting bt-service arwxt
 org.tizen.setting bt_agent arwxt
 org.tizen.setting bt_agent::bt_hfp_agent arwxt
 org.tizen.setting bt_agent::bt_map_agent arwxt
@@ -16165,6 +16441,7 @@ org.tizen.smartsearch bluez arwxt
 org.tizen.smartsearch browser-provider arwxt
 org.tizen.smartsearch browser::db arwxt
 org.tizen.smartsearch browser::db_external arwxt
+org.tizen.smartsearch bt-service arwxt
 org.tizen.smartsearch bt_agent arwxt
 org.tizen.smartsearch bt_agent::bt_hfp_agent arwxt
 org.tizen.smartsearch bt_agent::bt_map_agent arwxt
@@ -16355,6 +16632,7 @@ org.tizen.taskmgr bluez arwxt
 org.tizen.taskmgr browser-provider arwxt
 org.tizen.taskmgr browser::db arwxt
 org.tizen.taskmgr browser::db_external arwxt
+org.tizen.taskmgr bt-service arwxt
 org.tizen.taskmgr bt_agent arwxt
 org.tizen.taskmgr bt_agent::bt_hfp_agent arwxt
 org.tizen.taskmgr bt_agent::bt_map_agent arwxt
@@ -16545,6 +16823,7 @@ org.tizen.tickernoti-syspopup bluez arwxt
 org.tizen.tickernoti-syspopup browser-provider arwxt
 org.tizen.tickernoti-syspopup browser::db arwxt
 org.tizen.tickernoti-syspopup browser::db_external arwxt
+org.tizen.tickernoti-syspopup bt-service arwxt
 org.tizen.tickernoti-syspopup bt_agent arwxt
 org.tizen.tickernoti-syspopup bt_agent::bt_hfp_agent arwxt
 org.tizen.tickernoti-syspopup bt_agent::bt_map_agent arwxt
@@ -16735,6 +17014,7 @@ org.tizen.usb-syspopup bluez arwxt
 org.tizen.usb-syspopup browser-provider arwxt
 org.tizen.usb-syspopup browser::db arwxt
 org.tizen.usb-syspopup browser::db_external arwxt
+org.tizen.usb-syspopup bt-service arwxt
 org.tizen.usb-syspopup bt_agent arwxt
 org.tizen.usb-syspopup bt_agent::bt_hfp_agent arwxt
 org.tizen.usb-syspopup bt_agent::bt_map_agent arwxt
@@ -16925,6 +17205,7 @@ org.tizen.video-player bluez arwxt
 org.tizen.video-player browser-provider arwxt
 org.tizen.video-player browser::db arwxt
 org.tizen.video-player browser::db_external arwxt
+org.tizen.video-player bt-service arwxt
 org.tizen.video-player bt_agent arwxt
 org.tizen.video-player bt_agent::bt_hfp_agent arwxt
 org.tizen.video-player bt_agent::bt_map_agent arwxt
@@ -17115,6 +17396,7 @@ org.tizen.volume bluez arwxt
 org.tizen.volume browser-provider arwxt
 org.tizen.volume browser::db arwxt
 org.tizen.volume browser::db_external arwxt
+org.tizen.volume bt-service arwxt
 org.tizen.volume bt_agent arwxt
 org.tizen.volume bt_agent::bt_hfp_agent arwxt
 org.tizen.volume bt_agent::bt_map_agent arwxt
@@ -17305,6 +17587,7 @@ osp bluez arwxt
 osp browser-provider arwxt
 osp browser::db arwxt
 osp browser::db_external arwxt
+osp bt-service arwxt
 osp bt_agent arwxt
 osp bt_agent::bt_hfp_agent arwxt
 osp bt_agent::bt_map_agent arwxt
@@ -17495,6 +17778,7 @@ osp-app-service bluez arwxt
 osp-app-service browser-provider arwxt
 osp-app-service browser::db arwxt
 osp-app-service browser::db_external arwxt
+osp-app-service bt-service arwxt
 osp-app-service bt_agent arwxt
 osp-app-service bt_agent::bt_hfp_agent arwxt
 osp-app-service bt_agent::bt_map_agent arwxt
@@ -17685,6 +17969,7 @@ osp-channel-service bluez arwxt
 osp-channel-service browser-provider arwxt
 osp-channel-service browser::db arwxt
 osp-channel-service browser::db_external arwxt
+osp-channel-service bt-service arwxt
 osp-channel-service bt_agent arwxt
 osp-channel-service bt_agent::bt_hfp_agent arwxt
 osp-channel-service bt_agent::bt_map_agent arwxt
@@ -17875,6 +18160,7 @@ osp-connectivity-service bluez arwxt
 osp-connectivity-service browser-provider arwxt
 osp-connectivity-service browser::db arwxt
 osp-connectivity-service browser::db_external arwxt
+osp-connectivity-service bt-service arwxt
 osp-connectivity-service bt_agent arwxt
 osp-connectivity-service bt_agent::bt_hfp_agent arwxt
 osp-connectivity-service bt_agent::bt_map_agent arwxt
@@ -18065,6 +18351,7 @@ osp-installer bluez arwxt
 osp-installer browser-provider arwxt
 osp-installer browser::db arwxt
 osp-installer browser::db_external arwxt
+osp-installer bt-service arwxt
 osp-installer bt_agent arwxt
 osp-installer bt_agent::bt_hfp_agent arwxt
 osp-installer bt_agent::bt_map_agent arwxt
@@ -18255,6 +18542,7 @@ osp-livebox-service bluez arwxt
 osp-livebox-service browser-provider arwxt
 osp-livebox-service browser::db arwxt
 osp-livebox-service browser::db_external arwxt
+osp-livebox-service bt-service arwxt
 osp-livebox-service bt_agent arwxt
 osp-livebox-service bt_agent::bt_hfp_agent arwxt
 osp-livebox-service bt_agent::bt_map_agent arwxt
@@ -18445,6 +18733,7 @@ osp-search-service bluez arwxt
 osp-search-service browser-provider arwxt
 osp-search-service browser::db arwxt
 osp-search-service browser::db_external arwxt
+osp-search-service bt-service arwxt
 osp-search-service bt_agent arwxt
 osp-search-service bt_agent::bt_hfp_agent arwxt
 osp-search-service bt_agent::bt_map_agent arwxt
@@ -18635,6 +18924,7 @@ osp-security-service bluez arwxt
 osp-security-service browser-provider arwxt
 osp-security-service browser::db arwxt
 osp-security-service browser::db_external arwxt
+osp-security-service bt-service arwxt
 osp-security-service bt_agent arwxt
 osp-security-service bt_agent::bt_hfp_agent arwxt
 osp-security-service bt_agent::bt_map_agent arwxt
@@ -18825,6 +19115,7 @@ pims-ipc bluez arwxt
 pims-ipc browser-provider arwxt
 pims-ipc browser::db arwxt
 pims-ipc browser::db_external arwxt
+pims-ipc bt-service arwxt
 pims-ipc bt_agent arwxt
 pims-ipc bt_agent::bt_hfp_agent arwxt
 pims-ipc bt_agent::bt_map_agent arwxt
@@ -19015,6 +19306,7 @@ pkgmgr bluez arwxt
 pkgmgr browser-provider arwxt
 pkgmgr browser::db arwxt
 pkgmgr browser::db_external arwxt
+pkgmgr bt-service arwxt
 pkgmgr bt_agent arwxt
 pkgmgr bt_agent::bt_hfp_agent arwxt
 pkgmgr bt_agent::bt_map_agent arwxt
@@ -19205,6 +19497,7 @@ pkgmgr-client bluez arwxt
 pkgmgr-client browser-provider arwxt
 pkgmgr-client browser::db arwxt
 pkgmgr-client browser::db_external arwxt
+pkgmgr-client bt-service arwxt
 pkgmgr-client bt_agent arwxt
 pkgmgr-client bt_agent::bt_hfp_agent arwxt
 pkgmgr-client bt_agent::bt_map_agent arwxt
@@ -19395,6 +19688,7 @@ pkgmgr-info bluez arwxt
 pkgmgr-info browser-provider arwxt
 pkgmgr-info browser::db arwxt
 pkgmgr-info browser::db_external arwxt
+pkgmgr-info bt-service arwxt
 pkgmgr-info bt_agent arwxt
 pkgmgr-info bt_agent::bt_hfp_agent arwxt
 pkgmgr-info bt_agent::bt_map_agent arwxt
@@ -19585,6 +19879,7 @@ pkgmgr-installer bluez arwxt
 pkgmgr-installer browser-provider arwxt
 pkgmgr-installer browser::db arwxt
 pkgmgr-installer browser::db_external arwxt
+pkgmgr-installer bt-service arwxt
 pkgmgr-installer bt_agent arwxt
 pkgmgr-installer bt_agent::bt_hfp_agent arwxt
 pkgmgr-installer bt_agent::bt_map_agent arwxt
@@ -19775,6 +20070,7 @@ pkgmgr-parser bluez arwxt
 pkgmgr-parser browser-provider arwxt
 pkgmgr-parser browser::db arwxt
 pkgmgr-parser browser::db_external arwxt
+pkgmgr-parser bt-service arwxt
 pkgmgr-parser bt_agent arwxt
 pkgmgr-parser bt_agent::bt_hfp_agent arwxt
 pkgmgr-parser bt_agent::bt_map_agent arwxt
@@ -19965,6 +20261,7 @@ pkgmgr-server bluez arwxt
 pkgmgr-server browser-provider arwxt
 pkgmgr-server browser::db arwxt
 pkgmgr-server browser::db_external arwxt
+pkgmgr-server bt-service arwxt
 pkgmgr-server bt_agent arwxt
 pkgmgr-server bt_agent::bt_hfp_agent arwxt
 pkgmgr-server bt_agent::bt_map_agent arwxt
@@ -20155,6 +20452,7 @@ power_manager bluez arwxt
 power_manager browser-provider arwxt
 power_manager browser::db arwxt
 power_manager browser::db_external arwxt
+power_manager bt-service arwxt
 power_manager bt_agent arwxt
 power_manager bt_agent::bt_hfp_agent arwxt
 power_manager bt_agent::bt_map_agent arwxt
@@ -20345,6 +20643,7 @@ pulseaudio bluez arwxt
 pulseaudio browser-provider arwxt
 pulseaudio browser::db arwxt
 pulseaudio browser::db_external arwxt
+pulseaudio bt-service arwxt
 pulseaudio bt_agent arwxt
 pulseaudio bt_agent::bt_hfp_agent arwxt
 pulseaudio bt_agent::bt_map_agent arwxt
@@ -20535,6 +20834,7 @@ push-service bluez arwxt
 push-service browser-provider arwxt
 push-service browser::db arwxt
 push-service browser::db_external arwxt
+push-service bt-service arwxt
 push-service bt_agent arwxt
 push-service bt_agent::bt_hfp_agent arwxt
 push-service bt_agent::bt_map_agent arwxt
@@ -20725,6 +21025,7 @@ q7097a278m bluez arwxt
 q7097a278m browser-provider arwxt
 q7097a278m browser::db arwxt
 q7097a278m browser::db_external arwxt
+q7097a278m bt-service arwxt
 q7097a278m bt_agent arwxt
 q7097a278m bt_agent::bt_hfp_agent arwxt
 q7097a278m bt_agent::bt_map_agent arwxt
@@ -20915,6 +21216,7 @@ rua bluez arwxt
 rua browser-provider arwxt
 rua browser::db arwxt
 rua browser::db_external arwxt
+rua bt-service arwxt
 rua bt_agent arwxt
 rua bt_agent::bt_hfp_agent arwxt
 rua bt_agent::bt_map_agent arwxt
@@ -21105,6 +21407,7 @@ security-server bluez arwxt
 security-server browser-provider arwxt
 security-server browser::db arwxt
 security-server browser::db_external arwxt
+security-server bt-service arwxt
 security-server bt_agent arwxt
 security-server bt_agent::bt_hfp_agent arwxt
 security-server bt_agent::bt_map_agent arwxt
@@ -21295,6 +21598,7 @@ sensor-framework bluez arwxt
 sensor-framework browser-provider arwxt
 sensor-framework browser::db arwxt
 sensor-framework browser::db_external arwxt
+sensor-framework bt-service arwxt
 sensor-framework bt_agent arwxt
 sensor-framework bt_agent::bt_hfp_agent arwxt
 sensor-framework bt_agent::bt_map_agent arwxt
@@ -21485,6 +21789,7 @@ sjjevolsjk bluez arwxt
 sjjevolsjk browser-provider arwxt
 sjjevolsjk browser::db arwxt
 sjjevolsjk browser::db_external arwxt
+sjjevolsjk bt-service arwxt
 sjjevolsjk bt_agent arwxt
 sjjevolsjk bt_agent::bt_hfp_agent arwxt
 sjjevolsjk bt_agent::bt_map_agent arwxt
@@ -21675,6 +21980,7 @@ smartcard-service bluez arwxt
 smartcard-service browser-provider arwxt
 smartcard-service browser::db arwxt
 smartcard-service browser::db_external arwxt
+smartcard-service bt-service arwxt
 smartcard-service bt_agent arwxt
 smartcard-service bt_agent::bt_hfp_agent arwxt
 smartcard-service bt_agent::bt_map_agent arwxt
@@ -21865,6 +22171,7 @@ sound_server bluez arwxt
 sound_server browser-provider arwxt
 sound_server browser::db arwxt
 sound_server browser::db_external arwxt
+sound_server bt-service arwxt
 sound_server bt_agent arwxt
 sound_server bt_agent::bt_hfp_agent arwxt
 sound_server bt_agent::bt_map_agent arwxt
@@ -22055,6 +22362,7 @@ sqlfs bluez arwxt
 sqlfs browser-provider arwxt
 sqlfs browser::db arwxt
 sqlfs browser::db_external arwxt
+sqlfs bt-service arwxt
 sqlfs bt_agent arwxt
 sqlfs bt_agent::bt_hfp_agent arwxt
 sqlfs bt_agent::bt_map_agent arwxt
@@ -22245,6 +22553,7 @@ starter bluez arwxt
 starter browser-provider arwxt
 starter browser::db arwxt
 starter browser::db_external arwxt
+starter bt-service arwxt
 starter bt_agent arwxt
 starter bt_agent::bt_hfp_agent arwxt
 starter bt_agent::bt_map_agent arwxt
@@ -22435,6 +22744,7 @@ stt-server bluez arwxt
 stt-server browser-provider arwxt
 stt-server browser::db arwxt
 stt-server browser::db_external arwxt
+stt-server bt-service arwxt
 stt-server bt_agent arwxt
 stt-server bt_agent::bt_hfp_agent arwxt
 stt-server bt_agent::bt_map_agent arwxt
@@ -22625,6 +22935,7 @@ svi-data bluez arwxt
 svi-data browser-provider arwxt
 svi-data browser::db arwxt
 svi-data browser::db_external arwxt
+svi-data bt-service arwxt
 svi-data bt_agent arwxt
 svi-data bt_agent::bt_hfp_agent arwxt
 svi-data bt_agent::bt_map_agent arwxt
@@ -22815,6 +23126,7 @@ sys-assert bluez arwxt
 sys-assert browser-provider arwxt
 sys-assert browser::db arwxt
 sys-assert browser::db_external arwxt
+sys-assert bt-service arwxt
 sys-assert bt_agent arwxt
 sys-assert bt_agent::bt_hfp_agent arwxt
 sys-assert bt_agent::bt_map_agent arwxt
@@ -23005,6 +23317,7 @@ sys-assert::core-launcher bluez arwxt
 sys-assert::core-launcher browser-provider arwxt
 sys-assert::core-launcher browser::db arwxt
 sys-assert::core-launcher browser::db_external arwxt
+sys-assert::core-launcher bt-service arwxt
 sys-assert::core-launcher bt_agent arwxt
 sys-assert::core-launcher bt_agent::bt_hfp_agent arwxt
 sys-assert::core-launcher bt_agent::bt_map_agent arwxt
@@ -23195,6 +23508,7 @@ syspopup bluez arwxt
 syspopup browser-provider arwxt
 syspopup browser::db arwxt
 syspopup browser::db_external arwxt
+syspopup bt-service arwxt
 syspopup bt_agent arwxt
 syspopup bt_agent::bt_hfp_agent arwxt
 syspopup bt_agent::bt_map_agent arwxt
@@ -23385,6 +23699,7 @@ system bluez arwxt
 system browser-provider arwxt
 system browser::db arwxt
 system browser::db_external arwxt
+system bt-service arwxt
 system bt_agent arwxt
 system bt_agent::bt_hfp_agent arwxt
 system bt_agent::bt_map_agent arwxt
@@ -23575,6 +23890,7 @@ system-server bluez arwxt
 system-server browser-provider arwxt
 system-server browser::db arwxt
 system-server browser::db_external arwxt
+system-server bt-service arwxt
 system-server bt_agent arwxt
 system-server bt_agent::bt_hfp_agent arwxt
 system-server bt_agent::bt_map_agent arwxt
@@ -23765,6 +24081,7 @@ system::use_internet bluez arwxt
 system::use_internet browser-provider arwxt
 system::use_internet browser::db arwxt
 system::use_internet browser::db_external arwxt
+system::use_internet bt-service arwxt
 system::use_internet bt_agent arwxt
 system::use_internet bt_agent::bt_hfp_agent arwxt
 system::use_internet bt_agent::bt_map_agent arwxt
@@ -23955,6 +24272,7 @@ telephony_framework bluez arwxt
 telephony_framework browser-provider arwxt
 telephony_framework browser::db arwxt
 telephony_framework browser::db_external arwxt
+telephony_framework bt-service arwxt
 telephony_framework bt_agent arwxt
 telephony_framework bt_agent::bt_hfp_agent arwxt
 telephony_framework bt_agent::bt_map_agent arwxt
@@ -24145,6 +24463,7 @@ thumb-server bluez arwxt
 thumb-server browser-provider arwxt
 thumb-server browser::db arwxt
 thumb-server browser::db_external arwxt
+thumb-server bt-service arwxt
 thumb-server bt_agent arwxt
 thumb-server bt_agent::bt_hfp_agent arwxt
 thumb-server bt_agent::bt_map_agent arwxt
@@ -24335,6 +24654,7 @@ tts-server bluez arwxt
 tts-server browser-provider arwxt
 tts-server browser::db arwxt
 tts-server browser::db_external arwxt
+tts-server bt-service arwxt
 tts-server bt_agent arwxt
 tts-server bt_agent::bt_hfp_agent arwxt
 tts-server bt_agent::bt_map_agent arwxt
@@ -24525,6 +24845,7 @@ ug-camera-efl bluez arwxt
 ug-camera-efl browser-provider arwxt
 ug-camera-efl browser::db arwxt
 ug-camera-efl browser::db_external arwxt
+ug-camera-efl bt-service arwxt
 ug-camera-efl bt_agent arwxt
 ug-camera-efl bt_agent::bt_hfp_agent arwxt
 ug-camera-efl bt_agent::bt_map_agent arwxt
@@ -24715,6 +25036,7 @@ ug-image-viewer-efl bluez arwxt
 ug-image-viewer-efl browser-provider arwxt
 ug-image-viewer-efl browser::db arwxt
 ug-image-viewer-efl browser::db_external arwxt
+ug-image-viewer-efl bt-service arwxt
 ug-image-viewer-efl bt_agent arwxt
 ug-image-viewer-efl bt_agent::bt_hfp_agent arwxt
 ug-image-viewer-efl bt_agent::bt_map_agent arwxt
@@ -24905,6 +25227,7 @@ ug_bluetooth bluez arwxt
 ug_bluetooth browser-provider arwxt
 ug_bluetooth browser::db arwxt
 ug_bluetooth browser::db_external arwxt
+ug_bluetooth bt-service arwxt
 ug_bluetooth bt_agent arwxt
 ug_bluetooth bt_agent::bt_hfp_agent arwxt
 ug_bluetooth bt_agent::bt_map_agent arwxt
@@ -25095,6 +25418,7 @@ usb-printer-detector bluez arwxt
 usb-printer-detector browser-provider arwxt
 usb-printer-detector browser::db arwxt
 usb-printer-detector browser::db_external arwxt
+usb-printer-detector bt-service arwxt
 usb-printer-detector bt_agent arwxt
 usb-printer-detector bt_agent::bt_hfp_agent arwxt
 usb-printer-detector bt_agent::bt_map_agent arwxt
@@ -25285,6 +25609,7 @@ usb-server bluez arwxt
 usb-server browser-provider arwxt
 usb-server browser::db arwxt
 usb-server browser::db_external arwxt
+usb-server bt-service arwxt
 usb-server bt_agent arwxt
 usb-server bt_agent::bt_hfp_agent arwxt
 usb-server bt_agent::bt_map_agent arwxt
@@ -25475,6 +25800,7 @@ usb-syspopup bluez arwxt
 usb-syspopup browser-provider arwxt
 usb-syspopup browser::db arwxt
 usb-syspopup browser::db_external arwxt
+usb-syspopup bt-service arwxt
 usb-syspopup bt_agent arwxt
 usb-syspopup bt_agent::bt_hfp_agent arwxt
 usb-syspopup bt_agent::bt_map_agent arwxt
@@ -25665,6 +25991,7 @@ webkit2-efl bluez arwxt
 webkit2-efl browser-provider arwxt
 webkit2-efl browser::db arwxt
 webkit2-efl browser::db_external arwxt
+webkit2-efl bt-service arwxt
 webkit2-efl bt_agent arwxt
 webkit2-efl bt_agent::bt_hfp_agent arwxt
 webkit2-efl bt_agent::bt_map_agent arwxt
@@ -25855,6 +26182,7 @@ wifi_direct_manager bluez arwxt
 wifi_direct_manager browser-provider arwxt
 wifi_direct_manager browser::db arwxt
 wifi_direct_manager browser::db_external arwxt
+wifi_direct_manager bt-service arwxt
 wifi_direct_manager bt_agent arwxt
 wifi_direct_manager bt_agent::bt_hfp_agent arwxt
 wifi_direct_manager bt_agent::bt_map_agent arwxt
@@ -26045,6 +26373,7 @@ worldclock bluez arwxt
 worldclock browser-provider arwxt
 worldclock browser::db arwxt
 worldclock browser::db_external arwxt
+worldclock bt-service arwxt
 worldclock bt_agent arwxt
 worldclock bt_agent::bt_hfp_agent arwxt
 worldclock bt_agent::bt_map_agent arwxt
@@ -26235,6 +26564,7 @@ wrt bluez arwxt
 wrt browser-provider arwxt
 wrt browser::db arwxt
 wrt browser::db_external arwxt
+wrt bt-service arwxt
 wrt bt_agent arwxt
 wrt bt_agent::bt_hfp_agent arwxt
 wrt bt_agent::bt_map_agent arwxt
@@ -26425,6 +26755,7 @@ wrt-commons bluez arwxt
 wrt-commons browser-provider arwxt
 wrt-commons browser::db arwxt
 wrt-commons browser::db_external arwxt
+wrt-commons bt-service arwxt
 wrt-commons bt_agent arwxt
 wrt-commons bt_agent::bt_hfp_agent arwxt
 wrt-commons bt_agent::bt_map_agent arwxt
@@ -26615,6 +26946,7 @@ wrt-installer bluez arwxt
 wrt-installer browser-provider arwxt
 wrt-installer browser::db arwxt
 wrt-installer browser::db_external arwxt
+wrt-installer bt-service arwxt
 wrt-installer bt_agent arwxt
 wrt-installer bt_agent::bt_hfp_agent arwxt
 wrt-installer bt_agent::bt_map_agent arwxt
@@ -26805,6 +27137,7 @@ wrt-plugins-common bluez arwxt
 wrt-plugins-common browser-provider arwxt
 wrt-plugins-common browser::db arwxt
 wrt-plugins-common browser::db_external arwxt
+wrt-plugins-common bt-service arwxt
 wrt-plugins-common bt_agent arwxt
 wrt-plugins-common bt_agent::bt_hfp_agent arwxt
 wrt-plugins-common bt_agent::bt_map_agent arwxt
@@ -26995,6 +27328,7 @@ xorg bluez arwxt
 xorg browser-provider arwxt
 xorg browser::db arwxt
 xorg browser::db_external arwxt
+xorg bt-service arwxt
 xorg bt_agent arwxt
 xorg bt_agent::bt_hfp_agent arwxt
 xorg bt_agent::bt_map_agent arwxt
@@ -27185,6 +27519,7 @@ zeromq bluez arwxt
 zeromq browser-provider arwxt
 zeromq browser::db arwxt
 zeromq browser::db_external arwxt
+zeromq bt-service arwxt
 zeromq bt_agent arwxt
 zeromq bt_agent::bt_hfp_agent arwxt
 zeromq bt_agent::bt_map_agent arwxt
