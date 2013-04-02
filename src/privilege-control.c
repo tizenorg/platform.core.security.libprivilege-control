@@ -1339,9 +1339,55 @@ out:
 
 API int add_shared_dir_readers(const char* shared_label, const char** app_list)
 {
-	// TODO this needs to be fully implemented
 	C_LOGD("Enter function: %s", __func__);
-	return PC_OPERATION_SUCCESS;
+#ifdef SMACK_ENABLED
+	int ret = PC_ERR_INVALID_PARAM;
+	int i;
+	int fd = -1;
+	for (i = 0; *app_list[i]; i++) {
+		char *smack_path = NULL;
+		struct smack_accesses *smack = NULL;
+
+
+		if (!smack_label_is_valid(shared_label))
+				return PC_ERR_INVALID_PARAM;
+
+		ret = load_smack_from_file(
+				app_list[i], &smack, &fd, &smack_path);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("load_smack_from_file failed");
+			goto out;
+		}
+		if (smack_accesses_add_modify(smack, app_list[i], shared_label,
+				"rx", "") == -1) {
+			C_LOGE("smack_accesses_add failed");
+			goto out;
+		}
+		if (have_smack() && smack_accesses_apply(smack)) {
+			C_LOGE("smack_accesses_apply failed");
+			ret =  PC_ERR_INVALID_OPERATION;
+			goto out;
+		}
+		if (smack_accesses_save(smack, fd)) {
+			C_LOGE("smack_accesses_save failed");
+			ret =  PC_ERR_INVALID_OPERATION;
+			goto out;
+		}
+		ret = PC_OPERATION_SUCCESS;
+out:
+		if (fd != -1)
+			close(fd);
+		smack_accesses_free(smack);
+		free(smack_path);
+
+		if (ret != PC_OPERATION_SUCCESS)
+			return ret;
+	}
+	return ret;
+#else
+		return PC_OPERATION_SUCCESS;
+#endif
+
 }
 
 API int app_add_friend(const char* app_id1, const char* app_id2)
