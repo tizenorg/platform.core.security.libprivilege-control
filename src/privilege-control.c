@@ -1285,6 +1285,12 @@ API int app_label_shared_dir(const char* app_label, const char* shared_label, co
 	struct smack_accesses *smack = NULL;
 
 
+	if (strcmp(app_label, shared_label) == 0) {
+		C_LOGE("app_label equals shared_label");
+		ret = PC_ERR_INVALID_PARAM;
+		goto out;
+	}
+
 	//setting label on everything in given directory and below
 	ret = dir_set_smack_r(path, shared_label, SMACK_LABEL_ACCESS, ~0);
 	if(ret != PC_OPERATION_SUCCESS){

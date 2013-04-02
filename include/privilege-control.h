@@ -219,6 +219,7 @@ int app_label_dir(const char* app_label, const char* path);
  * This function should be called once during app installation.
  * Results will be persistent on the file system.
  * It must be called by privileged user.
+ * Labels app_label and shared_label should not be equal.
  *
  * @param app_label label name, used as subject for SMACK rule
  * @param shared_label, used as object for SMACK rule
