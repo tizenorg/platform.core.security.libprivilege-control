@@ -163,6 +163,7 @@
 57r43275q7 telephony_framework arwxt
 57r43275q7 telephony_framework::db arwxt
 57r43275q7 thumb-server arwxt
+57r43275q7 tts-engine-samsung::vdata arwxt
 57r43275q7 tts-server arwxt
 57r43275q7 ug-camera-efl arwxt
 57r43275q7 ug-image-viewer-efl arwxt
@@ -354,6 +355,7 @@ _ system::vconf arwxt
 _ telephony_framework arwxt
 _ telephony_framework::db arwxt
 _ thumb-server arwxt
+_ tts-engine-samsung::vdata arwxt
 _ tts-server arwxt
 _ ug-camera-efl arwxt
 _ ug-image-viewer-efl arwxt
@@ -545,6 +547,7 @@ ail system::vconf arwxt
 ail telephony_framework arwxt
 ail telephony_framework::db arwxt
 ail thumb-server arwxt
+ail tts-engine-samsung::vdata arwxt
 ail tts-server arwxt
 ail ug-camera-efl arwxt
 ail ug-image-viewer-efl arwxt
@@ -736,6 +739,7 @@ alarm-server system::vconf arwxt
 alarm-server telephony_framework arwxt
 alarm-server telephony_framework::db arwxt
 alarm-server thumb-server arwxt
+alarm-server tts-engine-samsung::vdata arwxt
 alarm-server tts-server arwxt
 alarm-server ug-camera-efl arwxt
 alarm-server ug-image-viewer-efl arwxt
@@ -927,6 +931,7 @@ aospd00043 system::vconf arwxt
 aospd00043 telephony_framework arwxt
 aospd00043 telephony_framework::db arwxt
 aospd00043 thumb-server arwxt
+aospd00043 tts-engine-samsung::vdata arwxt
 aospd00043 tts-server arwxt
 aospd00043 ug-camera-efl arwxt
 aospd00043 ug-image-viewer-efl arwxt
@@ -1118,6 +1123,7 @@ app-svc system::vconf arwxt
 app-svc telephony_framework arwxt
 app-svc telephony_framework::db arwxt
 app-svc thumb-server arwxt
+app-svc tts-engine-samsung::vdata arwxt
 app-svc tts-server arwxt
 app-svc ug-camera-efl arwxt
 app-svc ug-image-viewer-efl arwxt
@@ -1309,6 +1315,7 @@ app2sd system::vconf arwxt
 app2sd telephony_framework arwxt
 app2sd telephony_framework::db arwxt
 app2sd thumb-server arwxt
+app2sd tts-engine-samsung::vdata arwxt
 app2sd tts-server arwxt
 app2sd ug-camera-efl arwxt
 app2sd ug-image-viewer-efl arwxt
@@ -1500,6 +1507,7 @@ aul system::vconf arwxt
 aul telephony_framework arwxt
 aul telephony_framework::db arwxt
 aul thumb-server arwxt
+aul tts-engine-samsung::vdata arwxt
 aul tts-server arwxt
 aul ug-camera-efl arwxt
 aul ug-image-viewer-efl arwxt
@@ -1691,6 +1699,7 @@ bluetooth-tools system::vconf arwxt
 bluetooth-tools telephony_framework arwxt
 bluetooth-tools telephony_framework::db arwxt
 bluetooth-tools thumb-server arwxt
+bluetooth-tools tts-engine-samsung::vdata arwxt
 bluetooth-tools tts-server arwxt
 bluetooth-tools ug-camera-efl arwxt
 bluetooth-tools ug-image-viewer-efl arwxt
@@ -1882,6 +1891,7 @@ bluez system::vconf arwxt
 bluez telephony_framework arwxt
 bluez telephony_framework::db arwxt
 bluez thumb-server arwxt
+bluez tts-engine-samsung::vdata arwxt
 bluez tts-server arwxt
 bluez ug-camera-efl arwxt
 bluez ug-image-viewer-efl arwxt
@@ -2073,6 +2083,7 @@ browser-provider system::vconf arwxt
 browser-provider telephony_framework arwxt
 browser-provider telephony_framework::db arwxt
 browser-provider thumb-server arwxt
+browser-provider tts-engine-samsung::vdata arwxt
 browser-provider tts-server arwxt
 browser-provider ug-camera-efl arwxt
 browser-provider ug-image-viewer-efl arwxt
@@ -2264,6 +2275,7 @@ bt-service system::vconf arwxt
 bt-service telephony_framework arwxt
 bt-service telephony_framework::db arwxt
 bt-service thumb-server arwxt
+bt-service tts-engine-samsung::vdata arwxt
 bt-service tts-server arwxt
 bt-service ug-camera-efl arwxt
 bt-service ug-image-viewer-efl arwxt
@@ -2455,6 +2467,7 @@ bt_agent system::vconf arwxt
 bt_agent telephony_framework arwxt
 bt_agent telephony_framework::db arwxt
 bt_agent thumb-server arwxt
+bt_agent tts-engine-samsung::vdata arwxt
 bt_agent tts-server arwxt
 bt_agent ug-camera-efl arwxt
 bt_agent ug-image-viewer-efl arwxt
@@ -2646,6 +2659,7 @@ bt_agent::bt_hfp_agent system::vconf arwxt
 bt_agent::bt_hfp_agent telephony_framework arwxt
 bt_agent::bt_hfp_agent telephony_framework::db arwxt
 bt_agent::bt_hfp_agent thumb-server arwxt
+bt_agent::bt_hfp_agent tts-engine-samsung::vdata arwxt
 bt_agent::bt_hfp_agent tts-server arwxt
 bt_agent::bt_hfp_agent ug-camera-efl arwxt
 bt_agent::bt_hfp_agent ug-image-viewer-efl arwxt
@@ -2837,6 +2851,7 @@ bt_agent::bt_map_agent system::vconf arwxt
 bt_agent::bt_map_agent telephony_framework arwxt
 bt_agent::bt_map_agent telephony_framework::db arwxt
 bt_agent::bt_map_agent thumb-server arwxt
+bt_agent::bt_map_agent tts-engine-samsung::vdata arwxt
 bt_agent::bt_map_agent tts-server arwxt
 bt_agent::bt_map_agent ug-camera-efl arwxt
 bt_agent::bt_map_agent ug-image-viewer-efl arwxt
@@ -3028,6 +3043,7 @@ bt_agent::bt_pb_agent system::vconf arwxt
 bt_agent::bt_pb_agent telephony_framework arwxt
 bt_agent::bt_pb_agent telephony_framework::db arwxt
 bt_agent::bt_pb_agent thumb-server arwxt
+bt_agent::bt_pb_agent tts-engine-samsung::vdata arwxt
 bt_agent::bt_pb_agent tts-server arwxt
 bt_agent::bt_pb_agent ug-camera-efl arwxt
 bt_agent::bt_pb_agent ug-image-viewer-efl arwxt
@@ -3219,6 +3235,7 @@ bt_firmware system::vconf arwxt
 bt_firmware telephony_framework arwxt
 bt_firmware telephony_framework::db arwxt
 bt_firmware thumb-server arwxt
+bt_firmware tts-engine-samsung::vdata arwxt
 bt_firmware tts-server arwxt
 bt_firmware ug-camera-efl arwxt
 bt_firmware ug-image-viewer-efl arwxt
@@ -3410,6 +3427,7 @@ bt_share system::vconf arwxt
 bt_share telephony_framework arwxt
 bt_share telephony_framework::db arwxt
 bt_share thumb-server arwxt
+bt_share tts-engine-samsung::vdata arwxt
 bt_share tts-server arwxt
 bt_share ug-camera-efl arwxt
 bt_share ug-image-viewer-efl arwxt
@@ -3601,6 +3619,7 @@ calendar-service system::vconf arwxt
 calendar-service telephony_framework arwxt
 calendar-service telephony_framework::db arwxt
 calendar-service thumb-server arwxt
+calendar-service tts-engine-samsung::vdata arwxt
 calendar-service tts-server arwxt
 calendar-service ug-camera-efl arwxt
 calendar-service ug-image-viewer-efl arwxt
@@ -3792,6 +3811,7 @@ cbhm system::vconf arwxt
 cbhm telephony_framework arwxt
 cbhm telephony_framework::db arwxt
 cbhm thumb-server arwxt
+cbhm tts-engine-samsung::vdata arwxt
 cbhm tts-server arwxt
 cbhm ug-camera-efl arwxt
 cbhm ug-image-viewer-efl arwxt
@@ -3983,6 +4003,7 @@ connman system::vconf arwxt
 connman telephony_framework arwxt
 connman telephony_framework::db arwxt
 connman thumb-server arwxt
+connman tts-engine-samsung::vdata arwxt
 connman tts-server arwxt
 connman ug-camera-efl arwxt
 connman ug-image-viewer-efl arwxt
@@ -4174,6 +4195,7 @@ contacts-service system::vconf arwxt
 contacts-service telephony_framework arwxt
 contacts-service telephony_framework::db arwxt
 contacts-service thumb-server arwxt
+contacts-service tts-engine-samsung::vdata arwxt
 contacts-service tts-server arwxt
 contacts-service ug-camera-efl arwxt
 contacts-service ug-image-viewer-efl arwxt
@@ -4365,6 +4387,7 @@ cp7ipabg4k system::vconf arwxt
 cp7ipabg4k telephony_framework arwxt
 cp7ipabg4k telephony_framework::db arwxt
 cp7ipabg4k thumb-server arwxt
+cp7ipabg4k tts-engine-samsung::vdata arwxt
 cp7ipabg4k tts-server arwxt
 cp7ipabg4k ug-camera-efl arwxt
 cp7ipabg4k ug-image-viewer-efl arwxt
@@ -4556,6 +4579,7 @@ cups system::vconf arwxt
 cups telephony_framework arwxt
 cups telephony_framework::db arwxt
 cups thumb-server arwxt
+cups tts-engine-samsung::vdata arwxt
 cups tts-server arwxt
 cups ug-camera-efl arwxt
 cups ug-image-viewer-efl arwxt
@@ -4747,6 +4771,7 @@ data-provider-master system::vconf arwxt
 data-provider-master telephony_framework arwxt
 data-provider-master telephony_framework::db arwxt
 data-provider-master thumb-server arwxt
+data-provider-master tts-engine-samsung::vdata arwxt
 data-provider-master tts-server arwxt
 data-provider-master ug-camera-efl arwxt
 data-provider-master ug-image-viewer-efl arwxt
@@ -4938,6 +4963,7 @@ dbus system::vconf arwxt
 dbus telephony_framework arwxt
 dbus telephony_framework::db arwxt
 dbus thumb-server arwxt
+dbus tts-engine-samsung::vdata arwxt
 dbus tts-server arwxt
 dbus ug-camera-efl arwxt
 dbus ug-image-viewer-efl arwxt
@@ -5129,6 +5155,7 @@ default-fonts-fc-sdk system::vconf arwxt
 default-fonts-fc-sdk telephony_framework arwxt
 default-fonts-fc-sdk telephony_framework::db arwxt
 default-fonts-fc-sdk thumb-server arwxt
+default-fonts-fc-sdk tts-engine-samsung::vdata arwxt
 default-fonts-fc-sdk tts-server arwxt
 default-fonts-fc-sdk ug-camera-efl arwxt
 default-fonts-fc-sdk ug-image-viewer-efl arwxt
@@ -5320,6 +5347,7 @@ dlogutil system::vconf arwxt
 dlogutil telephony_framework arwxt
 dlogutil telephony_framework::db arwxt
 dlogutil thumb-server arwxt
+dlogutil tts-engine-samsung::vdata arwxt
 dlogutil tts-server arwxt
 dlogutil ug-camera-efl arwxt
 dlogutil ug-image-viewer-efl arwxt
@@ -5511,6 +5539,7 @@ download-provider system::vconf arwxt
 download-provider telephony_framework arwxt
 download-provider telephony_framework::db arwxt
 download-provider thumb-server arwxt
+download-provider tts-engine-samsung::vdata arwxt
 download-provider tts-server arwxt
 download-provider ug-camera-efl arwxt
 download-provider ug-image-viewer-efl arwxt
@@ -5702,6 +5731,7 @@ e17 system::vconf arwxt
 e17 telephony_framework arwxt
 e17 telephony_framework::db arwxt
 e17 thumb-server arwxt
+e17 tts-engine-samsung::vdata arwxt
 e17 tts-server arwxt
 e17 ug-camera-efl arwxt
 e17 ug-image-viewer-efl arwxt
@@ -5893,6 +5923,7 @@ e17-data system::vconf arwxt
 e17-data telephony_framework arwxt
 e17-data telephony_framework::db arwxt
 e17-data thumb-server arwxt
+e17-data tts-engine-samsung::vdata arwxt
 e17-data tts-server arwxt
 e17-data ug-camera-efl arwxt
 e17-data ug-image-viewer-efl arwxt
@@ -6084,6 +6115,7 @@ efreet system::vconf arwxt
 efreet telephony_framework arwxt
 efreet telephony_framework::db arwxt
 efreet thumb-server arwxt
+efreet tts-engine-samsung::vdata arwxt
 efreet tts-server arwxt
 efreet ug-camera-efl arwxt
 efreet ug-image-viewer-efl arwxt
@@ -6275,6 +6307,7 @@ email-service system::vconf arwxt
 email-service telephony_framework arwxt
 email-service telephony_framework::db arwxt
 email-service thumb-server arwxt
+email-service tts-engine-samsung::vdata arwxt
 email-service tts-server arwxt
 email-service ug-camera-efl arwxt
 email-service ug-image-viewer-efl arwxt
@@ -6466,6 +6499,7 @@ gi2qxenosh system::vconf arwxt
 gi2qxenosh telephony_framework arwxt
 gi2qxenosh telephony_framework::db arwxt
 gi2qxenosh thumb-server arwxt
+gi2qxenosh tts-engine-samsung::vdata arwxt
 gi2qxenosh tts-server arwxt
 gi2qxenosh ug-camera-efl arwxt
 gi2qxenosh ug-image-viewer-efl arwxt
@@ -6657,6 +6691,7 @@ isf system::vconf arwxt
 isf telephony_framework arwxt
 isf telephony_framework::db arwxt
 isf thumb-server arwxt
+isf tts-engine-samsung::vdata arwxt
 isf tts-server arwxt
 isf ug-camera-efl arwxt
 isf ug-image-viewer-efl arwxt
@@ -6848,6 +6883,7 @@ libaccounts-svc system::vconf arwxt
 libaccounts-svc telephony_framework arwxt
 libaccounts-svc telephony_framework::db arwxt
 libaccounts-svc thumb-server arwxt
+libaccounts-svc tts-engine-samsung::vdata arwxt
 libaccounts-svc tts-server arwxt
 libaccounts-svc ug-camera-efl arwxt
 libaccounts-svc ug-image-viewer-efl arwxt
@@ -7039,6 +7075,7 @@ libslp-alarm system::vconf arwxt
 libslp-alarm telephony_framework arwxt
 libslp-alarm telephony_framework::db arwxt
 libslp-alarm thumb-server arwxt
+libslp-alarm tts-engine-samsung::vdata arwxt
 libslp-alarm tts-server arwxt
 libslp-alarm ug-camera-efl arwxt
 libslp-alarm ug-image-viewer-efl arwxt
@@ -7230,6 +7267,7 @@ libslp-memo system::vconf arwxt
 libslp-memo telephony_framework arwxt
 libslp-memo telephony_framework::db arwxt
 libslp-memo thumb-server arwxt
+libslp-memo tts-engine-samsung::vdata arwxt
 libslp-memo tts-server arwxt
 libslp-memo ug-camera-efl arwxt
 libslp-memo ug-image-viewer-efl arwxt
@@ -7421,6 +7459,7 @@ libug-phone system::vconf arwxt
 libug-phone telephony_framework arwxt
 libug-phone telephony_framework::db arwxt
 libug-phone thumb-server arwxt
+libug-phone tts-engine-samsung::vdata arwxt
 libug-phone tts-server arwxt
 libug-phone ug-camera-efl arwxt
 libug-phone ug-image-viewer-efl arwxt
@@ -7612,6 +7651,7 @@ location_fw system::vconf arwxt
 location_fw telephony_framework arwxt
 location_fw telephony_framework::db arwxt
 location_fw thumb-server arwxt
+location_fw tts-engine-samsung::vdata arwxt
 location_fw tts-server arwxt
 location_fw ug-camera-efl arwxt
 location_fw ug-image-viewer-efl arwxt
@@ -7803,6 +7843,7 @@ location_fw::server system::vconf arwxt
 location_fw::server telephony_framework arwxt
 location_fw::server telephony_framework::db arwxt
 location_fw::server thumb-server arwxt
+location_fw::server tts-engine-samsung::vdata arwxt
 location_fw::server tts-server arwxt
 location_fw::server ug-camera-efl arwxt
 location_fw::server ug-image-viewer-efl arwxt
@@ -7994,6 +8035,7 @@ media-data system::vconf arwxt
 media-data telephony_framework arwxt
 media-data telephony_framework::db arwxt
 media-data thumb-server arwxt
+media-data tts-engine-samsung::vdata arwxt
 media-data tts-server arwxt
 media-data ug-camera-efl arwxt
 media-data ug-image-viewer-efl arwxt
@@ -8185,6 +8227,7 @@ media-server system::vconf arwxt
 media-server telephony_framework arwxt
 media-server telephony_framework::db arwxt
 media-server thumb-server arwxt
+media-server tts-engine-samsung::vdata arwxt
 media-server tts-server arwxt
 media-server ug-camera-efl arwxt
 media-server ug-image-viewer-efl arwxt
@@ -8376,6 +8419,7 @@ miracast-server system::vconf arwxt
 miracast-server telephony_framework arwxt
 miracast-server telephony_framework::db arwxt
 miracast-server thumb-server arwxt
+miracast-server tts-engine-samsung::vdata arwxt
 miracast-server tts-server arwxt
 miracast-server ug-camera-efl arwxt
 miracast-server ug-image-viewer-efl arwxt
@@ -8567,6 +8611,7 @@ mobileprint system::vconf arwxt
 mobileprint telephony_framework arwxt
 mobileprint telephony_framework::db arwxt
 mobileprint thumb-server arwxt
+mobileprint tts-engine-samsung::vdata arwxt
 mobileprint tts-server arwxt
 mobileprint ug-camera-efl arwxt
 mobileprint ug-image-viewer-efl arwxt
@@ -8758,6 +8803,7 @@ msg-service system::vconf arwxt
 msg-service telephony_framework arwxt
 msg-service telephony_framework::db arwxt
 msg-service thumb-server arwxt
+msg-service tts-engine-samsung::vdata arwxt
 msg-service tts-server arwxt
 msg-service ug-camera-efl arwxt
 msg-service ug-image-viewer-efl arwxt
@@ -8949,6 +8995,7 @@ net-config system::vconf arwxt
 net-config telephony_framework arwxt
 net-config telephony_framework::db arwxt
 net-config thumb-server arwxt
+net-config tts-engine-samsung::vdata arwxt
 net-config tts-server arwxt
 net-config ug-camera-efl arwxt
 net-config ug-image-viewer-efl arwxt
@@ -9140,6 +9187,7 @@ nfc-manager system::vconf arwxt
 nfc-manager telephony_framework arwxt
 nfc-manager telephony_framework::db arwxt
 nfc-manager thumb-server arwxt
+nfc-manager tts-engine-samsung::vdata arwxt
 nfc-manager tts-server arwxt
 nfc-manager ug-camera-efl arwxt
 nfc-manager ug-image-viewer-efl arwxt
@@ -9331,6 +9379,7 @@ notification system::vconf arwxt
 notification telephony_framework arwxt
 notification telephony_framework::db arwxt
 notification thumb-server arwxt
+notification tts-engine-samsung::vdata arwxt
 notification tts-server arwxt
 notification ug-camera-efl arwxt
 notification ug-image-viewer-efl arwxt
@@ -9522,6 +9571,7 @@ obexd system::vconf arwxt
 obexd telephony_framework arwxt
 obexd telephony_framework::db arwxt
 obexd thumb-server arwxt
+obexd tts-engine-samsung::vdata arwxt
 obexd tts-server arwxt
 obexd ug-camera-efl arwxt
 obexd ug-image-viewer-efl arwxt
@@ -9713,6 +9763,7 @@ obexd::client system::vconf arwxt
 obexd::client telephony_framework arwxt
 obexd::client telephony_framework::db arwxt
 obexd::client thumb-server arwxt
+obexd::client tts-engine-samsung::vdata arwxt
 obexd::client tts-server arwxt
 obexd::client ug-camera-efl arwxt
 obexd::client ug-image-viewer-efl arwxt
@@ -9904,6 +9955,7 @@ oma-ds-agent system::vconf arwxt
 oma-ds-agent telephony_framework arwxt
 oma-ds-agent telephony_framework::db arwxt
 oma-ds-agent thumb-server arwxt
+oma-ds-agent tts-engine-samsung::vdata arwxt
 oma-ds-agent tts-server arwxt
 oma-ds-agent ug-camera-efl arwxt
 oma-ds-agent ug-image-viewer-efl arwxt
@@ -10095,6 +10147,7 @@ org.tizen.app-selector system::vconf arwxt
 org.tizen.app-selector telephony_framework arwxt
 org.tizen.app-selector telephony_framework::db arwxt
 org.tizen.app-selector thumb-server arwxt
+org.tizen.app-selector tts-engine-samsung::vdata arwxt
 org.tizen.app-selector tts-server arwxt
 org.tizen.app-selector ug-camera-efl arwxt
 org.tizen.app-selector ug-image-viewer-efl arwxt
@@ -10286,6 +10339,7 @@ org.tizen.bluetooth-share-ui system::vconf arwxt
 org.tizen.bluetooth-share-ui telephony_framework arwxt
 org.tizen.bluetooth-share-ui telephony_framework::db arwxt
 org.tizen.bluetooth-share-ui thumb-server arwxt
+org.tizen.bluetooth-share-ui tts-engine-samsung::vdata arwxt
 org.tizen.bluetooth-share-ui tts-server arwxt
 org.tizen.bluetooth-share-ui ug-camera-efl arwxt
 org.tizen.bluetooth-share-ui ug-image-viewer-efl arwxt
@@ -10477,6 +10531,7 @@ org.tizen.browser system::vconf arwxt
 org.tizen.browser telephony_framework arwxt
 org.tizen.browser telephony_framework::db arwxt
 org.tizen.browser thumb-server arwxt
+org.tizen.browser tts-engine-samsung::vdata arwxt
 org.tizen.browser tts-server arwxt
 org.tizen.browser ug-camera-efl arwxt
 org.tizen.browser ug-image-viewer-efl arwxt
@@ -10668,6 +10723,7 @@ org.tizen.bt-syspopup system::vconf arwxt
 org.tizen.bt-syspopup telephony_framework arwxt
 org.tizen.bt-syspopup telephony_framework::db arwxt
 org.tizen.bt-syspopup thumb-server arwxt
+org.tizen.bt-syspopup tts-engine-samsung::vdata arwxt
 org.tizen.bt-syspopup tts-server arwxt
 org.tizen.bt-syspopup ug-camera-efl arwxt
 org.tizen.bt-syspopup ug-image-viewer-efl arwxt
@@ -10859,6 +10915,7 @@ org.tizen.calculator system::vconf arwxt
 org.tizen.calculator telephony_framework arwxt
 org.tizen.calculator telephony_framework::db arwxt
 org.tizen.calculator thumb-server arwxt
+org.tizen.calculator tts-engine-samsung::vdata arwxt
 org.tizen.calculator tts-server arwxt
 org.tizen.calculator ug-camera-efl arwxt
 org.tizen.calculator ug-image-viewer-efl arwxt
@@ -11050,6 +11107,7 @@ org.tizen.calendar system::vconf arwxt
 org.tizen.calendar telephony_framework arwxt
 org.tizen.calendar telephony_framework::db arwxt
 org.tizen.calendar thumb-server arwxt
+org.tizen.calendar tts-engine-samsung::vdata arwxt
 org.tizen.calendar tts-server arwxt
 org.tizen.calendar ug-camera-efl arwxt
 org.tizen.calendar ug-image-viewer-efl arwxt
@@ -11241,6 +11299,7 @@ org.tizen.call system::vconf arwxt
 org.tizen.call telephony_framework arwxt
 org.tizen.call telephony_framework::db arwxt
 org.tizen.call thumb-server arwxt
+org.tizen.call tts-engine-samsung::vdata arwxt
 org.tizen.call tts-server arwxt
 org.tizen.call ug-camera-efl arwxt
 org.tizen.call ug-image-viewer-efl arwxt
@@ -11432,6 +11491,7 @@ org.tizen.camera-app system::vconf arwxt
 org.tizen.camera-app telephony_framework arwxt
 org.tizen.camera-app telephony_framework::db arwxt
 org.tizen.camera-app thumb-server arwxt
+org.tizen.camera-app tts-engine-samsung::vdata arwxt
 org.tizen.camera-app tts-server arwxt
 org.tizen.camera-app ug-camera-efl arwxt
 org.tizen.camera-app ug-image-viewer-efl arwxt
@@ -11623,6 +11683,7 @@ org.tizen.ciss system::vconf arwxt
 org.tizen.ciss telephony_framework arwxt
 org.tizen.ciss telephony_framework::db arwxt
 org.tizen.ciss thumb-server arwxt
+org.tizen.ciss tts-engine-samsung::vdata arwxt
 org.tizen.ciss tts-server arwxt
 org.tizen.ciss ug-camera-efl arwxt
 org.tizen.ciss ug-image-viewer-efl arwxt
@@ -11814,6 +11875,7 @@ org.tizen.clock system::vconf arwxt
 org.tizen.clock telephony_framework arwxt
 org.tizen.clock telephony_framework::db arwxt
 org.tizen.clock thumb-server arwxt
+org.tizen.clock tts-engine-samsung::vdata arwxt
 org.tizen.clock tts-server arwxt
 org.tizen.clock ug-camera-efl arwxt
 org.tizen.clock ug-image-viewer-efl arwxt
@@ -12005,6 +12067,7 @@ org.tizen.contacts system::vconf arwxt
 org.tizen.contacts telephony_framework arwxt
 org.tizen.contacts telephony_framework::db arwxt
 org.tizen.contacts thumb-server arwxt
+org.tizen.contacts tts-engine-samsung::vdata arwxt
 org.tizen.contacts tts-server arwxt
 org.tizen.contacts ug-camera-efl arwxt
 org.tizen.contacts ug-image-viewer-efl arwxt
@@ -12196,6 +12259,7 @@ org.tizen.contacts-viewer system::vconf arwxt
 org.tizen.contacts-viewer telephony_framework arwxt
 org.tizen.contacts-viewer telephony_framework::db arwxt
 org.tizen.contacts-viewer thumb-server arwxt
+org.tizen.contacts-viewer tts-engine-samsung::vdata arwxt
 org.tizen.contacts-viewer tts-server arwxt
 org.tizen.contacts-viewer ug-camera-efl arwxt
 org.tizen.contacts-viewer ug-image-viewer-efl arwxt
@@ -12387,6 +12451,7 @@ org.tizen.crash-popup system::vconf arwxt
 org.tizen.crash-popup telephony_framework arwxt
 org.tizen.crash-popup telephony_framework::db arwxt
 org.tizen.crash-popup thumb-server arwxt
+org.tizen.crash-popup tts-engine-samsung::vdata arwxt
 org.tizen.crash-popup tts-server arwxt
 org.tizen.crash-popup ug-camera-efl arwxt
 org.tizen.crash-popup ug-image-viewer-efl arwxt
@@ -12578,6 +12643,7 @@ org.tizen.data-provider-master system::vconf arwxt
 org.tizen.data-provider-master telephony_framework arwxt
 org.tizen.data-provider-master telephony_framework::db arwxt
 org.tizen.data-provider-master thumb-server arwxt
+org.tizen.data-provider-master tts-engine-samsung::vdata arwxt
 org.tizen.data-provider-master tts-server arwxt
 org.tizen.data-provider-master ug-camera-efl arwxt
 org.tizen.data-provider-master ug-image-viewer-efl arwxt
@@ -12769,6 +12835,7 @@ org.tizen.data-provider-slave system::vconf arwxt
 org.tizen.data-provider-slave telephony_framework arwxt
 org.tizen.data-provider-slave telephony_framework::db arwxt
 org.tizen.data-provider-slave thumb-server arwxt
+org.tizen.data-provider-slave tts-engine-samsung::vdata arwxt
 org.tizen.data-provider-slave tts-server arwxt
 org.tizen.data-provider-slave ug-camera-efl arwxt
 org.tizen.data-provider-slave ug-image-viewer-efl arwxt
@@ -12960,6 +13027,7 @@ org.tizen.data-provider-webapp-slave system::vconf arwxt
 org.tizen.data-provider-webapp-slave telephony_framework arwxt
 org.tizen.data-provider-webapp-slave telephony_framework::db arwxt
 org.tizen.data-provider-webapp-slave thumb-server arwxt
+org.tizen.data-provider-webapp-slave tts-engine-samsung::vdata arwxt
 org.tizen.data-provider-webapp-slave tts-server arwxt
 org.tizen.data-provider-webapp-slave ug-camera-efl arwxt
 org.tizen.data-provider-webapp-slave ug-image-viewer-efl arwxt
@@ -13151,6 +13219,7 @@ org.tizen.download-manager system::vconf arwxt
 org.tizen.download-manager telephony_framework arwxt
 org.tizen.download-manager telephony_framework::db arwxt
 org.tizen.download-manager thumb-server arwxt
+org.tizen.download-manager tts-engine-samsung::vdata arwxt
 org.tizen.download-manager tts-server arwxt
 org.tizen.download-manager ug-camera-efl arwxt
 org.tizen.download-manager ug-image-viewer-efl arwxt
@@ -13342,6 +13411,7 @@ org.tizen.draglock system::vconf arwxt
 org.tizen.draglock telephony_framework arwxt
 org.tizen.draglock telephony_framework::db arwxt
 org.tizen.draglock thumb-server arwxt
+org.tizen.draglock tts-engine-samsung::vdata arwxt
 org.tizen.draglock tts-server arwxt
 org.tizen.draglock ug-camera-efl arwxt
 org.tizen.draglock ug-image-viewer-efl arwxt
@@ -13533,6 +13603,7 @@ org.tizen.email system::vconf arwxt
 org.tizen.email telephony_framework arwxt
 org.tizen.email telephony_framework::db arwxt
 org.tizen.email thumb-server arwxt
+org.tizen.email tts-engine-samsung::vdata arwxt
 org.tizen.email tts-server arwxt
 org.tizen.email ug-camera-efl arwxt
 org.tizen.email ug-image-viewer-efl arwxt
@@ -13724,6 +13795,7 @@ org.tizen.gallery system::vconf arwxt
 org.tizen.gallery telephony_framework arwxt
 org.tizen.gallery telephony_framework::db arwxt
 org.tizen.gallery thumb-server arwxt
+org.tizen.gallery tts-engine-samsung::vdata arwxt
 org.tizen.gallery tts-server arwxt
 org.tizen.gallery ug-camera-efl arwxt
 org.tizen.gallery ug-image-viewer-efl arwxt
@@ -13915,6 +13987,7 @@ org.tizen.image-viewer system::vconf arwxt
 org.tizen.image-viewer telephony_framework arwxt
 org.tizen.image-viewer telephony_framework::db arwxt
 org.tizen.image-viewer thumb-server arwxt
+org.tizen.image-viewer tts-engine-samsung::vdata arwxt
 org.tizen.image-viewer tts-server arwxt
 org.tizen.image-viewer ug-camera-efl arwxt
 org.tizen.image-viewer ug-image-viewer-efl arwxt
@@ -14106,6 +14179,7 @@ org.tizen.indicator system::vconf arwxt
 org.tizen.indicator telephony_framework arwxt
 org.tizen.indicator telephony_framework::db arwxt
 org.tizen.indicator thumb-server arwxt
+org.tizen.indicator tts-engine-samsung::vdata arwxt
 org.tizen.indicator tts-server arwxt
 org.tizen.indicator ug-camera-efl arwxt
 org.tizen.indicator ug-image-viewer-efl arwxt
@@ -14297,6 +14371,7 @@ org.tizen.lockscreen system::vconf arwxt
 org.tizen.lockscreen telephony_framework arwxt
 org.tizen.lockscreen telephony_framework::db arwxt
 org.tizen.lockscreen thumb-server arwxt
+org.tizen.lockscreen tts-engine-samsung::vdata arwxt
 org.tizen.lockscreen tts-server arwxt
 org.tizen.lockscreen ug-camera-efl arwxt
 org.tizen.lockscreen ug-image-viewer-efl arwxt
@@ -14488,6 +14563,7 @@ org.tizen.memo system::vconf arwxt
 org.tizen.memo telephony_framework arwxt
 org.tizen.memo telephony_framework::db arwxt
 org.tizen.memo thumb-server arwxt
+org.tizen.memo tts-engine-samsung::vdata arwxt
 org.tizen.memo tts-server arwxt
 org.tizen.memo ug-camera-efl arwxt
 org.tizen.memo ug-image-viewer-efl arwxt
@@ -14679,6 +14755,7 @@ org.tizen.menu-screen system::vconf arwxt
 org.tizen.menu-screen telephony_framework arwxt
 org.tizen.menu-screen telephony_framework::db arwxt
 org.tizen.menu-screen thumb-server arwxt
+org.tizen.menu-screen tts-engine-samsung::vdata arwxt
 org.tizen.menu-screen tts-server arwxt
 org.tizen.menu-screen ug-camera-efl arwxt
 org.tizen.menu-screen ug-image-viewer-efl arwxt
@@ -14870,6 +14947,7 @@ org.tizen.message system::vconf arwxt
 org.tizen.message telephony_framework arwxt
 org.tizen.message telephony_framework::db arwxt
 org.tizen.message thumb-server arwxt
+org.tizen.message tts-engine-samsung::vdata arwxt
 org.tizen.message tts-server arwxt
 org.tizen.message ug-camera-efl arwxt
 org.tizen.message ug-image-viewer-efl arwxt
@@ -15061,6 +15139,7 @@ org.tizen.music-player system::vconf arwxt
 org.tizen.music-player telephony_framework arwxt
 org.tizen.music-player telephony_framework::db arwxt
 org.tizen.music-player thumb-server arwxt
+org.tizen.music-player tts-engine-samsung::vdata arwxt
 org.tizen.music-player tts-server arwxt
 org.tizen.music-player ug-camera-efl arwxt
 org.tizen.music-player ug-image-viewer-efl arwxt
@@ -15252,6 +15331,7 @@ org.tizen.myfile system::vconf arwxt
 org.tizen.myfile telephony_framework arwxt
 org.tizen.myfile telephony_framework::db arwxt
 org.tizen.myfile thumb-server arwxt
+org.tizen.myfile tts-engine-samsung::vdata arwxt
 org.tizen.myfile tts-server arwxt
 org.tizen.myfile ug-camera-efl arwxt
 org.tizen.myfile ug-image-viewer-efl arwxt
@@ -15443,6 +15523,7 @@ org.tizen.net-popup system::vconf arwxt
 org.tizen.net-popup telephony_framework arwxt
 org.tizen.net-popup telephony_framework::db arwxt
 org.tizen.net-popup thumb-server arwxt
+org.tizen.net-popup tts-engine-samsung::vdata arwxt
 org.tizen.net-popup tts-server arwxt
 org.tizen.net-popup ug-camera-efl arwxt
 org.tizen.net-popup ug-image-viewer-efl arwxt
@@ -15634,6 +15715,7 @@ org.tizen.phone system::vconf arwxt
 org.tizen.phone telephony_framework arwxt
 org.tizen.phone telephony_framework::db arwxt
 org.tizen.phone thumb-server arwxt
+org.tizen.phone tts-engine-samsung::vdata arwxt
 org.tizen.phone tts-server arwxt
 org.tizen.phone ug-camera-efl arwxt
 org.tizen.phone ug-image-viewer-efl arwxt
@@ -15825,6 +15907,7 @@ org.tizen.pwlock system::vconf arwxt
 org.tizen.pwlock telephony_framework arwxt
 org.tizen.pwlock telephony_framework::db arwxt
 org.tizen.pwlock thumb-server arwxt
+org.tizen.pwlock tts-engine-samsung::vdata arwxt
 org.tizen.pwlock tts-server arwxt
 org.tizen.pwlock ug-camera-efl arwxt
 org.tizen.pwlock ug-image-viewer-efl arwxt
@@ -16016,6 +16099,7 @@ org.tizen.quickpanel system::vconf arwxt
 org.tizen.quickpanel telephony_framework arwxt
 org.tizen.quickpanel telephony_framework::db arwxt
 org.tizen.quickpanel thumb-server arwxt
+org.tizen.quickpanel tts-engine-samsung::vdata arwxt
 org.tizen.quickpanel tts-server arwxt
 org.tizen.quickpanel ug-camera-efl arwxt
 org.tizen.quickpanel ug-image-viewer-efl arwxt
@@ -16207,6 +16291,7 @@ org.tizen.sat-ui system::vconf arwxt
 org.tizen.sat-ui telephony_framework arwxt
 org.tizen.sat-ui telephony_framework::db arwxt
 org.tizen.sat-ui thumb-server arwxt
+org.tizen.sat-ui tts-engine-samsung::vdata arwxt
 org.tizen.sat-ui tts-server arwxt
 org.tizen.sat-ui ug-camera-efl arwxt
 org.tizen.sat-ui ug-image-viewer-efl arwxt
@@ -16398,6 +16483,7 @@ org.tizen.setting system::vconf arwxt
 org.tizen.setting telephony_framework arwxt
 org.tizen.setting telephony_framework::db arwxt
 org.tizen.setting thumb-server arwxt
+org.tizen.setting tts-engine-samsung::vdata arwxt
 org.tizen.setting tts-server arwxt
 org.tizen.setting ug-camera-efl arwxt
 org.tizen.setting ug-image-viewer-efl arwxt
@@ -16589,6 +16675,7 @@ org.tizen.smartsearch system::vconf arwxt
 org.tizen.smartsearch telephony_framework arwxt
 org.tizen.smartsearch telephony_framework::db arwxt
 org.tizen.smartsearch thumb-server arwxt
+org.tizen.smartsearch tts-engine-samsung::vdata arwxt
 org.tizen.smartsearch tts-server arwxt
 org.tizen.smartsearch ug-camera-efl arwxt
 org.tizen.smartsearch ug-image-viewer-efl arwxt
@@ -16780,6 +16867,7 @@ org.tizen.taskmgr system::vconf arwxt
 org.tizen.taskmgr telephony_framework arwxt
 org.tizen.taskmgr telephony_framework::db arwxt
 org.tizen.taskmgr thumb-server arwxt
+org.tizen.taskmgr tts-engine-samsung::vdata arwxt
 org.tizen.taskmgr tts-server arwxt
 org.tizen.taskmgr ug-camera-efl arwxt
 org.tizen.taskmgr ug-image-viewer-efl arwxt
@@ -16971,6 +17059,7 @@ org.tizen.tickernoti-syspopup system::vconf arwxt
 org.tizen.tickernoti-syspopup telephony_framework arwxt
 org.tizen.tickernoti-syspopup telephony_framework::db arwxt
 org.tizen.tickernoti-syspopup thumb-server arwxt
+org.tizen.tickernoti-syspopup tts-engine-samsung::vdata arwxt
 org.tizen.tickernoti-syspopup tts-server arwxt
 org.tizen.tickernoti-syspopup ug-camera-efl arwxt
 org.tizen.tickernoti-syspopup ug-image-viewer-efl arwxt
@@ -17162,6 +17251,7 @@ org.tizen.usb-syspopup system::vconf arwxt
 org.tizen.usb-syspopup telephony_framework arwxt
 org.tizen.usb-syspopup telephony_framework::db arwxt
 org.tizen.usb-syspopup thumb-server arwxt
+org.tizen.usb-syspopup tts-engine-samsung::vdata arwxt
 org.tizen.usb-syspopup tts-server arwxt
 org.tizen.usb-syspopup ug-camera-efl arwxt
 org.tizen.usb-syspopup ug-image-viewer-efl arwxt
@@ -17353,6 +17443,7 @@ org.tizen.video-player system::vconf arwxt
 org.tizen.video-player telephony_framework arwxt
 org.tizen.video-player telephony_framework::db arwxt
 org.tizen.video-player thumb-server arwxt
+org.tizen.video-player tts-engine-samsung::vdata arwxt
 org.tizen.video-player tts-server arwxt
 org.tizen.video-player ug-camera-efl arwxt
 org.tizen.video-player ug-image-viewer-efl arwxt
@@ -17544,6 +17635,7 @@ org.tizen.volume system::vconf arwxt
 org.tizen.volume telephony_framework arwxt
 org.tizen.volume telephony_framework::db arwxt
 org.tizen.volume thumb-server arwxt
+org.tizen.volume tts-engine-samsung::vdata arwxt
 org.tizen.volume tts-server arwxt
 org.tizen.volume ug-camera-efl arwxt
 org.tizen.volume ug-image-viewer-efl arwxt
@@ -17735,6 +17827,7 @@ osp system::vconf arwxt
 osp telephony_framework arwxt
 osp telephony_framework::db arwxt
 osp thumb-server arwxt
+osp tts-engine-samsung::vdata arwxt
 osp tts-server arwxt
 osp ug-camera-efl arwxt
 osp ug-image-viewer-efl arwxt
@@ -17926,6 +18019,7 @@ osp-app-service system::vconf arwxt
 osp-app-service telephony_framework arwxt
 osp-app-service telephony_framework::db arwxt
 osp-app-service thumb-server arwxt
+osp-app-service tts-engine-samsung::vdata arwxt
 osp-app-service tts-server arwxt
 osp-app-service ug-camera-efl arwxt
 osp-app-service ug-image-viewer-efl arwxt
@@ -18117,6 +18211,7 @@ osp-channel-service system::vconf arwxt
 osp-channel-service telephony_framework arwxt
 osp-channel-service telephony_framework::db arwxt
 osp-channel-service thumb-server arwxt
+osp-channel-service tts-engine-samsung::vdata arwxt
 osp-channel-service tts-server arwxt
 osp-channel-service ug-camera-efl arwxt
 osp-channel-service ug-image-viewer-efl arwxt
@@ -18308,6 +18403,7 @@ osp-connectivity-service system::vconf arwxt
 osp-connectivity-service telephony_framework arwxt
 osp-connectivity-service telephony_framework::db arwxt
 osp-connectivity-service thumb-server arwxt
+osp-connectivity-service tts-engine-samsung::vdata arwxt
 osp-connectivity-service tts-server arwxt
 osp-connectivity-service ug-camera-efl arwxt
 osp-connectivity-service ug-image-viewer-efl arwxt
@@ -18499,6 +18595,7 @@ osp-installer system::vconf arwxt
 osp-installer telephony_framework arwxt
 osp-installer telephony_framework::db arwxt
 osp-installer thumb-server arwxt
+osp-installer tts-engine-samsung::vdata arwxt
 osp-installer tts-server arwxt
 osp-installer ug-camera-efl arwxt
 osp-installer ug-image-viewer-efl arwxt
@@ -18690,6 +18787,7 @@ osp-livebox-service system::vconf arwxt
 osp-livebox-service telephony_framework arwxt
 osp-livebox-service telephony_framework::db arwxt
 osp-livebox-service thumb-server arwxt
+osp-livebox-service tts-engine-samsung::vdata arwxt
 osp-livebox-service tts-server arwxt
 osp-livebox-service ug-camera-efl arwxt
 osp-livebox-service ug-image-viewer-efl arwxt
@@ -18881,6 +18979,7 @@ osp-search-service system::vconf arwxt
 osp-search-service telephony_framework arwxt
 osp-search-service telephony_framework::db arwxt
 osp-search-service thumb-server arwxt
+osp-search-service tts-engine-samsung::vdata arwxt
 osp-search-service tts-server arwxt
 osp-search-service ug-camera-efl arwxt
 osp-search-service ug-image-viewer-efl arwxt
@@ -19072,6 +19171,7 @@ osp-security-service system::vconf arwxt
 osp-security-service telephony_framework arwxt
 osp-security-service telephony_framework::db arwxt
 osp-security-service thumb-server arwxt
+osp-security-service tts-engine-samsung::vdata arwxt
 osp-security-service tts-server arwxt
 osp-security-service ug-camera-efl arwxt
 osp-security-service ug-image-viewer-efl arwxt
@@ -19263,6 +19363,7 @@ pims-ipc system::vconf arwxt
 pims-ipc telephony_framework arwxt
 pims-ipc telephony_framework::db arwxt
 pims-ipc thumb-server arwxt
+pims-ipc tts-engine-samsung::vdata arwxt
 pims-ipc tts-server arwxt
 pims-ipc ug-camera-efl arwxt
 pims-ipc ug-image-viewer-efl arwxt
@@ -19454,6 +19555,7 @@ pkgmgr system::vconf arwxt
 pkgmgr telephony_framework arwxt
 pkgmgr telephony_framework::db arwxt
 pkgmgr thumb-server arwxt
+pkgmgr tts-engine-samsung::vdata arwxt
 pkgmgr tts-server arwxt
 pkgmgr ug-camera-efl arwxt
 pkgmgr ug-image-viewer-efl arwxt
@@ -19645,6 +19747,7 @@ pkgmgr-client system::vconf arwxt
 pkgmgr-client telephony_framework arwxt
 pkgmgr-client telephony_framework::db arwxt
 pkgmgr-client thumb-server arwxt
+pkgmgr-client tts-engine-samsung::vdata arwxt
 pkgmgr-client tts-server arwxt
 pkgmgr-client ug-camera-efl arwxt
 pkgmgr-client ug-image-viewer-efl arwxt
@@ -19836,6 +19939,7 @@ pkgmgr-info system::vconf arwxt
 pkgmgr-info telephony_framework arwxt
 pkgmgr-info telephony_framework::db arwxt
 pkgmgr-info thumb-server arwxt
+pkgmgr-info tts-engine-samsung::vdata arwxt
 pkgmgr-info tts-server arwxt
 pkgmgr-info ug-camera-efl arwxt
 pkgmgr-info ug-image-viewer-efl arwxt
@@ -20027,6 +20131,7 @@ pkgmgr-installer system::vconf arwxt
 pkgmgr-installer telephony_framework arwxt
 pkgmgr-installer telephony_framework::db arwxt
 pkgmgr-installer thumb-server arwxt
+pkgmgr-installer tts-engine-samsung::vdata arwxt
 pkgmgr-installer tts-server arwxt
 pkgmgr-installer ug-camera-efl arwxt
 pkgmgr-installer ug-image-viewer-efl arwxt
@@ -20218,6 +20323,7 @@ pkgmgr-parser system::vconf arwxt
 pkgmgr-parser telephony_framework arwxt
 pkgmgr-parser telephony_framework::db arwxt
 pkgmgr-parser thumb-server arwxt
+pkgmgr-parser tts-engine-samsung::vdata arwxt
 pkgmgr-parser tts-server arwxt
 pkgmgr-parser ug-camera-efl arwxt
 pkgmgr-parser ug-image-viewer-efl arwxt
@@ -20409,6 +20515,7 @@ pkgmgr-server system::vconf arwxt
 pkgmgr-server telephony_framework arwxt
 pkgmgr-server telephony_framework::db arwxt
 pkgmgr-server thumb-server arwxt
+pkgmgr-server tts-engine-samsung::vdata arwxt
 pkgmgr-server tts-server arwxt
 pkgmgr-server ug-camera-efl arwxt
 pkgmgr-server ug-image-viewer-efl arwxt
@@ -20600,6 +20707,7 @@ power_manager system::vconf arwxt
 power_manager telephony_framework arwxt
 power_manager telephony_framework::db arwxt
 power_manager thumb-server arwxt
+power_manager tts-engine-samsung::vdata arwxt
 power_manager tts-server arwxt
 power_manager ug-camera-efl arwxt
 power_manager ug-image-viewer-efl arwxt
@@ -20791,6 +20899,7 @@ pulseaudio system::vconf arwxt
 pulseaudio telephony_framework arwxt
 pulseaudio telephony_framework::db arwxt
 pulseaudio thumb-server arwxt
+pulseaudio tts-engine-samsung::vdata arwxt
 pulseaudio tts-server arwxt
 pulseaudio ug-camera-efl arwxt
 pulseaudio ug-image-viewer-efl arwxt
@@ -20982,6 +21091,7 @@ push-service system::vconf arwxt
 push-service telephony_framework arwxt
 push-service telephony_framework::db arwxt
 push-service thumb-server arwxt
+push-service tts-engine-samsung::vdata arwxt
 push-service tts-server arwxt
 push-service ug-camera-efl arwxt
 push-service ug-image-viewer-efl arwxt
@@ -21173,6 +21283,7 @@ q7097a278m system::vconf arwxt
 q7097a278m telephony_framework arwxt
 q7097a278m telephony_framework::db arwxt
 q7097a278m thumb-server arwxt
+q7097a278m tts-engine-samsung::vdata arwxt
 q7097a278m tts-server arwxt
 q7097a278m ug-camera-efl arwxt
 q7097a278m ug-image-viewer-efl arwxt
@@ -21364,6 +21475,7 @@ rua system::vconf arwxt
 rua telephony_framework arwxt
 rua telephony_framework::db arwxt
 rua thumb-server arwxt
+rua tts-engine-samsung::vdata arwxt
 rua tts-server arwxt
 rua ug-camera-efl arwxt
 rua ug-image-viewer-efl arwxt
@@ -21555,6 +21667,7 @@ security-server system::vconf arwxt
 security-server telephony_framework arwxt
 security-server telephony_framework::db arwxt
 security-server thumb-server arwxt
+security-server tts-engine-samsung::vdata arwxt
 security-server tts-server arwxt
 security-server ug-camera-efl arwxt
 security-server ug-image-viewer-efl arwxt
@@ -21746,6 +21859,7 @@ sensor-framework system::vconf arwxt
 sensor-framework telephony_framework arwxt
 sensor-framework telephony_framework::db arwxt
 sensor-framework thumb-server arwxt
+sensor-framework tts-engine-samsung::vdata arwxt
 sensor-framework tts-server arwxt
 sensor-framework ug-camera-efl arwxt
 sensor-framework ug-image-viewer-efl arwxt
@@ -21937,6 +22051,7 @@ sjjevolsjk system::vconf arwxt
 sjjevolsjk telephony_framework arwxt
 sjjevolsjk telephony_framework::db arwxt
 sjjevolsjk thumb-server arwxt
+sjjevolsjk tts-engine-samsung::vdata arwxt
 sjjevolsjk tts-server arwxt
 sjjevolsjk ug-camera-efl arwxt
 sjjevolsjk ug-image-viewer-efl arwxt
@@ -22128,6 +22243,7 @@ smartcard-service system::vconf arwxt
 smartcard-service telephony_framework arwxt
 smartcard-service telephony_framework::db arwxt
 smartcard-service thumb-server arwxt
+smartcard-service tts-engine-samsung::vdata arwxt
 smartcard-service tts-server arwxt
 smartcard-service ug-camera-efl arwxt
 smartcard-service ug-image-viewer-efl arwxt
@@ -22319,6 +22435,7 @@ sound_server system::vconf arwxt
 sound_server telephony_framework arwxt
 sound_server telephony_framework::db arwxt
 sound_server thumb-server arwxt
+sound_server tts-engine-samsung::vdata arwxt
 sound_server tts-server arwxt
 sound_server ug-camera-efl arwxt
 sound_server ug-image-viewer-efl arwxt
@@ -22510,6 +22627,7 @@ sqlfs system::vconf arwxt
 sqlfs telephony_framework arwxt
 sqlfs telephony_framework::db arwxt
 sqlfs thumb-server arwxt
+sqlfs tts-engine-samsung::vdata arwxt
 sqlfs tts-server arwxt
 sqlfs ug-camera-efl arwxt
 sqlfs ug-image-viewer-efl arwxt
@@ -22701,6 +22819,7 @@ starter system::vconf arwxt
 starter telephony_framework arwxt
 starter telephony_framework::db arwxt
 starter thumb-server arwxt
+starter tts-engine-samsung::vdata arwxt
 starter tts-server arwxt
 starter ug-camera-efl arwxt
 starter ug-image-viewer-efl arwxt
@@ -22892,6 +23011,7 @@ stt-server system::vconf arwxt
 stt-server telephony_framework arwxt
 stt-server telephony_framework::db arwxt
 stt-server thumb-server arwxt
+stt-server tts-engine-samsung::vdata arwxt
 stt-server tts-server arwxt
 stt-server ug-camera-efl arwxt
 stt-server ug-image-viewer-efl arwxt
@@ -23083,6 +23203,7 @@ svi-data system::vconf arwxt
 svi-data telephony_framework arwxt
 svi-data telephony_framework::db arwxt
 svi-data thumb-server arwxt
+svi-data tts-engine-samsung::vdata arwxt
 svi-data tts-server arwxt
 svi-data ug-camera-efl arwxt
 svi-data ug-image-viewer-efl arwxt
@@ -23274,6 +23395,7 @@ sys-assert system::vconf arwxt
 sys-assert telephony_framework arwxt
 sys-assert telephony_framework::db arwxt
 sys-assert thumb-server arwxt
+sys-assert tts-engine-samsung::vdata arwxt
 sys-assert tts-server arwxt
 sys-assert ug-camera-efl arwxt
 sys-assert ug-image-viewer-efl arwxt
@@ -23465,6 +23587,7 @@ sys-assert::core-launcher system::vconf arwxt
 sys-assert::core-launcher telephony_framework arwxt
 sys-assert::core-launcher telephony_framework::db arwxt
 sys-assert::core-launcher thumb-server arwxt
+sys-assert::core-launcher tts-engine-samsung::vdata arwxt
 sys-assert::core-launcher tts-server arwxt
 sys-assert::core-launcher ug-camera-efl arwxt
 sys-assert::core-launcher ug-image-viewer-efl arwxt
@@ -23656,6 +23779,7 @@ syspopup system::vconf arwxt
 syspopup telephony_framework arwxt
 syspopup telephony_framework::db arwxt
 syspopup thumb-server arwxt
+syspopup tts-engine-samsung::vdata arwxt
 syspopup tts-server arwxt
 syspopup ug-camera-efl arwxt
 syspopup ug-image-viewer-efl arwxt
@@ -23847,6 +23971,7 @@ system system::vconf arwxt
 system telephony_framework arwxt
 system telephony_framework::db arwxt
 system thumb-server arwxt
+system tts-engine-samsung::vdata arwxt
 system tts-server arwxt
 system ug-camera-efl arwxt
 system ug-image-viewer-efl arwxt
@@ -24038,6 +24163,7 @@ system-server system::vconf arwxt
 system-server telephony_framework arwxt
 system-server telephony_framework::db arwxt
 system-server thumb-server arwxt
+system-server tts-engine-samsung::vdata arwxt
 system-server tts-server arwxt
 system-server ug-camera-efl arwxt
 system-server ug-image-viewer-efl arwxt
@@ -24229,6 +24355,7 @@ system::use_internet system::vconf arwxt
 system::use_internet telephony_framework arwxt
 system::use_internet telephony_framework::db arwxt
 system::use_internet thumb-server arwxt
+system::use_internet tts-engine-samsung::vdata arwxt
 system::use_internet tts-server arwxt
 system::use_internet ug-camera-efl arwxt
 system::use_internet ug-image-viewer-efl arwxt
@@ -24420,6 +24547,7 @@ telephony_framework system::use_internet arwxt
 telephony_framework system::vconf arwxt
 telephony_framework telephony_framework::db arwxt
 telephony_framework thumb-server arwxt
+telephony_framework tts-engine-samsung::vdata arwxt
 telephony_framework tts-server arwxt
 telephony_framework ug-camera-efl arwxt
 telephony_framework ug-image-viewer-efl arwxt
@@ -24611,6 +24739,7 @@ thumb-server system::use_internet arwxt
 thumb-server system::vconf arwxt
 thumb-server telephony_framework arwxt
 thumb-server telephony_framework::db arwxt
+thumb-server tts-engine-samsung::vdata arwxt
 thumb-server tts-server arwxt
 thumb-server ug-camera-efl arwxt
 thumb-server ug-image-viewer-efl arwxt
@@ -24803,6 +24932,7 @@ tts-server system::vconf arwxt
 tts-server telephony_framework arwxt
 tts-server telephony_framework::db arwxt
 tts-server thumb-server arwxt
+tts-server tts-engine-samsung::vdata arwxt
 tts-server ug-camera-efl arwxt
 tts-server ug-image-viewer-efl arwxt
 tts-server ug_bluetooth arwxt
@@ -24994,6 +25124,7 @@ ug-camera-efl system::vconf arwxt
 ug-camera-efl telephony_framework arwxt
 ug-camera-efl telephony_framework::db arwxt
 ug-camera-efl thumb-server arwxt
+ug-camera-efl tts-engine-samsung::vdata arwxt
 ug-camera-efl tts-server arwxt
 ug-camera-efl ug-image-viewer-efl arwxt
 ug-camera-efl ug_bluetooth arwxt
@@ -25185,6 +25316,7 @@ ug-image-viewer-efl system::vconf arwxt
 ug-image-viewer-efl telephony_framework arwxt
 ug-image-viewer-efl telephony_framework::db arwxt
 ug-image-viewer-efl thumb-server arwxt
+ug-image-viewer-efl tts-engine-samsung::vdata arwxt
 ug-image-viewer-efl tts-server arwxt
 ug-image-viewer-efl ug-camera-efl arwxt
 ug-image-viewer-efl ug_bluetooth arwxt
@@ -25376,6 +25508,7 @@ ug_bluetooth system::vconf arwxt
 ug_bluetooth telephony_framework arwxt
 ug_bluetooth telephony_framework::db arwxt
 ug_bluetooth thumb-server arwxt
+ug_bluetooth tts-engine-samsung::vdata arwxt
 ug_bluetooth tts-server arwxt
 ug_bluetooth ug-camera-efl arwxt
 ug_bluetooth ug-image-viewer-efl arwxt
@@ -25567,6 +25700,7 @@ usb-printer-detector system::vconf arwxt
 usb-printer-detector telephony_framework arwxt
 usb-printer-detector telephony_framework::db arwxt
 usb-printer-detector thumb-server arwxt
+usb-printer-detector tts-engine-samsung::vdata arwxt
 usb-printer-detector tts-server arwxt
 usb-printer-detector ug-camera-efl arwxt
 usb-printer-detector ug-image-viewer-efl arwxt
@@ -25758,6 +25892,7 @@ usb-server system::vconf arwxt
 usb-server telephony_framework arwxt
 usb-server telephony_framework::db arwxt
 usb-server thumb-server arwxt
+usb-server tts-engine-samsung::vdata arwxt
 usb-server tts-server arwxt
 usb-server ug-camera-efl arwxt
 usb-server ug-image-viewer-efl arwxt
@@ -25949,6 +26084,7 @@ usb-syspopup system::vconf arwxt
 usb-syspopup telephony_framework arwxt
 usb-syspopup telephony_framework::db arwxt
 usb-syspopup thumb-server arwxt
+usb-syspopup tts-engine-samsung::vdata arwxt
 usb-syspopup tts-server arwxt
 usb-syspopup ug-camera-efl arwxt
 usb-syspopup ug-image-viewer-efl arwxt
@@ -26140,6 +26276,7 @@ webkit2-efl system::vconf arwxt
 webkit2-efl telephony_framework arwxt
 webkit2-efl telephony_framework::db arwxt
 webkit2-efl thumb-server arwxt
+webkit2-efl tts-engine-samsung::vdata arwxt
 webkit2-efl tts-server arwxt
 webkit2-efl ug-camera-efl arwxt
 webkit2-efl ug-image-viewer-efl arwxt
@@ -26331,6 +26468,7 @@ wifi_direct_manager system::vconf arwxt
 wifi_direct_manager telephony_framework arwxt
 wifi_direct_manager telephony_framework::db arwxt
 wifi_direct_manager thumb-server arwxt
+wifi_direct_manager tts-engine-samsung::vdata arwxt
 wifi_direct_manager tts-server arwxt
 wifi_direct_manager ug-camera-efl arwxt
 wifi_direct_manager ug-image-viewer-efl arwxt
@@ -26522,6 +26660,7 @@ worldclock system::vconf arwxt
 worldclock telephony_framework arwxt
 worldclock telephony_framework::db arwxt
 worldclock thumb-server arwxt
+worldclock tts-engine-samsung::vdata arwxt
 worldclock tts-server arwxt
 worldclock ug-camera-efl arwxt
 worldclock ug-image-viewer-efl arwxt
@@ -26713,6 +26852,7 @@ wrt system::vconf arwxt
 wrt telephony_framework arwxt
 wrt telephony_framework::db arwxt
 wrt thumb-server arwxt
+wrt tts-engine-samsung::vdata arwxt
 wrt tts-server arwxt
 wrt ug-camera-efl arwxt
 wrt ug-image-viewer-efl arwxt
@@ -26904,6 +27044,7 @@ wrt-commons system::vconf arwxt
 wrt-commons telephony_framework arwxt
 wrt-commons telephony_framework::db arwxt
 wrt-commons thumb-server arwxt
+wrt-commons tts-engine-samsung::vdata arwxt
 wrt-commons tts-server arwxt
 wrt-commons ug-camera-efl arwxt
 wrt-commons ug-image-viewer-efl arwxt
@@ -27095,6 +27236,7 @@ wrt-installer system::vconf arwxt
 wrt-installer telephony_framework arwxt
 wrt-installer telephony_framework::db arwxt
 wrt-installer thumb-server arwxt
+wrt-installer tts-engine-samsung::vdata arwxt
 wrt-installer tts-server arwxt
 wrt-installer ug-camera-efl arwxt
 wrt-installer ug-image-viewer-efl arwxt
@@ -27286,6 +27428,7 @@ wrt-plugins-common system::vconf arwxt
 wrt-plugins-common telephony_framework arwxt
 wrt-plugins-common telephony_framework::db arwxt
 wrt-plugins-common thumb-server arwxt
+wrt-plugins-common tts-engine-samsung::vdata arwxt
 wrt-plugins-common tts-server arwxt
 wrt-plugins-common ug-camera-efl arwxt
 wrt-plugins-common ug-image-viewer-efl arwxt
@@ -27477,6 +27620,7 @@ xorg system::vconf arwxt
 xorg telephony_framework arwxt
 xorg telephony_framework::db arwxt
 xorg thumb-server arwxt
+xorg tts-engine-samsung::vdata arwxt
 xorg tts-server arwxt
 xorg ug-camera-efl arwxt
 xorg ug-image-viewer-efl arwxt
@@ -27668,6 +27812,7 @@ zeromq system::vconf arwxt
 zeromq telephony_framework arwxt
 zeromq telephony_framework::db arwxt
 zeromq thumb-server arwxt
+zeromq tts-engine-samsung::vdata arwxt
 zeromq tts-server arwxt
 zeromq ug-camera-efl arwxt
 zeromq ug-image-viewer-efl arwxt
