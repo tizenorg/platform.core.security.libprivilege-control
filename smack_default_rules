@@ -32,6 +32,8 @@
 57r43275q7 cp7ipabg4k arwxt
 57r43275q7 cups arwxt
 57r43275q7 data-provider-master arwxt
+57r43275q7 data-provider-master::data arwxt
+57r43275q7 data-provider-master::db arwxt
 57r43275q7 data-provider-master::share arwxt
 57r43275q7 dbus arwxt
 57r43275q7 default-fonts-fc-sdk arwxt
@@ -224,6 +226,8 @@ _ contacts-service::db arwxt
 _ cp7ipabg4k arwxt
 _ cups arwxt
 _ data-provider-master arwxt
+_ data-provider-master::data arwxt
+_ data-provider-master::db arwxt
 _ data-provider-master::share arwxt
 _ dbus arwxt
 _ default-fonts-fc-sdk arwxt
@@ -416,6 +420,8 @@ ail contacts-service::db arwxt
 ail cp7ipabg4k arwxt
 ail cups arwxt
 ail data-provider-master arwxt
+ail data-provider-master::data arwxt
+ail data-provider-master::db arwxt
 ail data-provider-master::share arwxt
 ail dbus arwxt
 ail default-fonts-fc-sdk arwxt
@@ -608,6 +614,8 @@ alarm-server contacts-service::db arwxt
 alarm-server cp7ipabg4k arwxt
 alarm-server cups arwxt
 alarm-server data-provider-master arwxt
+alarm-server data-provider-master::data arwxt
+alarm-server data-provider-master::db arwxt
 alarm-server data-provider-master::share arwxt
 alarm-server dbus arwxt
 alarm-server default-fonts-fc-sdk arwxt
@@ -800,6 +808,8 @@ aospd00043 contacts-service::db arwxt
 aospd00043 cp7ipabg4k arwxt
 aospd00043 cups arwxt
 aospd00043 data-provider-master arwxt
+aospd00043 data-provider-master::data arwxt
+aospd00043 data-provider-master::db arwxt
 aospd00043 data-provider-master::share arwxt
 aospd00043 dbus arwxt
 aospd00043 default-fonts-fc-sdk arwxt
@@ -992,6 +1002,8 @@ app-svc contacts-service::db arwxt
 app-svc cp7ipabg4k arwxt
 app-svc cups arwxt
 app-svc data-provider-master arwxt
+app-svc data-provider-master::data arwxt
+app-svc data-provider-master::db arwxt
 app-svc data-provider-master::share arwxt
 app-svc dbus arwxt
 app-svc default-fonts-fc-sdk arwxt
@@ -1184,6 +1196,8 @@ app2sd contacts-service::db arwxt
 app2sd cp7ipabg4k arwxt
 app2sd cups arwxt
 app2sd data-provider-master arwxt
+app2sd data-provider-master::data arwxt
+app2sd data-provider-master::db arwxt
 app2sd data-provider-master::share arwxt
 app2sd dbus arwxt
 app2sd default-fonts-fc-sdk arwxt
@@ -1376,6 +1390,8 @@ aul contacts-service::db arwxt
 aul cp7ipabg4k arwxt
 aul cups arwxt
 aul data-provider-master arwxt
+aul data-provider-master::data arwxt
+aul data-provider-master::db arwxt
 aul data-provider-master::share arwxt
 aul dbus arwxt
 aul default-fonts-fc-sdk arwxt
@@ -1568,6 +1584,8 @@ bluetooth-tools contacts-service::db arwxt
 bluetooth-tools cp7ipabg4k arwxt
 bluetooth-tools cups arwxt
 bluetooth-tools data-provider-master arwxt
+bluetooth-tools data-provider-master::data arwxt
+bluetooth-tools data-provider-master::db arwxt
 bluetooth-tools data-provider-master::share arwxt
 bluetooth-tools dbus arwxt
 bluetooth-tools default-fonts-fc-sdk arwxt
@@ -1760,6 +1778,8 @@ bluez contacts-service::db arwxt
 bluez cp7ipabg4k arwxt
 bluez cups arwxt
 bluez data-provider-master arwxt
+bluez data-provider-master::data arwxt
+bluez data-provider-master::db arwxt
 bluez data-provider-master::share arwxt
 bluez dbus arwxt
 bluez default-fonts-fc-sdk arwxt
@@ -1952,6 +1972,8 @@ browser-provider contacts-service::db arwxt
 browser-provider cp7ipabg4k arwxt
 browser-provider cups arwxt
 browser-provider data-provider-master arwxt
+browser-provider data-provider-master::data arwxt
+browser-provider data-provider-master::db arwxt
 browser-provider data-provider-master::share arwxt
 browser-provider dbus arwxt
 browser-provider default-fonts-fc-sdk arwxt
@@ -2144,6 +2166,8 @@ bt-service contacts-service::db arwxt
 bt-service cp7ipabg4k arwxt
 bt-service cups arwxt
 bt-service data-provider-master arwxt
+bt-service data-provider-master::data arwxt
+bt-service data-provider-master::db arwxt
 bt-service data-provider-master::share arwxt
 bt-service dbus arwxt
 bt-service default-fonts-fc-sdk arwxt
@@ -2336,6 +2360,8 @@ bt_agent contacts-service::db arwxt
 bt_agent cp7ipabg4k arwxt
 bt_agent cups arwxt
 bt_agent data-provider-master arwxt
+bt_agent data-provider-master::data arwxt
+bt_agent data-provider-master::db arwxt
 bt_agent data-provider-master::share arwxt
 bt_agent dbus arwxt
 bt_agent default-fonts-fc-sdk arwxt
@@ -2528,6 +2554,8 @@ bt_agent::bt_hfp_agent contacts-service::db arwxt
 bt_agent::bt_hfp_agent cp7ipabg4k arwxt
 bt_agent::bt_hfp_agent cups arwxt
 bt_agent::bt_hfp_agent data-provider-master arwxt
+bt_agent::bt_hfp_agent data-provider-master::data arwxt
+bt_agent::bt_hfp_agent data-provider-master::db arwxt
 bt_agent::bt_hfp_agent data-provider-master::share arwxt
 bt_agent::bt_hfp_agent dbus arwxt
 bt_agent::bt_hfp_agent default-fonts-fc-sdk arwxt
@@ -2720,6 +2748,8 @@ bt_agent::bt_map_agent contacts-service::db arwxt
 bt_agent::bt_map_agent cp7ipabg4k arwxt
 bt_agent::bt_map_agent cups arwxt
 bt_agent::bt_map_agent data-provider-master arwxt
+bt_agent::bt_map_agent data-provider-master::data arwxt
+bt_agent::bt_map_agent data-provider-master::db arwxt
 bt_agent::bt_map_agent data-provider-master::share arwxt
 bt_agent::bt_map_agent dbus arwxt
 bt_agent::bt_map_agent default-fonts-fc-sdk arwxt
@@ -2912,6 +2942,8 @@ bt_agent::bt_pb_agent contacts-service::db arwxt
 bt_agent::bt_pb_agent cp7ipabg4k arwxt
 bt_agent::bt_pb_agent cups arwxt
 bt_agent::bt_pb_agent data-provider-master arwxt
+bt_agent::bt_pb_agent data-provider-master::data arwxt
+bt_agent::bt_pb_agent data-provider-master::db arwxt
 bt_agent::bt_pb_agent data-provider-master::share arwxt
 bt_agent::bt_pb_agent dbus arwxt
 bt_agent::bt_pb_agent default-fonts-fc-sdk arwxt
@@ -3104,6 +3136,8 @@ bt_firmware contacts-service::db arwxt
 bt_firmware cp7ipabg4k arwxt
 bt_firmware cups arwxt
 bt_firmware data-provider-master arwxt
+bt_firmware data-provider-master::data arwxt
+bt_firmware data-provider-master::db arwxt
 bt_firmware data-provider-master::share arwxt
 bt_firmware dbus arwxt
 bt_firmware default-fonts-fc-sdk arwxt
@@ -3296,6 +3330,8 @@ bt_share contacts-service::db arwxt
 bt_share cp7ipabg4k arwxt
 bt_share cups arwxt
 bt_share data-provider-master arwxt
+bt_share data-provider-master::data arwxt
+bt_share data-provider-master::db arwxt
 bt_share data-provider-master::share arwxt
 bt_share dbus arwxt
 bt_share default-fonts-fc-sdk arwxt
@@ -3488,6 +3524,8 @@ calendar-service contacts-service::db arwxt
 calendar-service cp7ipabg4k arwxt
 calendar-service cups arwxt
 calendar-service data-provider-master arwxt
+calendar-service data-provider-master::data arwxt
+calendar-service data-provider-master::db arwxt
 calendar-service data-provider-master::share arwxt
 calendar-service dbus arwxt
 calendar-service default-fonts-fc-sdk arwxt
@@ -3680,6 +3718,8 @@ cbhm contacts-service::db arwxt
 cbhm cp7ipabg4k arwxt
 cbhm cups arwxt
 cbhm data-provider-master arwxt
+cbhm data-provider-master::data arwxt
+cbhm data-provider-master::db arwxt
 cbhm data-provider-master::share arwxt
 cbhm dbus arwxt
 cbhm default-fonts-fc-sdk arwxt
@@ -3872,6 +3912,8 @@ connman contacts-service::db arwxt
 connman cp7ipabg4k arwxt
 connman cups arwxt
 connman data-provider-master arwxt
+connman data-provider-master::data arwxt
+connman data-provider-master::db arwxt
 connman data-provider-master::share arwxt
 connman dbus arwxt
 connman default-fonts-fc-sdk arwxt
@@ -4064,6 +4106,8 @@ contacts-service contacts-service::db arwxt
 contacts-service cp7ipabg4k arwxt
 contacts-service cups arwxt
 contacts-service data-provider-master arwxt
+contacts-service data-provider-master::data arwxt
+contacts-service data-provider-master::db arwxt
 contacts-service data-provider-master::share arwxt
 contacts-service dbus arwxt
 contacts-service default-fonts-fc-sdk arwxt
@@ -4256,6 +4300,8 @@ cp7ipabg4k contacts-service arwxt
 cp7ipabg4k contacts-service::db arwxt
 cp7ipabg4k cups arwxt
 cp7ipabg4k data-provider-master arwxt
+cp7ipabg4k data-provider-master::data arwxt
+cp7ipabg4k data-provider-master::db arwxt
 cp7ipabg4k data-provider-master::share arwxt
 cp7ipabg4k dbus arwxt
 cp7ipabg4k default-fonts-fc-sdk arwxt
@@ -4448,6 +4494,8 @@ cups contacts-service arwxt
 cups contacts-service::db arwxt
 cups cp7ipabg4k arwxt
 cups data-provider-master arwxt
+cups data-provider-master::data arwxt
+cups data-provider-master::db arwxt
 cups data-provider-master::share arwxt
 cups dbus arwxt
 cups default-fonts-fc-sdk arwxt
@@ -4640,6 +4688,8 @@ data-provider-master contacts-service arwxt
 data-provider-master contacts-service::db arwxt
 data-provider-master cp7ipabg4k arwxt
 data-provider-master cups arwxt
+data-provider-master data-provider-master::data arwxt
+data-provider-master data-provider-master::db arwxt
 data-provider-master data-provider-master::share arwxt
 data-provider-master dbus arwxt
 data-provider-master default-fonts-fc-sdk arwxt
@@ -4833,6 +4883,8 @@ dbus contacts-service::db arwxt
 dbus cp7ipabg4k arwxt
 dbus cups arwxt
 dbus data-provider-master arwxt
+dbus data-provider-master::data arwxt
+dbus data-provider-master::db arwxt
 dbus data-provider-master::share arwxt
 dbus default-fonts-fc-sdk arwxt
 dbus default-fonts-fc-sdk::config arwxt
@@ -5025,6 +5077,8 @@ default-fonts-fc-sdk contacts-service::db arwxt
 default-fonts-fc-sdk cp7ipabg4k arwxt
 default-fonts-fc-sdk cups arwxt
 default-fonts-fc-sdk data-provider-master arwxt
+default-fonts-fc-sdk data-provider-master::data arwxt
+default-fonts-fc-sdk data-provider-master::db arwxt
 default-fonts-fc-sdk data-provider-master::share arwxt
 default-fonts-fc-sdk dbus arwxt
 default-fonts-fc-sdk default-fonts-fc-sdk::config arwxt
@@ -5217,6 +5271,8 @@ dlogutil contacts-service::db arwxt
 dlogutil cp7ipabg4k arwxt
 dlogutil cups arwxt
 dlogutil data-provider-master arwxt
+dlogutil data-provider-master::data arwxt
+dlogutil data-provider-master::db arwxt
 dlogutil data-provider-master::share arwxt
 dlogutil dbus arwxt
 dlogutil default-fonts-fc-sdk arwxt
@@ -5409,6 +5465,8 @@ download-provider contacts-service::db arwxt
 download-provider cp7ipabg4k arwxt
 download-provider cups arwxt
 download-provider data-provider-master arwxt
+download-provider data-provider-master::data arwxt
+download-provider data-provider-master::db arwxt
 download-provider data-provider-master::share arwxt
 download-provider dbus arwxt
 download-provider default-fonts-fc-sdk arwxt
@@ -5601,6 +5659,8 @@ e17 contacts-service::db arwxt
 e17 cp7ipabg4k arwxt
 e17 cups arwxt
 e17 data-provider-master arwxt
+e17 data-provider-master::data arwxt
+e17 data-provider-master::db arwxt
 e17 data-provider-master::share arwxt
 e17 dbus arwxt
 e17 default-fonts-fc-sdk arwxt
@@ -5793,6 +5853,8 @@ e17-data contacts-service::db arwxt
 e17-data cp7ipabg4k arwxt
 e17-data cups arwxt
 e17-data data-provider-master arwxt
+e17-data data-provider-master::data arwxt
+e17-data data-provider-master::db arwxt
 e17-data data-provider-master::share arwxt
 e17-data dbus arwxt
 e17-data default-fonts-fc-sdk arwxt
@@ -5985,6 +6047,8 @@ efreet contacts-service::db arwxt
 efreet cp7ipabg4k arwxt
 efreet cups arwxt
 efreet data-provider-master arwxt
+efreet data-provider-master::data arwxt
+efreet data-provider-master::db arwxt
 efreet data-provider-master::share arwxt
 efreet dbus arwxt
 efreet default-fonts-fc-sdk arwxt
@@ -6177,6 +6241,8 @@ email-service contacts-service::db arwxt
 email-service cp7ipabg4k arwxt
 email-service cups arwxt
 email-service data-provider-master arwxt
+email-service data-provider-master::data arwxt
+email-service data-provider-master::db arwxt
 email-service data-provider-master::share arwxt
 email-service dbus arwxt
 email-service default-fonts-fc-sdk arwxt
@@ -6369,6 +6435,8 @@ gi2qxenosh contacts-service::db arwxt
 gi2qxenosh cp7ipabg4k arwxt
 gi2qxenosh cups arwxt
 gi2qxenosh data-provider-master arwxt
+gi2qxenosh data-provider-master::data arwxt
+gi2qxenosh data-provider-master::db arwxt
 gi2qxenosh data-provider-master::share arwxt
 gi2qxenosh dbus arwxt
 gi2qxenosh default-fonts-fc-sdk arwxt
@@ -6561,6 +6629,8 @@ isf contacts-service::db arwxt
 isf cp7ipabg4k arwxt
 isf cups arwxt
 isf data-provider-master arwxt
+isf data-provider-master::data arwxt
+isf data-provider-master::db arwxt
 isf data-provider-master::share arwxt
 isf dbus arwxt
 isf default-fonts-fc-sdk arwxt
@@ -6753,6 +6823,8 @@ libaccounts-svc contacts-service::db arwxt
 libaccounts-svc cp7ipabg4k arwxt
 libaccounts-svc cups arwxt
 libaccounts-svc data-provider-master arwxt
+libaccounts-svc data-provider-master::data arwxt
+libaccounts-svc data-provider-master::db arwxt
 libaccounts-svc data-provider-master::share arwxt
 libaccounts-svc dbus arwxt
 libaccounts-svc default-fonts-fc-sdk arwxt
@@ -6945,6 +7017,8 @@ libslp-alarm contacts-service::db arwxt
 libslp-alarm cp7ipabg4k arwxt
 libslp-alarm cups arwxt
 libslp-alarm data-provider-master arwxt
+libslp-alarm data-provider-master::data arwxt
+libslp-alarm data-provider-master::db arwxt
 libslp-alarm data-provider-master::share arwxt
 libslp-alarm dbus arwxt
 libslp-alarm default-fonts-fc-sdk arwxt
@@ -7137,6 +7211,8 @@ libslp-memo contacts-service::db arwxt
 libslp-memo cp7ipabg4k arwxt
 libslp-memo cups arwxt
 libslp-memo data-provider-master arwxt
+libslp-memo data-provider-master::data arwxt
+libslp-memo data-provider-master::db arwxt
 libslp-memo data-provider-master::share arwxt
 libslp-memo dbus arwxt
 libslp-memo default-fonts-fc-sdk arwxt
@@ -7329,6 +7405,8 @@ libug-phone contacts-service::db arwxt
 libug-phone cp7ipabg4k arwxt
 libug-phone cups arwxt
 libug-phone data-provider-master arwxt
+libug-phone data-provider-master::data arwxt
+libug-phone data-provider-master::db arwxt
 libug-phone data-provider-master::share arwxt
 libug-phone dbus arwxt
 libug-phone default-fonts-fc-sdk arwxt
@@ -7521,6 +7599,8 @@ location_fw contacts-service::db arwxt
 location_fw cp7ipabg4k arwxt
 location_fw cups arwxt
 location_fw data-provider-master arwxt
+location_fw data-provider-master::data arwxt
+location_fw data-provider-master::db arwxt
 location_fw data-provider-master::share arwxt
 location_fw dbus arwxt
 location_fw default-fonts-fc-sdk arwxt
@@ -7713,6 +7793,8 @@ location_fw::server contacts-service::db arwxt
 location_fw::server cp7ipabg4k arwxt
 location_fw::server cups arwxt
 location_fw::server data-provider-master arwxt
+location_fw::server data-provider-master::data arwxt
+location_fw::server data-provider-master::db arwxt
 location_fw::server data-provider-master::share arwxt
 location_fw::server dbus arwxt
 location_fw::server default-fonts-fc-sdk arwxt
@@ -7905,6 +7987,8 @@ media-data contacts-service::db arwxt
 media-data cp7ipabg4k arwxt
 media-data cups arwxt
 media-data data-provider-master arwxt
+media-data data-provider-master::data arwxt
+media-data data-provider-master::db arwxt
 media-data data-provider-master::share arwxt
 media-data dbus arwxt
 media-data default-fonts-fc-sdk arwxt
@@ -8097,6 +8181,8 @@ media-server contacts-service::db arwxt
 media-server cp7ipabg4k arwxt
 media-server cups arwxt
 media-server data-provider-master arwxt
+media-server data-provider-master::data arwxt
+media-server data-provider-master::db arwxt
 media-server data-provider-master::share arwxt
 media-server dbus arwxt
 media-server default-fonts-fc-sdk arwxt
@@ -8289,6 +8375,8 @@ miracast-server contacts-service::db arwxt
 miracast-server cp7ipabg4k arwxt
 miracast-server cups arwxt
 miracast-server data-provider-master arwxt
+miracast-server data-provider-master::data arwxt
+miracast-server data-provider-master::db arwxt
 miracast-server data-provider-master::share arwxt
 miracast-server dbus arwxt
 miracast-server default-fonts-fc-sdk arwxt
@@ -8481,6 +8569,8 @@ mobileprint contacts-service::db arwxt
 mobileprint cp7ipabg4k arwxt
 mobileprint cups arwxt
 mobileprint data-provider-master arwxt
+mobileprint data-provider-master::data arwxt
+mobileprint data-provider-master::db arwxt
 mobileprint data-provider-master::share arwxt
 mobileprint dbus arwxt
 mobileprint default-fonts-fc-sdk arwxt
@@ -8673,6 +8763,8 @@ msg-service contacts-service::db arwxt
 msg-service cp7ipabg4k arwxt
 msg-service cups arwxt
 msg-service data-provider-master arwxt
+msg-service data-provider-master::data arwxt
+msg-service data-provider-master::db arwxt
 msg-service data-provider-master::share arwxt
 msg-service dbus arwxt
 msg-service default-fonts-fc-sdk arwxt
@@ -8865,6 +8957,8 @@ net-config contacts-service::db arwxt
 net-config cp7ipabg4k arwxt
 net-config cups arwxt
 net-config data-provider-master arwxt
+net-config data-provider-master::data arwxt
+net-config data-provider-master::db arwxt
 net-config data-provider-master::share arwxt
 net-config dbus arwxt
 net-config default-fonts-fc-sdk arwxt
@@ -9057,6 +9151,8 @@ nfc-manager contacts-service::db arwxt
 nfc-manager cp7ipabg4k arwxt
 nfc-manager cups arwxt
 nfc-manager data-provider-master arwxt
+nfc-manager data-provider-master::data arwxt
+nfc-manager data-provider-master::db arwxt
 nfc-manager data-provider-master::share arwxt
 nfc-manager dbus arwxt
 nfc-manager default-fonts-fc-sdk arwxt
@@ -9249,6 +9345,8 @@ notification contacts-service::db arwxt
 notification cp7ipabg4k arwxt
 notification cups arwxt
 notification data-provider-master arwxt
+notification data-provider-master::data arwxt
+notification data-provider-master::db arwxt
 notification data-provider-master::share arwxt
 notification dbus arwxt
 notification default-fonts-fc-sdk arwxt
@@ -9441,6 +9539,8 @@ obexd contacts-service::db arwxt
 obexd cp7ipabg4k arwxt
 obexd cups arwxt
 obexd data-provider-master arwxt
+obexd data-provider-master::data arwxt
+obexd data-provider-master::db arwxt
 obexd data-provider-master::share arwxt
 obexd dbus arwxt
 obexd default-fonts-fc-sdk arwxt
@@ -9633,6 +9733,8 @@ obexd::client contacts-service::db arwxt
 obexd::client cp7ipabg4k arwxt
 obexd::client cups arwxt
 obexd::client data-provider-master arwxt
+obexd::client data-provider-master::data arwxt
+obexd::client data-provider-master::db arwxt
 obexd::client data-provider-master::share arwxt
 obexd::client dbus arwxt
 obexd::client default-fonts-fc-sdk arwxt
@@ -9825,6 +9927,8 @@ oma-ds-agent contacts-service::db arwxt
 oma-ds-agent cp7ipabg4k arwxt
 oma-ds-agent cups arwxt
 oma-ds-agent data-provider-master arwxt
+oma-ds-agent data-provider-master::data arwxt
+oma-ds-agent data-provider-master::db arwxt
 oma-ds-agent data-provider-master::share arwxt
 oma-ds-agent dbus arwxt
 oma-ds-agent default-fonts-fc-sdk arwxt
@@ -10017,6 +10121,8 @@ org.tizen.app-selector contacts-service::db arwxt
 org.tizen.app-selector cp7ipabg4k arwxt
 org.tizen.app-selector cups arwxt
 org.tizen.app-selector data-provider-master arwxt
+org.tizen.app-selector data-provider-master::data arwxt
+org.tizen.app-selector data-provider-master::db arwxt
 org.tizen.app-selector data-provider-master::share arwxt
 org.tizen.app-selector dbus arwxt
 org.tizen.app-selector default-fonts-fc-sdk arwxt
@@ -10209,6 +10315,8 @@ org.tizen.bluetooth-share-ui contacts-service::db arwxt
 org.tizen.bluetooth-share-ui cp7ipabg4k arwxt
 org.tizen.bluetooth-share-ui cups arwxt
 org.tizen.bluetooth-share-ui data-provider-master arwxt
+org.tizen.bluetooth-share-ui data-provider-master::data arwxt
+org.tizen.bluetooth-share-ui data-provider-master::db arwxt
 org.tizen.bluetooth-share-ui data-provider-master::share arwxt
 org.tizen.bluetooth-share-ui dbus arwxt
 org.tizen.bluetooth-share-ui default-fonts-fc-sdk arwxt
@@ -10401,6 +10509,8 @@ org.tizen.browser contacts-service::db arwxt
 org.tizen.browser cp7ipabg4k arwxt
 org.tizen.browser cups arwxt
 org.tizen.browser data-provider-master arwxt
+org.tizen.browser data-provider-master::data arwxt
+org.tizen.browser data-provider-master::db arwxt
 org.tizen.browser data-provider-master::share arwxt
 org.tizen.browser dbus arwxt
 org.tizen.browser default-fonts-fc-sdk arwxt
@@ -10593,6 +10703,8 @@ org.tizen.bt-syspopup contacts-service::db arwxt
 org.tizen.bt-syspopup cp7ipabg4k arwxt
 org.tizen.bt-syspopup cups arwxt
 org.tizen.bt-syspopup data-provider-master arwxt
+org.tizen.bt-syspopup data-provider-master::data arwxt
+org.tizen.bt-syspopup data-provider-master::db arwxt
 org.tizen.bt-syspopup data-provider-master::share arwxt
 org.tizen.bt-syspopup dbus arwxt
 org.tizen.bt-syspopup default-fonts-fc-sdk arwxt
@@ -10785,6 +10897,8 @@ org.tizen.calculator contacts-service::db arwxt
 org.tizen.calculator cp7ipabg4k arwxt
 org.tizen.calculator cups arwxt
 org.tizen.calculator data-provider-master arwxt
+org.tizen.calculator data-provider-master::data arwxt
+org.tizen.calculator data-provider-master::db arwxt
 org.tizen.calculator data-provider-master::share arwxt
 org.tizen.calculator dbus arwxt
 org.tizen.calculator default-fonts-fc-sdk arwxt
@@ -10977,6 +11091,8 @@ org.tizen.calendar contacts-service::db arwxt
 org.tizen.calendar cp7ipabg4k arwxt
 org.tizen.calendar cups arwxt
 org.tizen.calendar data-provider-master arwxt
+org.tizen.calendar data-provider-master::data arwxt
+org.tizen.calendar data-provider-master::db arwxt
 org.tizen.calendar data-provider-master::share arwxt
 org.tizen.calendar dbus arwxt
 org.tizen.calendar default-fonts-fc-sdk arwxt
@@ -11169,6 +11285,8 @@ org.tizen.call contacts-service::db arwxt
 org.tizen.call cp7ipabg4k arwxt
 org.tizen.call cups arwxt
 org.tizen.call data-provider-master arwxt
+org.tizen.call data-provider-master::data arwxt
+org.tizen.call data-provider-master::db arwxt
 org.tizen.call data-provider-master::share arwxt
 org.tizen.call dbus arwxt
 org.tizen.call default-fonts-fc-sdk arwxt
@@ -11361,6 +11479,8 @@ org.tizen.camera-app contacts-service::db arwxt
 org.tizen.camera-app cp7ipabg4k arwxt
 org.tizen.camera-app cups arwxt
 org.tizen.camera-app data-provider-master arwxt
+org.tizen.camera-app data-provider-master::data arwxt
+org.tizen.camera-app data-provider-master::db arwxt
 org.tizen.camera-app data-provider-master::share arwxt
 org.tizen.camera-app dbus arwxt
 org.tizen.camera-app default-fonts-fc-sdk arwxt
@@ -11553,6 +11673,8 @@ org.tizen.ciss contacts-service::db arwxt
 org.tizen.ciss cp7ipabg4k arwxt
 org.tizen.ciss cups arwxt
 org.tizen.ciss data-provider-master arwxt
+org.tizen.ciss data-provider-master::data arwxt
+org.tizen.ciss data-provider-master::db arwxt
 org.tizen.ciss data-provider-master::share arwxt
 org.tizen.ciss dbus arwxt
 org.tizen.ciss default-fonts-fc-sdk arwxt
@@ -11745,6 +11867,8 @@ org.tizen.clock contacts-service::db arwxt
 org.tizen.clock cp7ipabg4k arwxt
 org.tizen.clock cups arwxt
 org.tizen.clock data-provider-master arwxt
+org.tizen.clock data-provider-master::data arwxt
+org.tizen.clock data-provider-master::db arwxt
 org.tizen.clock data-provider-master::share arwxt
 org.tizen.clock dbus arwxt
 org.tizen.clock default-fonts-fc-sdk arwxt
@@ -11937,6 +12061,8 @@ org.tizen.contacts contacts-service::db arwxt
 org.tizen.contacts cp7ipabg4k arwxt
 org.tizen.contacts cups arwxt
 org.tizen.contacts data-provider-master arwxt
+org.tizen.contacts data-provider-master::data arwxt
+org.tizen.contacts data-provider-master::db arwxt
 org.tizen.contacts data-provider-master::share arwxt
 org.tizen.contacts dbus arwxt
 org.tizen.contacts default-fonts-fc-sdk arwxt
@@ -12129,6 +12255,8 @@ org.tizen.contacts-viewer contacts-service::db arwxt
 org.tizen.contacts-viewer cp7ipabg4k arwxt
 org.tizen.contacts-viewer cups arwxt
 org.tizen.contacts-viewer data-provider-master arwxt
+org.tizen.contacts-viewer data-provider-master::data arwxt
+org.tizen.contacts-viewer data-provider-master::db arwxt
 org.tizen.contacts-viewer data-provider-master::share arwxt
 org.tizen.contacts-viewer dbus arwxt
 org.tizen.contacts-viewer default-fonts-fc-sdk arwxt
@@ -12321,6 +12449,8 @@ org.tizen.crash-popup contacts-service::db arwxt
 org.tizen.crash-popup cp7ipabg4k arwxt
 org.tizen.crash-popup cups arwxt
 org.tizen.crash-popup data-provider-master arwxt
+org.tizen.crash-popup data-provider-master::data arwxt
+org.tizen.crash-popup data-provider-master::db arwxt
 org.tizen.crash-popup data-provider-master::share arwxt
 org.tizen.crash-popup dbus arwxt
 org.tizen.crash-popup default-fonts-fc-sdk arwxt
@@ -12513,6 +12643,8 @@ org.tizen.data-provider-master contacts-service::db arwxt
 org.tizen.data-provider-master cp7ipabg4k arwxt
 org.tizen.data-provider-master cups arwxt
 org.tizen.data-provider-master data-provider-master arwxt
+org.tizen.data-provider-master data-provider-master::data arwxt
+org.tizen.data-provider-master data-provider-master::db arwxt
 org.tizen.data-provider-master data-provider-master::share arwxt
 org.tizen.data-provider-master dbus arwxt
 org.tizen.data-provider-master default-fonts-fc-sdk arwxt
@@ -12705,6 +12837,8 @@ org.tizen.data-provider-slave contacts-service::db arwxt
 org.tizen.data-provider-slave cp7ipabg4k arwxt
 org.tizen.data-provider-slave cups arwxt
 org.tizen.data-provider-slave data-provider-master arwxt
+org.tizen.data-provider-slave data-provider-master::data arwxt
+org.tizen.data-provider-slave data-provider-master::db arwxt
 org.tizen.data-provider-slave data-provider-master::share arwxt
 org.tizen.data-provider-slave dbus arwxt
 org.tizen.data-provider-slave default-fonts-fc-sdk arwxt
@@ -12897,6 +13031,8 @@ org.tizen.data-provider-webapp-slave contacts-service::db arwxt
 org.tizen.data-provider-webapp-slave cp7ipabg4k arwxt
 org.tizen.data-provider-webapp-slave cups arwxt
 org.tizen.data-provider-webapp-slave data-provider-master arwxt
+org.tizen.data-provider-webapp-slave data-provider-master::data arwxt
+org.tizen.data-provider-webapp-slave data-provider-master::db arwxt
 org.tizen.data-provider-webapp-slave data-provider-master::share arwxt
 org.tizen.data-provider-webapp-slave dbus arwxt
 org.tizen.data-provider-webapp-slave default-fonts-fc-sdk arwxt
@@ -13089,6 +13225,8 @@ org.tizen.download-manager contacts-service::db arwxt
 org.tizen.download-manager cp7ipabg4k arwxt
 org.tizen.download-manager cups arwxt
 org.tizen.download-manager data-provider-master arwxt
+org.tizen.download-manager data-provider-master::data arwxt
+org.tizen.download-manager data-provider-master::db arwxt
 org.tizen.download-manager data-provider-master::share arwxt
 org.tizen.download-manager dbus arwxt
 org.tizen.download-manager default-fonts-fc-sdk arwxt
@@ -13281,6 +13419,8 @@ org.tizen.draglock contacts-service::db arwxt
 org.tizen.draglock cp7ipabg4k arwxt
 org.tizen.draglock cups arwxt
 org.tizen.draglock data-provider-master arwxt
+org.tizen.draglock data-provider-master::data arwxt
+org.tizen.draglock data-provider-master::db arwxt
 org.tizen.draglock data-provider-master::share arwxt
 org.tizen.draglock dbus arwxt
 org.tizen.draglock default-fonts-fc-sdk arwxt
@@ -13473,6 +13613,8 @@ org.tizen.email contacts-service::db arwxt
 org.tizen.email cp7ipabg4k arwxt
 org.tizen.email cups arwxt
 org.tizen.email data-provider-master arwxt
+org.tizen.email data-provider-master::data arwxt
+org.tizen.email data-provider-master::db arwxt
 org.tizen.email data-provider-master::share arwxt
 org.tizen.email dbus arwxt
 org.tizen.email default-fonts-fc-sdk arwxt
@@ -13665,6 +13807,8 @@ org.tizen.gallery contacts-service::db arwxt
 org.tizen.gallery cp7ipabg4k arwxt
 org.tizen.gallery cups arwxt
 org.tizen.gallery data-provider-master arwxt
+org.tizen.gallery data-provider-master::data arwxt
+org.tizen.gallery data-provider-master::db arwxt
 org.tizen.gallery data-provider-master::share arwxt
 org.tizen.gallery dbus arwxt
 org.tizen.gallery default-fonts-fc-sdk arwxt
@@ -13857,6 +14001,8 @@ org.tizen.image-viewer contacts-service::db arwxt
 org.tizen.image-viewer cp7ipabg4k arwxt
 org.tizen.image-viewer cups arwxt
 org.tizen.image-viewer data-provider-master arwxt
+org.tizen.image-viewer data-provider-master::data arwxt
+org.tizen.image-viewer data-provider-master::db arwxt
 org.tizen.image-viewer data-provider-master::share arwxt
 org.tizen.image-viewer dbus arwxt
 org.tizen.image-viewer default-fonts-fc-sdk arwxt
@@ -14049,6 +14195,8 @@ org.tizen.indicator contacts-service::db arwxt
 org.tizen.indicator cp7ipabg4k arwxt
 org.tizen.indicator cups arwxt
 org.tizen.indicator data-provider-master arwxt
+org.tizen.indicator data-provider-master::data arwxt
+org.tizen.indicator data-provider-master::db arwxt
 org.tizen.indicator data-provider-master::share arwxt
 org.tizen.indicator dbus arwxt
 org.tizen.indicator default-fonts-fc-sdk arwxt
@@ -14241,6 +14389,8 @@ org.tizen.lockscreen contacts-service::db arwxt
 org.tizen.lockscreen cp7ipabg4k arwxt
 org.tizen.lockscreen cups arwxt
 org.tizen.lockscreen data-provider-master arwxt
+org.tizen.lockscreen data-provider-master::data arwxt
+org.tizen.lockscreen data-provider-master::db arwxt
 org.tizen.lockscreen data-provider-master::share arwxt
 org.tizen.lockscreen dbus arwxt
 org.tizen.lockscreen default-fonts-fc-sdk arwxt
@@ -14433,6 +14583,8 @@ org.tizen.memo contacts-service::db arwxt
 org.tizen.memo cp7ipabg4k arwxt
 org.tizen.memo cups arwxt
 org.tizen.memo data-provider-master arwxt
+org.tizen.memo data-provider-master::data arwxt
+org.tizen.memo data-provider-master::db arwxt
 org.tizen.memo data-provider-master::share arwxt
 org.tizen.memo dbus arwxt
 org.tizen.memo default-fonts-fc-sdk arwxt
@@ -14625,6 +14777,8 @@ org.tizen.menu-screen contacts-service::db arwxt
 org.tizen.menu-screen cp7ipabg4k arwxt
 org.tizen.menu-screen cups arwxt
 org.tizen.menu-screen data-provider-master arwxt
+org.tizen.menu-screen data-provider-master::data arwxt
+org.tizen.menu-screen data-provider-master::db arwxt
 org.tizen.menu-screen data-provider-master::share arwxt
 org.tizen.menu-screen dbus arwxt
 org.tizen.menu-screen default-fonts-fc-sdk arwxt
@@ -14817,6 +14971,8 @@ org.tizen.message contacts-service::db arwxt
 org.tizen.message cp7ipabg4k arwxt
 org.tizen.message cups arwxt
 org.tizen.message data-provider-master arwxt
+org.tizen.message data-provider-master::data arwxt
+org.tizen.message data-provider-master::db arwxt
 org.tizen.message data-provider-master::share arwxt
 org.tizen.message dbus arwxt
 org.tizen.message default-fonts-fc-sdk arwxt
@@ -15009,6 +15165,8 @@ org.tizen.music-player contacts-service::db arwxt
 org.tizen.music-player cp7ipabg4k arwxt
 org.tizen.music-player cups arwxt
 org.tizen.music-player data-provider-master arwxt
+org.tizen.music-player data-provider-master::data arwxt
+org.tizen.music-player data-provider-master::db arwxt
 org.tizen.music-player data-provider-master::share arwxt
 org.tizen.music-player dbus arwxt
 org.tizen.music-player default-fonts-fc-sdk arwxt
@@ -15201,6 +15359,8 @@ org.tizen.myfile contacts-service::db arwxt
 org.tizen.myfile cp7ipabg4k arwxt
 org.tizen.myfile cups arwxt
 org.tizen.myfile data-provider-master arwxt
+org.tizen.myfile data-provider-master::data arwxt
+org.tizen.myfile data-provider-master::db arwxt
 org.tizen.myfile data-provider-master::share arwxt
 org.tizen.myfile dbus arwxt
 org.tizen.myfile default-fonts-fc-sdk arwxt
@@ -15393,6 +15553,8 @@ org.tizen.net-popup contacts-service::db arwxt
 org.tizen.net-popup cp7ipabg4k arwxt
 org.tizen.net-popup cups arwxt
 org.tizen.net-popup data-provider-master arwxt
+org.tizen.net-popup data-provider-master::data arwxt
+org.tizen.net-popup data-provider-master::db arwxt
 org.tizen.net-popup data-provider-master::share arwxt
 org.tizen.net-popup dbus arwxt
 org.tizen.net-popup default-fonts-fc-sdk arwxt
@@ -15585,6 +15747,8 @@ org.tizen.phone contacts-service::db arwxt
 org.tizen.phone cp7ipabg4k arwxt
 org.tizen.phone cups arwxt
 org.tizen.phone data-provider-master arwxt
+org.tizen.phone data-provider-master::data arwxt
+org.tizen.phone data-provider-master::db arwxt
 org.tizen.phone data-provider-master::share arwxt
 org.tizen.phone dbus arwxt
 org.tizen.phone default-fonts-fc-sdk arwxt
@@ -15777,6 +15941,8 @@ org.tizen.pwlock contacts-service::db arwxt
 org.tizen.pwlock cp7ipabg4k arwxt
 org.tizen.pwlock cups arwxt
 org.tizen.pwlock data-provider-master arwxt
+org.tizen.pwlock data-provider-master::data arwxt
+org.tizen.pwlock data-provider-master::db arwxt
 org.tizen.pwlock data-provider-master::share arwxt
 org.tizen.pwlock dbus arwxt
 org.tizen.pwlock default-fonts-fc-sdk arwxt
@@ -15969,6 +16135,8 @@ org.tizen.quickpanel contacts-service::db arwxt
 org.tizen.quickpanel cp7ipabg4k arwxt
 org.tizen.quickpanel cups arwxt
 org.tizen.quickpanel data-provider-master arwxt
+org.tizen.quickpanel data-provider-master::data arwxt
+org.tizen.quickpanel data-provider-master::db arwxt
 org.tizen.quickpanel data-provider-master::share arwxt
 org.tizen.quickpanel dbus arwxt
 org.tizen.quickpanel default-fonts-fc-sdk arwxt
@@ -16161,6 +16329,8 @@ org.tizen.sat-ui contacts-service::db arwxt
 org.tizen.sat-ui cp7ipabg4k arwxt
 org.tizen.sat-ui cups arwxt
 org.tizen.sat-ui data-provider-master arwxt
+org.tizen.sat-ui data-provider-master::data arwxt
+org.tizen.sat-ui data-provider-master::db arwxt
 org.tizen.sat-ui data-provider-master::share arwxt
 org.tizen.sat-ui dbus arwxt
 org.tizen.sat-ui default-fonts-fc-sdk arwxt
@@ -16353,6 +16523,8 @@ org.tizen.setting contacts-service::db arwxt
 org.tizen.setting cp7ipabg4k arwxt
 org.tizen.setting cups arwxt
 org.tizen.setting data-provider-master arwxt
+org.tizen.setting data-provider-master::data arwxt
+org.tizen.setting data-provider-master::db arwxt
 org.tizen.setting data-provider-master::share arwxt
 org.tizen.setting dbus arwxt
 org.tizen.setting default-fonts-fc-sdk arwxt
@@ -16545,6 +16717,8 @@ org.tizen.smartsearch contacts-service::db arwxt
 org.tizen.smartsearch cp7ipabg4k arwxt
 org.tizen.smartsearch cups arwxt
 org.tizen.smartsearch data-provider-master arwxt
+org.tizen.smartsearch data-provider-master::data arwxt
+org.tizen.smartsearch data-provider-master::db arwxt
 org.tizen.smartsearch data-provider-master::share arwxt
 org.tizen.smartsearch dbus arwxt
 org.tizen.smartsearch default-fonts-fc-sdk arwxt
@@ -16737,6 +16911,8 @@ org.tizen.taskmgr contacts-service::db arwxt
 org.tizen.taskmgr cp7ipabg4k arwxt
 org.tizen.taskmgr cups arwxt
 org.tizen.taskmgr data-provider-master arwxt
+org.tizen.taskmgr data-provider-master::data arwxt
+org.tizen.taskmgr data-provider-master::db arwxt
 org.tizen.taskmgr data-provider-master::share arwxt
 org.tizen.taskmgr dbus arwxt
 org.tizen.taskmgr default-fonts-fc-sdk arwxt
@@ -16929,6 +17105,8 @@ org.tizen.tickernoti-syspopup contacts-service::db arwxt
 org.tizen.tickernoti-syspopup cp7ipabg4k arwxt
 org.tizen.tickernoti-syspopup cups arwxt
 org.tizen.tickernoti-syspopup data-provider-master arwxt
+org.tizen.tickernoti-syspopup data-provider-master::data arwxt
+org.tizen.tickernoti-syspopup data-provider-master::db arwxt
 org.tizen.tickernoti-syspopup data-provider-master::share arwxt
 org.tizen.tickernoti-syspopup dbus arwxt
 org.tizen.tickernoti-syspopup default-fonts-fc-sdk arwxt
@@ -17121,6 +17299,8 @@ org.tizen.usb-syspopup contacts-service::db arwxt
 org.tizen.usb-syspopup cp7ipabg4k arwxt
 org.tizen.usb-syspopup cups arwxt
 org.tizen.usb-syspopup data-provider-master arwxt
+org.tizen.usb-syspopup data-provider-master::data arwxt
+org.tizen.usb-syspopup data-provider-master::db arwxt
 org.tizen.usb-syspopup data-provider-master::share arwxt
 org.tizen.usb-syspopup dbus arwxt
 org.tizen.usb-syspopup default-fonts-fc-sdk arwxt
@@ -17313,6 +17493,8 @@ org.tizen.video-player contacts-service::db arwxt
 org.tizen.video-player cp7ipabg4k arwxt
 org.tizen.video-player cups arwxt
 org.tizen.video-player data-provider-master arwxt
+org.tizen.video-player data-provider-master::data arwxt
+org.tizen.video-player data-provider-master::db arwxt
 org.tizen.video-player data-provider-master::share arwxt
 org.tizen.video-player dbus arwxt
 org.tizen.video-player default-fonts-fc-sdk arwxt
@@ -17505,6 +17687,8 @@ org.tizen.volume contacts-service::db arwxt
 org.tizen.volume cp7ipabg4k arwxt
 org.tizen.volume cups arwxt
 org.tizen.volume data-provider-master arwxt
+org.tizen.volume data-provider-master::data arwxt
+org.tizen.volume data-provider-master::db arwxt
 org.tizen.volume data-provider-master::share arwxt
 org.tizen.volume dbus arwxt
 org.tizen.volume default-fonts-fc-sdk arwxt
@@ -17697,6 +17881,8 @@ osp contacts-service::db arwxt
 osp cp7ipabg4k arwxt
 osp cups arwxt
 osp data-provider-master arwxt
+osp data-provider-master::data arwxt
+osp data-provider-master::db arwxt
 osp data-provider-master::share arwxt
 osp dbus arwxt
 osp default-fonts-fc-sdk arwxt
@@ -17889,6 +18075,8 @@ osp-app-service contacts-service::db arwxt
 osp-app-service cp7ipabg4k arwxt
 osp-app-service cups arwxt
 osp-app-service data-provider-master arwxt
+osp-app-service data-provider-master::data arwxt
+osp-app-service data-provider-master::db arwxt
 osp-app-service data-provider-master::share arwxt
 osp-app-service dbus arwxt
 osp-app-service default-fonts-fc-sdk arwxt
@@ -18081,6 +18269,8 @@ osp-channel-service contacts-service::db arwxt
 osp-channel-service cp7ipabg4k arwxt
 osp-channel-service cups arwxt
 osp-channel-service data-provider-master arwxt
+osp-channel-service data-provider-master::data arwxt
+osp-channel-service data-provider-master::db arwxt
 osp-channel-service data-provider-master::share arwxt
 osp-channel-service dbus arwxt
 osp-channel-service default-fonts-fc-sdk arwxt
@@ -18273,6 +18463,8 @@ osp-connectivity-service contacts-service::db arwxt
 osp-connectivity-service cp7ipabg4k arwxt
 osp-connectivity-service cups arwxt
 osp-connectivity-service data-provider-master arwxt
+osp-connectivity-service data-provider-master::data arwxt
+osp-connectivity-service data-provider-master::db arwxt
 osp-connectivity-service data-provider-master::share arwxt
 osp-connectivity-service dbus arwxt
 osp-connectivity-service default-fonts-fc-sdk arwxt
@@ -18465,6 +18657,8 @@ osp-installer contacts-service::db arwxt
 osp-installer cp7ipabg4k arwxt
 osp-installer cups arwxt
 osp-installer data-provider-master arwxt
+osp-installer data-provider-master::data arwxt
+osp-installer data-provider-master::db arwxt
 osp-installer data-provider-master::share arwxt
 osp-installer dbus arwxt
 osp-installer default-fonts-fc-sdk arwxt
@@ -18657,6 +18851,8 @@ osp-livebox-service contacts-service::db arwxt
 osp-livebox-service cp7ipabg4k arwxt
 osp-livebox-service cups arwxt
 osp-livebox-service data-provider-master arwxt
+osp-livebox-service data-provider-master::data arwxt
+osp-livebox-service data-provider-master::db arwxt
 osp-livebox-service data-provider-master::share arwxt
 osp-livebox-service dbus arwxt
 osp-livebox-service default-fonts-fc-sdk arwxt
@@ -18849,6 +19045,8 @@ osp-search-service contacts-service::db arwxt
 osp-search-service cp7ipabg4k arwxt
 osp-search-service cups arwxt
 osp-search-service data-provider-master arwxt
+osp-search-service data-provider-master::data arwxt
+osp-search-service data-provider-master::db arwxt
 osp-search-service data-provider-master::share arwxt
 osp-search-service dbus arwxt
 osp-search-service default-fonts-fc-sdk arwxt
@@ -19041,6 +19239,8 @@ osp-security-service contacts-service::db arwxt
 osp-security-service cp7ipabg4k arwxt
 osp-security-service cups arwxt
 osp-security-service data-provider-master arwxt
+osp-security-service data-provider-master::data arwxt
+osp-security-service data-provider-master::db arwxt
 osp-security-service data-provider-master::share arwxt
 osp-security-service dbus arwxt
 osp-security-service default-fonts-fc-sdk arwxt
@@ -19233,6 +19433,8 @@ pims-ipc contacts-service::db arwxt
 pims-ipc cp7ipabg4k arwxt
 pims-ipc cups arwxt
 pims-ipc data-provider-master arwxt
+pims-ipc data-provider-master::data arwxt
+pims-ipc data-provider-master::db arwxt
 pims-ipc data-provider-master::share arwxt
 pims-ipc dbus arwxt
 pims-ipc default-fonts-fc-sdk arwxt
@@ -19425,6 +19627,8 @@ pkgmgr contacts-service::db arwxt
 pkgmgr cp7ipabg4k arwxt
 pkgmgr cups arwxt
 pkgmgr data-provider-master arwxt
+pkgmgr data-provider-master::data arwxt
+pkgmgr data-provider-master::db arwxt
 pkgmgr data-provider-master::share arwxt
 pkgmgr dbus arwxt
 pkgmgr default-fonts-fc-sdk arwxt
@@ -19617,6 +19821,8 @@ pkgmgr-client contacts-service::db arwxt
 pkgmgr-client cp7ipabg4k arwxt
 pkgmgr-client cups arwxt
 pkgmgr-client data-provider-master arwxt
+pkgmgr-client data-provider-master::data arwxt
+pkgmgr-client data-provider-master::db arwxt
 pkgmgr-client data-provider-master::share arwxt
 pkgmgr-client dbus arwxt
 pkgmgr-client default-fonts-fc-sdk arwxt
@@ -19809,6 +20015,8 @@ pkgmgr-info contacts-service::db arwxt
 pkgmgr-info cp7ipabg4k arwxt
 pkgmgr-info cups arwxt
 pkgmgr-info data-provider-master arwxt
+pkgmgr-info data-provider-master::data arwxt
+pkgmgr-info data-provider-master::db arwxt
 pkgmgr-info data-provider-master::share arwxt
 pkgmgr-info dbus arwxt
 pkgmgr-info default-fonts-fc-sdk arwxt
@@ -20001,6 +20209,8 @@ pkgmgr-installer contacts-service::db arwxt
 pkgmgr-installer cp7ipabg4k arwxt
 pkgmgr-installer cups arwxt
 pkgmgr-installer data-provider-master arwxt
+pkgmgr-installer data-provider-master::data arwxt
+pkgmgr-installer data-provider-master::db arwxt
 pkgmgr-installer data-provider-master::share arwxt
 pkgmgr-installer dbus arwxt
 pkgmgr-installer default-fonts-fc-sdk arwxt
@@ -20193,6 +20403,8 @@ pkgmgr-parser contacts-service::db arwxt
 pkgmgr-parser cp7ipabg4k arwxt
 pkgmgr-parser cups arwxt
 pkgmgr-parser data-provider-master arwxt
+pkgmgr-parser data-provider-master::data arwxt
+pkgmgr-parser data-provider-master::db arwxt
 pkgmgr-parser data-provider-master::share arwxt
 pkgmgr-parser dbus arwxt
 pkgmgr-parser default-fonts-fc-sdk arwxt
@@ -20385,6 +20597,8 @@ pkgmgr-server contacts-service::db arwxt
 pkgmgr-server cp7ipabg4k arwxt
 pkgmgr-server cups arwxt
 pkgmgr-server data-provider-master arwxt
+pkgmgr-server data-provider-master::data arwxt
+pkgmgr-server data-provider-master::db arwxt
 pkgmgr-server data-provider-master::share arwxt
 pkgmgr-server dbus arwxt
 pkgmgr-server default-fonts-fc-sdk arwxt
@@ -20577,6 +20791,8 @@ power_manager contacts-service::db arwxt
 power_manager cp7ipabg4k arwxt
 power_manager cups arwxt
 power_manager data-provider-master arwxt
+power_manager data-provider-master::data arwxt
+power_manager data-provider-master::db arwxt
 power_manager data-provider-master::share arwxt
 power_manager dbus arwxt
 power_manager default-fonts-fc-sdk arwxt
@@ -20769,6 +20985,8 @@ pulseaudio contacts-service::db arwxt
 pulseaudio cp7ipabg4k arwxt
 pulseaudio cups arwxt
 pulseaudio data-provider-master arwxt
+pulseaudio data-provider-master::data arwxt
+pulseaudio data-provider-master::db arwxt
 pulseaudio data-provider-master::share arwxt
 pulseaudio dbus arwxt
 pulseaudio default-fonts-fc-sdk arwxt
@@ -20961,6 +21179,8 @@ push-service contacts-service::db arwxt
 push-service cp7ipabg4k arwxt
 push-service cups arwxt
 push-service data-provider-master arwxt
+push-service data-provider-master::data arwxt
+push-service data-provider-master::db arwxt
 push-service data-provider-master::share arwxt
 push-service dbus arwxt
 push-service default-fonts-fc-sdk arwxt
@@ -21153,6 +21373,8 @@ q7097a278m contacts-service::db arwxt
 q7097a278m cp7ipabg4k arwxt
 q7097a278m cups arwxt
 q7097a278m data-provider-master arwxt
+q7097a278m data-provider-master::data arwxt
+q7097a278m data-provider-master::db arwxt
 q7097a278m data-provider-master::share arwxt
 q7097a278m dbus arwxt
 q7097a278m default-fonts-fc-sdk arwxt
@@ -21345,6 +21567,8 @@ rua contacts-service::db arwxt
 rua cp7ipabg4k arwxt
 rua cups arwxt
 rua data-provider-master arwxt
+rua data-provider-master::data arwxt
+rua data-provider-master::db arwxt
 rua data-provider-master::share arwxt
 rua dbus arwxt
 rua default-fonts-fc-sdk arwxt
@@ -21537,6 +21761,8 @@ security-server contacts-service::db arwxt
 security-server cp7ipabg4k arwxt
 security-server cups arwxt
 security-server data-provider-master arwxt
+security-server data-provider-master::data arwxt
+security-server data-provider-master::db arwxt
 security-server data-provider-master::share arwxt
 security-server dbus arwxt
 security-server default-fonts-fc-sdk arwxt
@@ -21729,6 +21955,8 @@ sensor-framework contacts-service::db arwxt
 sensor-framework cp7ipabg4k arwxt
 sensor-framework cups arwxt
 sensor-framework data-provider-master arwxt
+sensor-framework data-provider-master::data arwxt
+sensor-framework data-provider-master::db arwxt
 sensor-framework data-provider-master::share arwxt
 sensor-framework dbus arwxt
 sensor-framework default-fonts-fc-sdk arwxt
@@ -21921,6 +22149,8 @@ sjjevolsjk contacts-service::db arwxt
 sjjevolsjk cp7ipabg4k arwxt
 sjjevolsjk cups arwxt
 sjjevolsjk data-provider-master arwxt
+sjjevolsjk data-provider-master::data arwxt
+sjjevolsjk data-provider-master::db arwxt
 sjjevolsjk data-provider-master::share arwxt
 sjjevolsjk dbus arwxt
 sjjevolsjk default-fonts-fc-sdk arwxt
@@ -22113,6 +22343,8 @@ smartcard-service contacts-service::db arwxt
 smartcard-service cp7ipabg4k arwxt
 smartcard-service cups arwxt
 smartcard-service data-provider-master arwxt
+smartcard-service data-provider-master::data arwxt
+smartcard-service data-provider-master::db arwxt
 smartcard-service data-provider-master::share arwxt
 smartcard-service dbus arwxt
 smartcard-service default-fonts-fc-sdk arwxt
@@ -22305,6 +22537,8 @@ sound_server contacts-service::db arwxt
 sound_server cp7ipabg4k arwxt
 sound_server cups arwxt
 sound_server data-provider-master arwxt
+sound_server data-provider-master::data arwxt
+sound_server data-provider-master::db arwxt
 sound_server data-provider-master::share arwxt
 sound_server dbus arwxt
 sound_server default-fonts-fc-sdk arwxt
@@ -22497,6 +22731,8 @@ sqlfs contacts-service::db arwxt
 sqlfs cp7ipabg4k arwxt
 sqlfs cups arwxt
 sqlfs data-provider-master arwxt
+sqlfs data-provider-master::data arwxt
+sqlfs data-provider-master::db arwxt
 sqlfs data-provider-master::share arwxt
 sqlfs dbus arwxt
 sqlfs default-fonts-fc-sdk arwxt
@@ -22689,6 +22925,8 @@ starter contacts-service::db arwxt
 starter cp7ipabg4k arwxt
 starter cups arwxt
 starter data-provider-master arwxt
+starter data-provider-master::data arwxt
+starter data-provider-master::db arwxt
 starter data-provider-master::share arwxt
 starter dbus arwxt
 starter default-fonts-fc-sdk arwxt
@@ -22881,6 +23119,8 @@ stt-server contacts-service::db arwxt
 stt-server cp7ipabg4k arwxt
 stt-server cups arwxt
 stt-server data-provider-master arwxt
+stt-server data-provider-master::data arwxt
+stt-server data-provider-master::db arwxt
 stt-server data-provider-master::share arwxt
 stt-server dbus arwxt
 stt-server default-fonts-fc-sdk arwxt
@@ -23073,6 +23313,8 @@ svi-data contacts-service::db arwxt
 svi-data cp7ipabg4k arwxt
 svi-data cups arwxt
 svi-data data-provider-master arwxt
+svi-data data-provider-master::data arwxt
+svi-data data-provider-master::db arwxt
 svi-data data-provider-master::share arwxt
 svi-data dbus arwxt
 svi-data default-fonts-fc-sdk arwxt
@@ -23265,6 +23507,8 @@ sys-assert contacts-service::db arwxt
 sys-assert cp7ipabg4k arwxt
 sys-assert cups arwxt
 sys-assert data-provider-master arwxt
+sys-assert data-provider-master::data arwxt
+sys-assert data-provider-master::db arwxt
 sys-assert data-provider-master::share arwxt
 sys-assert dbus arwxt
 sys-assert default-fonts-fc-sdk arwxt
@@ -23457,6 +23701,8 @@ sys-assert::core-launcher contacts-service::db arwxt
 sys-assert::core-launcher cp7ipabg4k arwxt
 sys-assert::core-launcher cups arwxt
 sys-assert::core-launcher data-provider-master arwxt
+sys-assert::core-launcher data-provider-master::data arwxt
+sys-assert::core-launcher data-provider-master::db arwxt
 sys-assert::core-launcher data-provider-master::share arwxt
 sys-assert::core-launcher dbus arwxt
 sys-assert::core-launcher default-fonts-fc-sdk arwxt
@@ -23649,6 +23895,8 @@ syspopup contacts-service::db arwxt
 syspopup cp7ipabg4k arwxt
 syspopup cups arwxt
 syspopup data-provider-master arwxt
+syspopup data-provider-master::data arwxt
+syspopup data-provider-master::db arwxt
 syspopup data-provider-master::share arwxt
 syspopup dbus arwxt
 syspopup default-fonts-fc-sdk arwxt
@@ -23841,6 +24089,8 @@ system contacts-service::db arwxt
 system cp7ipabg4k arwxt
 system cups arwxt
 system data-provider-master arwxt
+system data-provider-master::data arwxt
+system data-provider-master::db arwxt
 system data-provider-master::share arwxt
 system dbus arwxt
 system default-fonts-fc-sdk arwxt
@@ -24033,6 +24283,8 @@ system-server contacts-service::db arwxt
 system-server cp7ipabg4k arwxt
 system-server cups arwxt
 system-server data-provider-master arwxt
+system-server data-provider-master::data arwxt
+system-server data-provider-master::db arwxt
 system-server data-provider-master::share arwxt
 system-server dbus arwxt
 system-server default-fonts-fc-sdk arwxt
@@ -24225,6 +24477,8 @@ system::use_internet contacts-service::db arwxt
 system::use_internet cp7ipabg4k arwxt
 system::use_internet cups arwxt
 system::use_internet data-provider-master arwxt
+system::use_internet data-provider-master::data arwxt
+system::use_internet data-provider-master::db arwxt
 system::use_internet data-provider-master::share arwxt
 system::use_internet dbus arwxt
 system::use_internet default-fonts-fc-sdk arwxt
@@ -24417,6 +24671,8 @@ telephony_framework contacts-service::db arwxt
 telephony_framework cp7ipabg4k arwxt
 telephony_framework cups arwxt
 telephony_framework data-provider-master arwxt
+telephony_framework data-provider-master::data arwxt
+telephony_framework data-provider-master::db arwxt
 telephony_framework data-provider-master::share arwxt
 telephony_framework dbus arwxt
 telephony_framework default-fonts-fc-sdk arwxt
@@ -24609,6 +24865,8 @@ thumb-server contacts-service::db arwxt
 thumb-server cp7ipabg4k arwxt
 thumb-server cups arwxt
 thumb-server data-provider-master arwxt
+thumb-server data-provider-master::data arwxt
+thumb-server data-provider-master::db arwxt
 thumb-server data-provider-master::share arwxt
 thumb-server dbus arwxt
 thumb-server default-fonts-fc-sdk arwxt
@@ -24801,6 +25059,8 @@ tts-server contacts-service::db arwxt
 tts-server cp7ipabg4k arwxt
 tts-server cups arwxt
 tts-server data-provider-master arwxt
+tts-server data-provider-master::data arwxt
+tts-server data-provider-master::db arwxt
 tts-server data-provider-master::share arwxt
 tts-server dbus arwxt
 tts-server default-fonts-fc-sdk arwxt
@@ -24993,6 +25253,8 @@ ug-camera-efl contacts-service::db arwxt
 ug-camera-efl cp7ipabg4k arwxt
 ug-camera-efl cups arwxt
 ug-camera-efl data-provider-master arwxt
+ug-camera-efl data-provider-master::data arwxt
+ug-camera-efl data-provider-master::db arwxt
 ug-camera-efl data-provider-master::share arwxt
 ug-camera-efl dbus arwxt
 ug-camera-efl default-fonts-fc-sdk arwxt
@@ -25185,6 +25447,8 @@ ug-image-viewer-efl contacts-service::db arwxt
 ug-image-viewer-efl cp7ipabg4k arwxt
 ug-image-viewer-efl cups arwxt
 ug-image-viewer-efl data-provider-master arwxt
+ug-image-viewer-efl data-provider-master::data arwxt
+ug-image-viewer-efl data-provider-master::db arwxt
 ug-image-viewer-efl data-provider-master::share arwxt
 ug-image-viewer-efl dbus arwxt
 ug-image-viewer-efl default-fonts-fc-sdk arwxt
@@ -25377,6 +25641,8 @@ ug_bluetooth contacts-service::db arwxt
 ug_bluetooth cp7ipabg4k arwxt
 ug_bluetooth cups arwxt
 ug_bluetooth data-provider-master arwxt
+ug_bluetooth data-provider-master::data arwxt
+ug_bluetooth data-provider-master::db arwxt
 ug_bluetooth data-provider-master::share arwxt
 ug_bluetooth dbus arwxt
 ug_bluetooth default-fonts-fc-sdk arwxt
@@ -25569,6 +25835,8 @@ usb-printer-detector contacts-service::db arwxt
 usb-printer-detector cp7ipabg4k arwxt
 usb-printer-detector cups arwxt
 usb-printer-detector data-provider-master arwxt
+usb-printer-detector data-provider-master::data arwxt
+usb-printer-detector data-provider-master::db arwxt
 usb-printer-detector data-provider-master::share arwxt
 usb-printer-detector dbus arwxt
 usb-printer-detector default-fonts-fc-sdk arwxt
@@ -25761,6 +26029,8 @@ usb-server contacts-service::db arwxt
 usb-server cp7ipabg4k arwxt
 usb-server cups arwxt
 usb-server data-provider-master arwxt
+usb-server data-provider-master::data arwxt
+usb-server data-provider-master::db arwxt
 usb-server data-provider-master::share arwxt
 usb-server dbus arwxt
 usb-server default-fonts-fc-sdk arwxt
@@ -25953,6 +26223,8 @@ usb-syspopup contacts-service::db arwxt
 usb-syspopup cp7ipabg4k arwxt
 usb-syspopup cups arwxt
 usb-syspopup data-provider-master arwxt
+usb-syspopup data-provider-master::data arwxt
+usb-syspopup data-provider-master::db arwxt
 usb-syspopup data-provider-master::share arwxt
 usb-syspopup dbus arwxt
 usb-syspopup default-fonts-fc-sdk arwxt
@@ -26145,6 +26417,8 @@ webkit2-efl contacts-service::db arwxt
 webkit2-efl cp7ipabg4k arwxt
 webkit2-efl cups arwxt
 webkit2-efl data-provider-master arwxt
+webkit2-efl data-provider-master::data arwxt
+webkit2-efl data-provider-master::db arwxt
 webkit2-efl data-provider-master::share arwxt
 webkit2-efl dbus arwxt
 webkit2-efl default-fonts-fc-sdk arwxt
@@ -26337,6 +26611,8 @@ wifi_direct_manager contacts-service::db arwxt
 wifi_direct_manager cp7ipabg4k arwxt
 wifi_direct_manager cups arwxt
 wifi_direct_manager data-provider-master arwxt
+wifi_direct_manager data-provider-master::data arwxt
+wifi_direct_manager data-provider-master::db arwxt
 wifi_direct_manager data-provider-master::share arwxt
 wifi_direct_manager dbus arwxt
 wifi_direct_manager default-fonts-fc-sdk arwxt
@@ -26529,6 +26805,8 @@ worldclock contacts-service::db arwxt
 worldclock cp7ipabg4k arwxt
 worldclock cups arwxt
 worldclock data-provider-master arwxt
+worldclock data-provider-master::data arwxt
+worldclock data-provider-master::db arwxt
 worldclock data-provider-master::share arwxt
 worldclock dbus arwxt
 worldclock default-fonts-fc-sdk arwxt
@@ -26721,6 +26999,8 @@ wrt contacts-service::db arwxt
 wrt cp7ipabg4k arwxt
 wrt cups arwxt
 wrt data-provider-master arwxt
+wrt data-provider-master::data arwxt
+wrt data-provider-master::db arwxt
 wrt data-provider-master::share arwxt
 wrt dbus arwxt
 wrt default-fonts-fc-sdk arwxt
@@ -26913,6 +27193,8 @@ wrt-commons contacts-service::db arwxt
 wrt-commons cp7ipabg4k arwxt
 wrt-commons cups arwxt
 wrt-commons data-provider-master arwxt
+wrt-commons data-provider-master::data arwxt
+wrt-commons data-provider-master::db arwxt
 wrt-commons data-provider-master::share arwxt
 wrt-commons dbus arwxt
 wrt-commons default-fonts-fc-sdk arwxt
@@ -27105,6 +27387,8 @@ wrt-installer contacts-service::db arwxt
 wrt-installer cp7ipabg4k arwxt
 wrt-installer cups arwxt
 wrt-installer data-provider-master arwxt
+wrt-installer data-provider-master::data arwxt
+wrt-installer data-provider-master::db arwxt
 wrt-installer data-provider-master::share arwxt
 wrt-installer dbus arwxt
 wrt-installer default-fonts-fc-sdk arwxt
@@ -27297,6 +27581,8 @@ wrt-plugins-common contacts-service::db arwxt
 wrt-plugins-common cp7ipabg4k arwxt
 wrt-plugins-common cups arwxt
 wrt-plugins-common data-provider-master arwxt
+wrt-plugins-common data-provider-master::data arwxt
+wrt-plugins-common data-provider-master::db arwxt
 wrt-plugins-common data-provider-master::share arwxt
 wrt-plugins-common dbus arwxt
 wrt-plugins-common default-fonts-fc-sdk arwxt
@@ -27489,6 +27775,8 @@ xorg contacts-service::db arwxt
 xorg cp7ipabg4k arwxt
 xorg cups arwxt
 xorg data-provider-master arwxt
+xorg data-provider-master::data arwxt
+xorg data-provider-master::db arwxt
 xorg data-provider-master::share arwxt
 xorg dbus arwxt
 xorg default-fonts-fc-sdk arwxt
@@ -27681,6 +27969,8 @@ zeromq contacts-service::db arwxt
 zeromq cp7ipabg4k arwxt
 zeromq cups arwxt
 zeromq data-provider-master arwxt
+zeromq data-provider-master::data arwxt
+zeromq data-provider-master::db arwxt
 zeromq data-provider-master::share arwxt
 zeromq dbus arwxt
 zeromq default-fonts-fc-sdk arwxt
