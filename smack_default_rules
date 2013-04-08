@@ -135,6 +135,8 @@
 57r43275q7 pkgmgr-parser arwxt
 57r43275q7 pkgmgr-server arwxt
 57r43275q7 power_manager arwxt
+57r43275q7 privacy-manager::daemon arwxt
+57r43275q7 privacy-manager::db arwxt
 57r43275q7 pulseaudio arwxt
 57r43275q7 push-service arwxt
 57r43275q7 push-service::db arwxt
@@ -330,6 +332,8 @@ _ pkgmgr-installer arwxt
 _ pkgmgr-parser arwxt
 _ pkgmgr-server arwxt
 _ power_manager arwxt
+_ privacy-manager::daemon arwxt
+_ privacy-manager::db arwxt
 _ pulseaudio arwxt
 _ push-service arwxt
 _ push-service::db arwxt
@@ -525,6 +529,8 @@ ail pkgmgr-installer arwxt
 ail pkgmgr-parser arwxt
 ail pkgmgr-server arwxt
 ail power_manager arwxt
+ail privacy-manager::daemon arwxt
+ail privacy-manager::db arwxt
 ail pulseaudio arwxt
 ail push-service arwxt
 ail push-service::db arwxt
@@ -720,6 +726,8 @@ alarm-server pkgmgr-installer arwxt
 alarm-server pkgmgr-parser arwxt
 alarm-server pkgmgr-server arwxt
 alarm-server power_manager arwxt
+alarm-server privacy-manager::daemon arwxt
+alarm-server privacy-manager::db arwxt
 alarm-server pulseaudio arwxt
 alarm-server push-service arwxt
 alarm-server push-service::db arwxt
@@ -915,6 +923,8 @@ aospd00043 pkgmgr-installer arwxt
 aospd00043 pkgmgr-parser arwxt
 aospd00043 pkgmgr-server arwxt
 aospd00043 power_manager arwxt
+aospd00043 privacy-manager::daemon arwxt
+aospd00043 privacy-manager::db arwxt
 aospd00043 pulseaudio arwxt
 aospd00043 push-service arwxt
 aospd00043 push-service::db arwxt
@@ -1110,6 +1120,8 @@ app-svc pkgmgr-installer arwxt
 app-svc pkgmgr-parser arwxt
 app-svc pkgmgr-server arwxt
 app-svc power_manager arwxt
+app-svc privacy-manager::daemon arwxt
+app-svc privacy-manager::db arwxt
 app-svc pulseaudio arwxt
 app-svc push-service arwxt
 app-svc push-service::db arwxt
@@ -1305,6 +1317,8 @@ app2sd pkgmgr-installer arwxt
 app2sd pkgmgr-parser arwxt
 app2sd pkgmgr-server arwxt
 app2sd power_manager arwxt
+app2sd privacy-manager::daemon arwxt
+app2sd privacy-manager::db arwxt
 app2sd pulseaudio arwxt
 app2sd push-service arwxt
 app2sd push-service::db arwxt
@@ -1500,6 +1514,8 @@ aul pkgmgr-installer arwxt
 aul pkgmgr-parser arwxt
 aul pkgmgr-server arwxt
 aul power_manager arwxt
+aul privacy-manager::daemon arwxt
+aul privacy-manager::db arwxt
 aul pulseaudio arwxt
 aul push-service arwxt
 aul push-service::db arwxt
@@ -1695,6 +1711,8 @@ bluetooth-tools pkgmgr-installer arwxt
 bluetooth-tools pkgmgr-parser arwxt
 bluetooth-tools pkgmgr-server arwxt
 bluetooth-tools power_manager arwxt
+bluetooth-tools privacy-manager::daemon arwxt
+bluetooth-tools privacy-manager::db arwxt
 bluetooth-tools pulseaudio arwxt
 bluetooth-tools push-service arwxt
 bluetooth-tools push-service::db arwxt
@@ -1890,6 +1908,8 @@ bluez pkgmgr-installer arwxt
 bluez pkgmgr-parser arwxt
 bluez pkgmgr-server arwxt
 bluez power_manager arwxt
+bluez privacy-manager::daemon arwxt
+bluez privacy-manager::db arwxt
 bluez pulseaudio arwxt
 bluez push-service arwxt
 bluez push-service::db arwxt
@@ -2085,6 +2105,8 @@ browser-provider pkgmgr-installer arwxt
 browser-provider pkgmgr-parser arwxt
 browser-provider pkgmgr-server arwxt
 browser-provider power_manager arwxt
+browser-provider privacy-manager::daemon arwxt
+browser-provider privacy-manager::db arwxt
 browser-provider pulseaudio arwxt
 browser-provider push-service arwxt
 browser-provider push-service::db arwxt
@@ -2280,6 +2302,8 @@ bt-service pkgmgr-installer arwxt
 bt-service pkgmgr-parser arwxt
 bt-service pkgmgr-server arwxt
 bt-service power_manager arwxt
+bt-service privacy-manager::daemon arwxt
+bt-service privacy-manager::db arwxt
 bt-service pulseaudio arwxt
 bt-service push-service arwxt
 bt-service push-service::db arwxt
@@ -2475,6 +2499,8 @@ bt_agent pkgmgr-installer arwxt
 bt_agent pkgmgr-parser arwxt
 bt_agent pkgmgr-server arwxt
 bt_agent power_manager arwxt
+bt_agent privacy-manager::daemon arwxt
+bt_agent privacy-manager::db arwxt
 bt_agent pulseaudio arwxt
 bt_agent push-service arwxt
 bt_agent push-service::db arwxt
@@ -2670,6 +2696,8 @@ bt_agent::bt_hfp_agent pkgmgr-installer arwxt
 bt_agent::bt_hfp_agent pkgmgr-parser arwxt
 bt_agent::bt_hfp_agent pkgmgr-server arwxt
 bt_agent::bt_hfp_agent power_manager arwxt
+bt_agent::bt_hfp_agent privacy-manager::daemon arwxt
+bt_agent::bt_hfp_agent privacy-manager::db arwxt
 bt_agent::bt_hfp_agent pulseaudio arwxt
 bt_agent::bt_hfp_agent push-service arwxt
 bt_agent::bt_hfp_agent push-service::db arwxt
@@ -2865,6 +2893,8 @@ bt_agent::bt_map_agent pkgmgr-installer arwxt
 bt_agent::bt_map_agent pkgmgr-parser arwxt
 bt_agent::bt_map_agent pkgmgr-server arwxt
 bt_agent::bt_map_agent power_manager arwxt
+bt_agent::bt_map_agent privacy-manager::daemon arwxt
+bt_agent::bt_map_agent privacy-manager::db arwxt
 bt_agent::bt_map_agent pulseaudio arwxt
 bt_agent::bt_map_agent push-service arwxt
 bt_agent::bt_map_agent push-service::db arwxt
@@ -3060,6 +3090,8 @@ bt_agent::bt_pb_agent pkgmgr-installer arwxt
 bt_agent::bt_pb_agent pkgmgr-parser arwxt
 bt_agent::bt_pb_agent pkgmgr-server arwxt
 bt_agent::bt_pb_agent power_manager arwxt
+bt_agent::bt_pb_agent privacy-manager::daemon arwxt
+bt_agent::bt_pb_agent privacy-manager::db arwxt
 bt_agent::bt_pb_agent pulseaudio arwxt
 bt_agent::bt_pb_agent push-service arwxt
 bt_agent::bt_pb_agent push-service::db arwxt
@@ -3255,6 +3287,8 @@ bt_firmware pkgmgr-installer arwxt
 bt_firmware pkgmgr-parser arwxt
 bt_firmware pkgmgr-server arwxt
 bt_firmware power_manager arwxt
+bt_firmware privacy-manager::daemon arwxt
+bt_firmware privacy-manager::db arwxt
 bt_firmware pulseaudio arwxt
 bt_firmware push-service arwxt
 bt_firmware push-service::db arwxt
@@ -3450,6 +3484,8 @@ bt_share pkgmgr-installer arwxt
 bt_share pkgmgr-parser arwxt
 bt_share pkgmgr-server arwxt
 bt_share power_manager arwxt
+bt_share privacy-manager::daemon arwxt
+bt_share privacy-manager::db arwxt
 bt_share pulseaudio arwxt
 bt_share push-service arwxt
 bt_share push-service::db arwxt
@@ -3645,6 +3681,8 @@ calendar-service pkgmgr-installer arwxt
 calendar-service pkgmgr-parser arwxt
 calendar-service pkgmgr-server arwxt
 calendar-service power_manager arwxt
+calendar-service privacy-manager::daemon arwxt
+calendar-service privacy-manager::db arwxt
 calendar-service pulseaudio arwxt
 calendar-service push-service arwxt
 calendar-service push-service::db arwxt
@@ -3840,6 +3878,8 @@ cbhm pkgmgr-installer arwxt
 cbhm pkgmgr-parser arwxt
 cbhm pkgmgr-server arwxt
 cbhm power_manager arwxt
+cbhm privacy-manager::daemon arwxt
+cbhm privacy-manager::db arwxt
 cbhm pulseaudio arwxt
 cbhm push-service arwxt
 cbhm push-service::db arwxt
@@ -4035,6 +4075,8 @@ connman pkgmgr-installer arwxt
 connman pkgmgr-parser arwxt
 connman pkgmgr-server arwxt
 connman power_manager arwxt
+connman privacy-manager::daemon arwxt
+connman privacy-manager::db arwxt
 connman pulseaudio arwxt
 connman push-service arwxt
 connman push-service::db arwxt
@@ -4230,6 +4272,8 @@ contacts-service pkgmgr-installer arwxt
 contacts-service pkgmgr-parser arwxt
 contacts-service pkgmgr-server arwxt
 contacts-service power_manager arwxt
+contacts-service privacy-manager::daemon arwxt
+contacts-service privacy-manager::db arwxt
 contacts-service pulseaudio arwxt
 contacts-service push-service arwxt
 contacts-service push-service::db arwxt
@@ -4425,6 +4469,8 @@ cp7ipabg4k pkgmgr-installer arwxt
 cp7ipabg4k pkgmgr-parser arwxt
 cp7ipabg4k pkgmgr-server arwxt
 cp7ipabg4k power_manager arwxt
+cp7ipabg4k privacy-manager::daemon arwxt
+cp7ipabg4k privacy-manager::db arwxt
 cp7ipabg4k pulseaudio arwxt
 cp7ipabg4k push-service arwxt
 cp7ipabg4k push-service::db arwxt
@@ -4620,6 +4666,8 @@ cups pkgmgr-installer arwxt
 cups pkgmgr-parser arwxt
 cups pkgmgr-server arwxt
 cups power_manager arwxt
+cups privacy-manager::daemon arwxt
+cups privacy-manager::db arwxt
 cups pulseaudio arwxt
 cups push-service arwxt
 cups push-service::db arwxt
@@ -4815,6 +4863,8 @@ data-provider-master pkgmgr-installer arwxt
 data-provider-master pkgmgr-parser arwxt
 data-provider-master pkgmgr-server arwxt
 data-provider-master power_manager arwxt
+data-provider-master privacy-manager::daemon arwxt
+data-provider-master privacy-manager::db arwxt
 data-provider-master pulseaudio arwxt
 data-provider-master push-service arwxt
 data-provider-master push-service::db arwxt
@@ -5010,6 +5060,8 @@ dbus pkgmgr-installer arwxt
 dbus pkgmgr-parser arwxt
 dbus pkgmgr-server arwxt
 dbus power_manager arwxt
+dbus privacy-manager::daemon arwxt
+dbus privacy-manager::db arwxt
 dbus pulseaudio arwxt
 dbus push-service arwxt
 dbus push-service::db arwxt
@@ -5205,6 +5257,8 @@ default-fonts-fc-sdk pkgmgr-installer arwxt
 default-fonts-fc-sdk pkgmgr-parser arwxt
 default-fonts-fc-sdk pkgmgr-server arwxt
 default-fonts-fc-sdk power_manager arwxt
+default-fonts-fc-sdk privacy-manager::daemon arwxt
+default-fonts-fc-sdk privacy-manager::db arwxt
 default-fonts-fc-sdk pulseaudio arwxt
 default-fonts-fc-sdk push-service arwxt
 default-fonts-fc-sdk push-service::db arwxt
@@ -5400,6 +5454,8 @@ dlogutil pkgmgr-installer arwxt
 dlogutil pkgmgr-parser arwxt
 dlogutil pkgmgr-server arwxt
 dlogutil power_manager arwxt
+dlogutil privacy-manager::daemon arwxt
+dlogutil privacy-manager::db arwxt
 dlogutil pulseaudio arwxt
 dlogutil push-service arwxt
 dlogutil push-service::db arwxt
@@ -5595,6 +5651,8 @@ download-provider pkgmgr-installer arwxt
 download-provider pkgmgr-parser arwxt
 download-provider pkgmgr-server arwxt
 download-provider power_manager arwxt
+download-provider privacy-manager::daemon arwxt
+download-provider privacy-manager::db arwxt
 download-provider pulseaudio arwxt
 download-provider push-service arwxt
 download-provider push-service::db arwxt
@@ -5790,6 +5848,8 @@ e17 pkgmgr-installer arwxt
 e17 pkgmgr-parser arwxt
 e17 pkgmgr-server arwxt
 e17 power_manager arwxt
+e17 privacy-manager::daemon arwxt
+e17 privacy-manager::db arwxt
 e17 pulseaudio arwxt
 e17 push-service arwxt
 e17 push-service::db arwxt
@@ -5985,6 +6045,8 @@ e17-data pkgmgr-installer arwxt
 e17-data pkgmgr-parser arwxt
 e17-data pkgmgr-server arwxt
 e17-data power_manager arwxt
+e17-data privacy-manager::daemon arwxt
+e17-data privacy-manager::db arwxt
 e17-data pulseaudio arwxt
 e17-data push-service arwxt
 e17-data push-service::db arwxt
@@ -6180,6 +6242,8 @@ efreet pkgmgr-installer arwxt
 efreet pkgmgr-parser arwxt
 efreet pkgmgr-server arwxt
 efreet power_manager arwxt
+efreet privacy-manager::daemon arwxt
+efreet privacy-manager::db arwxt
 efreet pulseaudio arwxt
 efreet push-service arwxt
 efreet push-service::db arwxt
@@ -6375,6 +6439,8 @@ email-service pkgmgr-installer arwxt
 email-service pkgmgr-parser arwxt
 email-service pkgmgr-server arwxt
 email-service power_manager arwxt
+email-service privacy-manager::daemon arwxt
+email-service privacy-manager::db arwxt
 email-service pulseaudio arwxt
 email-service push-service arwxt
 email-service push-service::db arwxt
@@ -6570,6 +6636,8 @@ gi2qxenosh pkgmgr-installer arwxt
 gi2qxenosh pkgmgr-parser arwxt
 gi2qxenosh pkgmgr-server arwxt
 gi2qxenosh power_manager arwxt
+gi2qxenosh privacy-manager::daemon arwxt
+gi2qxenosh privacy-manager::db arwxt
 gi2qxenosh pulseaudio arwxt
 gi2qxenosh push-service arwxt
 gi2qxenosh push-service::db arwxt
@@ -6765,6 +6833,8 @@ isf pkgmgr-installer arwxt
 isf pkgmgr-parser arwxt
 isf pkgmgr-server arwxt
 isf power_manager arwxt
+isf privacy-manager::daemon arwxt
+isf privacy-manager::db arwxt
 isf pulseaudio arwxt
 isf push-service arwxt
 isf push-service::db arwxt
@@ -6960,6 +7030,8 @@ libaccounts-svc pkgmgr-installer arwxt
 libaccounts-svc pkgmgr-parser arwxt
 libaccounts-svc pkgmgr-server arwxt
 libaccounts-svc power_manager arwxt
+libaccounts-svc privacy-manager::daemon arwxt
+libaccounts-svc privacy-manager::db arwxt
 libaccounts-svc pulseaudio arwxt
 libaccounts-svc push-service arwxt
 libaccounts-svc push-service::db arwxt
@@ -7155,6 +7227,8 @@ libslp-alarm pkgmgr-installer arwxt
 libslp-alarm pkgmgr-parser arwxt
 libslp-alarm pkgmgr-server arwxt
 libslp-alarm power_manager arwxt
+libslp-alarm privacy-manager::daemon arwxt
+libslp-alarm privacy-manager::db arwxt
 libslp-alarm pulseaudio arwxt
 libslp-alarm push-service arwxt
 libslp-alarm push-service::db arwxt
@@ -7350,6 +7424,8 @@ libslp-memo pkgmgr-installer arwxt
 libslp-memo pkgmgr-parser arwxt
 libslp-memo pkgmgr-server arwxt
 libslp-memo power_manager arwxt
+libslp-memo privacy-manager::daemon arwxt
+libslp-memo privacy-manager::db arwxt
 libslp-memo pulseaudio arwxt
 libslp-memo push-service arwxt
 libslp-memo push-service::db arwxt
@@ -7545,6 +7621,8 @@ libug-phone pkgmgr-installer arwxt
 libug-phone pkgmgr-parser arwxt
 libug-phone pkgmgr-server arwxt
 libug-phone power_manager arwxt
+libug-phone privacy-manager::daemon arwxt
+libug-phone privacy-manager::db arwxt
 libug-phone pulseaudio arwxt
 libug-phone push-service arwxt
 libug-phone push-service::db arwxt
@@ -7740,6 +7818,8 @@ location_fw pkgmgr-installer arwxt
 location_fw pkgmgr-parser arwxt
 location_fw pkgmgr-server arwxt
 location_fw power_manager arwxt
+location_fw privacy-manager::daemon arwxt
+location_fw privacy-manager::db arwxt
 location_fw pulseaudio arwxt
 location_fw push-service arwxt
 location_fw push-service::db arwxt
@@ -7935,6 +8015,8 @@ location_fw::server pkgmgr-installer arwxt
 location_fw::server pkgmgr-parser arwxt
 location_fw::server pkgmgr-server arwxt
 location_fw::server power_manager arwxt
+location_fw::server privacy-manager::daemon arwxt
+location_fw::server privacy-manager::db arwxt
 location_fw::server pulseaudio arwxt
 location_fw::server push-service arwxt
 location_fw::server push-service::db arwxt
@@ -8130,6 +8212,8 @@ media-data pkgmgr-installer arwxt
 media-data pkgmgr-parser arwxt
 media-data pkgmgr-server arwxt
 media-data power_manager arwxt
+media-data privacy-manager::daemon arwxt
+media-data privacy-manager::db arwxt
 media-data pulseaudio arwxt
 media-data push-service arwxt
 media-data push-service::db arwxt
@@ -8325,6 +8409,8 @@ media-server pkgmgr-installer arwxt
 media-server pkgmgr-parser arwxt
 media-server pkgmgr-server arwxt
 media-server power_manager arwxt
+media-server privacy-manager::daemon arwxt
+media-server privacy-manager::db arwxt
 media-server pulseaudio arwxt
 media-server push-service arwxt
 media-server push-service::db arwxt
@@ -8520,6 +8606,8 @@ miracast-server pkgmgr-installer arwxt
 miracast-server pkgmgr-parser arwxt
 miracast-server pkgmgr-server arwxt
 miracast-server power_manager arwxt
+miracast-server privacy-manager::daemon arwxt
+miracast-server privacy-manager::db arwxt
 miracast-server pulseaudio arwxt
 miracast-server push-service arwxt
 miracast-server push-service::db arwxt
@@ -8715,6 +8803,8 @@ mobileprint pkgmgr-installer arwxt
 mobileprint pkgmgr-parser arwxt
 mobileprint pkgmgr-server arwxt
 mobileprint power_manager arwxt
+mobileprint privacy-manager::daemon arwxt
+mobileprint privacy-manager::db arwxt
 mobileprint pulseaudio arwxt
 mobileprint push-service arwxt
 mobileprint push-service::db arwxt
@@ -8910,6 +9000,8 @@ msg-service pkgmgr-installer arwxt
 msg-service pkgmgr-parser arwxt
 msg-service pkgmgr-server arwxt
 msg-service power_manager arwxt
+msg-service privacy-manager::daemon arwxt
+msg-service privacy-manager::db arwxt
 msg-service pulseaudio arwxt
 msg-service push-service arwxt
 msg-service push-service::db arwxt
@@ -9105,6 +9197,8 @@ net-config pkgmgr-installer arwxt
 net-config pkgmgr-parser arwxt
 net-config pkgmgr-server arwxt
 net-config power_manager arwxt
+net-config privacy-manager::daemon arwxt
+net-config privacy-manager::db arwxt
 net-config pulseaudio arwxt
 net-config push-service arwxt
 net-config push-service::db arwxt
@@ -9300,6 +9394,8 @@ nfc-manager pkgmgr-installer arwxt
 nfc-manager pkgmgr-parser arwxt
 nfc-manager pkgmgr-server arwxt
 nfc-manager power_manager arwxt
+nfc-manager privacy-manager::daemon arwxt
+nfc-manager privacy-manager::db arwxt
 nfc-manager pulseaudio arwxt
 nfc-manager push-service arwxt
 nfc-manager push-service::db arwxt
@@ -9495,6 +9591,8 @@ notification pkgmgr-installer arwxt
 notification pkgmgr-parser arwxt
 notification pkgmgr-server arwxt
 notification power_manager arwxt
+notification privacy-manager::daemon arwxt
+notification privacy-manager::db arwxt
 notification pulseaudio arwxt
 notification push-service arwxt
 notification push-service::db arwxt
@@ -9690,6 +9788,8 @@ obexd pkgmgr-installer arwxt
 obexd pkgmgr-parser arwxt
 obexd pkgmgr-server arwxt
 obexd power_manager arwxt
+obexd privacy-manager::daemon arwxt
+obexd privacy-manager::db arwxt
 obexd pulseaudio arwxt
 obexd push-service arwxt
 obexd push-service::db arwxt
@@ -9885,6 +9985,8 @@ obexd::client pkgmgr-installer arwxt
 obexd::client pkgmgr-parser arwxt
 obexd::client pkgmgr-server arwxt
 obexd::client power_manager arwxt
+obexd::client privacy-manager::daemon arwxt
+obexd::client privacy-manager::db arwxt
 obexd::client pulseaudio arwxt
 obexd::client push-service arwxt
 obexd::client push-service::db arwxt
@@ -10080,6 +10182,8 @@ oma-ds-agent pkgmgr-installer arwxt
 oma-ds-agent pkgmgr-parser arwxt
 oma-ds-agent pkgmgr-server arwxt
 oma-ds-agent power_manager arwxt
+oma-ds-agent privacy-manager::daemon arwxt
+oma-ds-agent privacy-manager::db arwxt
 oma-ds-agent pulseaudio arwxt
 oma-ds-agent push-service arwxt
 oma-ds-agent push-service::db arwxt
@@ -10275,6 +10379,8 @@ org.tizen.app-selector pkgmgr-installer arwxt
 org.tizen.app-selector pkgmgr-parser arwxt
 org.tizen.app-selector pkgmgr-server arwxt
 org.tizen.app-selector power_manager arwxt
+org.tizen.app-selector privacy-manager::daemon arwxt
+org.tizen.app-selector privacy-manager::db arwxt
 org.tizen.app-selector pulseaudio arwxt
 org.tizen.app-selector push-service arwxt
 org.tizen.app-selector push-service::db arwxt
@@ -10470,6 +10576,8 @@ org.tizen.bluetooth-share-ui pkgmgr-installer arwxt
 org.tizen.bluetooth-share-ui pkgmgr-parser arwxt
 org.tizen.bluetooth-share-ui pkgmgr-server arwxt
 org.tizen.bluetooth-share-ui power_manager arwxt
+org.tizen.bluetooth-share-ui privacy-manager::daemon arwxt
+org.tizen.bluetooth-share-ui privacy-manager::db arwxt
 org.tizen.bluetooth-share-ui pulseaudio arwxt
 org.tizen.bluetooth-share-ui push-service arwxt
 org.tizen.bluetooth-share-ui push-service::db arwxt
@@ -10665,6 +10773,8 @@ org.tizen.browser pkgmgr-installer arwxt
 org.tizen.browser pkgmgr-parser arwxt
 org.tizen.browser pkgmgr-server arwxt
 org.tizen.browser power_manager arwxt
+org.tizen.browser privacy-manager::daemon arwxt
+org.tizen.browser privacy-manager::db arwxt
 org.tizen.browser pulseaudio arwxt
 org.tizen.browser push-service arwxt
 org.tizen.browser push-service::db arwxt
@@ -10860,6 +10970,8 @@ org.tizen.bt-syspopup pkgmgr-installer arwxt
 org.tizen.bt-syspopup pkgmgr-parser arwxt
 org.tizen.bt-syspopup pkgmgr-server arwxt
 org.tizen.bt-syspopup power_manager arwxt
+org.tizen.bt-syspopup privacy-manager::daemon arwxt
+org.tizen.bt-syspopup privacy-manager::db arwxt
 org.tizen.bt-syspopup pulseaudio arwxt
 org.tizen.bt-syspopup push-service arwxt
 org.tizen.bt-syspopup push-service::db arwxt
@@ -11055,6 +11167,8 @@ org.tizen.calculator pkgmgr-installer arwxt
 org.tizen.calculator pkgmgr-parser arwxt
 org.tizen.calculator pkgmgr-server arwxt
 org.tizen.calculator power_manager arwxt
+org.tizen.calculator privacy-manager::daemon arwxt
+org.tizen.calculator privacy-manager::db arwxt
 org.tizen.calculator pulseaudio arwxt
 org.tizen.calculator push-service arwxt
 org.tizen.calculator push-service::db arwxt
@@ -11250,6 +11364,8 @@ org.tizen.calendar pkgmgr-installer arwxt
 org.tizen.calendar pkgmgr-parser arwxt
 org.tizen.calendar pkgmgr-server arwxt
 org.tizen.calendar power_manager arwxt
+org.tizen.calendar privacy-manager::daemon arwxt
+org.tizen.calendar privacy-manager::db arwxt
 org.tizen.calendar pulseaudio arwxt
 org.tizen.calendar push-service arwxt
 org.tizen.calendar push-service::db arwxt
@@ -11445,6 +11561,8 @@ org.tizen.call pkgmgr-installer arwxt
 org.tizen.call pkgmgr-parser arwxt
 org.tizen.call pkgmgr-server arwxt
 org.tizen.call power_manager arwxt
+org.tizen.call privacy-manager::daemon arwxt
+org.tizen.call privacy-manager::db arwxt
 org.tizen.call pulseaudio arwxt
 org.tizen.call push-service arwxt
 org.tizen.call push-service::db arwxt
@@ -11640,6 +11758,8 @@ org.tizen.camera-app pkgmgr-installer arwxt
 org.tizen.camera-app pkgmgr-parser arwxt
 org.tizen.camera-app pkgmgr-server arwxt
 org.tizen.camera-app power_manager arwxt
+org.tizen.camera-app privacy-manager::daemon arwxt
+org.tizen.camera-app privacy-manager::db arwxt
 org.tizen.camera-app pulseaudio arwxt
 org.tizen.camera-app push-service arwxt
 org.tizen.camera-app push-service::db arwxt
@@ -11835,6 +11955,8 @@ org.tizen.ciss pkgmgr-installer arwxt
 org.tizen.ciss pkgmgr-parser arwxt
 org.tizen.ciss pkgmgr-server arwxt
 org.tizen.ciss power_manager arwxt
+org.tizen.ciss privacy-manager::daemon arwxt
+org.tizen.ciss privacy-manager::db arwxt
 org.tizen.ciss pulseaudio arwxt
 org.tizen.ciss push-service arwxt
 org.tizen.ciss push-service::db arwxt
@@ -12030,6 +12152,8 @@ org.tizen.clock pkgmgr-installer arwxt
 org.tizen.clock pkgmgr-parser arwxt
 org.tizen.clock pkgmgr-server arwxt
 org.tizen.clock power_manager arwxt
+org.tizen.clock privacy-manager::daemon arwxt
+org.tizen.clock privacy-manager::db arwxt
 org.tizen.clock pulseaudio arwxt
 org.tizen.clock push-service arwxt
 org.tizen.clock push-service::db arwxt
@@ -12225,6 +12349,8 @@ org.tizen.contacts pkgmgr-installer arwxt
 org.tizen.contacts pkgmgr-parser arwxt
 org.tizen.contacts pkgmgr-server arwxt
 org.tizen.contacts power_manager arwxt
+org.tizen.contacts privacy-manager::daemon arwxt
+org.tizen.contacts privacy-manager::db arwxt
 org.tizen.contacts pulseaudio arwxt
 org.tizen.contacts push-service arwxt
 org.tizen.contacts push-service::db arwxt
@@ -12420,6 +12546,8 @@ org.tizen.contacts-viewer pkgmgr-installer arwxt
 org.tizen.contacts-viewer pkgmgr-parser arwxt
 org.tizen.contacts-viewer pkgmgr-server arwxt
 org.tizen.contacts-viewer power_manager arwxt
+org.tizen.contacts-viewer privacy-manager::daemon arwxt
+org.tizen.contacts-viewer privacy-manager::db arwxt
 org.tizen.contacts-viewer pulseaudio arwxt
 org.tizen.contacts-viewer push-service arwxt
 org.tizen.contacts-viewer push-service::db arwxt
@@ -12615,6 +12743,8 @@ org.tizen.crash-popup pkgmgr-installer arwxt
 org.tizen.crash-popup pkgmgr-parser arwxt
 org.tizen.crash-popup pkgmgr-server arwxt
 org.tizen.crash-popup power_manager arwxt
+org.tizen.crash-popup privacy-manager::daemon arwxt
+org.tizen.crash-popup privacy-manager::db arwxt
 org.tizen.crash-popup pulseaudio arwxt
 org.tizen.crash-popup push-service arwxt
 org.tizen.crash-popup push-service::db arwxt
@@ -12810,6 +12940,8 @@ org.tizen.data-provider-master pkgmgr-installer arwxt
 org.tizen.data-provider-master pkgmgr-parser arwxt
 org.tizen.data-provider-master pkgmgr-server arwxt
 org.tizen.data-provider-master power_manager arwxt
+org.tizen.data-provider-master privacy-manager::daemon arwxt
+org.tizen.data-provider-master privacy-manager::db arwxt
 org.tizen.data-provider-master pulseaudio arwxt
 org.tizen.data-provider-master push-service arwxt
 org.tizen.data-provider-master push-service::db arwxt
@@ -13005,6 +13137,8 @@ org.tizen.data-provider-slave pkgmgr-installer arwxt
 org.tizen.data-provider-slave pkgmgr-parser arwxt
 org.tizen.data-provider-slave pkgmgr-server arwxt
 org.tizen.data-provider-slave power_manager arwxt
+org.tizen.data-provider-slave privacy-manager::daemon arwxt
+org.tizen.data-provider-slave privacy-manager::db arwxt
 org.tizen.data-provider-slave pulseaudio arwxt
 org.tizen.data-provider-slave push-service arwxt
 org.tizen.data-provider-slave push-service::db arwxt
@@ -13200,6 +13334,8 @@ org.tizen.data-provider-webapp-slave pkgmgr-installer arwxt
 org.tizen.data-provider-webapp-slave pkgmgr-parser arwxt
 org.tizen.data-provider-webapp-slave pkgmgr-server arwxt
 org.tizen.data-provider-webapp-slave power_manager arwxt
+org.tizen.data-provider-webapp-slave privacy-manager::daemon arwxt
+org.tizen.data-provider-webapp-slave privacy-manager::db arwxt
 org.tizen.data-provider-webapp-slave pulseaudio arwxt
 org.tizen.data-provider-webapp-slave push-service arwxt
 org.tizen.data-provider-webapp-slave push-service::db arwxt
@@ -13395,6 +13531,8 @@ org.tizen.download-manager pkgmgr-installer arwxt
 org.tizen.download-manager pkgmgr-parser arwxt
 org.tizen.download-manager pkgmgr-server arwxt
 org.tizen.download-manager power_manager arwxt
+org.tizen.download-manager privacy-manager::daemon arwxt
+org.tizen.download-manager privacy-manager::db arwxt
 org.tizen.download-manager pulseaudio arwxt
 org.tizen.download-manager push-service arwxt
 org.tizen.download-manager push-service::db arwxt
@@ -13590,6 +13728,8 @@ org.tizen.draglock pkgmgr-installer arwxt
 org.tizen.draglock pkgmgr-parser arwxt
 org.tizen.draglock pkgmgr-server arwxt
 org.tizen.draglock power_manager arwxt
+org.tizen.draglock privacy-manager::daemon arwxt
+org.tizen.draglock privacy-manager::db arwxt
 org.tizen.draglock pulseaudio arwxt
 org.tizen.draglock push-service arwxt
 org.tizen.draglock push-service::db arwxt
@@ -13785,6 +13925,8 @@ org.tizen.email pkgmgr-installer arwxt
 org.tizen.email pkgmgr-parser arwxt
 org.tizen.email pkgmgr-server arwxt
 org.tizen.email power_manager arwxt
+org.tizen.email privacy-manager::daemon arwxt
+org.tizen.email privacy-manager::db arwxt
 org.tizen.email pulseaudio arwxt
 org.tizen.email push-service arwxt
 org.tizen.email push-service::db arwxt
@@ -13980,6 +14122,8 @@ org.tizen.gallery pkgmgr-installer arwxt
 org.tizen.gallery pkgmgr-parser arwxt
 org.tizen.gallery pkgmgr-server arwxt
 org.tizen.gallery power_manager arwxt
+org.tizen.gallery privacy-manager::daemon arwxt
+org.tizen.gallery privacy-manager::db arwxt
 org.tizen.gallery pulseaudio arwxt
 org.tizen.gallery push-service arwxt
 org.tizen.gallery push-service::db arwxt
@@ -14175,6 +14319,8 @@ org.tizen.image-viewer pkgmgr-installer arwxt
 org.tizen.image-viewer pkgmgr-parser arwxt
 org.tizen.image-viewer pkgmgr-server arwxt
 org.tizen.image-viewer power_manager arwxt
+org.tizen.image-viewer privacy-manager::daemon arwxt
+org.tizen.image-viewer privacy-manager::db arwxt
 org.tizen.image-viewer pulseaudio arwxt
 org.tizen.image-viewer push-service arwxt
 org.tizen.image-viewer push-service::db arwxt
@@ -14370,6 +14516,8 @@ org.tizen.indicator pkgmgr-installer arwxt
 org.tizen.indicator pkgmgr-parser arwxt
 org.tizen.indicator pkgmgr-server arwxt
 org.tizen.indicator power_manager arwxt
+org.tizen.indicator privacy-manager::daemon arwxt
+org.tizen.indicator privacy-manager::db arwxt
 org.tizen.indicator pulseaudio arwxt
 org.tizen.indicator push-service arwxt
 org.tizen.indicator push-service::db arwxt
@@ -14565,6 +14713,8 @@ org.tizen.lockscreen pkgmgr-installer arwxt
 org.tizen.lockscreen pkgmgr-parser arwxt
 org.tizen.lockscreen pkgmgr-server arwxt
 org.tizen.lockscreen power_manager arwxt
+org.tizen.lockscreen privacy-manager::daemon arwxt
+org.tizen.lockscreen privacy-manager::db arwxt
 org.tizen.lockscreen pulseaudio arwxt
 org.tizen.lockscreen push-service arwxt
 org.tizen.lockscreen push-service::db arwxt
@@ -14760,6 +14910,8 @@ org.tizen.memo pkgmgr-installer arwxt
 org.tizen.memo pkgmgr-parser arwxt
 org.tizen.memo pkgmgr-server arwxt
 org.tizen.memo power_manager arwxt
+org.tizen.memo privacy-manager::daemon arwxt
+org.tizen.memo privacy-manager::db arwxt
 org.tizen.memo pulseaudio arwxt
 org.tizen.memo push-service arwxt
 org.tizen.memo push-service::db arwxt
@@ -14955,6 +15107,8 @@ org.tizen.menu-screen pkgmgr-installer arwxt
 org.tizen.menu-screen pkgmgr-parser arwxt
 org.tizen.menu-screen pkgmgr-server arwxt
 org.tizen.menu-screen power_manager arwxt
+org.tizen.menu-screen privacy-manager::daemon arwxt
+org.tizen.menu-screen privacy-manager::db arwxt
 org.tizen.menu-screen pulseaudio arwxt
 org.tizen.menu-screen push-service arwxt
 org.tizen.menu-screen push-service::db arwxt
@@ -15150,6 +15304,8 @@ org.tizen.message pkgmgr-installer arwxt
 org.tizen.message pkgmgr-parser arwxt
 org.tizen.message pkgmgr-server arwxt
 org.tizen.message power_manager arwxt
+org.tizen.message privacy-manager::daemon arwxt
+org.tizen.message privacy-manager::db arwxt
 org.tizen.message pulseaudio arwxt
 org.tizen.message push-service arwxt
 org.tizen.message push-service::db arwxt
@@ -15345,6 +15501,8 @@ org.tizen.music-player pkgmgr-installer arwxt
 org.tizen.music-player pkgmgr-parser arwxt
 org.tizen.music-player pkgmgr-server arwxt
 org.tizen.music-player power_manager arwxt
+org.tizen.music-player privacy-manager::daemon arwxt
+org.tizen.music-player privacy-manager::db arwxt
 org.tizen.music-player pulseaudio arwxt
 org.tizen.music-player push-service arwxt
 org.tizen.music-player push-service::db arwxt
@@ -15540,6 +15698,8 @@ org.tizen.myfile pkgmgr-installer arwxt
 org.tizen.myfile pkgmgr-parser arwxt
 org.tizen.myfile pkgmgr-server arwxt
 org.tizen.myfile power_manager arwxt
+org.tizen.myfile privacy-manager::daemon arwxt
+org.tizen.myfile privacy-manager::db arwxt
 org.tizen.myfile pulseaudio arwxt
 org.tizen.myfile push-service arwxt
 org.tizen.myfile push-service::db arwxt
@@ -15735,6 +15895,8 @@ org.tizen.net-popup pkgmgr-installer arwxt
 org.tizen.net-popup pkgmgr-parser arwxt
 org.tizen.net-popup pkgmgr-server arwxt
 org.tizen.net-popup power_manager arwxt
+org.tizen.net-popup privacy-manager::daemon arwxt
+org.tizen.net-popup privacy-manager::db arwxt
 org.tizen.net-popup pulseaudio arwxt
 org.tizen.net-popup push-service arwxt
 org.tizen.net-popup push-service::db arwxt
@@ -15930,6 +16092,8 @@ org.tizen.phone pkgmgr-installer arwxt
 org.tizen.phone pkgmgr-parser arwxt
 org.tizen.phone pkgmgr-server arwxt
 org.tizen.phone power_manager arwxt
+org.tizen.phone privacy-manager::daemon arwxt
+org.tizen.phone privacy-manager::db arwxt
 org.tizen.phone pulseaudio arwxt
 org.tizen.phone push-service arwxt
 org.tizen.phone push-service::db arwxt
@@ -16125,6 +16289,8 @@ org.tizen.pwlock pkgmgr-installer arwxt
 org.tizen.pwlock pkgmgr-parser arwxt
 org.tizen.pwlock pkgmgr-server arwxt
 org.tizen.pwlock power_manager arwxt
+org.tizen.pwlock privacy-manager::daemon arwxt
+org.tizen.pwlock privacy-manager::db arwxt
 org.tizen.pwlock pulseaudio arwxt
 org.tizen.pwlock push-service arwxt
 org.tizen.pwlock push-service::db arwxt
@@ -16320,6 +16486,8 @@ org.tizen.quickpanel pkgmgr-installer arwxt
 org.tizen.quickpanel pkgmgr-parser arwxt
 org.tizen.quickpanel pkgmgr-server arwxt
 org.tizen.quickpanel power_manager arwxt
+org.tizen.quickpanel privacy-manager::daemon arwxt
+org.tizen.quickpanel privacy-manager::db arwxt
 org.tizen.quickpanel pulseaudio arwxt
 org.tizen.quickpanel push-service arwxt
 org.tizen.quickpanel push-service::db arwxt
@@ -16515,6 +16683,8 @@ org.tizen.sat-ui pkgmgr-installer arwxt
 org.tizen.sat-ui pkgmgr-parser arwxt
 org.tizen.sat-ui pkgmgr-server arwxt
 org.tizen.sat-ui power_manager arwxt
+org.tizen.sat-ui privacy-manager::daemon arwxt
+org.tizen.sat-ui privacy-manager::db arwxt
 org.tizen.sat-ui pulseaudio arwxt
 org.tizen.sat-ui push-service arwxt
 org.tizen.sat-ui push-service::db arwxt
@@ -16710,6 +16880,8 @@ org.tizen.setting pkgmgr-installer arwxt
 org.tizen.setting pkgmgr-parser arwxt
 org.tizen.setting pkgmgr-server arwxt
 org.tizen.setting power_manager arwxt
+org.tizen.setting privacy-manager::daemon arwxt
+org.tizen.setting privacy-manager::db arwxt
 org.tizen.setting pulseaudio arwxt
 org.tizen.setting push-service arwxt
 org.tizen.setting push-service::db arwxt
@@ -16905,6 +17077,8 @@ org.tizen.smartsearch pkgmgr-installer arwxt
 org.tizen.smartsearch pkgmgr-parser arwxt
 org.tizen.smartsearch pkgmgr-server arwxt
 org.tizen.smartsearch power_manager arwxt
+org.tizen.smartsearch privacy-manager::daemon arwxt
+org.tizen.smartsearch privacy-manager::db arwxt
 org.tizen.smartsearch pulseaudio arwxt
 org.tizen.smartsearch push-service arwxt
 org.tizen.smartsearch push-service::db arwxt
@@ -17100,6 +17274,8 @@ org.tizen.taskmgr pkgmgr-installer arwxt
 org.tizen.taskmgr pkgmgr-parser arwxt
 org.tizen.taskmgr pkgmgr-server arwxt
 org.tizen.taskmgr power_manager arwxt
+org.tizen.taskmgr privacy-manager::daemon arwxt
+org.tizen.taskmgr privacy-manager::db arwxt
 org.tizen.taskmgr pulseaudio arwxt
 org.tizen.taskmgr push-service arwxt
 org.tizen.taskmgr push-service::db arwxt
@@ -17295,6 +17471,8 @@ org.tizen.tickernoti-syspopup pkgmgr-installer arwxt
 org.tizen.tickernoti-syspopup pkgmgr-parser arwxt
 org.tizen.tickernoti-syspopup pkgmgr-server arwxt
 org.tizen.tickernoti-syspopup power_manager arwxt
+org.tizen.tickernoti-syspopup privacy-manager::daemon arwxt
+org.tizen.tickernoti-syspopup privacy-manager::db arwxt
 org.tizen.tickernoti-syspopup pulseaudio arwxt
 org.tizen.tickernoti-syspopup push-service arwxt
 org.tizen.tickernoti-syspopup push-service::db arwxt
@@ -17490,6 +17668,8 @@ org.tizen.usb-syspopup pkgmgr-installer arwxt
 org.tizen.usb-syspopup pkgmgr-parser arwxt
 org.tizen.usb-syspopup pkgmgr-server arwxt
 org.tizen.usb-syspopup power_manager arwxt
+org.tizen.usb-syspopup privacy-manager::daemon arwxt
+org.tizen.usb-syspopup privacy-manager::db arwxt
 org.tizen.usb-syspopup pulseaudio arwxt
 org.tizen.usb-syspopup push-service arwxt
 org.tizen.usb-syspopup push-service::db arwxt
@@ -17685,6 +17865,8 @@ org.tizen.video-player pkgmgr-installer arwxt
 org.tizen.video-player pkgmgr-parser arwxt
 org.tizen.video-player pkgmgr-server arwxt
 org.tizen.video-player power_manager arwxt
+org.tizen.video-player privacy-manager::daemon arwxt
+org.tizen.video-player privacy-manager::db arwxt
 org.tizen.video-player pulseaudio arwxt
 org.tizen.video-player push-service arwxt
 org.tizen.video-player push-service::db arwxt
@@ -17880,6 +18062,8 @@ org.tizen.volume pkgmgr-installer arwxt
 org.tizen.volume pkgmgr-parser arwxt
 org.tizen.volume pkgmgr-server arwxt
 org.tizen.volume power_manager arwxt
+org.tizen.volume privacy-manager::daemon arwxt
+org.tizen.volume privacy-manager::db arwxt
 org.tizen.volume pulseaudio arwxt
 org.tizen.volume push-service arwxt
 org.tizen.volume push-service::db arwxt
@@ -18075,6 +18259,8 @@ osp pkgmgr-installer arwxt
 osp pkgmgr-parser arwxt
 osp pkgmgr-server arwxt
 osp power_manager arwxt
+osp privacy-manager::daemon arwxt
+osp privacy-manager::db arwxt
 osp pulseaudio arwxt
 osp push-service arwxt
 osp push-service::db arwxt
@@ -18270,6 +18456,8 @@ osp-app-service pkgmgr-installer arwxt
 osp-app-service pkgmgr-parser arwxt
 osp-app-service pkgmgr-server arwxt
 osp-app-service power_manager arwxt
+osp-app-service privacy-manager::daemon arwxt
+osp-app-service privacy-manager::db arwxt
 osp-app-service pulseaudio arwxt
 osp-app-service push-service arwxt
 osp-app-service push-service::db arwxt
@@ -18465,6 +18653,8 @@ osp-channel-service pkgmgr-installer arwxt
 osp-channel-service pkgmgr-parser arwxt
 osp-channel-service pkgmgr-server arwxt
 osp-channel-service power_manager arwxt
+osp-channel-service privacy-manager::daemon arwxt
+osp-channel-service privacy-manager::db arwxt
 osp-channel-service pulseaudio arwxt
 osp-channel-service push-service arwxt
 osp-channel-service push-service::db arwxt
@@ -18660,6 +18850,8 @@ osp-connectivity-service pkgmgr-installer arwxt
 osp-connectivity-service pkgmgr-parser arwxt
 osp-connectivity-service pkgmgr-server arwxt
 osp-connectivity-service power_manager arwxt
+osp-connectivity-service privacy-manager::daemon arwxt
+osp-connectivity-service privacy-manager::db arwxt
 osp-connectivity-service pulseaudio arwxt
 osp-connectivity-service push-service arwxt
 osp-connectivity-service push-service::db arwxt
@@ -18855,6 +19047,8 @@ osp-installer pkgmgr-installer arwxt
 osp-installer pkgmgr-parser arwxt
 osp-installer pkgmgr-server arwxt
 osp-installer power_manager arwxt
+osp-installer privacy-manager::daemon arwxt
+osp-installer privacy-manager::db arwxt
 osp-installer pulseaudio arwxt
 osp-installer push-service arwxt
 osp-installer push-service::db arwxt
@@ -19050,6 +19244,8 @@ osp-livebox-service pkgmgr-installer arwxt
 osp-livebox-service pkgmgr-parser arwxt
 osp-livebox-service pkgmgr-server arwxt
 osp-livebox-service power_manager arwxt
+osp-livebox-service privacy-manager::daemon arwxt
+osp-livebox-service privacy-manager::db arwxt
 osp-livebox-service pulseaudio arwxt
 osp-livebox-service push-service arwxt
 osp-livebox-service push-service::db arwxt
@@ -19245,6 +19441,8 @@ osp-search-service pkgmgr-installer arwxt
 osp-search-service pkgmgr-parser arwxt
 osp-search-service pkgmgr-server arwxt
 osp-search-service power_manager arwxt
+osp-search-service privacy-manager::daemon arwxt
+osp-search-service privacy-manager::db arwxt
 osp-search-service pulseaudio arwxt
 osp-search-service push-service arwxt
 osp-search-service push-service::db arwxt
@@ -19440,6 +19638,8 @@ osp-security-service pkgmgr-installer arwxt
 osp-security-service pkgmgr-parser arwxt
 osp-security-service pkgmgr-server arwxt
 osp-security-service power_manager arwxt
+osp-security-service privacy-manager::daemon arwxt
+osp-security-service privacy-manager::db arwxt
 osp-security-service pulseaudio arwxt
 osp-security-service push-service arwxt
 osp-security-service push-service::db arwxt
@@ -19635,6 +19835,8 @@ pims-ipc pkgmgr-installer arwxt
 pims-ipc pkgmgr-parser arwxt
 pims-ipc pkgmgr-server arwxt
 pims-ipc power_manager arwxt
+pims-ipc privacy-manager::daemon arwxt
+pims-ipc privacy-manager::db arwxt
 pims-ipc pulseaudio arwxt
 pims-ipc push-service arwxt
 pims-ipc push-service::db arwxt
@@ -19830,6 +20032,8 @@ pkgmgr pkgmgr-installer arwxt
 pkgmgr pkgmgr-parser arwxt
 pkgmgr pkgmgr-server arwxt
 pkgmgr power_manager arwxt
+pkgmgr privacy-manager::daemon arwxt
+pkgmgr privacy-manager::db arwxt
 pkgmgr pulseaudio arwxt
 pkgmgr push-service arwxt
 pkgmgr push-service::db arwxt
@@ -20025,6 +20229,8 @@ pkgmgr-client pkgmgr-installer arwxt
 pkgmgr-client pkgmgr-parser arwxt
 pkgmgr-client pkgmgr-server arwxt
 pkgmgr-client power_manager arwxt
+pkgmgr-client privacy-manager::daemon arwxt
+pkgmgr-client privacy-manager::db arwxt
 pkgmgr-client pulseaudio arwxt
 pkgmgr-client push-service arwxt
 pkgmgr-client push-service::db arwxt
@@ -20220,6 +20426,8 @@ pkgmgr-info pkgmgr-installer arwxt
 pkgmgr-info pkgmgr-parser arwxt
 pkgmgr-info pkgmgr-server arwxt
 pkgmgr-info power_manager arwxt
+pkgmgr-info privacy-manager::daemon arwxt
+pkgmgr-info privacy-manager::db arwxt
 pkgmgr-info pulseaudio arwxt
 pkgmgr-info push-service arwxt
 pkgmgr-info push-service::db arwxt
@@ -20415,6 +20623,8 @@ pkgmgr-installer pkgmgr-info arwxt
 pkgmgr-installer pkgmgr-parser arwxt
 pkgmgr-installer pkgmgr-server arwxt
 pkgmgr-installer power_manager arwxt
+pkgmgr-installer privacy-manager::daemon arwxt
+pkgmgr-installer privacy-manager::db arwxt
 pkgmgr-installer pulseaudio arwxt
 pkgmgr-installer push-service arwxt
 pkgmgr-installer push-service::db arwxt
@@ -20610,6 +20820,8 @@ pkgmgr-parser pkgmgr-info arwxt
 pkgmgr-parser pkgmgr-installer arwxt
 pkgmgr-parser pkgmgr-server arwxt
 pkgmgr-parser power_manager arwxt
+pkgmgr-parser privacy-manager::daemon arwxt
+pkgmgr-parser privacy-manager::db arwxt
 pkgmgr-parser pulseaudio arwxt
 pkgmgr-parser push-service arwxt
 pkgmgr-parser push-service::db arwxt
@@ -20805,6 +21017,8 @@ pkgmgr-server pkgmgr-info arwxt
 pkgmgr-server pkgmgr-installer arwxt
 pkgmgr-server pkgmgr-parser arwxt
 pkgmgr-server power_manager arwxt
+pkgmgr-server privacy-manager::daemon arwxt
+pkgmgr-server privacy-manager::db arwxt
 pkgmgr-server pulseaudio arwxt
 pkgmgr-server push-service arwxt
 pkgmgr-server push-service::db arwxt
@@ -21000,6 +21214,8 @@ power_manager pkgmgr-info arwxt
 power_manager pkgmgr-installer arwxt
 power_manager pkgmgr-parser arwxt
 power_manager pkgmgr-server arwxt
+power_manager privacy-manager::daemon arwxt
+power_manager privacy-manager::db arwxt
 power_manager pulseaudio arwxt
 power_manager push-service arwxt
 power_manager push-service::db arwxt
@@ -21056,6 +21272,203 @@ power_manager wrt-plugins-common arwxt
 power_manager wrt-security::db_ace arwxt
 power_manager xorg arwxt
 power_manager zeromq arwxt
+
+
+privacy-manager::daemon 57r43275q7 arwxt
+privacy-manager::daemon _ arwxt
+privacy-manager::daemon ail arwxt
+privacy-manager::daemon ail::db arwxt
+privacy-manager::daemon alarm-server arwxt
+privacy-manager::daemon alarm-server::db arwxt
+privacy-manager::daemon aospd00043 arwxt
+privacy-manager::daemon app-svc arwxt
+privacy-manager::daemon app-svc::db arwxt
+privacy-manager::daemon app2sd arwxt
+privacy-manager::daemon aul arwxt
+privacy-manager::daemon aul::db arwxt
+privacy-manager::daemon bluetooth-tools arwxt
+privacy-manager::daemon bluez arwxt
+privacy-manager::daemon browser-provider arwxt
+privacy-manager::daemon browser::db arwxt
+privacy-manager::daemon browser::db_external arwxt
+privacy-manager::daemon bt-service arwxt
+privacy-manager::daemon bt_agent arwxt
+privacy-manager::daemon bt_agent::bt_hfp_agent arwxt
+privacy-manager::daemon bt_agent::bt_map_agent arwxt
+privacy-manager::daemon bt_agent::bt_pb_agent arwxt
+privacy-manager::daemon bt_firmware arwxt
+privacy-manager::daemon bt_share arwxt
+privacy-manager::daemon bt_share::db arwxt
+privacy-manager::daemon calendar-service arwxt
+privacy-manager::daemon calendar-service::db arwxt
+privacy-manager::daemon cbhm arwxt
+privacy-manager::daemon cert-svc arwxt
+privacy-manager::daemon connman arwxt
+privacy-manager::daemon contacts-service arwxt
+privacy-manager::daemon contacts-service::db arwxt
+privacy-manager::daemon cp7ipabg4k arwxt
+privacy-manager::daemon cups arwxt
+privacy-manager::daemon data-provider-master arwxt
+privacy-manager::daemon data-provider-master::data arwxt
+privacy-manager::daemon data-provider-master::db arwxt
+privacy-manager::daemon data-provider-master::share arwxt
+privacy-manager::daemon dbus arwxt
+privacy-manager::daemon default-fonts-fc-sdk arwxt
+privacy-manager::daemon default-fonts-fc-sdk::config arwxt
+privacy-manager::daemon device::app_logging arwxt
+privacy-manager::daemon device::audio arwxt
+privacy-manager::daemon device::camera arwxt
+privacy-manager::daemon device::hwcodec arwxt
+privacy-manager::daemon device::recording arwxt
+privacy-manager::daemon device::sys_logging arwxt
+privacy-manager::daemon device::system_bklight arwxt
+privacy-manager::daemon device::video arwxt
+privacy-manager::daemon dlogutil arwxt
+privacy-manager::daemon dlogutil::dlogscript arwxt
+privacy-manager::daemon download-provider arwxt
+privacy-manager::daemon e17 arwxt
+privacy-manager::daemon e17-data arwxt
+privacy-manager::daemon efreet arwxt
+privacy-manager::daemon email-service arwxt
+privacy-manager::daemon email-service::db arwxt
+privacy-manager::daemon gi2qxenosh arwxt
+privacy-manager::daemon isf arwxt
+privacy-manager::daemon libaccounts-svc arwxt
+privacy-manager::daemon libaccounts-svc::db arwxt
+privacy-manager::daemon libslp-alarm arwxt
+privacy-manager::daemon libslp-alarm::db arwxt
+privacy-manager::daemon libslp-memo arwxt
+privacy-manager::daemon libslp-memo::db arwxt
+privacy-manager::daemon libug-phone arwxt
+privacy-manager::daemon location_fw arwxt
+privacy-manager::daemon location_fw::server arwxt
+privacy-manager::daemon media-data arwxt
+privacy-manager::daemon media-data::db arwxt
+privacy-manager::daemon media-server arwxt
+privacy-manager::daemon miracast-server arwxt
+privacy-manager::daemon mobileprint arwxt
+privacy-manager::daemon msg-service arwxt
+privacy-manager::daemon msg-service::db arwxt
+privacy-manager::daemon net-config arwxt
+privacy-manager::daemon nfc-manager arwxt
+privacy-manager::daemon notification arwxt
+privacy-manager::daemon notification::db arwxt
+privacy-manager::daemon obexd arwxt
+privacy-manager::daemon obexd::client arwxt
+privacy-manager::daemon oma-ds-agent arwxt
+privacy-manager::daemon org.tizen.app-selector arwxt
+privacy-manager::daemon org.tizen.bluetooth-share-ui arwxt
+privacy-manager::daemon org.tizen.browser arwxt
+privacy-manager::daemon org.tizen.bt-syspopup arwxt
+privacy-manager::daemon org.tizen.calculator arwxt
+privacy-manager::daemon org.tizen.calendar arwxt
+privacy-manager::daemon org.tizen.call arwxt
+privacy-manager::daemon org.tizen.camera-app arwxt
+privacy-manager::daemon org.tizen.ciss arwxt
+privacy-manager::daemon org.tizen.clock arwxt
+privacy-manager::daemon org.tizen.contacts arwxt
+privacy-manager::daemon org.tizen.contacts-viewer arwxt
+privacy-manager::daemon org.tizen.crash-popup arwxt
+privacy-manager::daemon org.tizen.data-provider-master arwxt
+privacy-manager::daemon org.tizen.data-provider-slave arwxt
+privacy-manager::daemon org.tizen.data-provider-webapp-slave arwxt
+privacy-manager::daemon org.tizen.download-manager arwxt
+privacy-manager::daemon org.tizen.draglock arwxt
+privacy-manager::daemon org.tizen.email arwxt
+privacy-manager::daemon org.tizen.gallery arwxt
+privacy-manager::daemon org.tizen.image-viewer arwxt
+privacy-manager::daemon org.tizen.indicator arwxt
+privacy-manager::daemon org.tizen.lockscreen arwxt
+privacy-manager::daemon org.tizen.memo arwxt
+privacy-manager::daemon org.tizen.menu-screen arwxt
+privacy-manager::daemon org.tizen.message arwxt
+privacy-manager::daemon org.tizen.music-player arwxt
+privacy-manager::daemon org.tizen.myfile arwxt
+privacy-manager::daemon org.tizen.net-popup arwxt
+privacy-manager::daemon org.tizen.phone arwxt
+privacy-manager::daemon org.tizen.pwlock arwxt
+privacy-manager::daemon org.tizen.quickpanel arwxt
+privacy-manager::daemon org.tizen.sat-ui arwxt
+privacy-manager::daemon org.tizen.setting arwxt
+privacy-manager::daemon org.tizen.smartsearch arwxt
+privacy-manager::daemon org.tizen.taskmgr arwxt
+privacy-manager::daemon org.tizen.tickernoti-syspopup arwxt
+privacy-manager::daemon org.tizen.usb-syspopup arwxt
+privacy-manager::daemon org.tizen.video-player arwxt
+privacy-manager::daemon org.tizen.volume arwxt
+privacy-manager::daemon osp arwxt
+privacy-manager::daemon osp-app-service arwxt
+privacy-manager::daemon osp-channel-service arwxt
+privacy-manager::daemon osp-connectivity-service arwxt
+privacy-manager::daemon osp-installer arwxt
+privacy-manager::daemon osp-livebox-service arwxt
+privacy-manager::daemon osp-search-service arwxt
+privacy-manager::daemon osp-security-service arwxt
+privacy-manager::daemon pims-ipc arwxt
+privacy-manager::daemon pkgmgr arwxt
+privacy-manager::daemon pkgmgr-client arwxt
+privacy-manager::daemon pkgmgr-info arwxt
+privacy-manager::daemon pkgmgr-installer arwxt
+privacy-manager::daemon pkgmgr-parser arwxt
+privacy-manager::daemon pkgmgr-server arwxt
+privacy-manager::daemon power_manager arwxt
+privacy-manager::daemon privacy-manager::db arwxt
+privacy-manager::daemon pulseaudio arwxt
+privacy-manager::daemon push-service arwxt
+privacy-manager::daemon push-service::db arwxt
+privacy-manager::daemon q7097a278m arwxt
+privacy-manager::daemon rua arwxt
+privacy-manager::daemon rua::db arwxt
+privacy-manager::daemon secure-storage arwxt
+privacy-manager::daemon security-server arwxt
+privacy-manager::daemon sensor-framework arwxt
+privacy-manager::daemon sjjevolsjk arwxt
+privacy-manager::daemon smartcard-service arwxt
+privacy-manager::daemon sound_server arwxt
+privacy-manager::daemon sqlfs arwxt
+privacy-manager::daemon starter arwxt
+privacy-manager::daemon stt-server arwxt
+privacy-manager::daemon svi-data arwxt
+privacy-manager::daemon sys-assert arwxt
+privacy-manager::daemon sys-assert::core arwxt
+privacy-manager::daemon sys-assert::core-launcher arwxt
+privacy-manager::daemon syspopup arwxt
+privacy-manager::daemon syspopup::db arwxt
+privacy-manager::daemon system arwxt
+privacy-manager::daemon system-server arwxt
+privacy-manager::daemon system::ext_storage arwxt
+privacy-manager::daemon system::homedir arwxt
+privacy-manager::daemon system::media arwxt
+privacy-manager::daemon system::use_internet arwxt
+privacy-manager::daemon system::vconf arwxt
+privacy-manager::daemon telephony_framework arwxt
+privacy-manager::daemon telephony_framework::db arwxt
+privacy-manager::daemon thumb-server arwxt
+privacy-manager::daemon tts-engine-samsung::vdata arwxt
+privacy-manager::daemon tts-server arwxt
+privacy-manager::daemon ug-camera-efl arwxt
+privacy-manager::daemon ug-image-viewer-efl arwxt
+privacy-manager::daemon ug_bluetooth arwxt
+privacy-manager::daemon usb-printer-detector arwxt
+privacy-manager::daemon usb-server arwxt
+privacy-manager::daemon usb-server::usb-r arwxt
+privacy-manager::daemon usb-server::usb-rx arwxt
+privacy-manager::daemon usb-syspopup arwxt
+privacy-manager::daemon usb-syspopup::usb-rx arwxt
+privacy-manager::daemon webkit2-efl arwxt
+privacy-manager::daemon wifi_direct_manager arwxt
+privacy-manager::daemon worldclock arwxt
+privacy-manager::daemon worldclock::db arwxt
+privacy-manager::daemon wrt arwxt
+privacy-manager::daemon wrt-commons arwxt
+privacy-manager::daemon wrt-commons::db_wrt arwxt
+privacy-manager::daemon wrt-commons::db_wrt_autosave arwxt
+privacy-manager::daemon wrt-commons::db_wrt_custom_handler arwxt
+privacy-manager::daemon wrt-installer arwxt
+privacy-manager::daemon wrt-plugins-common arwxt
+privacy-manager::daemon wrt-security::db_ace arwxt
+privacy-manager::daemon xorg arwxt
+privacy-manager::daemon zeromq arwxt
 
 
 pulseaudio 57r43275q7 arwxt
@@ -21196,6 +21609,8 @@ pulseaudio pkgmgr-installer arwxt
 pulseaudio pkgmgr-parser arwxt
 pulseaudio pkgmgr-server arwxt
 pulseaudio power_manager arwxt
+pulseaudio privacy-manager::daemon arwxt
+pulseaudio privacy-manager::db arwxt
 pulseaudio push-service arwxt
 pulseaudio push-service::db arwxt
 pulseaudio q7097a278m arwxt
@@ -21391,6 +21806,8 @@ push-service pkgmgr-installer arwxt
 push-service pkgmgr-parser arwxt
 push-service pkgmgr-server arwxt
 push-service power_manager arwxt
+push-service privacy-manager::daemon arwxt
+push-service privacy-manager::db arwxt
 push-service pulseaudio arwxt
 push-service push-service::db arwxt
 push-service q7097a278m arwxt
@@ -21586,6 +22003,8 @@ q7097a278m pkgmgr-installer arwxt
 q7097a278m pkgmgr-parser arwxt
 q7097a278m pkgmgr-server arwxt
 q7097a278m power_manager arwxt
+q7097a278m privacy-manager::daemon arwxt
+q7097a278m privacy-manager::db arwxt
 q7097a278m pulseaudio arwxt
 q7097a278m push-service arwxt
 q7097a278m push-service::db arwxt
@@ -21781,6 +22200,8 @@ rua pkgmgr-installer arwxt
 rua pkgmgr-parser arwxt
 rua pkgmgr-server arwxt
 rua power_manager arwxt
+rua privacy-manager::daemon arwxt
+rua privacy-manager::db arwxt
 rua pulseaudio arwxt
 rua push-service arwxt
 rua push-service::db arwxt
@@ -21976,6 +22397,8 @@ secure-storage pkgmgr-installer arwxt
 secure-storage pkgmgr-parser arwxt
 secure-storage pkgmgr-server arwxt
 secure-storage power_manager arwxt
+secure-storage privacy-manager::daemon arwxt
+secure-storage privacy-manager::db arwxt
 secure-storage pulseaudio arwxt
 secure-storage push-service arwxt
 secure-storage push-service::db arwxt
@@ -22171,6 +22594,8 @@ security-server pkgmgr-installer arwxt
 security-server pkgmgr-parser arwxt
 security-server pkgmgr-server arwxt
 security-server power_manager arwxt
+security-server privacy-manager::daemon arwxt
+security-server privacy-manager::db arwxt
 security-server pulseaudio arwxt
 security-server push-service arwxt
 security-server push-service::db arwxt
@@ -22366,6 +22791,8 @@ sensor-framework pkgmgr-installer arwxt
 sensor-framework pkgmgr-parser arwxt
 sensor-framework pkgmgr-server arwxt
 sensor-framework power_manager arwxt
+sensor-framework privacy-manager::daemon arwxt
+sensor-framework privacy-manager::db arwxt
 sensor-framework pulseaudio arwxt
 sensor-framework push-service arwxt
 sensor-framework push-service::db arwxt
@@ -22561,6 +22988,8 @@ sjjevolsjk pkgmgr-installer arwxt
 sjjevolsjk pkgmgr-parser arwxt
 sjjevolsjk pkgmgr-server arwxt
 sjjevolsjk power_manager arwxt
+sjjevolsjk privacy-manager::daemon arwxt
+sjjevolsjk privacy-manager::db arwxt
 sjjevolsjk pulseaudio arwxt
 sjjevolsjk push-service arwxt
 sjjevolsjk push-service::db arwxt
@@ -22756,6 +23185,8 @@ smartcard-service pkgmgr-installer arwxt
 smartcard-service pkgmgr-parser arwxt
 smartcard-service pkgmgr-server arwxt
 smartcard-service power_manager arwxt
+smartcard-service privacy-manager::daemon arwxt
+smartcard-service privacy-manager::db arwxt
 smartcard-service pulseaudio arwxt
 smartcard-service push-service arwxt
 smartcard-service push-service::db arwxt
@@ -22951,6 +23382,8 @@ sound_server pkgmgr-installer arwxt
 sound_server pkgmgr-parser arwxt
 sound_server pkgmgr-server arwxt
 sound_server power_manager arwxt
+sound_server privacy-manager::daemon arwxt
+sound_server privacy-manager::db arwxt
 sound_server pulseaudio arwxt
 sound_server push-service arwxt
 sound_server push-service::db arwxt
@@ -23146,6 +23579,8 @@ sqlfs pkgmgr-installer arwxt
 sqlfs pkgmgr-parser arwxt
 sqlfs pkgmgr-server arwxt
 sqlfs power_manager arwxt
+sqlfs privacy-manager::daemon arwxt
+sqlfs privacy-manager::db arwxt
 sqlfs pulseaudio arwxt
 sqlfs push-service arwxt
 sqlfs push-service::db arwxt
@@ -23341,6 +23776,8 @@ starter pkgmgr-installer arwxt
 starter pkgmgr-parser arwxt
 starter pkgmgr-server arwxt
 starter power_manager arwxt
+starter privacy-manager::daemon arwxt
+starter privacy-manager::db arwxt
 starter pulseaudio arwxt
 starter push-service arwxt
 starter push-service::db arwxt
@@ -23536,6 +23973,8 @@ stt-server pkgmgr-installer arwxt
 stt-server pkgmgr-parser arwxt
 stt-server pkgmgr-server arwxt
 stt-server power_manager arwxt
+stt-server privacy-manager::daemon arwxt
+stt-server privacy-manager::db arwxt
 stt-server pulseaudio arwxt
 stt-server push-service arwxt
 stt-server push-service::db arwxt
@@ -23731,6 +24170,8 @@ svi-data pkgmgr-installer arwxt
 svi-data pkgmgr-parser arwxt
 svi-data pkgmgr-server arwxt
 svi-data power_manager arwxt
+svi-data privacy-manager::daemon arwxt
+svi-data privacy-manager::db arwxt
 svi-data pulseaudio arwxt
 svi-data push-service arwxt
 svi-data push-service::db arwxt
@@ -23926,6 +24367,8 @@ sys-assert pkgmgr-installer arwxt
 sys-assert pkgmgr-parser arwxt
 sys-assert pkgmgr-server arwxt
 sys-assert power_manager arwxt
+sys-assert privacy-manager::daemon arwxt
+sys-assert privacy-manager::db arwxt
 sys-assert pulseaudio arwxt
 sys-assert push-service arwxt
 sys-assert push-service::db arwxt
@@ -24121,6 +24564,8 @@ sys-assert::core-launcher pkgmgr-installer arwxt
 sys-assert::core-launcher pkgmgr-parser arwxt
 sys-assert::core-launcher pkgmgr-server arwxt
 sys-assert::core-launcher power_manager arwxt
+sys-assert::core-launcher privacy-manager::daemon arwxt
+sys-assert::core-launcher privacy-manager::db arwxt
 sys-assert::core-launcher pulseaudio arwxt
 sys-assert::core-launcher push-service arwxt
 sys-assert::core-launcher push-service::db arwxt
@@ -24316,6 +24761,8 @@ syspopup pkgmgr-installer arwxt
 syspopup pkgmgr-parser arwxt
 syspopup pkgmgr-server arwxt
 syspopup power_manager arwxt
+syspopup privacy-manager::daemon arwxt
+syspopup privacy-manager::db arwxt
 syspopup pulseaudio arwxt
 syspopup push-service arwxt
 syspopup push-service::db arwxt
@@ -24511,6 +24958,8 @@ system pkgmgr-installer arwxt
 system pkgmgr-parser arwxt
 system pkgmgr-server arwxt
 system power_manager arwxt
+system privacy-manager::daemon arwxt
+system privacy-manager::db arwxt
 system pulseaudio arwxt
 system push-service arwxt
 system push-service::db arwxt
@@ -24706,6 +25155,8 @@ system-server pkgmgr-installer arwxt
 system-server pkgmgr-parser arwxt
 system-server pkgmgr-server arwxt
 system-server power_manager arwxt
+system-server privacy-manager::daemon arwxt
+system-server privacy-manager::db arwxt
 system-server pulseaudio arwxt
 system-server push-service arwxt
 system-server push-service::db arwxt
@@ -24901,6 +25352,8 @@ system::use_internet pkgmgr-installer arwxt
 system::use_internet pkgmgr-parser arwxt
 system::use_internet pkgmgr-server arwxt
 system::use_internet power_manager arwxt
+system::use_internet privacy-manager::daemon arwxt
+system::use_internet privacy-manager::db arwxt
 system::use_internet pulseaudio arwxt
 system::use_internet push-service arwxt
 system::use_internet push-service::db arwxt
@@ -25096,6 +25549,8 @@ telephony_framework pkgmgr-installer arwxt
 telephony_framework pkgmgr-parser arwxt
 telephony_framework pkgmgr-server arwxt
 telephony_framework power_manager arwxt
+telephony_framework privacy-manager::daemon arwxt
+telephony_framework privacy-manager::db arwxt
 telephony_framework pulseaudio arwxt
 telephony_framework push-service arwxt
 telephony_framework push-service::db arwxt
@@ -25291,6 +25746,8 @@ thumb-server pkgmgr-installer arwxt
 thumb-server pkgmgr-parser arwxt
 thumb-server pkgmgr-server arwxt
 thumb-server power_manager arwxt
+thumb-server privacy-manager::daemon arwxt
+thumb-server privacy-manager::db arwxt
 thumb-server pulseaudio arwxt
 thumb-server push-service arwxt
 thumb-server push-service::db arwxt
@@ -25486,6 +25943,8 @@ tts-server pkgmgr-installer arwxt
 tts-server pkgmgr-parser arwxt
 tts-server pkgmgr-server arwxt
 tts-server power_manager arwxt
+tts-server privacy-manager::daemon arwxt
+tts-server privacy-manager::db arwxt
 tts-server pulseaudio arwxt
 tts-server push-service arwxt
 tts-server push-service::db arwxt
@@ -25681,6 +26140,8 @@ ug-camera-efl pkgmgr-installer arwxt
 ug-camera-efl pkgmgr-parser arwxt
 ug-camera-efl pkgmgr-server arwxt
 ug-camera-efl power_manager arwxt
+ug-camera-efl privacy-manager::daemon arwxt
+ug-camera-efl privacy-manager::db arwxt
 ug-camera-efl pulseaudio arwxt
 ug-camera-efl push-service arwxt
 ug-camera-efl push-service::db arwxt
@@ -25876,6 +26337,8 @@ ug-image-viewer-efl pkgmgr-installer arwxt
 ug-image-viewer-efl pkgmgr-parser arwxt
 ug-image-viewer-efl pkgmgr-server arwxt
 ug-image-viewer-efl power_manager arwxt
+ug-image-viewer-efl privacy-manager::daemon arwxt
+ug-image-viewer-efl privacy-manager::db arwxt
 ug-image-viewer-efl pulseaudio arwxt
 ug-image-viewer-efl push-service arwxt
 ug-image-viewer-efl push-service::db arwxt
@@ -26071,6 +26534,8 @@ ug_bluetooth pkgmgr-installer arwxt
 ug_bluetooth pkgmgr-parser arwxt
 ug_bluetooth pkgmgr-server arwxt
 ug_bluetooth power_manager arwxt
+ug_bluetooth privacy-manager::daemon arwxt
+ug_bluetooth privacy-manager::db arwxt
 ug_bluetooth pulseaudio arwxt
 ug_bluetooth push-service arwxt
 ug_bluetooth push-service::db arwxt
@@ -26266,6 +26731,8 @@ usb-printer-detector pkgmgr-installer arwxt
 usb-printer-detector pkgmgr-parser arwxt
 usb-printer-detector pkgmgr-server arwxt
 usb-printer-detector power_manager arwxt
+usb-printer-detector privacy-manager::daemon arwxt
+usb-printer-detector privacy-manager::db arwxt
 usb-printer-detector pulseaudio arwxt
 usb-printer-detector push-service arwxt
 usb-printer-detector push-service::db arwxt
@@ -26461,6 +26928,8 @@ usb-server pkgmgr-installer arwxt
 usb-server pkgmgr-parser arwxt
 usb-server pkgmgr-server arwxt
 usb-server power_manager arwxt
+usb-server privacy-manager::daemon arwxt
+usb-server privacy-manager::db arwxt
 usb-server pulseaudio arwxt
 usb-server push-service arwxt
 usb-server push-service::db arwxt
@@ -26656,6 +27125,8 @@ usb-syspopup pkgmgr-installer arwxt
 usb-syspopup pkgmgr-parser arwxt
 usb-syspopup pkgmgr-server arwxt
 usb-syspopup power_manager arwxt
+usb-syspopup privacy-manager::daemon arwxt
+usb-syspopup privacy-manager::db arwxt
 usb-syspopup pulseaudio arwxt
 usb-syspopup push-service arwxt
 usb-syspopup push-service::db arwxt
@@ -26851,6 +27322,8 @@ webkit2-efl pkgmgr-installer arwxt
 webkit2-efl pkgmgr-parser arwxt
 webkit2-efl pkgmgr-server arwxt
 webkit2-efl power_manager arwxt
+webkit2-efl privacy-manager::daemon arwxt
+webkit2-efl privacy-manager::db arwxt
 webkit2-efl pulseaudio arwxt
 webkit2-efl push-service arwxt
 webkit2-efl push-service::db arwxt
@@ -27046,6 +27519,8 @@ wifi_direct_manager pkgmgr-installer arwxt
 wifi_direct_manager pkgmgr-parser arwxt
 wifi_direct_manager pkgmgr-server arwxt
 wifi_direct_manager power_manager arwxt
+wifi_direct_manager privacy-manager::daemon arwxt
+wifi_direct_manager privacy-manager::db arwxt
 wifi_direct_manager pulseaudio arwxt
 wifi_direct_manager push-service arwxt
 wifi_direct_manager push-service::db arwxt
@@ -27241,6 +27716,8 @@ worldclock pkgmgr-installer arwxt
 worldclock pkgmgr-parser arwxt
 worldclock pkgmgr-server arwxt
 worldclock power_manager arwxt
+worldclock privacy-manager::daemon arwxt
+worldclock privacy-manager::db arwxt
 worldclock pulseaudio arwxt
 worldclock push-service arwxt
 worldclock push-service::db arwxt
@@ -27436,6 +27913,8 @@ wrt pkgmgr-installer arwxt
 wrt pkgmgr-parser arwxt
 wrt pkgmgr-server arwxt
 wrt power_manager arwxt
+wrt privacy-manager::daemon arwxt
+wrt privacy-manager::db arwxt
 wrt pulseaudio arwxt
 wrt push-service arwxt
 wrt push-service::db arwxt
@@ -27631,6 +28110,8 @@ wrt-commons pkgmgr-installer arwxt
 wrt-commons pkgmgr-parser arwxt
 wrt-commons pkgmgr-server arwxt
 wrt-commons power_manager arwxt
+wrt-commons privacy-manager::daemon arwxt
+wrt-commons privacy-manager::db arwxt
 wrt-commons pulseaudio arwxt
 wrt-commons push-service arwxt
 wrt-commons push-service::db arwxt
@@ -27826,6 +28307,8 @@ wrt-installer pkgmgr-installer arwxt
 wrt-installer pkgmgr-parser arwxt
 wrt-installer pkgmgr-server arwxt
 wrt-installer power_manager arwxt
+wrt-installer privacy-manager::daemon arwxt
+wrt-installer privacy-manager::db arwxt
 wrt-installer pulseaudio arwxt
 wrt-installer push-service arwxt
 wrt-installer push-service::db arwxt
@@ -28021,6 +28504,8 @@ wrt-plugins-common pkgmgr-installer arwxt
 wrt-plugins-common pkgmgr-parser arwxt
 wrt-plugins-common pkgmgr-server arwxt
 wrt-plugins-common power_manager arwxt
+wrt-plugins-common privacy-manager::daemon arwxt
+wrt-plugins-common privacy-manager::db arwxt
 wrt-plugins-common pulseaudio arwxt
 wrt-plugins-common push-service arwxt
 wrt-plugins-common push-service::db arwxt
@@ -28216,6 +28701,8 @@ xorg pkgmgr-installer arwxt
 xorg pkgmgr-parser arwxt
 xorg pkgmgr-server arwxt
 xorg power_manager arwxt
+xorg privacy-manager::daemon arwxt
+xorg privacy-manager::db arwxt
 xorg pulseaudio arwxt
 xorg push-service arwxt
 xorg push-service::db arwxt
@@ -28411,6 +28898,8 @@ zeromq pkgmgr-installer arwxt
 zeromq pkgmgr-parser arwxt
 zeromq pkgmgr-server arwxt
 zeromq power_manager arwxt
+zeromq privacy-manager::daemon arwxt
+zeromq privacy-manager::db arwxt
 zeromq pulseaudio arwxt
 zeromq push-service arwxt
 zeromq push-service::db arwxt
