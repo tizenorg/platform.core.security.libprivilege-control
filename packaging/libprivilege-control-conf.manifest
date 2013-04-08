@@ -18,6 +18,7 @@
 			<label name="system::homedir"/>
 			<label name="system::syslogd"/>
 			<label name="system::media"/>
+			<label name="system::clipboard"/>
 		</provide>
 	</define>
 	<request>
