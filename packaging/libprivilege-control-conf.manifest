@@ -18,9 +18,15 @@
 			<label name="system::homedir"/>
 			<label name="system::syslogd"/>
 			<label name="system::media"/>
+			<label name="system::ext_storage"/>
+			<label name="system::privilege_control::db"/>
 		</provide>
 	</define>
 	<request>
 		<domain name="_"/>
 	</request>
+	<assign>
+		<filesystem path="/opt/dbspace/.privilege_control_all_apps_id.db" label="system::privilege_control::db"/>
+		<filesystem path="/opt/dbspace/.privilege_control_all_avs_id.db" label="system::privilege_control::db"/>
+	</assign>
 </manifest>

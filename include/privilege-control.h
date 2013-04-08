@@ -43,6 +43,7 @@ extern "C" {
 #define PC_ERR_NOT_PERMITTED		-3
 #define PC_ERR_INVALID_PARAM		-4
 #define PC_ERR_INVALID_OPERATION	-5
+#define PC_ERR_DB_OPERATION			-6
 
 typedef enum {
        APP_TYPE_WGT,
@@ -83,7 +84,7 @@ char* app_id_from_socket(int sockfd);
  * It is intended to be called during app installation.
  * It will create an empty SMACK rules file used by other functions operating
  * on permissions. It is needed for tracking lifetime of an app.
- * It must be called by privileged user, befor using any other app_* function.
+ * It must be called by privileged user, before using any other app_* function.
  *
  *
  * @param app_id application identifier
@@ -103,6 +104,18 @@ int app_install(const char* app_id);
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
 int app_uninstall(const char* app_id);
+
+/**
+ * Inform about installation of new Anti Virus application.
+ * It is intended to be called during Anti Virus installation.
+ * It will give this application SMACK rules to RWX access to all other apps
+ * installed in system.
+ * It must be called by privileged user.
+ *
+ * @param app_id application identifier
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error.
+ */
+int app_register_av(const char* app_av_id);
 
 /**
  * Grant SMACK permissions based on permissions list.

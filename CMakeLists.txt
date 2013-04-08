@@ -38,7 +38,10 @@ ADD_DEFINITIONS("-DDLOG_ERROR_ENABLED")
 ###################################################################################################
 ## for libprivilege-control.so (library)
 INCLUDE_DIRECTORIES(${pkgs_INCLUDE_DIRS})
-SET(libprivilege-control_SOURCES ${src_dir}/privilege-control.c)
+SET(libprivilege-control_SOURCES
+	${src_dir}/privilege-control.c
+	${src_dir}/access-db.c
+	)
 SET(libprivilege-control_LDFLAGS " -module -avoid-version ")
 SET(libprivilege-control_CFLAGS  " ${CFLAGS} -fPIC -I${include_dir}")
 #SET(libprivilege-control_LIBADD " ")
@@ -77,5 +80,7 @@ INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/include/privilege-control.h DESTINATIO
 INSTALL(FILES ${smackfiles} DESTINATION ${SHAREDIR})
 INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/app_group_list DESTINATION ${SHAREDIR})
 INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/dev_group_list DESTINATION ${SHAREDIR})
+INSTALL(FILES .privilege_control_all_apps_id.db DESTINATION /opt/dbspace)
+INSTALL(FILES .privilege_control_all_avs_id.db DESTINATION /opt/dbspace)
 #INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/udev/ DESTINATION lib/udev)
 INSTALL(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/slp-su DESTINATION bin)

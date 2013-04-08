@@ -41,6 +41,7 @@
 #include <search.h>
 
 #include "privilege-control.h"
+#include "access-db.h"
 
 #define APP_GID	5000
 #define APP_UID	5000
@@ -57,6 +58,8 @@
 #define DEV_GROUP_PATH	TOSTRING(SHAREDIR) "/dev_group_list"
 
 #define SMACK_RULES_DIR  "/etc/smack/accesses.d/"
+//#define SMACK_APPS_LABELS_DATABASE "/opt/dbspace/.privilege_control_all_apps_id.db"
+//#define SMACK_AVS_LABELS_DATABASE "/opt/dbspace/.privilege_control_all_avs_id.db"
 
 #define SMACK_APP_LABEL_TEMPLATE "~APP~"
 #define SMACK_SRC_FILE_SUFFIX   "_src_file"
@@ -812,6 +815,89 @@ static int load_smack_from_file(const char* app_id, struct smack_accesses** smac
 
 	return PC_OPERATION_SUCCESS;
 }
+
+/**
+ *  This function will check in database labels of all anti viruses
+ *  and for all anti viruses will add a rule "anti_virus_label app_id rwx".
+ *  This should be call in app_install function.
+ */
+static int register_app_for_av(const char * app_id)
+{
+	int ret, i;
+	int fd = -1;
+	char** smack_label_av_list = NULL;
+	int smack_label_av_list_len = 0;
+	struct smack_accesses* smack = NULL;
+	char* smack_path = NULL;
+
+	ret = smack_accesses_new(&smack);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("smack_accesses_new failed");
+		goto out;
+	}
+
+	// Reading labels of all installed anti viruses from "database"
+	ret = get_all_avs_ids(&smack_label_av_list, &smack_label_av_list_len);
+	if (ret != PC_OPERATION_SUCCESS ) {
+		C_LOGE("Error while geting data from database");
+		goto out;
+	}
+
+	// for each anti-virus put rule: "anti_virus_id app_id rwx"
+	for (i = 0; i < smack_label_av_list_len; ++i) {
+		C_LOGD("Adding rwx rule for antivirus: %s", smack_label_av_list[i]);
+
+		ret = load_smack_from_file(smack_label_av_list[i], &smack, &fd, &smack_path);
+		if (ret != PC_OPERATION_SUCCESS ) {
+			C_LOGE("load_smack_from_file failed");
+			goto out;
+		}
+
+		if (smack_accesses_add(smack, smack_label_av_list[i], app_id, "wrx") == -1) {
+			C_LOGE("smack_accesses_add failed");
+			ret = PC_ERR_INVALID_OPERATION;
+			goto out; // Should we abort adding rules if once smack_accesses_add will fail?
+		}
+
+		if (have_smack() && smack_accesses_apply(smack)) {
+			C_LOGE("smack_accesses_apply failed");
+			ret = PC_ERR_INVALID_OPERATION;
+			goto out;
+		}
+
+		if (smack_accesses_save(smack, fd)) {
+			C_LOGE("smack_accesses_save failed");
+			ret = PC_ERR_INVALID_OPERATION;
+			goto out;
+		}
+		// Clearing char* smack_label_av_list[i] got from database.
+		free(smack_label_av_list[i]);
+
+		free(smack_path);
+		smack_path = NULL;
+		smack_accesses_free(smack);
+		smack = NULL;
+		close(fd);
+		fd = -1;
+	}
+
+	ret = PC_OPERATION_SUCCESS;
+
+out:
+	// If something failed, then no all char* smack_label_av_list[i]
+	// are deallocated. They must be freed
+	for(; i<smack_label_av_list_len; ++i) {
+		free(smack_label_av_list[i]);
+	}
+	free(smack_label_av_list);
+
+	free(smack_path);
+	smack_accesses_free(smack);
+	if(fd != -1)
+		close(fd);
+
+	return ret;
+}
 #endif
 
 static int app_add_permissions_internal(const char* app_id, app_type_t app_type, const char** perm_list, int permanent)
@@ -1208,8 +1294,8 @@ out:
 API int app_install(const char* app_id)
 {
 	C_LOGD("Enter function: %s", __func__);
-	char* smack_path = NULL;
 	int ret, fd = -1;
+	char* smack_path = NULL;
 
 	ret = smack_file_name(app_id, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS)
@@ -1221,6 +1307,20 @@ API int app_install(const char* app_id)
 		ret = PC_ERR_FILE_OPERATION;
 		goto out;
 	}
+
+	ret = add_app_id_to_databse(app_id);
+	if (ret != PC_OPERATION_SUCCESS ) {
+		C_LOGE("Error while adding app %s to database: %s ", app_id, strerror(errno));
+		goto out;
+	}
+
+#ifdef SMACK_ENABLED
+	ret = register_app_for_av(app_id);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("Error while adding rules for anti viruses to app %s: %s ", app_id, strerror(errno));
+		goto out;
+	}
+#endif //SMACK_ENABLED
 
 	ret = PC_OPERATION_SUCCESS;
 
@@ -1234,6 +1334,9 @@ out:
 
 API int app_uninstall(const char* app_id)
 {
+    // TODO: When real database will be used, then this function should remove app_id
+    //       from database.
+    //       It also should remove rules looks like: "anti_virus_label app_id rwx".
 	C_LOGD("Enter function: %s", __func__);
 	char* smack_path = NULL;
 	int ret;
@@ -1369,4 +1472,84 @@ API int add_api_feature(app_type_t app_type, const char* api_feature_name,
 #else
 	return PC_OPERATION_SUCCESS;
 #endif // SMACK_ENABLED
+}
+
+API int app_register_av(const char* app_av_id)
+{
+	C_LOGD("Enter function: %s", __func__);
+#ifdef SMACK_ENABLED
+	int ret;
+	int i;
+	int fd = -1;
+	FILE* file = NULL;
+
+	char** smack_label_app_list = NULL;
+	int smack_label_app_list_len = 0;
+	char* smack_path = NULL;
+	struct smack_accesses* smack = NULL;
+
+	if (!smack_label_is_valid(app_av_id))
+		return PC_ERR_INVALID_PARAM;
+
+	ret = smack_accesses_new(&smack);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("smack_accesses_new failed");
+		return PC_ERR_MEM_OPERATION;
+	}
+
+	// writing anti_virus_id (app_av_id) to "database"
+	ret = add_av_id_to_databse(app_av_id);
+	if (ret != PC_OPERATION_SUCCESS)
+	goto out;
+
+	ret = load_smack_from_file(app_av_id, &smack, &fd, &smack_path);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("load_smack_from_file failed");
+		goto out;
+	}
+
+	// Reading labels of all installed apps from "database"
+	ret = get_all_apps_ids(&smack_label_app_list, &smack_label_app_list_len);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("Error while geting data from database");
+		goto out;
+	}
+	for (i=0; i<smack_label_app_list_len; ++i) {
+		C_LOGD("Applying rwx rule for %s", smack_label_app_list[i]);
+		if (smack_accesses_add(smack, app_av_id, smack_label_app_list[i], "wrx") == -1) {
+			C_LOGE("smack_accesses_add failed");
+			ret = PC_ERR_INVALID_OPERATION;
+			goto out; // Should we abort adding rules if once smack_accesses_add will fail?
+		}
+	}
+
+	if (have_smack() && smack_accesses_apply(smack)) {
+		C_LOGE("smack_accesses_apply failed");
+		ret = PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	if (smack_accesses_save(smack, fd)) {
+		C_LOGE("smack_accesses_save failed");
+		ret = PC_ERR_INVALID_OPERATION;
+		goto out;
+	}
+
+	ret = PC_OPERATION_SUCCESS;
+
+out:
+	for (i=0; i<smack_label_app_list_len; ++i) {
+		free(smack_label_app_list[i]);
+	}
+	free(smack_label_app_list);
+	if (file != NULL)
+		fclose(file);
+	if (fd != -1)
+		close(fd);
+	free(smack_path);
+	smack_accesses_free(smack);
+	return ret;
+#else
+	return PC_OPERATION_SUCCESS;
+#endif //SMACK_ENABLED
 }
