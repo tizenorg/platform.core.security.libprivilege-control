@@ -980,6 +980,13 @@ API int app_enable_permissions(const char* app_id, app_type_t app_type, const ch
 	return app_add_permissions_internal(app_id, app_type, perm_list, persistent);
 }
 
+/* FIXME: this function is only a stub */
+API int app_disable_permissions(const char* app_id, app_type_t app_type, const char** perm_list)
+{
+	C_LOGD("Enter function: %s", __func__);
+	return PC_OPERATION_SUCCESS;
+}
+
 API int app_revoke_permissions(const char* app_id)
 {
 	C_LOGD("Enter function: %s", __func__);

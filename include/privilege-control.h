@@ -165,6 +165,20 @@ int app_add_volatile_permissions(const char* app_id, const char** perm_list)  __
 int app_enable_permissions(const char* app_id, app_type_t app_type, const char** perm_list, bool persistent);
 
 /**
+ * Remove previously granted SMACK permissions based on permissions list.
+ * It will remove given permissions from an app, leaving other granted
+ * permissions untouched. Results will be persistent.
+ * It must be called by privileged user.
+ *
+ *
+ * @param app_id application identifier
+ * @param app_type application type
+ * @param perm_list array of permission names, last element must be NULL
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_disable_permissions(const char* app_id, app_type_t app_type, const char** perm_list);
+
+/**
  * Revoke SMACK permissions from an application.
  * This function should be called during app deinstallation.
  * It will revoke all SMACK rules previously granted by app_add_permissions().
