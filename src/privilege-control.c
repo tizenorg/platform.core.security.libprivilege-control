@@ -63,6 +63,7 @@
 #define SMACK_DATA_SUFFIX       "_data"
 #define WRT_BASE_DEVCAP         "WRT"
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
+#define ACC_LEN                 5
 
 #ifdef SMACK_ENABLED
 static int set_smack_for_wrt(const char* widget_id);
@@ -96,6 +97,97 @@ typedef struct {
 	char home_dir[64];
 	char group_list[64];
 } new_user;
+
+struct state_list_t {
+    struct state_list_t *next;
+    char *key;
+    char *value;
+};
+
+static struct state_list_t state_list = {};
+
+int state_list_push(const char* key, const char* value) {
+    struct state_list_t *e = malloc(sizeof(struct state_list_t));
+    if(!e)
+        return -1;
+
+    size_t key_len = strlen(key)+1;
+    size_t value_len = strlen(value)+1;
+    e->key = malloc(key_len);
+    e->value = malloc(value_len);
+
+    if (!e->key || !e->value) {
+        free(e->key);
+        free(e->value);
+        free(e);
+        return PC_ERR_MEM_OPERATION;
+    }
+
+    memcpy(e->key, key, key_len);
+    memcpy(e->value, value, value_len);
+    e->next = state_list.next;
+    state_list.next = e;
+    return PC_OPERATION_SUCCESS;
+}
+
+char* state_list_pop_new(char *key) {
+    struct state_list_t *back, *current = &state_list;
+    size_t key_len = strlen(key);
+    while (NULL != current->next) {
+        back = current;
+        current = current->next;
+        size_t current_key_len = strlen(current->key);
+        if (current_key_len == key_len && 0 == memcmp(current->key, key, key_len)) {
+            char *ret = current->value;
+            back->next = current->next;
+            free(current->key);
+            free(current);
+            return ret;
+        }
+    }
+    return NULL;
+}
+
+int state_save(const char *subject, const char *object, const char *perm)
+{
+    char *key = NULL;
+    if (-1 == asprintf(&key, "%s|%s", subject, object))
+        return PC_ERR_INVALID_OPERATION;
+    int ret = state_list_push(key, perm);
+    free(key);
+    return ret;
+}
+
+int state_restore(const char* subject, const char* object)
+{
+    char *key = NULL;
+    int ret = PC_OPERATION_SUCCESS;
+    struct smack_accesses *smack = NULL;
+    if (-1 == asprintf(&key, "%s|%s", subject, object))
+        return PC_ERR_INVALID_OPERATION;
+    char *perm = state_list_pop_new(key);
+    free(key);
+
+    if (!perm)
+        return PC_ERR_INVALID_OPERATION;
+
+    if (smack_accesses_new(&smack)) {
+        ret = PC_ERR_MEM_OPERATION;
+        goto out;
+    }
+
+    if (smack_accesses_add(smack, subject, object, perm)) {
+        ret = PC_ERR_MEM_OPERATION;
+        goto out;
+    }
+
+    if (smack_accesses_apply(smack))
+        ret = PC_ERR_NOT_PERMITTED;
+out:
+    free(perm);
+    smack_accesses_free(smack);
+    return ret;
+}
 
 static inline int have_smack(void)
 {
@@ -843,6 +935,106 @@ API int app_label_dir(const char* label, const char* path)
 	return ret;
 #else
 	return PC_OPERATION_SUCCESS;
+#endif
+}
+
+#ifdef SMACK_ENABLED
+static int smack_get_access_new(const char* subject, const char* object, char** label)
+{
+    char buff[ACC_LEN] = {'r', 'w', 'x', 'a', 't'};
+    char perm[2] = {'-'};
+    int i;
+
+    if(!smack_label_is_valid(subject) || !smack_label_is_valid(object) || !label)
+        return PC_ERR_INVALID_PARAM;
+
+    for (i=0; i<ACC_LEN; ++i) {
+        perm[0] = buff[i];
+        int ret = smack_have_access(subject, object, perm);
+        if (-1 == ret)
+            return PC_ERR_INVALID_OPERATION;
+        if (0 == ret)
+            buff[i] = '-';
+    }
+
+    *label = malloc(ACC_LEN+1);
+    if (NULL == *label)
+        return PC_ERR_MEM_OPERATION;
+
+    memcpy(*label, buff, ACC_LEN);
+    (*label)[ACC_LEN] = 0;
+    return PC_OPERATION_SUCCESS;
+}
+#endif
+
+/*
+ * This function will be used to allow direct communication between 2 OSP application.
+ * This function requires to store "state" with list of added label.
+ *
+ * Full implementation requires some kind of database. This implemetation works without
+ * database so you wont be able to revoke permissions added by different process.
+ */
+API int app_give_access(const char* subject, const char* object, const char* permissions)
+{
+    C_LOGD("Enter function: %s", __func__);
+    int ret = PC_OPERATION_SUCCESS;
+#ifdef SMACK_ENABLED
+    struct smack_accesses *smack = NULL;
+    static const char * const revoke = "-----";
+    char *current_permissions = NULL;
+
+    if (!have_smack())
+        return PC_OPERATION_SUCCESS;
+
+    if (!smack_label_is_valid(subject) || !smack_label_is_valid(object))
+        return PC_ERR_INVALID_PARAM;
+
+    if (PC_OPERATION_SUCCESS != (ret = smack_get_access_new(subject, object, &current_permissions)))
+        return ret;
+
+    if (smack_accesses_new(&smack)) {
+        ret = PC_ERR_MEM_OPERATION;
+        goto out;
+    }
+
+    if (smack_accesses_add_modify(smack, subject, object, permissions, revoke)) {
+        ret = PC_ERR_MEM_OPERATION;
+        goto out;
+    }
+
+    if (smack_accesses_apply(smack)) {
+        ret = PC_ERR_NOT_PERMITTED;
+        goto out;
+    }
+
+    ret = state_save(subject, object, current_permissions);
+
+out:
+    free(current_permissions);
+    smack_accesses_free(smack);
+#endif
+    return ret;
+}
+
+/*
+ * This function will be used to revoke direct communication between 2 OSP application.
+ *
+ * Full implementation requires some kind of database. This implemetation works without
+ * database so you wont be able to revoke permissions added by different process.
+ */
+API int app_revoke_access(const char* subject, const char* object)
+{
+    C_LOGD("Enter function: %s", __func__);
+#ifdef SMACK_ENABLED
+    if (!have_smack())
+        return PC_OPERATION_SUCCESS;
+
+    if (!smack_label_is_valid(subject) || !smack_label_is_valid(object))
+        return PC_ERR_INVALID_PARAM;
+
+    return state_restore(subject, object);
+#else
+    return PC_OPERATION_SUCCESS;
 #endif
 }
 
