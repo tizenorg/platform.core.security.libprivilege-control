@@ -575,6 +575,43 @@ static inline const char* app_type_name(app_type_t app_type)
 	}
 }
 
+static int perm_file(app_type_t app_type, const char* devcap, char** path) {
+	const char* app_type_prefix = NULL;
+	const char* perm_suffix = NULL;
+	int ret = 0;
+
+	if (devcap == NULL || strlen(devcap) == 0) {
+		C_LOGE("empty devcap");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	app_type_prefix = app_type_name(app_type);
+
+	perm_suffix = strrchr(devcap, '/');
+	if (perm_suffix)
+		++perm_suffix;
+	else
+		perm_suffix = devcap;
+
+	ret = asprintf(path, TOSTRING(SHAREDIR) "/%s%s%s.smack",
+			app_type_prefix ? app_type_prefix : "", app_type_prefix ? "_" : "",
+			perm_suffix);
+	if (ret == -1) {
+		C_LOGE("asprintf failed");
+		return PC_ERR_MEM_OPERATION;
+	}
+	return PC_OPERATION_SUCCESS;
+}
+
+static bool file_exists(const char* path) {
+	FILE* file = fopen(path, "r");
+	if (file) {
+		fclose(file);
+		return true;
+	}
+	return false;
+}
+
 static int perm_to_smack(struct smack_accesses* smack, const char* app_label, app_type_t app_type, const char* perm)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -585,23 +622,13 @@ static int perm_to_smack(struct smack_accesses* smack, const char* app_label, ap
 	char smack_subject[SMACK_LABEL_LEN + 1];
 	char smack_object[SMACK_LABEL_LEN + 1];
 	char smack_accesses[10];
-	const char* app_type_prefix;
-	const char* perm_suffix;
 
-	app_type_prefix = app_type_name(app_type);
-
-	perm_suffix = strrchr(perm, '/');
-	if (perm_suffix)
-		++perm_suffix;
-	else
-		perm_suffix = perm;
-
-	ret = asprintf(&path, TOSTRING(SHAREDIR) "/%s%s%s.smack",
-			app_type_prefix ? app_type_prefix : "", app_type_prefix ? "_" : "", perm_suffix);
-	if (ret == -1) {
-		C_LOGE("asprintf failed");
-		ret = PC_ERR_MEM_OPERATION;
-		goto out;
+	// get file name for permission (devcap)
+	ret = perm_file(app_type, perm, &path);
+	if (ret != PC_OPERATION_SUCCESS)
+	{
+	    free(path);
+	    return ret;
 	}
 
 	if (asprintf(&format_string,"%%%ds %%%ds %%%lus\n",
@@ -1227,4 +1254,119 @@ out:
 	free(smack_path);
 
 	return ret;
+}
+
+#ifdef SMACK_ENABLED
+static int save_rules(int fd, struct smack_accesses* accesses) {
+	if (flock(fd, LOCK_EX)) {
+		C_LOGE("flock failed, error %s", strerror(errno));
+		return PC_ERR_FILE_OPERATION;
+	}
+
+	if (smack_accesses_save(accesses, fd)) {
+		C_LOGE("smack_accesses_save failed");
+		return PC_ERR_FILE_OPERATION;
+	}
+	return PC_OPERATION_SUCCESS ;
+}
+
+static int validate_and_add_rule(char* rule, struct smack_accesses* accesses) {
+	const char* subject = NULL;
+	const char* object = NULL;
+	const char* access = NULL;
+	char* saveptr = NULL;
+
+	subject = strtok_r(rule, " \t\n", &saveptr);
+	object = strtok_r(NULL, " \t\n", &saveptr);
+	access = strtok_r(NULL, " \t\n", &saveptr);
+
+	// check rule validity
+	if (subject == NULL ||
+		object == NULL ||
+		access == NULL ||
+		strtok_r(NULL, " \t\n", &saveptr) != NULL ||
+		!smack_label_is_valid(subject) ||
+		!smack_label_is_valid(object))
+	{
+		C_LOGE("Incorrect rule format: %s", rule);
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if (smack_accesses_add(accesses, subject, object, access)) {
+		C_LOGE("smack_accesses_add failed");
+		return PC_ERR_INVALID_OPERATION;
+	}
+	return PC_OPERATION_SUCCESS ;
+}
+
+static int parse_and_save_rules(const char** smack_rules,
+		struct smack_accesses* accesses, const char* feature_file) {
+	size_t i = 0;
+	int fd = 0;
+	int ret = PC_OPERATION_SUCCESS;
+	char* tmp = NULL;
+
+	for (i = 0; smack_rules[i] != NULL ; i++) {
+		// ignore empty lines
+		if (strspn(smack_rules[i], " \t\n") == strlen(smack_rules[i]))
+			continue;
+
+		tmp = strdup(smack_rules[i]);
+		ret = validate_and_add_rule(tmp, accesses);
+		free(tmp);
+		if (ret != PC_OPERATION_SUCCESS )
+			return ret;
+	}
+
+	// save to file
+	fd = open(feature_file, O_CREAT | O_WRONLY, 0644);
+	if (fd == -1) {
+		C_LOGE("Unable to create file %s. Error: %s", feature_file, strerror(errno));
+		return PC_ERR_FILE_OPERATION;
+	}
+
+	ret = save_rules(fd, accesses);
+	close(fd);
+	return ret;
+}
+#endif
+
+API int add_api_feature(app_type_t app_type, const char* api_feature_name,
+		const char** smack_rules, int** list_of_db_gids) {
+	C_LOGD("Enter function: %s", __func__);
+#ifdef SMACK_ENABLED
+	int ret = PC_OPERATION_SUCCESS;
+	char* feature_file = NULL;
+	struct smack_accesses* accesses = NULL;
+
+	// TODO check process capabilities
+
+	// get feature file name
+	ret = perm_file(app_type, api_feature_name, &feature_file);
+	if (ret != PC_OPERATION_SUCCESS ) {
+		return ret;
+	}
+
+	// check if feature exists
+	if (file_exists(feature_file)) {
+		C_LOGE("Feature file %s already exists", feature_file);
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	// parse & save rules
+	if (smack_rules != NULL ) {
+		if (smack_accesses_new(&accesses)) {
+			C_LOGE("smack_acceses_new failed");
+			return PC_ERR_MEM_OPERATION;
+		}
+
+		ret = parse_and_save_rules(smack_rules, accesses, feature_file);
+		smack_accesses_free(accesses);
+	}
+
+	// TODO go through gid list
+	return ret;
+#else
+	return PC_OPERATION_SUCCESS;
+#endif // SMACK_ENABLED
 }

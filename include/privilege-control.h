@@ -249,6 +249,23 @@ int app_give_access(const char* subject, const char* object, const char* permiss
  */
 int app_revoke_access(const char* subject, const char* object);
 
+/**
+ * Adds new api feature by installing new *.smack file.
+ * It must be called by privileged user.
+ *
+ * @param app_type application type
+ * @param api_feature_name name of newly added feature
+ * @param smack_rule_set set of rules required by the feature - NULL terminated
+ * list of NULL terminated rules.
+ * @param list_of_db_gids list of gids required to access databases controlled
+ * by the feature
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int add_api_feature(app_type_t app_type,
+					const char* api_feature_name,
+					const char** set_smack_rule_set,
+					int** list_of_db_gids);
+
 #ifdef __cplusplus
 }
 #endif // __cplusplus
