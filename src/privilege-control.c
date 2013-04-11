@@ -38,6 +38,7 @@
 #include <sys/smack.h>
 #include <dlog.h>
 #include <stdbool.h>
+#include <search.h>
 
 #include "privilege-control.h"
 
@@ -98,54 +99,64 @@ typedef struct {
 	char group_list[64];
 } new_user;
 
-struct state_list_t {
-    struct state_list_t *next;
-    char *key;
-    char *value;
-};
+typedef struct state_node_t {
+    char *key, *value;
+} state_node;
 
-static struct state_list_t state_list = {};
+static void *state_tree = NULL;
 
-int state_list_push(const char* key, const char* value) {
-    struct state_list_t *e = malloc(sizeof(struct state_list_t));
-    if(!e)
-        return -1;
+int state_tree_cmp(const void *first, const void *second) {
+    return strcmp(((state_node*)first)->key,
+                  ((state_node*)second)->key);
+}
 
-    size_t key_len = strlen(key)+1;
-    size_t value_len = strlen(value)+1;
-    e->key = malloc(key_len);
-    e->value = malloc(value_len);
+int state_tree_push(const char* key_param, const char* value_param) {
+    state_node *node = malloc(sizeof(state_node));
+    char *key = strdup(key_param);
+    char *value = strdup(value_param);
 
-    if (!e->key || !e->value) {
-        free(e->key);
-        free(e->value);
-        free(e);
+    if (!node || !key || !value) {
+        free(node);
+        free(key);
+        free(value);
         return PC_ERR_MEM_OPERATION;
     }
 
-    memcpy(e->key, key, key_len);
-    memcpy(e->value, value, value_len);
-    e->next = state_list.next;
-    state_list.next = e;
+    node->key = key;
+    node->value = value;
+
+    if (NULL != tfind(node, &state_tree, state_tree_cmp)){
+        free(node);
+        free(key);
+        free(value);
+        return PC_ERR_INVALID_OPERATION;
+    }
+
+    tsearch(node, &state_tree, state_tree_cmp);
     return PC_OPERATION_SUCCESS;
 }
 
-char* state_list_pop_new(char *key) {
-    struct state_list_t *back, *current = &state_list;
-    size_t key_len = strlen(key);
-    while (NULL != current->next) {
-        back = current;
-        current = current->next;
-        size_t current_key_len = strlen(current->key);
-        if (current_key_len == key_len && 0 == memcmp(current->key, key, key_len)) {
-            char *ret = current->value;
-            back->next = current->next;
-            free(current->key);
-            free(current);
-            return ret;
-        }
-    }
-    return NULL;
+char* state_tree_pop_new(char *key) {
+    state_node search, *node;
+    void *wtf;
+    char *value;
+    search.key = key;
+    search.value = NULL;
+
+    wtf = tfind(&search, &state_tree, state_tree_cmp);
+    if (!wtf)
+        return NULL;
+
+    node = *(state_node**)wtf;
+    if (!node)
+       return NULL;
+
+    tdelete(node, &state_tree, state_tree_cmp);
+
+    value = node->value;
+    free(node->key);
+    free(node);
+    return value;
 }
 
 int state_save(const char *subject, const char *object, const char *perm)
@@ -153,7 +164,7 @@ int state_save(const char *subject, const char *object, const char *perm)
     char *key = NULL;
     if (-1 == asprintf(&key, "%s|%s", subject, object))
         return PC_ERR_INVALID_OPERATION;
-    int ret = state_list_push(key, perm);
+    int ret = state_tree_push(key, perm);
     free(key);
     return ret;
 }
@@ -165,7 +176,7 @@ int state_restore(const char* subject, const char* object)
     struct smack_accesses *smack = NULL;
     if (-1 == asprintf(&key, "%s|%s", subject, object))
         return PC_ERR_INVALID_OPERATION;
-    char *perm = state_list_pop_new(key);
+    char *perm = state_tree_pop_new(key);
     free(key);
 
     if (!perm)
