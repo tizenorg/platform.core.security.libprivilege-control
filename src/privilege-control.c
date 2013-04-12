@@ -211,13 +211,11 @@ static inline int have_smack(void)
 	static int have_smack = -1;
 
 	if (-1 == have_smack) {
-		int fd = open("/smack/load2", O_WRONLY);
-		if (-1 == fd) {
+		if (NULL == smack_smackfs_path()) {
 			C_LOGD("Libprivilage-control: no smack found on phone");
 			have_smack = 0;
 		} else {
 			C_LOGD("Libprivilege-control: found smack on phone");
-			close(fd);
 			have_smack = 1;
 		}
 	}
