@@ -74,6 +74,7 @@
 57r43275q7 msg-service arwxt
 57r43275q7 msg-service::db arwxt
 57r43275q7 net-config arwxt
+57r43275q7 net.wifi-qs arwxt
 57r43275q7 nfc-manager arwxt
 57r43275q7 notification arwxt
 57r43275q7 notification::db arwxt
@@ -128,6 +129,7 @@
 57r43275q7 osp-livebox-service arwxt
 57r43275q7 osp-search-service arwxt
 57r43275q7 osp-security-service arwxt
+57r43275q7 osp::privilege-description-db arwxt
 57r43275q7 pims-ipc arwxt
 57r43275q7 pkgmgr arwxt
 57r43275q7 pkgmgr-client arwxt
@@ -275,6 +277,7 @@ _ mobileprint arwxt
 _ msg-service arwxt
 _ msg-service::db arwxt
 _ net-config arwxt
+_ net.wifi-qs arwxt
 _ nfc-manager arwxt
 _ notification arwxt
 _ notification::db arwxt
@@ -329,6 +332,7 @@ _ osp-installer arwxt
 _ osp-livebox-service arwxt
 _ osp-search-service arwxt
 _ osp-security-service arwxt
+_ osp::privilege-description-db arwxt
 _ pims-ipc arwxt
 _ pkgmgr arwxt
 _ pkgmgr-client arwxt
@@ -476,6 +480,7 @@ ail mobileprint arwxt
 ail msg-service arwxt
 ail msg-service::db arwxt
 ail net-config arwxt
+ail net.wifi-qs arwxt
 ail nfc-manager arwxt
 ail notification arwxt
 ail notification::db arwxt
@@ -530,6 +535,7 @@ ail osp-installer arwxt
 ail osp-livebox-service arwxt
 ail osp-search-service arwxt
 ail osp-security-service arwxt
+ail osp::privilege-description-db arwxt
 ail pims-ipc arwxt
 ail pkgmgr arwxt
 ail pkgmgr-client arwxt
@@ -677,6 +683,7 @@ alarm-server mobileprint arwxt
 alarm-server msg-service arwxt
 alarm-server msg-service::db arwxt
 alarm-server net-config arwxt
+alarm-server net.wifi-qs arwxt
 alarm-server nfc-manager arwxt
 alarm-server notification arwxt
 alarm-server notification::db arwxt
@@ -731,6 +738,7 @@ alarm-server osp-installer arwxt
 alarm-server osp-livebox-service arwxt
 alarm-server osp-search-service arwxt
 alarm-server osp-security-service arwxt
+alarm-server osp::privilege-description-db arwxt
 alarm-server pims-ipc arwxt
 alarm-server pkgmgr arwxt
 alarm-server pkgmgr-client arwxt
@@ -878,6 +886,7 @@ aospd00043 mobileprint arwxt
 aospd00043 msg-service arwxt
 aospd00043 msg-service::db arwxt
 aospd00043 net-config arwxt
+aospd00043 net.wifi-qs arwxt
 aospd00043 nfc-manager arwxt
 aospd00043 notification arwxt
 aospd00043 notification::db arwxt
@@ -932,6 +941,7 @@ aospd00043 osp-installer arwxt
 aospd00043 osp-livebox-service arwxt
 aospd00043 osp-search-service arwxt
 aospd00043 osp-security-service arwxt
+aospd00043 osp::privilege-description-db arwxt
 aospd00043 pims-ipc arwxt
 aospd00043 pkgmgr arwxt
 aospd00043 pkgmgr-client arwxt
@@ -1079,6 +1089,7 @@ app-svc mobileprint arwxt
 app-svc msg-service arwxt
 app-svc msg-service::db arwxt
 app-svc net-config arwxt
+app-svc net.wifi-qs arwxt
 app-svc nfc-manager arwxt
 app-svc notification arwxt
 app-svc notification::db arwxt
@@ -1133,6 +1144,7 @@ app-svc osp-installer arwxt
 app-svc osp-livebox-service arwxt
 app-svc osp-search-service arwxt
 app-svc osp-security-service arwxt
+app-svc osp::privilege-description-db arwxt
 app-svc pims-ipc arwxt
 app-svc pkgmgr arwxt
 app-svc pkgmgr-client arwxt
@@ -1280,6 +1292,7 @@ app2sd mobileprint arwxt
 app2sd msg-service arwxt
 app2sd msg-service::db arwxt
 app2sd net-config arwxt
+app2sd net.wifi-qs arwxt
 app2sd nfc-manager arwxt
 app2sd notification arwxt
 app2sd notification::db arwxt
@@ -1334,6 +1347,7 @@ app2sd osp-installer arwxt
 app2sd osp-livebox-service arwxt
 app2sd osp-search-service arwxt
 app2sd osp-security-service arwxt
+app2sd osp::privilege-description-db arwxt
 app2sd pims-ipc arwxt
 app2sd pkgmgr arwxt
 app2sd pkgmgr-client arwxt
@@ -1481,6 +1495,7 @@ aul mobileprint arwxt
 aul msg-service arwxt
 aul msg-service::db arwxt
 aul net-config arwxt
+aul net.wifi-qs arwxt
 aul nfc-manager arwxt
 aul notification arwxt
 aul notification::db arwxt
@@ -1535,6 +1550,7 @@ aul osp-installer arwxt
 aul osp-livebox-service arwxt
 aul osp-search-service arwxt
 aul osp-security-service arwxt
+aul osp::privilege-description-db arwxt
 aul pims-ipc arwxt
 aul pkgmgr arwxt
 aul pkgmgr-client arwxt
@@ -1682,6 +1698,7 @@ bluetooth-tools mobileprint arwxt
 bluetooth-tools msg-service arwxt
 bluetooth-tools msg-service::db arwxt
 bluetooth-tools net-config arwxt
+bluetooth-tools net.wifi-qs arwxt
 bluetooth-tools nfc-manager arwxt
 bluetooth-tools notification arwxt
 bluetooth-tools notification::db arwxt
@@ -1736,6 +1753,7 @@ bluetooth-tools osp-installer arwxt
 bluetooth-tools osp-livebox-service arwxt
 bluetooth-tools osp-search-service arwxt
 bluetooth-tools osp-security-service arwxt
+bluetooth-tools osp::privilege-description-db arwxt
 bluetooth-tools pims-ipc arwxt
 bluetooth-tools pkgmgr arwxt
 bluetooth-tools pkgmgr-client arwxt
@@ -1883,6 +1901,7 @@ bluez mobileprint arwxt
 bluez msg-service arwxt
 bluez msg-service::db arwxt
 bluez net-config arwxt
+bluez net.wifi-qs arwxt
 bluez nfc-manager arwxt
 bluez notification arwxt
 bluez notification::db arwxt
@@ -1937,6 +1956,7 @@ bluez osp-installer arwxt
 bluez osp-livebox-service arwxt
 bluez osp-search-service arwxt
 bluez osp-security-service arwxt
+bluez osp::privilege-description-db arwxt
 bluez pims-ipc arwxt
 bluez pkgmgr arwxt
 bluez pkgmgr-client arwxt
@@ -2084,6 +2104,7 @@ browser-provider mobileprint arwxt
 browser-provider msg-service arwxt
 browser-provider msg-service::db arwxt
 browser-provider net-config arwxt
+browser-provider net.wifi-qs arwxt
 browser-provider nfc-manager arwxt
 browser-provider notification arwxt
 browser-provider notification::db arwxt
@@ -2138,6 +2159,7 @@ browser-provider osp-installer arwxt
 browser-provider osp-livebox-service arwxt
 browser-provider osp-search-service arwxt
 browser-provider osp-security-service arwxt
+browser-provider osp::privilege-description-db arwxt
 browser-provider pims-ipc arwxt
 browser-provider pkgmgr arwxt
 browser-provider pkgmgr-client arwxt
@@ -2285,6 +2307,7 @@ bt-service mobileprint arwxt
 bt-service msg-service arwxt
 bt-service msg-service::db arwxt
 bt-service net-config arwxt
+bt-service net.wifi-qs arwxt
 bt-service nfc-manager arwxt
 bt-service notification arwxt
 bt-service notification::db arwxt
@@ -2339,6 +2362,7 @@ bt-service osp-installer arwxt
 bt-service osp-livebox-service arwxt
 bt-service osp-search-service arwxt
 bt-service osp-security-service arwxt
+bt-service osp::privilege-description-db arwxt
 bt-service pims-ipc arwxt
 bt-service pkgmgr arwxt
 bt-service pkgmgr-client arwxt
@@ -2486,6 +2510,7 @@ bt_agent mobileprint arwxt
 bt_agent msg-service arwxt
 bt_agent msg-service::db arwxt
 bt_agent net-config arwxt
+bt_agent net.wifi-qs arwxt
 bt_agent nfc-manager arwxt
 bt_agent notification arwxt
 bt_agent notification::db arwxt
@@ -2540,6 +2565,7 @@ bt_agent osp-installer arwxt
 bt_agent osp-livebox-service arwxt
 bt_agent osp-search-service arwxt
 bt_agent osp-security-service arwxt
+bt_agent osp::privilege-description-db arwxt
 bt_agent pims-ipc arwxt
 bt_agent pkgmgr arwxt
 bt_agent pkgmgr-client arwxt
@@ -2687,6 +2713,7 @@ bt_agent::bt_hfp_agent mobileprint arwxt
 bt_agent::bt_hfp_agent msg-service arwxt
 bt_agent::bt_hfp_agent msg-service::db arwxt
 bt_agent::bt_hfp_agent net-config arwxt
+bt_agent::bt_hfp_agent net.wifi-qs arwxt
 bt_agent::bt_hfp_agent nfc-manager arwxt
 bt_agent::bt_hfp_agent notification arwxt
 bt_agent::bt_hfp_agent notification::db arwxt
@@ -2741,6 +2768,7 @@ bt_agent::bt_hfp_agent osp-installer arwxt
 bt_agent::bt_hfp_agent osp-livebox-service arwxt
 bt_agent::bt_hfp_agent osp-search-service arwxt
 bt_agent::bt_hfp_agent osp-security-service arwxt
+bt_agent::bt_hfp_agent osp::privilege-description-db arwxt
 bt_agent::bt_hfp_agent pims-ipc arwxt
 bt_agent::bt_hfp_agent pkgmgr arwxt
 bt_agent::bt_hfp_agent pkgmgr-client arwxt
@@ -2888,6 +2916,7 @@ bt_agent::bt_map_agent mobileprint arwxt
 bt_agent::bt_map_agent msg-service arwxt
 bt_agent::bt_map_agent msg-service::db arwxt
 bt_agent::bt_map_agent net-config arwxt
+bt_agent::bt_map_agent net.wifi-qs arwxt
 bt_agent::bt_map_agent nfc-manager arwxt
 bt_agent::bt_map_agent notification arwxt
 bt_agent::bt_map_agent notification::db arwxt
@@ -2942,6 +2971,7 @@ bt_agent::bt_map_agent osp-installer arwxt
 bt_agent::bt_map_agent osp-livebox-service arwxt
 bt_agent::bt_map_agent osp-search-service arwxt
 bt_agent::bt_map_agent osp-security-service arwxt
+bt_agent::bt_map_agent osp::privilege-description-db arwxt
 bt_agent::bt_map_agent pims-ipc arwxt
 bt_agent::bt_map_agent pkgmgr arwxt
 bt_agent::bt_map_agent pkgmgr-client arwxt
@@ -3089,6 +3119,7 @@ bt_agent::bt_pb_agent mobileprint arwxt
 bt_agent::bt_pb_agent msg-service arwxt
 bt_agent::bt_pb_agent msg-service::db arwxt
 bt_agent::bt_pb_agent net-config arwxt
+bt_agent::bt_pb_agent net.wifi-qs arwxt
 bt_agent::bt_pb_agent nfc-manager arwxt
 bt_agent::bt_pb_agent notification arwxt
 bt_agent::bt_pb_agent notification::db arwxt
@@ -3143,6 +3174,7 @@ bt_agent::bt_pb_agent osp-installer arwxt
 bt_agent::bt_pb_agent osp-livebox-service arwxt
 bt_agent::bt_pb_agent osp-search-service arwxt
 bt_agent::bt_pb_agent osp-security-service arwxt
+bt_agent::bt_pb_agent osp::privilege-description-db arwxt
 bt_agent::bt_pb_agent pims-ipc arwxt
 bt_agent::bt_pb_agent pkgmgr arwxt
 bt_agent::bt_pb_agent pkgmgr-client arwxt
@@ -3290,6 +3322,7 @@ bt_firmware mobileprint arwxt
 bt_firmware msg-service arwxt
 bt_firmware msg-service::db arwxt
 bt_firmware net-config arwxt
+bt_firmware net.wifi-qs arwxt
 bt_firmware nfc-manager arwxt
 bt_firmware notification arwxt
 bt_firmware notification::db arwxt
@@ -3344,6 +3377,7 @@ bt_firmware osp-installer arwxt
 bt_firmware osp-livebox-service arwxt
 bt_firmware osp-search-service arwxt
 bt_firmware osp-security-service arwxt
+bt_firmware osp::privilege-description-db arwxt
 bt_firmware pims-ipc arwxt
 bt_firmware pkgmgr arwxt
 bt_firmware pkgmgr-client arwxt
@@ -3491,6 +3525,7 @@ bt_share mobileprint arwxt
 bt_share msg-service arwxt
 bt_share msg-service::db arwxt
 bt_share net-config arwxt
+bt_share net.wifi-qs arwxt
 bt_share nfc-manager arwxt
 bt_share notification arwxt
 bt_share notification::db arwxt
@@ -3545,6 +3580,7 @@ bt_share osp-installer arwxt
 bt_share osp-livebox-service arwxt
 bt_share osp-search-service arwxt
 bt_share osp-security-service arwxt
+bt_share osp::privilege-description-db arwxt
 bt_share pims-ipc arwxt
 bt_share pkgmgr arwxt
 bt_share pkgmgr-client arwxt
@@ -3692,6 +3728,7 @@ calendar-service mobileprint arwxt
 calendar-service msg-service arwxt
 calendar-service msg-service::db arwxt
 calendar-service net-config arwxt
+calendar-service net.wifi-qs arwxt
 calendar-service nfc-manager arwxt
 calendar-service notification arwxt
 calendar-service notification::db arwxt
@@ -3746,6 +3783,7 @@ calendar-service osp-installer arwxt
 calendar-service osp-livebox-service arwxt
 calendar-service osp-search-service arwxt
 calendar-service osp-security-service arwxt
+calendar-service osp::privilege-description-db arwxt
 calendar-service pims-ipc arwxt
 calendar-service pkgmgr arwxt
 calendar-service pkgmgr-client arwxt
@@ -3893,6 +3931,7 @@ cbhm mobileprint arwxt
 cbhm msg-service arwxt
 cbhm msg-service::db arwxt
 cbhm net-config arwxt
+cbhm net.wifi-qs arwxt
 cbhm nfc-manager arwxt
 cbhm notification arwxt
 cbhm notification::db arwxt
@@ -3947,6 +3986,7 @@ cbhm osp-installer arwxt
 cbhm osp-livebox-service arwxt
 cbhm osp-search-service arwxt
 cbhm osp-security-service arwxt
+cbhm osp::privilege-description-db arwxt
 cbhm pims-ipc arwxt
 cbhm pkgmgr arwxt
 cbhm pkgmgr-client arwxt
@@ -4094,6 +4134,7 @@ connman mobileprint arwxt
 connman msg-service arwxt
 connman msg-service::db arwxt
 connman net-config arwxt
+connman net.wifi-qs arwxt
 connman nfc-manager arwxt
 connman notification arwxt
 connman notification::db arwxt
@@ -4148,6 +4189,7 @@ connman osp-installer arwxt
 connman osp-livebox-service arwxt
 connman osp-search-service arwxt
 connman osp-security-service arwxt
+connman osp::privilege-description-db arwxt
 connman pims-ipc arwxt
 connman pkgmgr arwxt
 connman pkgmgr-client arwxt
@@ -4295,6 +4337,7 @@ contacts-service mobileprint arwxt
 contacts-service msg-service arwxt
 contacts-service msg-service::db arwxt
 contacts-service net-config arwxt
+contacts-service net.wifi-qs arwxt
 contacts-service nfc-manager arwxt
 contacts-service notification arwxt
 contacts-service notification::db arwxt
@@ -4349,6 +4392,7 @@ contacts-service osp-installer arwxt
 contacts-service osp-livebox-service arwxt
 contacts-service osp-search-service arwxt
 contacts-service osp-security-service arwxt
+contacts-service osp::privilege-description-db arwxt
 contacts-service pims-ipc arwxt
 contacts-service pkgmgr arwxt
 contacts-service pkgmgr-client arwxt
@@ -4496,6 +4540,7 @@ cp7ipabg4k mobileprint arwxt
 cp7ipabg4k msg-service arwxt
 cp7ipabg4k msg-service::db arwxt
 cp7ipabg4k net-config arwxt
+cp7ipabg4k net.wifi-qs arwxt
 cp7ipabg4k nfc-manager arwxt
 cp7ipabg4k notification arwxt
 cp7ipabg4k notification::db arwxt
@@ -4550,6 +4595,7 @@ cp7ipabg4k osp-installer arwxt
 cp7ipabg4k osp-livebox-service arwxt
 cp7ipabg4k osp-search-service arwxt
 cp7ipabg4k osp-security-service arwxt
+cp7ipabg4k osp::privilege-description-db arwxt
 cp7ipabg4k pims-ipc arwxt
 cp7ipabg4k pkgmgr arwxt
 cp7ipabg4k pkgmgr-client arwxt
@@ -4697,6 +4743,7 @@ cups mobileprint arwxt
 cups msg-service arwxt
 cups msg-service::db arwxt
 cups net-config arwxt
+cups net.wifi-qs arwxt
 cups nfc-manager arwxt
 cups notification arwxt
 cups notification::db arwxt
@@ -4751,6 +4798,7 @@ cups osp-installer arwxt
 cups osp-livebox-service arwxt
 cups osp-search-service arwxt
 cups osp-security-service arwxt
+cups osp::privilege-description-db arwxt
 cups pims-ipc arwxt
 cups pkgmgr arwxt
 cups pkgmgr-client arwxt
@@ -4898,6 +4946,7 @@ data-provider-master mobileprint arwxt
 data-provider-master msg-service arwxt
 data-provider-master msg-service::db arwxt
 data-provider-master net-config arwxt
+data-provider-master net.wifi-qs arwxt
 data-provider-master nfc-manager arwxt
 data-provider-master notification arwxt
 data-provider-master notification::db arwxt
@@ -4952,6 +5001,7 @@ data-provider-master osp-installer arwxt
 data-provider-master osp-livebox-service arwxt
 data-provider-master osp-search-service arwxt
 data-provider-master osp-security-service arwxt
+data-provider-master osp::privilege-description-db arwxt
 data-provider-master pims-ipc arwxt
 data-provider-master pkgmgr arwxt
 data-provider-master pkgmgr-client arwxt
@@ -5099,6 +5149,7 @@ dbus mobileprint arwxt
 dbus msg-service arwxt
 dbus msg-service::db arwxt
 dbus net-config arwxt
+dbus net.wifi-qs arwxt
 dbus nfc-manager arwxt
 dbus notification arwxt
 dbus notification::db arwxt
@@ -5153,6 +5204,7 @@ dbus osp-installer arwxt
 dbus osp-livebox-service arwxt
 dbus osp-search-service arwxt
 dbus osp-security-service arwxt
+dbus osp::privilege-description-db arwxt
 dbus pims-ipc arwxt
 dbus pkgmgr arwxt
 dbus pkgmgr-client arwxt
@@ -5300,6 +5352,7 @@ default-fonts-fc-sdk mobileprint arwxt
 default-fonts-fc-sdk msg-service arwxt
 default-fonts-fc-sdk msg-service::db arwxt
 default-fonts-fc-sdk net-config arwxt
+default-fonts-fc-sdk net.wifi-qs arwxt
 default-fonts-fc-sdk nfc-manager arwxt
 default-fonts-fc-sdk notification arwxt
 default-fonts-fc-sdk notification::db arwxt
@@ -5354,6 +5407,7 @@ default-fonts-fc-sdk osp-installer arwxt
 default-fonts-fc-sdk osp-livebox-service arwxt
 default-fonts-fc-sdk osp-search-service arwxt
 default-fonts-fc-sdk osp-security-service arwxt
+default-fonts-fc-sdk osp::privilege-description-db arwxt
 default-fonts-fc-sdk pims-ipc arwxt
 default-fonts-fc-sdk pkgmgr arwxt
 default-fonts-fc-sdk pkgmgr-client arwxt
@@ -5501,6 +5555,7 @@ dlogutil mobileprint arwxt
 dlogutil msg-service arwxt
 dlogutil msg-service::db arwxt
 dlogutil net-config arwxt
+dlogutil net.wifi-qs arwxt
 dlogutil nfc-manager arwxt
 dlogutil notification arwxt
 dlogutil notification::db arwxt
@@ -5555,6 +5610,7 @@ dlogutil osp-installer arwxt
 dlogutil osp-livebox-service arwxt
 dlogutil osp-search-service arwxt
 dlogutil osp-security-service arwxt
+dlogutil osp::privilege-description-db arwxt
 dlogutil pims-ipc arwxt
 dlogutil pkgmgr arwxt
 dlogutil pkgmgr-client arwxt
@@ -5702,6 +5758,7 @@ download-provider mobileprint arwxt
 download-provider msg-service arwxt
 download-provider msg-service::db arwxt
 download-provider net-config arwxt
+download-provider net.wifi-qs arwxt
 download-provider nfc-manager arwxt
 download-provider notification arwxt
 download-provider notification::db arwxt
@@ -5756,6 +5813,7 @@ download-provider osp-installer arwxt
 download-provider osp-livebox-service arwxt
 download-provider osp-search-service arwxt
 download-provider osp-security-service arwxt
+download-provider osp::privilege-description-db arwxt
 download-provider pims-ipc arwxt
 download-provider pkgmgr arwxt
 download-provider pkgmgr-client arwxt
@@ -5903,6 +5961,7 @@ e17 mobileprint arwxt
 e17 msg-service arwxt
 e17 msg-service::db arwxt
 e17 net-config arwxt
+e17 net.wifi-qs arwxt
 e17 nfc-manager arwxt
 e17 notification arwxt
 e17 notification::db arwxt
@@ -5957,6 +6016,7 @@ e17 osp-installer arwxt
 e17 osp-livebox-service arwxt
 e17 osp-search-service arwxt
 e17 osp-security-service arwxt
+e17 osp::privilege-description-db arwxt
 e17 pims-ipc arwxt
 e17 pkgmgr arwxt
 e17 pkgmgr-client arwxt
@@ -6104,6 +6164,7 @@ e17-data mobileprint arwxt
 e17-data msg-service arwxt
 e17-data msg-service::db arwxt
 e17-data net-config arwxt
+e17-data net.wifi-qs arwxt
 e17-data nfc-manager arwxt
 e17-data notification arwxt
 e17-data notification::db arwxt
@@ -6158,6 +6219,7 @@ e17-data osp-installer arwxt
 e17-data osp-livebox-service arwxt
 e17-data osp-search-service arwxt
 e17-data osp-security-service arwxt
+e17-data osp::privilege-description-db arwxt
 e17-data pims-ipc arwxt
 e17-data pkgmgr arwxt
 e17-data pkgmgr-client arwxt
@@ -6305,6 +6367,7 @@ efreet mobileprint arwxt
 efreet msg-service arwxt
 efreet msg-service::db arwxt
 efreet net-config arwxt
+efreet net.wifi-qs arwxt
 efreet nfc-manager arwxt
 efreet notification arwxt
 efreet notification::db arwxt
@@ -6359,6 +6422,7 @@ efreet osp-installer arwxt
 efreet osp-livebox-service arwxt
 efreet osp-search-service arwxt
 efreet osp-security-service arwxt
+efreet osp::privilege-description-db arwxt
 efreet pims-ipc arwxt
 efreet pkgmgr arwxt
 efreet pkgmgr-client arwxt
@@ -6506,6 +6570,7 @@ email-service mobileprint arwxt
 email-service msg-service arwxt
 email-service msg-service::db arwxt
 email-service net-config arwxt
+email-service net.wifi-qs arwxt
 email-service nfc-manager arwxt
 email-service notification arwxt
 email-service notification::db arwxt
@@ -6560,6 +6625,7 @@ email-service osp-installer arwxt
 email-service osp-livebox-service arwxt
 email-service osp-search-service arwxt
 email-service osp-security-service arwxt
+email-service osp::privilege-description-db arwxt
 email-service pims-ipc arwxt
 email-service pkgmgr arwxt
 email-service pkgmgr-client arwxt
@@ -6707,6 +6773,7 @@ gi2qxenosh mobileprint arwxt
 gi2qxenosh msg-service arwxt
 gi2qxenosh msg-service::db arwxt
 gi2qxenosh net-config arwxt
+gi2qxenosh net.wifi-qs arwxt
 gi2qxenosh nfc-manager arwxt
 gi2qxenosh notification arwxt
 gi2qxenosh notification::db arwxt
@@ -6761,6 +6828,7 @@ gi2qxenosh osp-installer arwxt
 gi2qxenosh osp-livebox-service arwxt
 gi2qxenosh osp-search-service arwxt
 gi2qxenosh osp-security-service arwxt
+gi2qxenosh osp::privilege-description-db arwxt
 gi2qxenosh pims-ipc arwxt
 gi2qxenosh pkgmgr arwxt
 gi2qxenosh pkgmgr-client arwxt
@@ -6908,6 +6976,7 @@ isf mobileprint arwxt
 isf msg-service arwxt
 isf msg-service::db arwxt
 isf net-config arwxt
+isf net.wifi-qs arwxt
 isf nfc-manager arwxt
 isf notification arwxt
 isf notification::db arwxt
@@ -6962,6 +7031,7 @@ isf osp-installer arwxt
 isf osp-livebox-service arwxt
 isf osp-search-service arwxt
 isf osp-security-service arwxt
+isf osp::privilege-description-db arwxt
 isf pims-ipc arwxt
 isf pkgmgr arwxt
 isf pkgmgr-client arwxt
@@ -7109,6 +7179,7 @@ libaccounts-svc mobileprint arwxt
 libaccounts-svc msg-service arwxt
 libaccounts-svc msg-service::db arwxt
 libaccounts-svc net-config arwxt
+libaccounts-svc net.wifi-qs arwxt
 libaccounts-svc nfc-manager arwxt
 libaccounts-svc notification arwxt
 libaccounts-svc notification::db arwxt
@@ -7163,6 +7234,7 @@ libaccounts-svc osp-installer arwxt
 libaccounts-svc osp-livebox-service arwxt
 libaccounts-svc osp-search-service arwxt
 libaccounts-svc osp-security-service arwxt
+libaccounts-svc osp::privilege-description-db arwxt
 libaccounts-svc pims-ipc arwxt
 libaccounts-svc pkgmgr arwxt
 libaccounts-svc pkgmgr-client arwxt
@@ -7310,6 +7382,7 @@ libslp-alarm mobileprint arwxt
 libslp-alarm msg-service arwxt
 libslp-alarm msg-service::db arwxt
 libslp-alarm net-config arwxt
+libslp-alarm net.wifi-qs arwxt
 libslp-alarm nfc-manager arwxt
 libslp-alarm notification arwxt
 libslp-alarm notification::db arwxt
@@ -7364,6 +7437,7 @@ libslp-alarm osp-installer arwxt
 libslp-alarm osp-livebox-service arwxt
 libslp-alarm osp-search-service arwxt
 libslp-alarm osp-security-service arwxt
+libslp-alarm osp::privilege-description-db arwxt
 libslp-alarm pims-ipc arwxt
 libslp-alarm pkgmgr arwxt
 libslp-alarm pkgmgr-client arwxt
@@ -7511,6 +7585,7 @@ libslp-memo mobileprint arwxt
 libslp-memo msg-service arwxt
 libslp-memo msg-service::db arwxt
 libslp-memo net-config arwxt
+libslp-memo net.wifi-qs arwxt
 libslp-memo nfc-manager arwxt
 libslp-memo notification arwxt
 libslp-memo notification::db arwxt
@@ -7565,6 +7640,7 @@ libslp-memo osp-installer arwxt
 libslp-memo osp-livebox-service arwxt
 libslp-memo osp-search-service arwxt
 libslp-memo osp-security-service arwxt
+libslp-memo osp::privilege-description-db arwxt
 libslp-memo pims-ipc arwxt
 libslp-memo pkgmgr arwxt
 libslp-memo pkgmgr-client arwxt
@@ -7712,6 +7788,7 @@ libug-phone mobileprint arwxt
 libug-phone msg-service arwxt
 libug-phone msg-service::db arwxt
 libug-phone net-config arwxt
+libug-phone net.wifi-qs arwxt
 libug-phone nfc-manager arwxt
 libug-phone notification arwxt
 libug-phone notification::db arwxt
@@ -7766,6 +7843,7 @@ libug-phone osp-installer arwxt
 libug-phone osp-livebox-service arwxt
 libug-phone osp-search-service arwxt
 libug-phone osp-security-service arwxt
+libug-phone osp::privilege-description-db arwxt
 libug-phone pims-ipc arwxt
 libug-phone pkgmgr arwxt
 libug-phone pkgmgr-client arwxt
@@ -7913,6 +7991,7 @@ livebox.web-provider mobileprint arwxt
 livebox.web-provider msg-service arwxt
 livebox.web-provider msg-service::db arwxt
 livebox.web-provider net-config arwxt
+livebox.web-provider net.wifi-qs arwxt
 livebox.web-provider nfc-manager arwxt
 livebox.web-provider notification arwxt
 livebox.web-provider notification::db arwxt
@@ -7967,6 +8046,7 @@ livebox.web-provider osp-installer arwxt
 livebox.web-provider osp-livebox-service arwxt
 livebox.web-provider osp-search-service arwxt
 livebox.web-provider osp-security-service arwxt
+livebox.web-provider osp::privilege-description-db arwxt
 livebox.web-provider pims-ipc arwxt
 livebox.web-provider pkgmgr arwxt
 livebox.web-provider pkgmgr-client arwxt
@@ -8114,6 +8194,7 @@ location_fw mobileprint arwxt
 location_fw msg-service arwxt
 location_fw msg-service::db arwxt
 location_fw net-config arwxt
+location_fw net.wifi-qs arwxt
 location_fw nfc-manager arwxt
 location_fw notification arwxt
 location_fw notification::db arwxt
@@ -8168,6 +8249,7 @@ location_fw osp-installer arwxt
 location_fw osp-livebox-service arwxt
 location_fw osp-search-service arwxt
 location_fw osp-security-service arwxt
+location_fw osp::privilege-description-db arwxt
 location_fw pims-ipc arwxt
 location_fw pkgmgr arwxt
 location_fw pkgmgr-client arwxt
@@ -8315,6 +8397,7 @@ location_fw::server mobileprint arwxt
 location_fw::server msg-service arwxt
 location_fw::server msg-service::db arwxt
 location_fw::server net-config arwxt
+location_fw::server net.wifi-qs arwxt
 location_fw::server nfc-manager arwxt
 location_fw::server notification arwxt
 location_fw::server notification::db arwxt
@@ -8369,6 +8452,7 @@ location_fw::server osp-installer arwxt
 location_fw::server osp-livebox-service arwxt
 location_fw::server osp-search-service arwxt
 location_fw::server osp-security-service arwxt
+location_fw::server osp::privilege-description-db arwxt
 location_fw::server pims-ipc arwxt
 location_fw::server pkgmgr arwxt
 location_fw::server pkgmgr-client arwxt
@@ -8516,6 +8600,7 @@ media-data mobileprint arwxt
 media-data msg-service arwxt
 media-data msg-service::db arwxt
 media-data net-config arwxt
+media-data net.wifi-qs arwxt
 media-data nfc-manager arwxt
 media-data notification arwxt
 media-data notification::db arwxt
@@ -8570,6 +8655,7 @@ media-data osp-installer arwxt
 media-data osp-livebox-service arwxt
 media-data osp-search-service arwxt
 media-data osp-security-service arwxt
+media-data osp::privilege-description-db arwxt
 media-data pims-ipc arwxt
 media-data pkgmgr arwxt
 media-data pkgmgr-client arwxt
@@ -8717,6 +8803,7 @@ media-server mobileprint arwxt
 media-server msg-service arwxt
 media-server msg-service::db arwxt
 media-server net-config arwxt
+media-server net.wifi-qs arwxt
 media-server nfc-manager arwxt
 media-server notification arwxt
 media-server notification::db arwxt
@@ -8771,6 +8858,7 @@ media-server osp-installer arwxt
 media-server osp-livebox-service arwxt
 media-server osp-search-service arwxt
 media-server osp-security-service arwxt
+media-server osp::privilege-description-db arwxt
 media-server pims-ipc arwxt
 media-server pkgmgr arwxt
 media-server pkgmgr-client arwxt
@@ -8918,6 +9006,7 @@ miracast-server mobileprint arwxt
 miracast-server msg-service arwxt
 miracast-server msg-service::db arwxt
 miracast-server net-config arwxt
+miracast-server net.wifi-qs arwxt
 miracast-server nfc-manager arwxt
 miracast-server notification arwxt
 miracast-server notification::db arwxt
@@ -8972,6 +9061,7 @@ miracast-server osp-installer arwxt
 miracast-server osp-livebox-service arwxt
 miracast-server osp-search-service arwxt
 miracast-server osp-security-service arwxt
+miracast-server osp::privilege-description-db arwxt
 miracast-server pims-ipc arwxt
 miracast-server pkgmgr arwxt
 miracast-server pkgmgr-client arwxt
@@ -9119,6 +9209,7 @@ mobileprint miracast-server arwxt
 mobileprint msg-service arwxt
 mobileprint msg-service::db arwxt
 mobileprint net-config arwxt
+mobileprint net.wifi-qs arwxt
 mobileprint nfc-manager arwxt
 mobileprint notification arwxt
 mobileprint notification::db arwxt
@@ -9173,6 +9264,7 @@ mobileprint osp-installer arwxt
 mobileprint osp-livebox-service arwxt
 mobileprint osp-search-service arwxt
 mobileprint osp-security-service arwxt
+mobileprint osp::privilege-description-db arwxt
 mobileprint pims-ipc arwxt
 mobileprint pkgmgr arwxt
 mobileprint pkgmgr-client arwxt
@@ -9320,6 +9412,7 @@ msg-service miracast-server arwxt
 msg-service mobileprint arwxt
 msg-service msg-service::db arwxt
 msg-service net-config arwxt
+msg-service net.wifi-qs arwxt
 msg-service nfc-manager arwxt
 msg-service notification arwxt
 msg-service notification::db arwxt
@@ -9374,6 +9467,7 @@ msg-service osp-installer arwxt
 msg-service osp-livebox-service arwxt
 msg-service osp-search-service arwxt
 msg-service osp-security-service arwxt
+msg-service osp::privilege-description-db arwxt
 msg-service pims-ipc arwxt
 msg-service pkgmgr arwxt
 msg-service pkgmgr-client arwxt
@@ -9521,6 +9615,7 @@ net-config miracast-server arwxt
 net-config mobileprint arwxt
 net-config msg-service arwxt
 net-config msg-service::db arwxt
+net-config net.wifi-qs arwxt
 net-config nfc-manager arwxt
 net-config notification arwxt
 net-config notification::db arwxt
@@ -9575,6 +9670,7 @@ net-config osp-installer arwxt
 net-config osp-livebox-service arwxt
 net-config osp-search-service arwxt
 net-config osp-security-service arwxt
+net-config osp::privilege-description-db arwxt
 net-config pims-ipc arwxt
 net-config pkgmgr arwxt
 net-config pkgmgr-client arwxt
@@ -9644,6 +9740,209 @@ net-config wrt-plugins-common arwxt
 net-config wrt-security::db_ace arwxt
 net-config xorg arwxt
 net-config zeromq arwxt
+
+
+net.wifi-qs 57r43275q7 arwxt
+net.wifi-qs _ arwxt
+net.wifi-qs ail arwxt
+net.wifi-qs ail::db arwxt
+net.wifi-qs alarm-server arwxt
+net.wifi-qs alarm-server::db arwxt
+net.wifi-qs aospd00043 arwxt
+net.wifi-qs app-svc arwxt
+net.wifi-qs app-svc::db arwxt
+net.wifi-qs app2sd arwxt
+net.wifi-qs aul arwxt
+net.wifi-qs aul::db arwxt
+net.wifi-qs bluetooth-tools arwxt
+net.wifi-qs bluez arwxt
+net.wifi-qs browser-provider arwxt
+net.wifi-qs browser::db arwxt
+net.wifi-qs browser::db_external arwxt
+net.wifi-qs bt-service arwxt
+net.wifi-qs bt_agent arwxt
+net.wifi-qs bt_agent::bt_hfp_agent arwxt
+net.wifi-qs bt_agent::bt_map_agent arwxt
+net.wifi-qs bt_agent::bt_pb_agent arwxt
+net.wifi-qs bt_firmware arwxt
+net.wifi-qs bt_share arwxt
+net.wifi-qs bt_share::db arwxt
+net.wifi-qs calendar-service arwxt
+net.wifi-qs calendar-service::db arwxt
+net.wifi-qs cbhm arwxt
+net.wifi-qs cert-svc arwxt
+net.wifi-qs connman arwxt
+net.wifi-qs contacts-service arwxt
+net.wifi-qs contacts-service::db arwxt
+net.wifi-qs cp7ipabg4k arwxt
+net.wifi-qs cups arwxt
+net.wifi-qs data-provider-master arwxt
+net.wifi-qs data-provider-master::data arwxt
+net.wifi-qs data-provider-master::db arwxt
+net.wifi-qs data-provider-master::share arwxt
+net.wifi-qs dbus arwxt
+net.wifi-qs default-fonts-fc-sdk arwxt
+net.wifi-qs default-fonts-fc-sdk::config arwxt
+net.wifi-qs device::app_logging arwxt
+net.wifi-qs device::audio arwxt
+net.wifi-qs device::bklight arwxt
+net.wifi-qs device::camera arwxt
+net.wifi-qs device::hwcodec arwxt
+net.wifi-qs device::recording arwxt
+net.wifi-qs device::sys_logging arwxt
+net.wifi-qs device::video arwxt
+net.wifi-qs dlogutil arwxt
+net.wifi-qs dlogutil::dlogscript arwxt
+net.wifi-qs download-provider arwxt
+net.wifi-qs e17 arwxt
+net.wifi-qs e17-data arwxt
+net.wifi-qs efreet arwxt
+net.wifi-qs email-service arwxt
+net.wifi-qs email-service::db arwxt
+net.wifi-qs gi2qxenosh arwxt
+net.wifi-qs isf arwxt
+net.wifi-qs libaccounts-svc arwxt
+net.wifi-qs libaccounts-svc::db arwxt
+net.wifi-qs libslp-alarm arwxt
+net.wifi-qs libslp-alarm::db arwxt
+net.wifi-qs libslp-memo arwxt
+net.wifi-qs libslp-memo::db arwxt
+net.wifi-qs libug-phone arwxt
+net.wifi-qs livebox.web-provider arwxt
+net.wifi-qs location_fw arwxt
+net.wifi-qs location_fw::server arwxt
+net.wifi-qs media-data arwxt
+net.wifi-qs media-data::db arwxt
+net.wifi-qs media-server arwxt
+net.wifi-qs miracast-server arwxt
+net.wifi-qs mobileprint arwxt
+net.wifi-qs msg-service arwxt
+net.wifi-qs msg-service::db arwxt
+net.wifi-qs net-config arwxt
+net.wifi-qs nfc-manager arwxt
+net.wifi-qs notification arwxt
+net.wifi-qs notification::db arwxt
+net.wifi-qs obexd arwxt
+net.wifi-qs obexd::client arwxt
+net.wifi-qs oma-ds-agent arwxt
+net.wifi-qs org.tizen.app-selector arwxt
+net.wifi-qs org.tizen.bluetooth-share-ui arwxt
+net.wifi-qs org.tizen.browser arwxt
+net.wifi-qs org.tizen.bt-syspopup arwxt
+net.wifi-qs org.tizen.calculator arwxt
+net.wifi-qs org.tizen.calendar arwxt
+net.wifi-qs org.tizen.call arwxt
+net.wifi-qs org.tizen.camera-app arwxt
+net.wifi-qs org.tizen.ciss arwxt
+net.wifi-qs org.tizen.clock arwxt
+net.wifi-qs org.tizen.contacts arwxt
+net.wifi-qs org.tizen.contacts-viewer arwxt
+net.wifi-qs org.tizen.crash-popup arwxt
+net.wifi-qs org.tizen.data-provider-master arwxt
+net.wifi-qs org.tizen.data-provider-slave arwxt
+net.wifi-qs org.tizen.data-provider-webapp-slave arwxt
+net.wifi-qs org.tizen.download-manager arwxt
+net.wifi-qs org.tizen.draglock arwxt
+net.wifi-qs org.tizen.email arwxt
+net.wifi-qs org.tizen.gallery arwxt
+net.wifi-qs org.tizen.image-viewer arwxt
+net.wifi-qs org.tizen.indicator arwxt
+net.wifi-qs org.tizen.lockscreen arwxt
+net.wifi-qs org.tizen.memo arwxt
+net.wifi-qs org.tizen.menu-screen arwxt
+net.wifi-qs org.tizen.message arwxt
+net.wifi-qs org.tizen.music-player arwxt
+net.wifi-qs org.tizen.myfile arwxt
+net.wifi-qs org.tizen.net-popup arwxt
+net.wifi-qs org.tizen.phone arwxt
+net.wifi-qs org.tizen.pwlock arwxt
+net.wifi-qs org.tizen.quickpanel arwxt
+net.wifi-qs org.tizen.sat-ui arwxt
+net.wifi-qs org.tizen.setting arwxt
+net.wifi-qs org.tizen.smartsearch arwxt
+net.wifi-qs org.tizen.taskmgr arwxt
+net.wifi-qs org.tizen.tickernoti-syspopup arwxt
+net.wifi-qs org.tizen.usb-syspopup arwxt
+net.wifi-qs org.tizen.video-player arwxt
+net.wifi-qs org.tizen.volume arwxt
+net.wifi-qs osp arwxt
+net.wifi-qs osp-app-service arwxt
+net.wifi-qs osp-channel-service arwxt
+net.wifi-qs osp-connectivity-service arwxt
+net.wifi-qs osp-installer arwxt
+net.wifi-qs osp-livebox-service arwxt
+net.wifi-qs osp-search-service arwxt
+net.wifi-qs osp-security-service arwxt
+net.wifi-qs osp::privilege-description-db arwxt
+net.wifi-qs pims-ipc arwxt
+net.wifi-qs pkgmgr arwxt
+net.wifi-qs pkgmgr-client arwxt
+net.wifi-qs pkgmgr-info arwxt
+net.wifi-qs pkgmgr-installer arwxt
+net.wifi-qs pkgmgr-parser arwxt
+net.wifi-qs pkgmgr-server arwxt
+net.wifi-qs power_manager arwxt
+net.wifi-qs privacy-manager arwxt
+net.wifi-qs privacy-manager::daemon arwxt
+net.wifi-qs privacy-manager::db arwxt
+net.wifi-qs privilege::power arwxt
+net.wifi-qs pulseaudio arwxt
+net.wifi-qs push-service arwxt
+net.wifi-qs push-service::db arwxt
+net.wifi-qs q7097a278m arwxt
+net.wifi-qs rua arwxt
+net.wifi-qs rua::db arwxt
+net.wifi-qs secure-storage arwxt
+net.wifi-qs security-server arwxt
+net.wifi-qs sensor-framework arwxt
+net.wifi-qs sjjevolsjk arwxt
+net.wifi-qs smartcard-service arwxt
+net.wifi-qs sound_server arwxt
+net.wifi-qs sqlfs arwxt
+net.wifi-qs starter arwxt
+net.wifi-qs stt-server arwxt
+net.wifi-qs svi-data arwxt
+net.wifi-qs sys-assert arwxt
+net.wifi-qs sys-assert::core arwxt
+net.wifi-qs sys-assert::core-launcher arwxt
+net.wifi-qs syspopup arwxt
+net.wifi-qs syspopup::db arwxt
+net.wifi-qs system arwxt
+net.wifi-qs system-server arwxt
+net.wifi-qs system::clipboard arwxt
+net.wifi-qs system::ext_storage arwxt
+net.wifi-qs system::homedir arwxt
+net.wifi-qs system::media arwxt
+net.wifi-qs system::use_internet arwxt
+net.wifi-qs system::vconf arwxt
+net.wifi-qs telephony_framework arwxt
+net.wifi-qs telephony_framework::db arwxt
+net.wifi-qs thumb-server arwxt
+net.wifi-qs tts-engine-samsung::vdata arwxt
+net.wifi-qs tts-server arwxt
+net.wifi-qs ug-camera-efl arwxt
+net.wifi-qs ug-image-viewer-efl arwxt
+net.wifi-qs ug_bluetooth arwxt
+net.wifi-qs usb-printer-detector arwxt
+net.wifi-qs usb-server arwxt
+net.wifi-qs usb-server::usb-r arwxt
+net.wifi-qs usb-server::usb-rx arwxt
+net.wifi-qs usb-syspopup arwxt
+net.wifi-qs usb-syspopup::usb-rx arwxt
+net.wifi-qs webkit2-efl arwxt
+net.wifi-qs wifi_direct_manager arwxt
+net.wifi-qs worldclock arwxt
+net.wifi-qs worldclock::db arwxt
+net.wifi-qs wrt arwxt
+net.wifi-qs wrt-commons arwxt
+net.wifi-qs wrt-commons::db_wrt arwxt
+net.wifi-qs wrt-commons::db_wrt_autosave arwxt
+net.wifi-qs wrt-commons::db_wrt_custom_handler arwxt
+net.wifi-qs wrt-installer arwxt
+net.wifi-qs wrt-plugins-common arwxt
+net.wifi-qs wrt-security::db_ace arwxt
+net.wifi-qs xorg arwxt
+net.wifi-qs zeromq arwxt
 
 
 nfc-manager 57r43275q7 arwxt
@@ -9723,6 +10022,7 @@ nfc-manager mobileprint arwxt
 nfc-manager msg-service arwxt
 nfc-manager msg-service::db arwxt
 nfc-manager net-config arwxt
+nfc-manager net.wifi-qs arwxt
 nfc-manager notification arwxt
 nfc-manager notification::db arwxt
 nfc-manager obexd arwxt
@@ -9776,6 +10076,7 @@ nfc-manager osp-installer arwxt
 nfc-manager osp-livebox-service arwxt
 nfc-manager osp-search-service arwxt
 nfc-manager osp-security-service arwxt
+nfc-manager osp::privilege-description-db arwxt
 nfc-manager pims-ipc arwxt
 nfc-manager pkgmgr arwxt
 nfc-manager pkgmgr-client arwxt
@@ -9924,6 +10225,7 @@ notification mobileprint arwxt
 notification msg-service arwxt
 notification msg-service::db arwxt
 notification net-config arwxt
+notification net.wifi-qs arwxt
 notification nfc-manager arwxt
 notification notification::db arwxt
 notification obexd arwxt
@@ -9977,6 +10279,7 @@ notification osp-installer arwxt
 notification osp-livebox-service arwxt
 notification osp-search-service arwxt
 notification osp-security-service arwxt
+notification osp::privilege-description-db arwxt
 notification pims-ipc arwxt
 notification pkgmgr arwxt
 notification pkgmgr-client arwxt
@@ -10125,6 +10428,7 @@ obexd mobileprint arwxt
 obexd msg-service arwxt
 obexd msg-service::db arwxt
 obexd net-config arwxt
+obexd net.wifi-qs arwxt
 obexd nfc-manager arwxt
 obexd notification arwxt
 obexd notification::db arwxt
@@ -10178,6 +10482,7 @@ obexd osp-installer arwxt
 obexd osp-livebox-service arwxt
 obexd osp-search-service arwxt
 obexd osp-security-service arwxt
+obexd osp::privilege-description-db arwxt
 obexd pims-ipc arwxt
 obexd pkgmgr arwxt
 obexd pkgmgr-client arwxt
@@ -10326,6 +10631,7 @@ obexd::client mobileprint arwxt
 obexd::client msg-service arwxt
 obexd::client msg-service::db arwxt
 obexd::client net-config arwxt
+obexd::client net.wifi-qs arwxt
 obexd::client nfc-manager arwxt
 obexd::client notification arwxt
 obexd::client notification::db arwxt
@@ -10379,6 +10685,7 @@ obexd::client osp-installer arwxt
 obexd::client osp-livebox-service arwxt
 obexd::client osp-search-service arwxt
 obexd::client osp-security-service arwxt
+obexd::client osp::privilege-description-db arwxt
 obexd::client pims-ipc arwxt
 obexd::client pkgmgr arwxt
 obexd::client pkgmgr-client arwxt
@@ -10527,6 +10834,7 @@ oma-ds-agent mobileprint arwxt
 oma-ds-agent msg-service arwxt
 oma-ds-agent msg-service::db arwxt
 oma-ds-agent net-config arwxt
+oma-ds-agent net.wifi-qs arwxt
 oma-ds-agent nfc-manager arwxt
 oma-ds-agent notification arwxt
 oma-ds-agent notification::db arwxt
@@ -10580,6 +10888,7 @@ oma-ds-agent osp-installer arwxt
 oma-ds-agent osp-livebox-service arwxt
 oma-ds-agent osp-search-service arwxt
 oma-ds-agent osp-security-service arwxt
+oma-ds-agent osp::privilege-description-db arwxt
 oma-ds-agent pims-ipc arwxt
 oma-ds-agent pkgmgr arwxt
 oma-ds-agent pkgmgr-client arwxt
@@ -10728,6 +11037,7 @@ org.tizen.app-selector mobileprint arwxt
 org.tizen.app-selector msg-service arwxt
 org.tizen.app-selector msg-service::db arwxt
 org.tizen.app-selector net-config arwxt
+org.tizen.app-selector net.wifi-qs arwxt
 org.tizen.app-selector nfc-manager arwxt
 org.tizen.app-selector notification arwxt
 org.tizen.app-selector notification::db arwxt
@@ -10781,6 +11091,7 @@ org.tizen.app-selector osp-installer arwxt
 org.tizen.app-selector osp-livebox-service arwxt
 org.tizen.app-selector osp-search-service arwxt
 org.tizen.app-selector osp-security-service arwxt
+org.tizen.app-selector osp::privilege-description-db arwxt
 org.tizen.app-selector pims-ipc arwxt
 org.tizen.app-selector pkgmgr arwxt
 org.tizen.app-selector pkgmgr-client arwxt
@@ -10929,6 +11240,7 @@ org.tizen.bluetooth-share-ui mobileprint arwxt
 org.tizen.bluetooth-share-ui msg-service arwxt
 org.tizen.bluetooth-share-ui msg-service::db arwxt
 org.tizen.bluetooth-share-ui net-config arwxt
+org.tizen.bluetooth-share-ui net.wifi-qs arwxt
 org.tizen.bluetooth-share-ui nfc-manager arwxt
 org.tizen.bluetooth-share-ui notification arwxt
 org.tizen.bluetooth-share-ui notification::db arwxt
@@ -10982,6 +11294,7 @@ org.tizen.bluetooth-share-ui osp-installer arwxt
 org.tizen.bluetooth-share-ui osp-livebox-service arwxt
 org.tizen.bluetooth-share-ui osp-search-service arwxt
 org.tizen.bluetooth-share-ui osp-security-service arwxt
+org.tizen.bluetooth-share-ui osp::privilege-description-db arwxt
 org.tizen.bluetooth-share-ui pims-ipc arwxt
 org.tizen.bluetooth-share-ui pkgmgr arwxt
 org.tizen.bluetooth-share-ui pkgmgr-client arwxt
@@ -11130,6 +11443,7 @@ org.tizen.browser mobileprint arwxt
 org.tizen.browser msg-service arwxt
 org.tizen.browser msg-service::db arwxt
 org.tizen.browser net-config arwxt
+org.tizen.browser net.wifi-qs arwxt
 org.tizen.browser nfc-manager arwxt
 org.tizen.browser notification arwxt
 org.tizen.browser notification::db arwxt
@@ -11183,6 +11497,7 @@ org.tizen.browser osp-installer arwxt
 org.tizen.browser osp-livebox-service arwxt
 org.tizen.browser osp-search-service arwxt
 org.tizen.browser osp-security-service arwxt
+org.tizen.browser osp::privilege-description-db arwxt
 org.tizen.browser pims-ipc arwxt
 org.tizen.browser pkgmgr arwxt
 org.tizen.browser pkgmgr-client arwxt
@@ -11331,6 +11646,7 @@ org.tizen.bt-syspopup mobileprint arwxt
 org.tizen.bt-syspopup msg-service arwxt
 org.tizen.bt-syspopup msg-service::db arwxt
 org.tizen.bt-syspopup net-config arwxt
+org.tizen.bt-syspopup net.wifi-qs arwxt
 org.tizen.bt-syspopup nfc-manager arwxt
 org.tizen.bt-syspopup notification arwxt
 org.tizen.bt-syspopup notification::db arwxt
@@ -11384,6 +11700,7 @@ org.tizen.bt-syspopup osp-installer arwxt
 org.tizen.bt-syspopup osp-livebox-service arwxt
 org.tizen.bt-syspopup osp-search-service arwxt
 org.tizen.bt-syspopup osp-security-service arwxt
+org.tizen.bt-syspopup osp::privilege-description-db arwxt
 org.tizen.bt-syspopup pims-ipc arwxt
 org.tizen.bt-syspopup pkgmgr arwxt
 org.tizen.bt-syspopup pkgmgr-client arwxt
@@ -11532,6 +11849,7 @@ org.tizen.calculator mobileprint arwxt
 org.tizen.calculator msg-service arwxt
 org.tizen.calculator msg-service::db arwxt
 org.tizen.calculator net-config arwxt
+org.tizen.calculator net.wifi-qs arwxt
 org.tizen.calculator nfc-manager arwxt
 org.tizen.calculator notification arwxt
 org.tizen.calculator notification::db arwxt
@@ -11585,6 +11903,7 @@ org.tizen.calculator osp-installer arwxt
 org.tizen.calculator osp-livebox-service arwxt
 org.tizen.calculator osp-search-service arwxt
 org.tizen.calculator osp-security-service arwxt
+org.tizen.calculator osp::privilege-description-db arwxt
 org.tizen.calculator pims-ipc arwxt
 org.tizen.calculator pkgmgr arwxt
 org.tizen.calculator pkgmgr-client arwxt
@@ -11733,6 +12052,7 @@ org.tizen.calendar mobileprint arwxt
 org.tizen.calendar msg-service arwxt
 org.tizen.calendar msg-service::db arwxt
 org.tizen.calendar net-config arwxt
+org.tizen.calendar net.wifi-qs arwxt
 org.tizen.calendar nfc-manager arwxt
 org.tizen.calendar notification arwxt
 org.tizen.calendar notification::db arwxt
@@ -11786,6 +12106,7 @@ org.tizen.calendar osp-installer arwxt
 org.tizen.calendar osp-livebox-service arwxt
 org.tizen.calendar osp-search-service arwxt
 org.tizen.calendar osp-security-service arwxt
+org.tizen.calendar osp::privilege-description-db arwxt
 org.tizen.calendar pims-ipc arwxt
 org.tizen.calendar pkgmgr arwxt
 org.tizen.calendar pkgmgr-client arwxt
@@ -11934,6 +12255,7 @@ org.tizen.call mobileprint arwxt
 org.tizen.call msg-service arwxt
 org.tizen.call msg-service::db arwxt
 org.tizen.call net-config arwxt
+org.tizen.call net.wifi-qs arwxt
 org.tizen.call nfc-manager arwxt
 org.tizen.call notification arwxt
 org.tizen.call notification::db arwxt
@@ -11987,6 +12309,7 @@ org.tizen.call osp-installer arwxt
 org.tizen.call osp-livebox-service arwxt
 org.tizen.call osp-search-service arwxt
 org.tizen.call osp-security-service arwxt
+org.tizen.call osp::privilege-description-db arwxt
 org.tizen.call pims-ipc arwxt
 org.tizen.call pkgmgr arwxt
 org.tizen.call pkgmgr-client arwxt
@@ -12135,6 +12458,7 @@ org.tizen.camera-app mobileprint arwxt
 org.tizen.camera-app msg-service arwxt
 org.tizen.camera-app msg-service::db arwxt
 org.tizen.camera-app net-config arwxt
+org.tizen.camera-app net.wifi-qs arwxt
 org.tizen.camera-app nfc-manager arwxt
 org.tizen.camera-app notification arwxt
 org.tizen.camera-app notification::db arwxt
@@ -12188,6 +12512,7 @@ org.tizen.camera-app osp-installer arwxt
 org.tizen.camera-app osp-livebox-service arwxt
 org.tizen.camera-app osp-search-service arwxt
 org.tizen.camera-app osp-security-service arwxt
+org.tizen.camera-app osp::privilege-description-db arwxt
 org.tizen.camera-app pims-ipc arwxt
 org.tizen.camera-app pkgmgr arwxt
 org.tizen.camera-app pkgmgr-client arwxt
@@ -12336,6 +12661,7 @@ org.tizen.ciss mobileprint arwxt
 org.tizen.ciss msg-service arwxt
 org.tizen.ciss msg-service::db arwxt
 org.tizen.ciss net-config arwxt
+org.tizen.ciss net.wifi-qs arwxt
 org.tizen.ciss nfc-manager arwxt
 org.tizen.ciss notification arwxt
 org.tizen.ciss notification::db arwxt
@@ -12389,6 +12715,7 @@ org.tizen.ciss osp-installer arwxt
 org.tizen.ciss osp-livebox-service arwxt
 org.tizen.ciss osp-search-service arwxt
 org.tizen.ciss osp-security-service arwxt
+org.tizen.ciss osp::privilege-description-db arwxt
 org.tizen.ciss pims-ipc arwxt
 org.tizen.ciss pkgmgr arwxt
 org.tizen.ciss pkgmgr-client arwxt
@@ -12537,6 +12864,7 @@ org.tizen.clock mobileprint arwxt
 org.tizen.clock msg-service arwxt
 org.tizen.clock msg-service::db arwxt
 org.tizen.clock net-config arwxt
+org.tizen.clock net.wifi-qs arwxt
 org.tizen.clock nfc-manager arwxt
 org.tizen.clock notification arwxt
 org.tizen.clock notification::db arwxt
@@ -12590,6 +12918,7 @@ org.tizen.clock osp-installer arwxt
 org.tizen.clock osp-livebox-service arwxt
 org.tizen.clock osp-search-service arwxt
 org.tizen.clock osp-security-service arwxt
+org.tizen.clock osp::privilege-description-db arwxt
 org.tizen.clock pims-ipc arwxt
 org.tizen.clock pkgmgr arwxt
 org.tizen.clock pkgmgr-client arwxt
@@ -12738,6 +13067,7 @@ org.tizen.contacts mobileprint arwxt
 org.tizen.contacts msg-service arwxt
 org.tizen.contacts msg-service::db arwxt
 org.tizen.contacts net-config arwxt
+org.tizen.contacts net.wifi-qs arwxt
 org.tizen.contacts nfc-manager arwxt
 org.tizen.contacts notification arwxt
 org.tizen.contacts notification::db arwxt
@@ -12791,6 +13121,7 @@ org.tizen.contacts osp-installer arwxt
 org.tizen.contacts osp-livebox-service arwxt
 org.tizen.contacts osp-search-service arwxt
 org.tizen.contacts osp-security-service arwxt
+org.tizen.contacts osp::privilege-description-db arwxt
 org.tizen.contacts pims-ipc arwxt
 org.tizen.contacts pkgmgr arwxt
 org.tizen.contacts pkgmgr-client arwxt
@@ -12939,6 +13270,7 @@ org.tizen.contacts-viewer mobileprint arwxt
 org.tizen.contacts-viewer msg-service arwxt
 org.tizen.contacts-viewer msg-service::db arwxt
 org.tizen.contacts-viewer net-config arwxt
+org.tizen.contacts-viewer net.wifi-qs arwxt
 org.tizen.contacts-viewer nfc-manager arwxt
 org.tizen.contacts-viewer notification arwxt
 org.tizen.contacts-viewer notification::db arwxt
@@ -12992,6 +13324,7 @@ org.tizen.contacts-viewer osp-installer arwxt
 org.tizen.contacts-viewer osp-livebox-service arwxt
 org.tizen.contacts-viewer osp-search-service arwxt
 org.tizen.contacts-viewer osp-security-service arwxt
+org.tizen.contacts-viewer osp::privilege-description-db arwxt
 org.tizen.contacts-viewer pims-ipc arwxt
 org.tizen.contacts-viewer pkgmgr arwxt
 org.tizen.contacts-viewer pkgmgr-client arwxt
@@ -13140,6 +13473,7 @@ org.tizen.crash-popup mobileprint arwxt
 org.tizen.crash-popup msg-service arwxt
 org.tizen.crash-popup msg-service::db arwxt
 org.tizen.crash-popup net-config arwxt
+org.tizen.crash-popup net.wifi-qs arwxt
 org.tizen.crash-popup nfc-manager arwxt
 org.tizen.crash-popup notification arwxt
 org.tizen.crash-popup notification::db arwxt
@@ -13193,6 +13527,7 @@ org.tizen.crash-popup osp-installer arwxt
 org.tizen.crash-popup osp-livebox-service arwxt
 org.tizen.crash-popup osp-search-service arwxt
 org.tizen.crash-popup osp-security-service arwxt
+org.tizen.crash-popup osp::privilege-description-db arwxt
 org.tizen.crash-popup pims-ipc arwxt
 org.tizen.crash-popup pkgmgr arwxt
 org.tizen.crash-popup pkgmgr-client arwxt
@@ -13341,6 +13676,7 @@ org.tizen.data-provider-master mobileprint arwxt
 org.tizen.data-provider-master msg-service arwxt
 org.tizen.data-provider-master msg-service::db arwxt
 org.tizen.data-provider-master net-config arwxt
+org.tizen.data-provider-master net.wifi-qs arwxt
 org.tizen.data-provider-master nfc-manager arwxt
 org.tizen.data-provider-master notification arwxt
 org.tizen.data-provider-master notification::db arwxt
@@ -13394,6 +13730,7 @@ org.tizen.data-provider-master osp-installer arwxt
 org.tizen.data-provider-master osp-livebox-service arwxt
 org.tizen.data-provider-master osp-search-service arwxt
 org.tizen.data-provider-master osp-security-service arwxt
+org.tizen.data-provider-master osp::privilege-description-db arwxt
 org.tizen.data-provider-master pims-ipc arwxt
 org.tizen.data-provider-master pkgmgr arwxt
 org.tizen.data-provider-master pkgmgr-client arwxt
@@ -13542,6 +13879,7 @@ org.tizen.data-provider-slave mobileprint arwxt
 org.tizen.data-provider-slave msg-service arwxt
 org.tizen.data-provider-slave msg-service::db arwxt
 org.tizen.data-provider-slave net-config arwxt
+org.tizen.data-provider-slave net.wifi-qs arwxt
 org.tizen.data-provider-slave nfc-manager arwxt
 org.tizen.data-provider-slave notification arwxt
 org.tizen.data-provider-slave notification::db arwxt
@@ -13595,6 +13933,7 @@ org.tizen.data-provider-slave osp-installer arwxt
 org.tizen.data-provider-slave osp-livebox-service arwxt
 org.tizen.data-provider-slave osp-search-service arwxt
 org.tizen.data-provider-slave osp-security-service arwxt
+org.tizen.data-provider-slave osp::privilege-description-db arwxt
 org.tizen.data-provider-slave pims-ipc arwxt
 org.tizen.data-provider-slave pkgmgr arwxt
 org.tizen.data-provider-slave pkgmgr-client arwxt
@@ -13743,6 +14082,7 @@ org.tizen.data-provider-webapp-slave mobileprint arwxt
 org.tizen.data-provider-webapp-slave msg-service arwxt
 org.tizen.data-provider-webapp-slave msg-service::db arwxt
 org.tizen.data-provider-webapp-slave net-config arwxt
+org.tizen.data-provider-webapp-slave net.wifi-qs arwxt
 org.tizen.data-provider-webapp-slave nfc-manager arwxt
 org.tizen.data-provider-webapp-slave notification arwxt
 org.tizen.data-provider-webapp-slave notification::db arwxt
@@ -13796,6 +14136,7 @@ org.tizen.data-provider-webapp-slave osp-installer arwxt
 org.tizen.data-provider-webapp-slave osp-livebox-service arwxt
 org.tizen.data-provider-webapp-slave osp-search-service arwxt
 org.tizen.data-provider-webapp-slave osp-security-service arwxt
+org.tizen.data-provider-webapp-slave osp::privilege-description-db arwxt
 org.tizen.data-provider-webapp-slave pims-ipc arwxt
 org.tizen.data-provider-webapp-slave pkgmgr arwxt
 org.tizen.data-provider-webapp-slave pkgmgr-client arwxt
@@ -13944,6 +14285,7 @@ org.tizen.download-manager mobileprint arwxt
 org.tizen.download-manager msg-service arwxt
 org.tizen.download-manager msg-service::db arwxt
 org.tizen.download-manager net-config arwxt
+org.tizen.download-manager net.wifi-qs arwxt
 org.tizen.download-manager nfc-manager arwxt
 org.tizen.download-manager notification arwxt
 org.tizen.download-manager notification::db arwxt
@@ -13997,6 +14339,7 @@ org.tizen.download-manager osp-installer arwxt
 org.tizen.download-manager osp-livebox-service arwxt
 org.tizen.download-manager osp-search-service arwxt
 org.tizen.download-manager osp-security-service arwxt
+org.tizen.download-manager osp::privilege-description-db arwxt
 org.tizen.download-manager pims-ipc arwxt
 org.tizen.download-manager pkgmgr arwxt
 org.tizen.download-manager pkgmgr-client arwxt
@@ -14145,6 +14488,7 @@ org.tizen.draglock mobileprint arwxt
 org.tizen.draglock msg-service arwxt
 org.tizen.draglock msg-service::db arwxt
 org.tizen.draglock net-config arwxt
+org.tizen.draglock net.wifi-qs arwxt
 org.tizen.draglock nfc-manager arwxt
 org.tizen.draglock notification arwxt
 org.tizen.draglock notification::db arwxt
@@ -14198,6 +14542,7 @@ org.tizen.draglock osp-installer arwxt
 org.tizen.draglock osp-livebox-service arwxt
 org.tizen.draglock osp-search-service arwxt
 org.tizen.draglock osp-security-service arwxt
+org.tizen.draglock osp::privilege-description-db arwxt
 org.tizen.draglock pims-ipc arwxt
 org.tizen.draglock pkgmgr arwxt
 org.tizen.draglock pkgmgr-client arwxt
@@ -14346,6 +14691,7 @@ org.tizen.email mobileprint arwxt
 org.tizen.email msg-service arwxt
 org.tizen.email msg-service::db arwxt
 org.tizen.email net-config arwxt
+org.tizen.email net.wifi-qs arwxt
 org.tizen.email nfc-manager arwxt
 org.tizen.email notification arwxt
 org.tizen.email notification::db arwxt
@@ -14399,6 +14745,7 @@ org.tizen.email osp-installer arwxt
 org.tizen.email osp-livebox-service arwxt
 org.tizen.email osp-search-service arwxt
 org.tizen.email osp-security-service arwxt
+org.tizen.email osp::privilege-description-db arwxt
 org.tizen.email pims-ipc arwxt
 org.tizen.email pkgmgr arwxt
 org.tizen.email pkgmgr-client arwxt
@@ -14547,6 +14894,7 @@ org.tizen.gallery mobileprint arwxt
 org.tizen.gallery msg-service arwxt
 org.tizen.gallery msg-service::db arwxt
 org.tizen.gallery net-config arwxt
+org.tizen.gallery net.wifi-qs arwxt
 org.tizen.gallery nfc-manager arwxt
 org.tizen.gallery notification arwxt
 org.tizen.gallery notification::db arwxt
@@ -14600,6 +14948,7 @@ org.tizen.gallery osp-installer arwxt
 org.tizen.gallery osp-livebox-service arwxt
 org.tizen.gallery osp-search-service arwxt
 org.tizen.gallery osp-security-service arwxt
+org.tizen.gallery osp::privilege-description-db arwxt
 org.tizen.gallery pims-ipc arwxt
 org.tizen.gallery pkgmgr arwxt
 org.tizen.gallery pkgmgr-client arwxt
@@ -14748,6 +15097,7 @@ org.tizen.image-viewer mobileprint arwxt
 org.tizen.image-viewer msg-service arwxt
 org.tizen.image-viewer msg-service::db arwxt
 org.tizen.image-viewer net-config arwxt
+org.tizen.image-viewer net.wifi-qs arwxt
 org.tizen.image-viewer nfc-manager arwxt
 org.tizen.image-viewer notification arwxt
 org.tizen.image-viewer notification::db arwxt
@@ -14801,6 +15151,7 @@ org.tizen.image-viewer osp-installer arwxt
 org.tizen.image-viewer osp-livebox-service arwxt
 org.tizen.image-viewer osp-search-service arwxt
 org.tizen.image-viewer osp-security-service arwxt
+org.tizen.image-viewer osp::privilege-description-db arwxt
 org.tizen.image-viewer pims-ipc arwxt
 org.tizen.image-viewer pkgmgr arwxt
 org.tizen.image-viewer pkgmgr-client arwxt
@@ -14949,6 +15300,7 @@ org.tizen.indicator mobileprint arwxt
 org.tizen.indicator msg-service arwxt
 org.tizen.indicator msg-service::db arwxt
 org.tizen.indicator net-config arwxt
+org.tizen.indicator net.wifi-qs arwxt
 org.tizen.indicator nfc-manager arwxt
 org.tizen.indicator notification arwxt
 org.tizen.indicator notification::db arwxt
@@ -15002,6 +15354,7 @@ org.tizen.indicator osp-installer arwxt
 org.tizen.indicator osp-livebox-service arwxt
 org.tizen.indicator osp-search-service arwxt
 org.tizen.indicator osp-security-service arwxt
+org.tizen.indicator osp::privilege-description-db arwxt
 org.tizen.indicator pims-ipc arwxt
 org.tizen.indicator pkgmgr arwxt
 org.tizen.indicator pkgmgr-client arwxt
@@ -15150,6 +15503,7 @@ org.tizen.lockscreen mobileprint arwxt
 org.tizen.lockscreen msg-service arwxt
 org.tizen.lockscreen msg-service::db arwxt
 org.tizen.lockscreen net-config arwxt
+org.tizen.lockscreen net.wifi-qs arwxt
 org.tizen.lockscreen nfc-manager arwxt
 org.tizen.lockscreen notification arwxt
 org.tizen.lockscreen notification::db arwxt
@@ -15203,6 +15557,7 @@ org.tizen.lockscreen osp-installer arwxt
 org.tizen.lockscreen osp-livebox-service arwxt
 org.tizen.lockscreen osp-search-service arwxt
 org.tizen.lockscreen osp-security-service arwxt
+org.tizen.lockscreen osp::privilege-description-db arwxt
 org.tizen.lockscreen pims-ipc arwxt
 org.tizen.lockscreen pkgmgr arwxt
 org.tizen.lockscreen pkgmgr-client arwxt
@@ -15351,6 +15706,7 @@ org.tizen.memo mobileprint arwxt
 org.tizen.memo msg-service arwxt
 org.tizen.memo msg-service::db arwxt
 org.tizen.memo net-config arwxt
+org.tizen.memo net.wifi-qs arwxt
 org.tizen.memo nfc-manager arwxt
 org.tizen.memo notification arwxt
 org.tizen.memo notification::db arwxt
@@ -15404,6 +15760,7 @@ org.tizen.memo osp-installer arwxt
 org.tizen.memo osp-livebox-service arwxt
 org.tizen.memo osp-search-service arwxt
 org.tizen.memo osp-security-service arwxt
+org.tizen.memo osp::privilege-description-db arwxt
 org.tizen.memo pims-ipc arwxt
 org.tizen.memo pkgmgr arwxt
 org.tizen.memo pkgmgr-client arwxt
@@ -15552,6 +15909,7 @@ org.tizen.menu-screen mobileprint arwxt
 org.tizen.menu-screen msg-service arwxt
 org.tizen.menu-screen msg-service::db arwxt
 org.tizen.menu-screen net-config arwxt
+org.tizen.menu-screen net.wifi-qs arwxt
 org.tizen.menu-screen nfc-manager arwxt
 org.tizen.menu-screen notification arwxt
 org.tizen.menu-screen notification::db arwxt
@@ -15605,6 +15963,7 @@ org.tizen.menu-screen osp-installer arwxt
 org.tizen.menu-screen osp-livebox-service arwxt
 org.tizen.menu-screen osp-search-service arwxt
 org.tizen.menu-screen osp-security-service arwxt
+org.tizen.menu-screen osp::privilege-description-db arwxt
 org.tizen.menu-screen pims-ipc arwxt
 org.tizen.menu-screen pkgmgr arwxt
 org.tizen.menu-screen pkgmgr-client arwxt
@@ -15753,6 +16112,7 @@ org.tizen.message mobileprint arwxt
 org.tizen.message msg-service arwxt
 org.tizen.message msg-service::db arwxt
 org.tizen.message net-config arwxt
+org.tizen.message net.wifi-qs arwxt
 org.tizen.message nfc-manager arwxt
 org.tizen.message notification arwxt
 org.tizen.message notification::db arwxt
@@ -15806,6 +16166,7 @@ org.tizen.message osp-installer arwxt
 org.tizen.message osp-livebox-service arwxt
 org.tizen.message osp-search-service arwxt
 org.tizen.message osp-security-service arwxt
+org.tizen.message osp::privilege-description-db arwxt
 org.tizen.message pims-ipc arwxt
 org.tizen.message pkgmgr arwxt
 org.tizen.message pkgmgr-client arwxt
@@ -15954,6 +16315,7 @@ org.tizen.music-player mobileprint arwxt
 org.tizen.music-player msg-service arwxt
 org.tizen.music-player msg-service::db arwxt
 org.tizen.music-player net-config arwxt
+org.tizen.music-player net.wifi-qs arwxt
 org.tizen.music-player nfc-manager arwxt
 org.tizen.music-player notification arwxt
 org.tizen.music-player notification::db arwxt
@@ -16007,6 +16369,7 @@ org.tizen.music-player osp-installer arwxt
 org.tizen.music-player osp-livebox-service arwxt
 org.tizen.music-player osp-search-service arwxt
 org.tizen.music-player osp-security-service arwxt
+org.tizen.music-player osp::privilege-description-db arwxt
 org.tizen.music-player pims-ipc arwxt
 org.tizen.music-player pkgmgr arwxt
 org.tizen.music-player pkgmgr-client arwxt
@@ -16155,6 +16518,7 @@ org.tizen.myfile mobileprint arwxt
 org.tizen.myfile msg-service arwxt
 org.tizen.myfile msg-service::db arwxt
 org.tizen.myfile net-config arwxt
+org.tizen.myfile net.wifi-qs arwxt
 org.tizen.myfile nfc-manager arwxt
 org.tizen.myfile notification arwxt
 org.tizen.myfile notification::db arwxt
@@ -16208,6 +16572,7 @@ org.tizen.myfile osp-installer arwxt
 org.tizen.myfile osp-livebox-service arwxt
 org.tizen.myfile osp-search-service arwxt
 org.tizen.myfile osp-security-service arwxt
+org.tizen.myfile osp::privilege-description-db arwxt
 org.tizen.myfile pims-ipc arwxt
 org.tizen.myfile pkgmgr arwxt
 org.tizen.myfile pkgmgr-client arwxt
@@ -16356,6 +16721,7 @@ org.tizen.net-popup mobileprint arwxt
 org.tizen.net-popup msg-service arwxt
 org.tizen.net-popup msg-service::db arwxt
 org.tizen.net-popup net-config arwxt
+org.tizen.net-popup net.wifi-qs arwxt
 org.tizen.net-popup nfc-manager arwxt
 org.tizen.net-popup notification arwxt
 org.tizen.net-popup notification::db arwxt
@@ -16409,6 +16775,7 @@ org.tizen.net-popup osp-installer arwxt
 org.tizen.net-popup osp-livebox-service arwxt
 org.tizen.net-popup osp-search-service arwxt
 org.tizen.net-popup osp-security-service arwxt
+org.tizen.net-popup osp::privilege-description-db arwxt
 org.tizen.net-popup pims-ipc arwxt
 org.tizen.net-popup pkgmgr arwxt
 org.tizen.net-popup pkgmgr-client arwxt
@@ -16557,6 +16924,7 @@ org.tizen.phone mobileprint arwxt
 org.tizen.phone msg-service arwxt
 org.tizen.phone msg-service::db arwxt
 org.tizen.phone net-config arwxt
+org.tizen.phone net.wifi-qs arwxt
 org.tizen.phone nfc-manager arwxt
 org.tizen.phone notification arwxt
 org.tizen.phone notification::db arwxt
@@ -16610,6 +16978,7 @@ org.tizen.phone osp-installer arwxt
 org.tizen.phone osp-livebox-service arwxt
 org.tizen.phone osp-search-service arwxt
 org.tizen.phone osp-security-service arwxt
+org.tizen.phone osp::privilege-description-db arwxt
 org.tizen.phone pims-ipc arwxt
 org.tizen.phone pkgmgr arwxt
 org.tizen.phone pkgmgr-client arwxt
@@ -16758,6 +17127,7 @@ org.tizen.pwlock mobileprint arwxt
 org.tizen.pwlock msg-service arwxt
 org.tizen.pwlock msg-service::db arwxt
 org.tizen.pwlock net-config arwxt
+org.tizen.pwlock net.wifi-qs arwxt
 org.tizen.pwlock nfc-manager arwxt
 org.tizen.pwlock notification arwxt
 org.tizen.pwlock notification::db arwxt
@@ -16811,6 +17181,7 @@ org.tizen.pwlock osp-installer arwxt
 org.tizen.pwlock osp-livebox-service arwxt
 org.tizen.pwlock osp-search-service arwxt
 org.tizen.pwlock osp-security-service arwxt
+org.tizen.pwlock osp::privilege-description-db arwxt
 org.tizen.pwlock pims-ipc arwxt
 org.tizen.pwlock pkgmgr arwxt
 org.tizen.pwlock pkgmgr-client arwxt
@@ -16959,6 +17330,7 @@ org.tizen.quickpanel mobileprint arwxt
 org.tizen.quickpanel msg-service arwxt
 org.tizen.quickpanel msg-service::db arwxt
 org.tizen.quickpanel net-config arwxt
+org.tizen.quickpanel net.wifi-qs arwxt
 org.tizen.quickpanel nfc-manager arwxt
 org.tizen.quickpanel notification arwxt
 org.tizen.quickpanel notification::db arwxt
@@ -17012,6 +17384,7 @@ org.tizen.quickpanel osp-installer arwxt
 org.tizen.quickpanel osp-livebox-service arwxt
 org.tizen.quickpanel osp-search-service arwxt
 org.tizen.quickpanel osp-security-service arwxt
+org.tizen.quickpanel osp::privilege-description-db arwxt
 org.tizen.quickpanel pims-ipc arwxt
 org.tizen.quickpanel pkgmgr arwxt
 org.tizen.quickpanel pkgmgr-client arwxt
@@ -17160,6 +17533,7 @@ org.tizen.sat-ui mobileprint arwxt
 org.tizen.sat-ui msg-service arwxt
 org.tizen.sat-ui msg-service::db arwxt
 org.tizen.sat-ui net-config arwxt
+org.tizen.sat-ui net.wifi-qs arwxt
 org.tizen.sat-ui nfc-manager arwxt
 org.tizen.sat-ui notification arwxt
 org.tizen.sat-ui notification::db arwxt
@@ -17213,6 +17587,7 @@ org.tizen.sat-ui osp-installer arwxt
 org.tizen.sat-ui osp-livebox-service arwxt
 org.tizen.sat-ui osp-search-service arwxt
 org.tizen.sat-ui osp-security-service arwxt
+org.tizen.sat-ui osp::privilege-description-db arwxt
 org.tizen.sat-ui pims-ipc arwxt
 org.tizen.sat-ui pkgmgr arwxt
 org.tizen.sat-ui pkgmgr-client arwxt
@@ -17361,6 +17736,7 @@ org.tizen.setting mobileprint arwxt
 org.tizen.setting msg-service arwxt
 org.tizen.setting msg-service::db arwxt
 org.tizen.setting net-config arwxt
+org.tizen.setting net.wifi-qs arwxt
 org.tizen.setting nfc-manager arwxt
 org.tizen.setting notification arwxt
 org.tizen.setting notification::db arwxt
@@ -17414,6 +17790,7 @@ org.tizen.setting osp-installer arwxt
 org.tizen.setting osp-livebox-service arwxt
 org.tizen.setting osp-search-service arwxt
 org.tizen.setting osp-security-service arwxt
+org.tizen.setting osp::privilege-description-db arwxt
 org.tizen.setting pims-ipc arwxt
 org.tizen.setting pkgmgr arwxt
 org.tizen.setting pkgmgr-client arwxt
@@ -17562,6 +17939,7 @@ org.tizen.smartsearch mobileprint arwxt
 org.tizen.smartsearch msg-service arwxt
 org.tizen.smartsearch msg-service::db arwxt
 org.tizen.smartsearch net-config arwxt
+org.tizen.smartsearch net.wifi-qs arwxt
 org.tizen.smartsearch nfc-manager arwxt
 org.tizen.smartsearch notification arwxt
 org.tizen.smartsearch notification::db arwxt
@@ -17615,6 +17993,7 @@ org.tizen.smartsearch osp-installer arwxt
 org.tizen.smartsearch osp-livebox-service arwxt
 org.tizen.smartsearch osp-search-service arwxt
 org.tizen.smartsearch osp-security-service arwxt
+org.tizen.smartsearch osp::privilege-description-db arwxt
 org.tizen.smartsearch pims-ipc arwxt
 org.tizen.smartsearch pkgmgr arwxt
 org.tizen.smartsearch pkgmgr-client arwxt
@@ -17763,6 +18142,7 @@ org.tizen.taskmgr mobileprint arwxt
 org.tizen.taskmgr msg-service arwxt
 org.tizen.taskmgr msg-service::db arwxt
 org.tizen.taskmgr net-config arwxt
+org.tizen.taskmgr net.wifi-qs arwxt
 org.tizen.taskmgr nfc-manager arwxt
 org.tizen.taskmgr notification arwxt
 org.tizen.taskmgr notification::db arwxt
@@ -17816,6 +18196,7 @@ org.tizen.taskmgr osp-installer arwxt
 org.tizen.taskmgr osp-livebox-service arwxt
 org.tizen.taskmgr osp-search-service arwxt
 org.tizen.taskmgr osp-security-service arwxt
+org.tizen.taskmgr osp::privilege-description-db arwxt
 org.tizen.taskmgr pims-ipc arwxt
 org.tizen.taskmgr pkgmgr arwxt
 org.tizen.taskmgr pkgmgr-client arwxt
@@ -17964,6 +18345,7 @@ org.tizen.tickernoti-syspopup mobileprint arwxt
 org.tizen.tickernoti-syspopup msg-service arwxt
 org.tizen.tickernoti-syspopup msg-service::db arwxt
 org.tizen.tickernoti-syspopup net-config arwxt
+org.tizen.tickernoti-syspopup net.wifi-qs arwxt
 org.tizen.tickernoti-syspopup nfc-manager arwxt
 org.tizen.tickernoti-syspopup notification arwxt
 org.tizen.tickernoti-syspopup notification::db arwxt
@@ -18017,6 +18399,7 @@ org.tizen.tickernoti-syspopup osp-installer arwxt
 org.tizen.tickernoti-syspopup osp-livebox-service arwxt
 org.tizen.tickernoti-syspopup osp-search-service arwxt
 org.tizen.tickernoti-syspopup osp-security-service arwxt
+org.tizen.tickernoti-syspopup osp::privilege-description-db arwxt
 org.tizen.tickernoti-syspopup pims-ipc arwxt
 org.tizen.tickernoti-syspopup pkgmgr arwxt
 org.tizen.tickernoti-syspopup pkgmgr-client arwxt
@@ -18165,6 +18548,7 @@ org.tizen.usb-syspopup mobileprint arwxt
 org.tizen.usb-syspopup msg-service arwxt
 org.tizen.usb-syspopup msg-service::db arwxt
 org.tizen.usb-syspopup net-config arwxt
+org.tizen.usb-syspopup net.wifi-qs arwxt
 org.tizen.usb-syspopup nfc-manager arwxt
 org.tizen.usb-syspopup notification arwxt
 org.tizen.usb-syspopup notification::db arwxt
@@ -18218,6 +18602,7 @@ org.tizen.usb-syspopup osp-installer arwxt
 org.tizen.usb-syspopup osp-livebox-service arwxt
 org.tizen.usb-syspopup osp-search-service arwxt
 org.tizen.usb-syspopup osp-security-service arwxt
+org.tizen.usb-syspopup osp::privilege-description-db arwxt
 org.tizen.usb-syspopup pims-ipc arwxt
 org.tizen.usb-syspopup pkgmgr arwxt
 org.tizen.usb-syspopup pkgmgr-client arwxt
@@ -18366,6 +18751,7 @@ org.tizen.video-player mobileprint arwxt
 org.tizen.video-player msg-service arwxt
 org.tizen.video-player msg-service::db arwxt
 org.tizen.video-player net-config arwxt
+org.tizen.video-player net.wifi-qs arwxt
 org.tizen.video-player nfc-manager arwxt
 org.tizen.video-player notification arwxt
 org.tizen.video-player notification::db arwxt
@@ -18419,6 +18805,7 @@ org.tizen.video-player osp-installer arwxt
 org.tizen.video-player osp-livebox-service arwxt
 org.tizen.video-player osp-search-service arwxt
 org.tizen.video-player osp-security-service arwxt
+org.tizen.video-player osp::privilege-description-db arwxt
 org.tizen.video-player pims-ipc arwxt
 org.tizen.video-player pkgmgr arwxt
 org.tizen.video-player pkgmgr-client arwxt
@@ -18567,6 +18954,7 @@ org.tizen.volume mobileprint arwxt
 org.tizen.volume msg-service arwxt
 org.tizen.volume msg-service::db arwxt
 org.tizen.volume net-config arwxt
+org.tizen.volume net.wifi-qs arwxt
 org.tizen.volume nfc-manager arwxt
 org.tizen.volume notification arwxt
 org.tizen.volume notification::db arwxt
@@ -18620,6 +19008,7 @@ org.tizen.volume osp-installer arwxt
 org.tizen.volume osp-livebox-service arwxt
 org.tizen.volume osp-search-service arwxt
 org.tizen.volume osp-security-service arwxt
+org.tizen.volume osp::privilege-description-db arwxt
 org.tizen.volume pims-ipc arwxt
 org.tizen.volume pkgmgr arwxt
 org.tizen.volume pkgmgr-client arwxt
@@ -18768,6 +19157,7 @@ osp mobileprint arwxt
 osp msg-service arwxt
 osp msg-service::db arwxt
 osp net-config arwxt
+osp net.wifi-qs arwxt
 osp nfc-manager arwxt
 osp notification arwxt
 osp notification::db arwxt
@@ -18821,6 +19211,7 @@ osp osp-installer arwxt
 osp osp-livebox-service arwxt
 osp osp-search-service arwxt
 osp osp-security-service arwxt
+osp osp::privilege-description-db arwxt
 osp pims-ipc arwxt
 osp pkgmgr arwxt
 osp pkgmgr-client arwxt
@@ -18969,6 +19360,7 @@ osp-app-service mobileprint arwxt
 osp-app-service msg-service arwxt
 osp-app-service msg-service::db arwxt
 osp-app-service net-config arwxt
+osp-app-service net.wifi-qs arwxt
 osp-app-service nfc-manager arwxt
 osp-app-service notification arwxt
 osp-app-service notification::db arwxt
@@ -19022,6 +19414,7 @@ osp-app-service osp-installer arwxt
 osp-app-service osp-livebox-service arwxt
 osp-app-service osp-search-service arwxt
 osp-app-service osp-security-service arwxt
+osp-app-service osp::privilege-description-db arwxt
 osp-app-service pims-ipc arwxt
 osp-app-service pkgmgr arwxt
 osp-app-service pkgmgr-client arwxt
@@ -19170,6 +19563,7 @@ osp-channel-service mobileprint arwxt
 osp-channel-service msg-service arwxt
 osp-channel-service msg-service::db arwxt
 osp-channel-service net-config arwxt
+osp-channel-service net.wifi-qs arwxt
 osp-channel-service nfc-manager arwxt
 osp-channel-service notification arwxt
 osp-channel-service notification::db arwxt
@@ -19223,6 +19617,7 @@ osp-channel-service osp-installer arwxt
 osp-channel-service osp-livebox-service arwxt
 osp-channel-service osp-search-service arwxt
 osp-channel-service osp-security-service arwxt
+osp-channel-service osp::privilege-description-db arwxt
 osp-channel-service pims-ipc arwxt
 osp-channel-service pkgmgr arwxt
 osp-channel-service pkgmgr-client arwxt
@@ -19371,6 +19766,7 @@ osp-connectivity-service mobileprint arwxt
 osp-connectivity-service msg-service arwxt
 osp-connectivity-service msg-service::db arwxt
 osp-connectivity-service net-config arwxt
+osp-connectivity-service net.wifi-qs arwxt
 osp-connectivity-service nfc-manager arwxt
 osp-connectivity-service notification arwxt
 osp-connectivity-service notification::db arwxt
@@ -19424,6 +19820,7 @@ osp-connectivity-service osp-installer arwxt
 osp-connectivity-service osp-livebox-service arwxt
 osp-connectivity-service osp-search-service arwxt
 osp-connectivity-service osp-security-service arwxt
+osp-connectivity-service osp::privilege-description-db arwxt
 osp-connectivity-service pims-ipc arwxt
 osp-connectivity-service pkgmgr arwxt
 osp-connectivity-service pkgmgr-client arwxt
@@ -19572,6 +19969,7 @@ osp-installer mobileprint arwxt
 osp-installer msg-service arwxt
 osp-installer msg-service::db arwxt
 osp-installer net-config arwxt
+osp-installer net.wifi-qs arwxt
 osp-installer nfc-manager arwxt
 osp-installer notification arwxt
 osp-installer notification::db arwxt
@@ -19625,6 +20023,7 @@ osp-installer osp-connectivity-service arwxt
 osp-installer osp-livebox-service arwxt
 osp-installer osp-search-service arwxt
 osp-installer osp-security-service arwxt
+osp-installer osp::privilege-description-db arwxt
 osp-installer pims-ipc arwxt
 osp-installer pkgmgr arwxt
 osp-installer pkgmgr-client arwxt
@@ -19773,6 +20172,7 @@ osp-livebox-service mobileprint arwxt
 osp-livebox-service msg-service arwxt
 osp-livebox-service msg-service::db arwxt
 osp-livebox-service net-config arwxt
+osp-livebox-service net.wifi-qs arwxt
 osp-livebox-service nfc-manager arwxt
 osp-livebox-service notification arwxt
 osp-livebox-service notification::db arwxt
@@ -19826,6 +20226,7 @@ osp-livebox-service osp-connectivity-service arwxt
 osp-livebox-service osp-installer arwxt
 osp-livebox-service osp-search-service arwxt
 osp-livebox-service osp-security-service arwxt
+osp-livebox-service osp::privilege-description-db arwxt
 osp-livebox-service pims-ipc arwxt
 osp-livebox-service pkgmgr arwxt
 osp-livebox-service pkgmgr-client arwxt
@@ -19974,6 +20375,7 @@ osp-search-service mobileprint arwxt
 osp-search-service msg-service arwxt
 osp-search-service msg-service::db arwxt
 osp-search-service net-config arwxt
+osp-search-service net.wifi-qs arwxt
 osp-search-service nfc-manager arwxt
 osp-search-service notification arwxt
 osp-search-service notification::db arwxt
@@ -20027,6 +20429,7 @@ osp-search-service osp-connectivity-service arwxt
 osp-search-service osp-installer arwxt
 osp-search-service osp-livebox-service arwxt
 osp-search-service osp-security-service arwxt
+osp-search-service osp::privilege-description-db arwxt
 osp-search-service pims-ipc arwxt
 osp-search-service pkgmgr arwxt
 osp-search-service pkgmgr-client arwxt
@@ -20175,6 +20578,7 @@ osp-security-service mobileprint arwxt
 osp-security-service msg-service arwxt
 osp-security-service msg-service::db arwxt
 osp-security-service net-config arwxt
+osp-security-service net.wifi-qs arwxt
 osp-security-service nfc-manager arwxt
 osp-security-service notification arwxt
 osp-security-service notification::db arwxt
@@ -20228,6 +20632,7 @@ osp-security-service osp-connectivity-service arwxt
 osp-security-service osp-installer arwxt
 osp-security-service osp-livebox-service arwxt
 osp-security-service osp-search-service arwxt
+osp-security-service osp::privilege-description-db arwxt
 osp-security-service pims-ipc arwxt
 osp-security-service pkgmgr arwxt
 osp-security-service pkgmgr-client arwxt
@@ -20376,6 +20781,7 @@ pims-ipc mobileprint arwxt
 pims-ipc msg-service arwxt
 pims-ipc msg-service::db arwxt
 pims-ipc net-config arwxt
+pims-ipc net.wifi-qs arwxt
 pims-ipc nfc-manager arwxt
 pims-ipc notification arwxt
 pims-ipc notification::db arwxt
@@ -20430,6 +20836,7 @@ pims-ipc osp-installer arwxt
 pims-ipc osp-livebox-service arwxt
 pims-ipc osp-search-service arwxt
 pims-ipc osp-security-service arwxt
+pims-ipc osp::privilege-description-db arwxt
 pims-ipc pkgmgr arwxt
 pims-ipc pkgmgr-client arwxt
 pims-ipc pkgmgr-info arwxt
@@ -20577,6 +20984,7 @@ pkgmgr mobileprint arwxt
 pkgmgr msg-service arwxt
 pkgmgr msg-service::db arwxt
 pkgmgr net-config arwxt
+pkgmgr net.wifi-qs arwxt
 pkgmgr nfc-manager arwxt
 pkgmgr notification arwxt
 pkgmgr notification::db arwxt
@@ -20631,6 +21039,7 @@ pkgmgr osp-installer arwxt
 pkgmgr osp-livebox-service arwxt
 pkgmgr osp-search-service arwxt
 pkgmgr osp-security-service arwxt
+pkgmgr osp::privilege-description-db arwxt
 pkgmgr pims-ipc arwxt
 pkgmgr pkgmgr-client arwxt
 pkgmgr pkgmgr-info arwxt
@@ -20778,6 +21187,7 @@ pkgmgr-client mobileprint arwxt
 pkgmgr-client msg-service arwxt
 pkgmgr-client msg-service::db arwxt
 pkgmgr-client net-config arwxt
+pkgmgr-client net.wifi-qs arwxt
 pkgmgr-client nfc-manager arwxt
 pkgmgr-client notification arwxt
 pkgmgr-client notification::db arwxt
@@ -20832,6 +21242,7 @@ pkgmgr-client osp-installer arwxt
 pkgmgr-client osp-livebox-service arwxt
 pkgmgr-client osp-search-service arwxt
 pkgmgr-client osp-security-service arwxt
+pkgmgr-client osp::privilege-description-db arwxt
 pkgmgr-client pims-ipc arwxt
 pkgmgr-client pkgmgr arwxt
 pkgmgr-client pkgmgr-info arwxt
@@ -20979,6 +21390,7 @@ pkgmgr-info mobileprint arwxt
 pkgmgr-info msg-service arwxt
 pkgmgr-info msg-service::db arwxt
 pkgmgr-info net-config arwxt
+pkgmgr-info net.wifi-qs arwxt
 pkgmgr-info nfc-manager arwxt
 pkgmgr-info notification arwxt
 pkgmgr-info notification::db arwxt
@@ -21033,6 +21445,7 @@ pkgmgr-info osp-installer arwxt
 pkgmgr-info osp-livebox-service arwxt
 pkgmgr-info osp-search-service arwxt
 pkgmgr-info osp-security-service arwxt
+pkgmgr-info osp::privilege-description-db arwxt
 pkgmgr-info pims-ipc arwxt
 pkgmgr-info pkgmgr arwxt
 pkgmgr-info pkgmgr-client arwxt
@@ -21180,6 +21593,7 @@ pkgmgr-installer mobileprint arwxt
 pkgmgr-installer msg-service arwxt
 pkgmgr-installer msg-service::db arwxt
 pkgmgr-installer net-config arwxt
+pkgmgr-installer net.wifi-qs arwxt
 pkgmgr-installer nfc-manager arwxt
 pkgmgr-installer notification arwxt
 pkgmgr-installer notification::db arwxt
@@ -21234,6 +21648,7 @@ pkgmgr-installer osp-installer arwxt
 pkgmgr-installer osp-livebox-service arwxt
 pkgmgr-installer osp-search-service arwxt
 pkgmgr-installer osp-security-service arwxt
+pkgmgr-installer osp::privilege-description-db arwxt
 pkgmgr-installer pims-ipc arwxt
 pkgmgr-installer pkgmgr arwxt
 pkgmgr-installer pkgmgr-client arwxt
@@ -21381,6 +21796,7 @@ pkgmgr-parser mobileprint arwxt
 pkgmgr-parser msg-service arwxt
 pkgmgr-parser msg-service::db arwxt
 pkgmgr-parser net-config arwxt
+pkgmgr-parser net.wifi-qs arwxt
 pkgmgr-parser nfc-manager arwxt
 pkgmgr-parser notification arwxt
 pkgmgr-parser notification::db arwxt
@@ -21435,6 +21851,7 @@ pkgmgr-parser osp-installer arwxt
 pkgmgr-parser osp-livebox-service arwxt
 pkgmgr-parser osp-search-service arwxt
 pkgmgr-parser osp-security-service arwxt
+pkgmgr-parser osp::privilege-description-db arwxt
 pkgmgr-parser pims-ipc arwxt
 pkgmgr-parser pkgmgr arwxt
 pkgmgr-parser pkgmgr-client arwxt
@@ -21582,6 +21999,7 @@ pkgmgr-server mobileprint arwxt
 pkgmgr-server msg-service arwxt
 pkgmgr-server msg-service::db arwxt
 pkgmgr-server net-config arwxt
+pkgmgr-server net.wifi-qs arwxt
 pkgmgr-server nfc-manager arwxt
 pkgmgr-server notification arwxt
 pkgmgr-server notification::db arwxt
@@ -21636,6 +22054,7 @@ pkgmgr-server osp-installer arwxt
 pkgmgr-server osp-livebox-service arwxt
 pkgmgr-server osp-search-service arwxt
 pkgmgr-server osp-security-service arwxt
+pkgmgr-server osp::privilege-description-db arwxt
 pkgmgr-server pims-ipc arwxt
 pkgmgr-server pkgmgr arwxt
 pkgmgr-server pkgmgr-client arwxt
@@ -21783,6 +22202,7 @@ power_manager mobileprint arwxt
 power_manager msg-service arwxt
 power_manager msg-service::db arwxt
 power_manager net-config arwxt
+power_manager net.wifi-qs arwxt
 power_manager nfc-manager arwxt
 power_manager notification arwxt
 power_manager notification::db arwxt
@@ -21837,6 +22257,7 @@ power_manager osp-installer arwxt
 power_manager osp-livebox-service arwxt
 power_manager osp-search-service arwxt
 power_manager osp-security-service arwxt
+power_manager osp::privilege-description-db arwxt
 power_manager pims-ipc arwxt
 power_manager pkgmgr arwxt
 power_manager pkgmgr-client arwxt
@@ -21984,6 +22405,7 @@ privacy-manager mobileprint arwxt
 privacy-manager msg-service arwxt
 privacy-manager msg-service::db arwxt
 privacy-manager net-config arwxt
+privacy-manager net.wifi-qs arwxt
 privacy-manager nfc-manager arwxt
 privacy-manager notification arwxt
 privacy-manager notification::db arwxt
@@ -22038,6 +22460,7 @@ privacy-manager osp-installer arwxt
 privacy-manager osp-livebox-service arwxt
 privacy-manager osp-search-service arwxt
 privacy-manager osp-security-service arwxt
+privacy-manager osp::privilege-description-db arwxt
 privacy-manager pims-ipc arwxt
 privacy-manager pkgmgr arwxt
 privacy-manager pkgmgr-client arwxt
@@ -22185,6 +22608,7 @@ privacy-manager::daemon mobileprint arwxt
 privacy-manager::daemon msg-service arwxt
 privacy-manager::daemon msg-service::db arwxt
 privacy-manager::daemon net-config arwxt
+privacy-manager::daemon net.wifi-qs arwxt
 privacy-manager::daemon nfc-manager arwxt
 privacy-manager::daemon notification arwxt
 privacy-manager::daemon notification::db arwxt
@@ -22239,6 +22663,7 @@ privacy-manager::daemon osp-installer arwxt
 privacy-manager::daemon osp-livebox-service arwxt
 privacy-manager::daemon osp-search-service arwxt
 privacy-manager::daemon osp-security-service arwxt
+privacy-manager::daemon osp::privilege-description-db arwxt
 privacy-manager::daemon pims-ipc arwxt
 privacy-manager::daemon pkgmgr arwxt
 privacy-manager::daemon pkgmgr-client arwxt
@@ -22386,6 +22811,7 @@ privilege::power mobileprint arwxt
 privilege::power msg-service arwxt
 privilege::power msg-service::db arwxt
 privilege::power net-config arwxt
+privilege::power net.wifi-qs arwxt
 privilege::power nfc-manager arwxt
 privilege::power notification arwxt
 privilege::power notification::db arwxt
@@ -22440,6 +22866,7 @@ privilege::power osp-installer arwxt
 privilege::power osp-livebox-service arwxt
 privilege::power osp-search-service arwxt
 privilege::power osp-security-service arwxt
+privilege::power osp::privilege-description-db arwxt
 privilege::power pims-ipc arwxt
 privilege::power pkgmgr arwxt
 privilege::power pkgmgr-client arwxt
@@ -22587,6 +23014,7 @@ pulseaudio mobileprint arwxt
 pulseaudio msg-service arwxt
 pulseaudio msg-service::db arwxt
 pulseaudio net-config arwxt
+pulseaudio net.wifi-qs arwxt
 pulseaudio nfc-manager arwxt
 pulseaudio notification arwxt
 pulseaudio notification::db arwxt
@@ -22641,6 +23069,7 @@ pulseaudio osp-installer arwxt
 pulseaudio osp-livebox-service arwxt
 pulseaudio osp-search-service arwxt
 pulseaudio osp-security-service arwxt
+pulseaudio osp::privilege-description-db arwxt
 pulseaudio pims-ipc arwxt
 pulseaudio pkgmgr arwxt
 pulseaudio pkgmgr-client arwxt
@@ -22788,6 +23217,7 @@ push-service mobileprint arwxt
 push-service msg-service arwxt
 push-service msg-service::db arwxt
 push-service net-config arwxt
+push-service net.wifi-qs arwxt
 push-service nfc-manager arwxt
 push-service notification arwxt
 push-service notification::db arwxt
@@ -22842,6 +23272,7 @@ push-service osp-installer arwxt
 push-service osp-livebox-service arwxt
 push-service osp-search-service arwxt
 push-service osp-security-service arwxt
+push-service osp::privilege-description-db arwxt
 push-service pims-ipc arwxt
 push-service pkgmgr arwxt
 push-service pkgmgr-client arwxt
@@ -22989,6 +23420,7 @@ q7097a278m mobileprint arwxt
 q7097a278m msg-service arwxt
 q7097a278m msg-service::db arwxt
 q7097a278m net-config arwxt
+q7097a278m net.wifi-qs arwxt
 q7097a278m nfc-manager arwxt
 q7097a278m notification arwxt
 q7097a278m notification::db arwxt
@@ -23043,6 +23475,7 @@ q7097a278m osp-installer arwxt
 q7097a278m osp-livebox-service arwxt
 q7097a278m osp-search-service arwxt
 q7097a278m osp-security-service arwxt
+q7097a278m osp::privilege-description-db arwxt
 q7097a278m pims-ipc arwxt
 q7097a278m pkgmgr arwxt
 q7097a278m pkgmgr-client arwxt
@@ -23190,6 +23623,7 @@ rua mobileprint arwxt
 rua msg-service arwxt
 rua msg-service::db arwxt
 rua net-config arwxt
+rua net.wifi-qs arwxt
 rua nfc-manager arwxt
 rua notification arwxt
 rua notification::db arwxt
@@ -23244,6 +23678,7 @@ rua osp-installer arwxt
 rua osp-livebox-service arwxt
 rua osp-search-service arwxt
 rua osp-security-service arwxt
+rua osp::privilege-description-db arwxt
 rua pims-ipc arwxt
 rua pkgmgr arwxt
 rua pkgmgr-client arwxt
@@ -23391,6 +23826,7 @@ secure-storage mobileprint arwxt
 secure-storage msg-service arwxt
 secure-storage msg-service::db arwxt
 secure-storage net-config arwxt
+secure-storage net.wifi-qs arwxt
 secure-storage nfc-manager arwxt
 secure-storage notification arwxt
 secure-storage notification::db arwxt
@@ -23445,6 +23881,7 @@ secure-storage osp-installer arwxt
 secure-storage osp-livebox-service arwxt
 secure-storage osp-search-service arwxt
 secure-storage osp-security-service arwxt
+secure-storage osp::privilege-description-db arwxt
 secure-storage pims-ipc arwxt
 secure-storage pkgmgr arwxt
 secure-storage pkgmgr-client arwxt
@@ -23592,6 +24029,7 @@ security-server mobileprint arwxt
 security-server msg-service arwxt
 security-server msg-service::db arwxt
 security-server net-config arwxt
+security-server net.wifi-qs arwxt
 security-server nfc-manager arwxt
 security-server notification arwxt
 security-server notification::db arwxt
@@ -23646,6 +24084,7 @@ security-server osp-installer arwxt
 security-server osp-livebox-service arwxt
 security-server osp-search-service arwxt
 security-server osp-security-service arwxt
+security-server osp::privilege-description-db arwxt
 security-server pims-ipc arwxt
 security-server pkgmgr arwxt
 security-server pkgmgr-client arwxt
@@ -23793,6 +24232,7 @@ sensor-framework mobileprint arwxt
 sensor-framework msg-service arwxt
 sensor-framework msg-service::db arwxt
 sensor-framework net-config arwxt
+sensor-framework net.wifi-qs arwxt
 sensor-framework nfc-manager arwxt
 sensor-framework notification arwxt
 sensor-framework notification::db arwxt
@@ -23847,6 +24287,7 @@ sensor-framework osp-installer arwxt
 sensor-framework osp-livebox-service arwxt
 sensor-framework osp-search-service arwxt
 sensor-framework osp-security-service arwxt
+sensor-framework osp::privilege-description-db arwxt
 sensor-framework pims-ipc arwxt
 sensor-framework pkgmgr arwxt
 sensor-framework pkgmgr-client arwxt
@@ -23994,6 +24435,7 @@ sjjevolsjk mobileprint arwxt
 sjjevolsjk msg-service arwxt
 sjjevolsjk msg-service::db arwxt
 sjjevolsjk net-config arwxt
+sjjevolsjk net.wifi-qs arwxt
 sjjevolsjk nfc-manager arwxt
 sjjevolsjk notification arwxt
 sjjevolsjk notification::db arwxt
@@ -24048,6 +24490,7 @@ sjjevolsjk osp-installer arwxt
 sjjevolsjk osp-livebox-service arwxt
 sjjevolsjk osp-search-service arwxt
 sjjevolsjk osp-security-service arwxt
+sjjevolsjk osp::privilege-description-db arwxt
 sjjevolsjk pims-ipc arwxt
 sjjevolsjk pkgmgr arwxt
 sjjevolsjk pkgmgr-client arwxt
@@ -24195,6 +24638,7 @@ smartcard-service mobileprint arwxt
 smartcard-service msg-service arwxt
 smartcard-service msg-service::db arwxt
 smartcard-service net-config arwxt
+smartcard-service net.wifi-qs arwxt
 smartcard-service nfc-manager arwxt
 smartcard-service notification arwxt
 smartcard-service notification::db arwxt
@@ -24249,6 +24693,7 @@ smartcard-service osp-installer arwxt
 smartcard-service osp-livebox-service arwxt
 smartcard-service osp-search-service arwxt
 smartcard-service osp-security-service arwxt
+smartcard-service osp::privilege-description-db arwxt
 smartcard-service pims-ipc arwxt
 smartcard-service pkgmgr arwxt
 smartcard-service pkgmgr-client arwxt
@@ -24396,6 +24841,7 @@ sound_server mobileprint arwxt
 sound_server msg-service arwxt
 sound_server msg-service::db arwxt
 sound_server net-config arwxt
+sound_server net.wifi-qs arwxt
 sound_server nfc-manager arwxt
 sound_server notification arwxt
 sound_server notification::db arwxt
@@ -24450,6 +24896,7 @@ sound_server osp-installer arwxt
 sound_server osp-livebox-service arwxt
 sound_server osp-search-service arwxt
 sound_server osp-security-service arwxt
+sound_server osp::privilege-description-db arwxt
 sound_server pims-ipc arwxt
 sound_server pkgmgr arwxt
 sound_server pkgmgr-client arwxt
@@ -24597,6 +25044,7 @@ sqlfs mobileprint arwxt
 sqlfs msg-service arwxt
 sqlfs msg-service::db arwxt
 sqlfs net-config arwxt
+sqlfs net.wifi-qs arwxt
 sqlfs nfc-manager arwxt
 sqlfs notification arwxt
 sqlfs notification::db arwxt
@@ -24651,6 +25099,7 @@ sqlfs osp-installer arwxt
 sqlfs osp-livebox-service arwxt
 sqlfs osp-search-service arwxt
 sqlfs osp-security-service arwxt
+sqlfs osp::privilege-description-db arwxt
 sqlfs pims-ipc arwxt
 sqlfs pkgmgr arwxt
 sqlfs pkgmgr-client arwxt
@@ -24798,6 +25247,7 @@ starter mobileprint arwxt
 starter msg-service arwxt
 starter msg-service::db arwxt
 starter net-config arwxt
+starter net.wifi-qs arwxt
 starter nfc-manager arwxt
 starter notification arwxt
 starter notification::db arwxt
@@ -24852,6 +25302,7 @@ starter osp-installer arwxt
 starter osp-livebox-service arwxt
 starter osp-search-service arwxt
 starter osp-security-service arwxt
+starter osp::privilege-description-db arwxt
 starter pims-ipc arwxt
 starter pkgmgr arwxt
 starter pkgmgr-client arwxt
@@ -24999,6 +25450,7 @@ stt-server mobileprint arwxt
 stt-server msg-service arwxt
 stt-server msg-service::db arwxt
 stt-server net-config arwxt
+stt-server net.wifi-qs arwxt
 stt-server nfc-manager arwxt
 stt-server notification arwxt
 stt-server notification::db arwxt
@@ -25053,6 +25505,7 @@ stt-server osp-installer arwxt
 stt-server osp-livebox-service arwxt
 stt-server osp-search-service arwxt
 stt-server osp-security-service arwxt
+stt-server osp::privilege-description-db arwxt
 stt-server pims-ipc arwxt
 stt-server pkgmgr arwxt
 stt-server pkgmgr-client arwxt
@@ -25200,6 +25653,7 @@ svi-data mobileprint arwxt
 svi-data msg-service arwxt
 svi-data msg-service::db arwxt
 svi-data net-config arwxt
+svi-data net.wifi-qs arwxt
 svi-data nfc-manager arwxt
 svi-data notification arwxt
 svi-data notification::db arwxt
@@ -25254,6 +25708,7 @@ svi-data osp-installer arwxt
 svi-data osp-livebox-service arwxt
 svi-data osp-search-service arwxt
 svi-data osp-security-service arwxt
+svi-data osp::privilege-description-db arwxt
 svi-data pims-ipc arwxt
 svi-data pkgmgr arwxt
 svi-data pkgmgr-client arwxt
@@ -25401,6 +25856,7 @@ sys-assert mobileprint arwxt
 sys-assert msg-service arwxt
 sys-assert msg-service::db arwxt
 sys-assert net-config arwxt
+sys-assert net.wifi-qs arwxt
 sys-assert nfc-manager arwxt
 sys-assert notification arwxt
 sys-assert notification::db arwxt
@@ -25455,6 +25911,7 @@ sys-assert osp-installer arwxt
 sys-assert osp-livebox-service arwxt
 sys-assert osp-search-service arwxt
 sys-assert osp-security-service arwxt
+sys-assert osp::privilege-description-db arwxt
 sys-assert pims-ipc arwxt
 sys-assert pkgmgr arwxt
 sys-assert pkgmgr-client arwxt
@@ -25602,6 +26059,7 @@ sys-assert::core-launcher mobileprint arwxt
 sys-assert::core-launcher msg-service arwxt
 sys-assert::core-launcher msg-service::db arwxt
 sys-assert::core-launcher net-config arwxt
+sys-assert::core-launcher net.wifi-qs arwxt
 sys-assert::core-launcher nfc-manager arwxt
 sys-assert::core-launcher notification arwxt
 sys-assert::core-launcher notification::db arwxt
@@ -25656,6 +26114,7 @@ sys-assert::core-launcher osp-installer arwxt
 sys-assert::core-launcher osp-livebox-service arwxt
 sys-assert::core-launcher osp-search-service arwxt
 sys-assert::core-launcher osp-security-service arwxt
+sys-assert::core-launcher osp::privilege-description-db arwxt
 sys-assert::core-launcher pims-ipc arwxt
 sys-assert::core-launcher pkgmgr arwxt
 sys-assert::core-launcher pkgmgr-client arwxt
@@ -25803,6 +26262,7 @@ syspopup mobileprint arwxt
 syspopup msg-service arwxt
 syspopup msg-service::db arwxt
 syspopup net-config arwxt
+syspopup net.wifi-qs arwxt
 syspopup nfc-manager arwxt
 syspopup notification arwxt
 syspopup notification::db arwxt
@@ -25857,6 +26317,7 @@ syspopup osp-installer arwxt
 syspopup osp-livebox-service arwxt
 syspopup osp-search-service arwxt
 syspopup osp-security-service arwxt
+syspopup osp::privilege-description-db arwxt
 syspopup pims-ipc arwxt
 syspopup pkgmgr arwxt
 syspopup pkgmgr-client arwxt
@@ -26004,6 +26465,7 @@ system mobileprint arwxt
 system msg-service arwxt
 system msg-service::db arwxt
 system net-config arwxt
+system net.wifi-qs arwxt
 system nfc-manager arwxt
 system notification arwxt
 system notification::db arwxt
@@ -26058,6 +26520,7 @@ system osp-installer arwxt
 system osp-livebox-service arwxt
 system osp-search-service arwxt
 system osp-security-service arwxt
+system osp::privilege-description-db arwxt
 system pims-ipc arwxt
 system pkgmgr arwxt
 system pkgmgr-client arwxt
@@ -26205,6 +26668,7 @@ system-server mobileprint arwxt
 system-server msg-service arwxt
 system-server msg-service::db arwxt
 system-server net-config arwxt
+system-server net.wifi-qs arwxt
 system-server nfc-manager arwxt
 system-server notification arwxt
 system-server notification::db arwxt
@@ -26259,6 +26723,7 @@ system-server osp-installer arwxt
 system-server osp-livebox-service arwxt
 system-server osp-search-service arwxt
 system-server osp-security-service arwxt
+system-server osp::privilege-description-db arwxt
 system-server pims-ipc arwxt
 system-server pkgmgr arwxt
 system-server pkgmgr-client arwxt
@@ -26406,6 +26871,7 @@ system::use_internet mobileprint arwxt
 system::use_internet msg-service arwxt
 system::use_internet msg-service::db arwxt
 system::use_internet net-config arwxt
+system::use_internet net.wifi-qs arwxt
 system::use_internet nfc-manager arwxt
 system::use_internet notification arwxt
 system::use_internet notification::db arwxt
@@ -26460,6 +26926,7 @@ system::use_internet osp-installer arwxt
 system::use_internet osp-livebox-service arwxt
 system::use_internet osp-search-service arwxt
 system::use_internet osp-security-service arwxt
+system::use_internet osp::privilege-description-db arwxt
 system::use_internet pims-ipc arwxt
 system::use_internet pkgmgr arwxt
 system::use_internet pkgmgr-client arwxt
@@ -26607,6 +27074,7 @@ telephony_framework mobileprint arwxt
 telephony_framework msg-service arwxt
 telephony_framework msg-service::db arwxt
 telephony_framework net-config arwxt
+telephony_framework net.wifi-qs arwxt
 telephony_framework nfc-manager arwxt
 telephony_framework notification arwxt
 telephony_framework notification::db arwxt
@@ -26661,6 +27129,7 @@ telephony_framework osp-installer arwxt
 telephony_framework osp-livebox-service arwxt
 telephony_framework osp-search-service arwxt
 telephony_framework osp-security-service arwxt
+telephony_framework osp::privilege-description-db arwxt
 telephony_framework pims-ipc arwxt
 telephony_framework pkgmgr arwxt
 telephony_framework pkgmgr-client arwxt
@@ -26808,6 +27277,7 @@ thumb-server mobileprint arwxt
 thumb-server msg-service arwxt
 thumb-server msg-service::db arwxt
 thumb-server net-config arwxt
+thumb-server net.wifi-qs arwxt
 thumb-server nfc-manager arwxt
 thumb-server notification arwxt
 thumb-server notification::db arwxt
@@ -26862,6 +27332,7 @@ thumb-server osp-installer arwxt
 thumb-server osp-livebox-service arwxt
 thumb-server osp-search-service arwxt
 thumb-server osp-security-service arwxt
+thumb-server osp::privilege-description-db arwxt
 thumb-server pims-ipc arwxt
 thumb-server pkgmgr arwxt
 thumb-server pkgmgr-client arwxt
@@ -27009,6 +27480,7 @@ tts-server mobileprint arwxt
 tts-server msg-service arwxt
 tts-server msg-service::db arwxt
 tts-server net-config arwxt
+tts-server net.wifi-qs arwxt
 tts-server nfc-manager arwxt
 tts-server notification arwxt
 tts-server notification::db arwxt
@@ -27063,6 +27535,7 @@ tts-server osp-installer arwxt
 tts-server osp-livebox-service arwxt
 tts-server osp-search-service arwxt
 tts-server osp-security-service arwxt
+tts-server osp::privilege-description-db arwxt
 tts-server pims-ipc arwxt
 tts-server pkgmgr arwxt
 tts-server pkgmgr-client arwxt
@@ -27210,6 +27683,7 @@ ug-camera-efl mobileprint arwxt
 ug-camera-efl msg-service arwxt
 ug-camera-efl msg-service::db arwxt
 ug-camera-efl net-config arwxt
+ug-camera-efl net.wifi-qs arwxt
 ug-camera-efl nfc-manager arwxt
 ug-camera-efl notification arwxt
 ug-camera-efl notification::db arwxt
@@ -27264,6 +27738,7 @@ ug-camera-efl osp-installer arwxt
 ug-camera-efl osp-livebox-service arwxt
 ug-camera-efl osp-search-service arwxt
 ug-camera-efl osp-security-service arwxt
+ug-camera-efl osp::privilege-description-db arwxt
 ug-camera-efl pims-ipc arwxt
 ug-camera-efl pkgmgr arwxt
 ug-camera-efl pkgmgr-client arwxt
@@ -27411,6 +27886,7 @@ ug-image-viewer-efl mobileprint arwxt
 ug-image-viewer-efl msg-service arwxt
 ug-image-viewer-efl msg-service::db arwxt
 ug-image-viewer-efl net-config arwxt
+ug-image-viewer-efl net.wifi-qs arwxt
 ug-image-viewer-efl nfc-manager arwxt
 ug-image-viewer-efl notification arwxt
 ug-image-viewer-efl notification::db arwxt
@@ -27465,6 +27941,7 @@ ug-image-viewer-efl osp-installer arwxt
 ug-image-viewer-efl osp-livebox-service arwxt
 ug-image-viewer-efl osp-search-service arwxt
 ug-image-viewer-efl osp-security-service arwxt
+ug-image-viewer-efl osp::privilege-description-db arwxt
 ug-image-viewer-efl pims-ipc arwxt
 ug-image-viewer-efl pkgmgr arwxt
 ug-image-viewer-efl pkgmgr-client arwxt
@@ -27612,6 +28089,7 @@ ug_bluetooth mobileprint arwxt
 ug_bluetooth msg-service arwxt
 ug_bluetooth msg-service::db arwxt
 ug_bluetooth net-config arwxt
+ug_bluetooth net.wifi-qs arwxt
 ug_bluetooth nfc-manager arwxt
 ug_bluetooth notification arwxt
 ug_bluetooth notification::db arwxt
@@ -27666,6 +28144,7 @@ ug_bluetooth osp-installer arwxt
 ug_bluetooth osp-livebox-service arwxt
 ug_bluetooth osp-search-service arwxt
 ug_bluetooth osp-security-service arwxt
+ug_bluetooth osp::privilege-description-db arwxt
 ug_bluetooth pims-ipc arwxt
 ug_bluetooth pkgmgr arwxt
 ug_bluetooth pkgmgr-client arwxt
@@ -27813,6 +28292,7 @@ usb-printer-detector mobileprint arwxt
 usb-printer-detector msg-service arwxt
 usb-printer-detector msg-service::db arwxt
 usb-printer-detector net-config arwxt
+usb-printer-detector net.wifi-qs arwxt
 usb-printer-detector nfc-manager arwxt
 usb-printer-detector notification arwxt
 usb-printer-detector notification::db arwxt
@@ -27867,6 +28347,7 @@ usb-printer-detector osp-installer arwxt
 usb-printer-detector osp-livebox-service arwxt
 usb-printer-detector osp-search-service arwxt
 usb-printer-detector osp-security-service arwxt
+usb-printer-detector osp::privilege-description-db arwxt
 usb-printer-detector pims-ipc arwxt
 usb-printer-detector pkgmgr arwxt
 usb-printer-detector pkgmgr-client arwxt
@@ -28014,6 +28495,7 @@ usb-server mobileprint arwxt
 usb-server msg-service arwxt
 usb-server msg-service::db arwxt
 usb-server net-config arwxt
+usb-server net.wifi-qs arwxt
 usb-server nfc-manager arwxt
 usb-server notification arwxt
 usb-server notification::db arwxt
@@ -28068,6 +28550,7 @@ usb-server osp-installer arwxt
 usb-server osp-livebox-service arwxt
 usb-server osp-search-service arwxt
 usb-server osp-security-service arwxt
+usb-server osp::privilege-description-db arwxt
 usb-server pims-ipc arwxt
 usb-server pkgmgr arwxt
 usb-server pkgmgr-client arwxt
@@ -28215,6 +28698,7 @@ usb-syspopup mobileprint arwxt
 usb-syspopup msg-service arwxt
 usb-syspopup msg-service::db arwxt
 usb-syspopup net-config arwxt
+usb-syspopup net.wifi-qs arwxt
 usb-syspopup nfc-manager arwxt
 usb-syspopup notification arwxt
 usb-syspopup notification::db arwxt
@@ -28269,6 +28753,7 @@ usb-syspopup osp-installer arwxt
 usb-syspopup osp-livebox-service arwxt
 usb-syspopup osp-search-service arwxt
 usb-syspopup osp-security-service arwxt
+usb-syspopup osp::privilege-description-db arwxt
 usb-syspopup pims-ipc arwxt
 usb-syspopup pkgmgr arwxt
 usb-syspopup pkgmgr-client arwxt
@@ -28416,6 +28901,7 @@ webkit2-efl mobileprint arwxt
 webkit2-efl msg-service arwxt
 webkit2-efl msg-service::db arwxt
 webkit2-efl net-config arwxt
+webkit2-efl net.wifi-qs arwxt
 webkit2-efl nfc-manager arwxt
 webkit2-efl notification arwxt
 webkit2-efl notification::db arwxt
@@ -28470,6 +28956,7 @@ webkit2-efl osp-installer arwxt
 webkit2-efl osp-livebox-service arwxt
 webkit2-efl osp-search-service arwxt
 webkit2-efl osp-security-service arwxt
+webkit2-efl osp::privilege-description-db arwxt
 webkit2-efl pims-ipc arwxt
 webkit2-efl pkgmgr arwxt
 webkit2-efl pkgmgr-client arwxt
@@ -28617,6 +29104,7 @@ wifi_direct_manager mobileprint arwxt
 wifi_direct_manager msg-service arwxt
 wifi_direct_manager msg-service::db arwxt
 wifi_direct_manager net-config arwxt
+wifi_direct_manager net.wifi-qs arwxt
 wifi_direct_manager nfc-manager arwxt
 wifi_direct_manager notification arwxt
 wifi_direct_manager notification::db arwxt
@@ -28671,6 +29159,7 @@ wifi_direct_manager osp-installer arwxt
 wifi_direct_manager osp-livebox-service arwxt
 wifi_direct_manager osp-search-service arwxt
 wifi_direct_manager osp-security-service arwxt
+wifi_direct_manager osp::privilege-description-db arwxt
 wifi_direct_manager pims-ipc arwxt
 wifi_direct_manager pkgmgr arwxt
 wifi_direct_manager pkgmgr-client arwxt
@@ -28818,6 +29307,7 @@ worldclock mobileprint arwxt
 worldclock msg-service arwxt
 worldclock msg-service::db arwxt
 worldclock net-config arwxt
+worldclock net.wifi-qs arwxt
 worldclock nfc-manager arwxt
 worldclock notification arwxt
 worldclock notification::db arwxt
@@ -28872,6 +29362,7 @@ worldclock osp-installer arwxt
 worldclock osp-livebox-service arwxt
 worldclock osp-search-service arwxt
 worldclock osp-security-service arwxt
+worldclock osp::privilege-description-db arwxt
 worldclock pims-ipc arwxt
 worldclock pkgmgr arwxt
 worldclock pkgmgr-client arwxt
@@ -29019,6 +29510,7 @@ wrt mobileprint arwxt
 wrt msg-service arwxt
 wrt msg-service::db arwxt
 wrt net-config arwxt
+wrt net.wifi-qs arwxt
 wrt nfc-manager arwxt
 wrt notification arwxt
 wrt notification::db arwxt
@@ -29073,6 +29565,7 @@ wrt osp-installer arwxt
 wrt osp-livebox-service arwxt
 wrt osp-search-service arwxt
 wrt osp-security-service arwxt
+wrt osp::privilege-description-db arwxt
 wrt pims-ipc arwxt
 wrt pkgmgr arwxt
 wrt pkgmgr-client arwxt
@@ -29220,6 +29713,7 @@ wrt-commons mobileprint arwxt
 wrt-commons msg-service arwxt
 wrt-commons msg-service::db arwxt
 wrt-commons net-config arwxt
+wrt-commons net.wifi-qs arwxt
 wrt-commons nfc-manager arwxt
 wrt-commons notification arwxt
 wrt-commons notification::db arwxt
@@ -29274,6 +29768,7 @@ wrt-commons osp-installer arwxt
 wrt-commons osp-livebox-service arwxt
 wrt-commons osp-search-service arwxt
 wrt-commons osp-security-service arwxt
+wrt-commons osp::privilege-description-db arwxt
 wrt-commons pims-ipc arwxt
 wrt-commons pkgmgr arwxt
 wrt-commons pkgmgr-client arwxt
@@ -29421,6 +29916,7 @@ wrt-installer mobileprint arwxt
 wrt-installer msg-service arwxt
 wrt-installer msg-service::db arwxt
 wrt-installer net-config arwxt
+wrt-installer net.wifi-qs arwxt
 wrt-installer nfc-manager arwxt
 wrt-installer notification arwxt
 wrt-installer notification::db arwxt
@@ -29475,6 +29971,7 @@ wrt-installer osp-installer arwxt
 wrt-installer osp-livebox-service arwxt
 wrt-installer osp-search-service arwxt
 wrt-installer osp-security-service arwxt
+wrt-installer osp::privilege-description-db arwxt
 wrt-installer pims-ipc arwxt
 wrt-installer pkgmgr arwxt
 wrt-installer pkgmgr-client arwxt
@@ -29622,6 +30119,7 @@ wrt-plugins-common mobileprint arwxt
 wrt-plugins-common msg-service arwxt
 wrt-plugins-common msg-service::db arwxt
 wrt-plugins-common net-config arwxt
+wrt-plugins-common net.wifi-qs arwxt
 wrt-plugins-common nfc-manager arwxt
 wrt-plugins-common notification arwxt
 wrt-plugins-common notification::db arwxt
@@ -29676,6 +30174,7 @@ wrt-plugins-common osp-installer arwxt
 wrt-plugins-common osp-livebox-service arwxt
 wrt-plugins-common osp-search-service arwxt
 wrt-plugins-common osp-security-service arwxt
+wrt-plugins-common osp::privilege-description-db arwxt
 wrt-plugins-common pims-ipc arwxt
 wrt-plugins-common pkgmgr arwxt
 wrt-plugins-common pkgmgr-client arwxt
@@ -29823,6 +30322,7 @@ xorg mobileprint arwxt
 xorg msg-service arwxt
 xorg msg-service::db arwxt
 xorg net-config arwxt
+xorg net.wifi-qs arwxt
 xorg nfc-manager arwxt
 xorg notification arwxt
 xorg notification::db arwxt
@@ -29877,6 +30377,7 @@ xorg osp-installer arwxt
 xorg osp-livebox-service arwxt
 xorg osp-search-service arwxt
 xorg osp-security-service arwxt
+xorg osp::privilege-description-db arwxt
 xorg pims-ipc arwxt
 xorg pkgmgr arwxt
 xorg pkgmgr-client arwxt
@@ -30024,6 +30525,7 @@ zeromq mobileprint arwxt
 zeromq msg-service arwxt
 zeromq msg-service::db arwxt
 zeromq net-config arwxt
+zeromq net.wifi-qs arwxt
 zeromq nfc-manager arwxt
 zeromq notification arwxt
 zeromq notification::db arwxt
@@ -30078,6 +30580,7 @@ zeromq osp-installer arwxt
 zeromq osp-livebox-service arwxt
 zeromq osp-search-service arwxt
 zeromq osp-security-service arwxt
+zeromq osp::privilege-description-db arwxt
 zeromq pims-ipc arwxt
 zeromq pkgmgr arwxt
 zeromq pkgmgr-client arwxt
