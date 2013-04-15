@@ -103,104 +103,107 @@ typedef struct {
 } new_user;
 
 typedef struct state_node_t {
-    char *key, *value;
+	char *key, *value;
 } state_node;
 
 static void *state_tree = NULL;
 
-int state_tree_cmp(const void *first, const void *second) {
-    return strcmp(((state_node*)first)->key,
-                  ((state_node*)second)->key);
+int state_tree_cmp(const void *first, const void *second)
+{
+	return strcmp(((state_node*)first)->key,
+			((state_node*)second)->key);
 }
 
-int state_tree_push(const char* key_param, const char* value_param) {
-    state_node *node = malloc(sizeof(state_node));
-    char *key = strdup(key_param);
-    char *value = strdup(value_param);
+int state_tree_push(const char* key_param, const char* value_param)
+{
+	state_node *node = malloc(sizeof(state_node));
+	char *key = strdup(key_param);
+	char *value = strdup(value_param);
 
-    if (!node || !key || !value) {
-        free(node);
-        free(key);
-        free(value);
-        return PC_ERR_MEM_OPERATION;
-    }
+	if (!node || !key || !value) {
+		free(node);
+		free(key);
+		free(value);
+		return PC_ERR_MEM_OPERATION;
+	}
 
-    node->key = key;
-    node->value = value;
+	node->key = key;
+	node->value = value;
 
-    if (NULL != tfind(node, &state_tree, state_tree_cmp)){
-        free(node);
-        free(key);
-        free(value);
-        return PC_ERR_INVALID_OPERATION;
-    }
+	if (NULL != tfind(node, &state_tree, state_tree_cmp)){
+		free(node);
+		free(key);
+		free(value);
+		return PC_ERR_INVALID_OPERATION;
+	}
 
-    tsearch(node, &state_tree, state_tree_cmp);
-    return PC_OPERATION_SUCCESS;
+	tsearch(node, &state_tree, state_tree_cmp);
+	return PC_OPERATION_SUCCESS;
 }
 
-char* state_tree_pop_new(char *key) {
-    state_node search, *node;
-    void *wtf;
-    char *value;
-    search.key = key;
-    search.value = NULL;
+char* state_tree_pop_new(char *key)
+{
+	state_node search, *node;
+	void *wtf;
+	char *value;
+	search.key = key;
+	search.value = NULL;
 
-    wtf = tfind(&search, &state_tree, state_tree_cmp);
-    if (!wtf)
-        return NULL;
+	wtf = tfind(&search, &state_tree, state_tree_cmp);
+	if (!wtf)
+		return NULL;
 
-    node = *(state_node**)wtf;
-    if (!node)
-       return NULL;
+	node = *(state_node**)wtf;
+	if (!node)
+		return NULL;
 
-    tdelete(node, &state_tree, state_tree_cmp);
+	tdelete(node, &state_tree, state_tree_cmp);
 
-    value = node->value;
-    free(node->key);
-    free(node);
-    return value;
+	value = node->value;
+	free(node->key);
+	free(node);
+	return value;
 }
 
 int state_save(const char *subject, const char *object, const char *perm)
 {
-    char *key = NULL;
-    if (-1 == asprintf(&key, "%s|%s", subject, object))
-        return PC_ERR_INVALID_OPERATION;
-    int ret = state_tree_push(key, perm);
-    free(key);
-    return ret;
+	char *key = NULL;
+	if (-1 == asprintf(&key, "%s|%s", subject, object))
+		return PC_ERR_INVALID_OPERATION;
+	int ret = state_tree_push(key, perm);
+	free(key);
+	return ret;
 }
 
 int state_restore(const char* subject, const char* object)
 {
-    char *key = NULL;
-    int ret = PC_OPERATION_SUCCESS;
-    struct smack_accesses *smack = NULL;
-    if (-1 == asprintf(&key, "%s|%s", subject, object))
-        return PC_ERR_INVALID_OPERATION;
-    char *perm = state_tree_pop_new(key);
-    free(key);
+	char *key = NULL;
+	int ret = PC_OPERATION_SUCCESS;
+	struct smack_accesses *smack = NULL;
+	if (-1 == asprintf(&key, "%s|%s", subject, object))
+		return PC_ERR_INVALID_OPERATION;
+	char *perm = state_tree_pop_new(key);
+	free(key);
 
-    if (!perm)
-        return PC_ERR_INVALID_OPERATION;
+	if (!perm)
+		return PC_ERR_INVALID_OPERATION;
 
-    if (smack_accesses_new(&smack)) {
-        ret = PC_ERR_MEM_OPERATION;
-        goto out;
-    }
+	if (smack_accesses_new(&smack)) {
+		ret = PC_ERR_MEM_OPERATION;
+		goto out;
+	}
 
-    if (smack_accesses_add(smack, subject, object, perm)) {
-        ret = PC_ERR_MEM_OPERATION;
-        goto out;
-    }
+	if (smack_accesses_add(smack, subject, object, perm)) {
+		ret = PC_ERR_MEM_OPERATION;
+		goto out;
+	}
 
-    if (smack_accesses_apply(smack))
-        ret = PC_ERR_NOT_PERMITTED;
+	if (smack_accesses_apply(smack))
+		ret = PC_ERR_NOT_PERMITTED;
 out:
-    free(perm);
-    smack_accesses_free(smack);
-    return ret;
+	free(perm);
+	smack_accesses_free(smack);
+	return ret;
 }
 
 static inline int have_smack(void)
@@ -1072,29 +1075,29 @@ API int app_label_dir(const char* label, const char* path)
 #ifdef SMACK_ENABLED
 static int smack_get_access_new(const char* subject, const char* object, char** label)
 {
-    char buff[ACC_LEN] = {'r', 'w', 'x', 'a', 't'};
-    char perm[2] = {'-'};
-    int i;
+	char buff[ACC_LEN] = {'r', 'w', 'x', 'a', 't'};
+	char perm[2] = {'-'};
+	int i;
 
-    if(!smack_label_is_valid(subject) || !smack_label_is_valid(object) || !label)
-        return PC_ERR_INVALID_PARAM;
+	if(!smack_label_is_valid(subject) || !smack_label_is_valid(object) || !label)
+		return PC_ERR_INVALID_PARAM;
 
-    for (i=0; i<ACC_LEN; ++i) {
-        perm[0] = buff[i];
-        int ret = smack_have_access(subject, object, perm);
-        if (-1 == ret)
-            return PC_ERR_INVALID_OPERATION;
-        if (0 == ret)
-            buff[i] = '-';
-    }
+	for (i=0; i<ACC_LEN; ++i) {
+		perm[0] = buff[i];
+		int ret = smack_have_access(subject, object, perm);
+		if (-1 == ret)
+			return PC_ERR_INVALID_OPERATION;
+		if (0 == ret)
+			buff[i] = '-';
+	}
 
-    *label = malloc(ACC_LEN+1);
-    if (NULL == *label)
-        return PC_ERR_MEM_OPERATION;
+	*label = malloc(ACC_LEN+1);
+	if (NULL == *label)
+		return PC_ERR_MEM_OPERATION;
 
-    memcpy(*label, buff, ACC_LEN);
-    (*label)[ACC_LEN] = 0;
-    return PC_OPERATION_SUCCESS;
+	memcpy(*label, buff, ACC_LEN);
+	(*label)[ACC_LEN] = 0;
+	return PC_OPERATION_SUCCESS;
 }
 #endif
 
@@ -1107,44 +1110,44 @@ static int smack_get_access_new(const char* subject, const char* object, char** 
  */
 API int app_give_access(const char* subject, const char* object, const char* permissions)
 {
-    C_LOGD("Enter function: %s", __func__);
-    int ret = PC_OPERATION_SUCCESS;
+	C_LOGD("Enter function: %s", __func__);
+	int ret = PC_OPERATION_SUCCESS;
 #ifdef SMACK_ENABLED
-    struct smack_accesses *smack = NULL;
-    static const char * const revoke = "-----";
-    char *current_permissions = NULL;
+	struct smack_accesses *smack = NULL;
+	static const char * const revoke = "-----";
+	char *current_permissions = NULL;
 
-    if (!have_smack())
-        return PC_OPERATION_SUCCESS;
+	if (!have_smack())
+		return PC_OPERATION_SUCCESS;
 
-    if (!smack_label_is_valid(subject) || !smack_label_is_valid(object))
-        return PC_ERR_INVALID_PARAM;
+	if (!smack_label_is_valid(subject) || !smack_label_is_valid(object))
+		return PC_ERR_INVALID_PARAM;
 
-    if (PC_OPERATION_SUCCESS != (ret = smack_get_access_new(subject, object, &current_permissions)))
-        return ret;
+	if (PC_OPERATION_SUCCESS != (ret = smack_get_access_new(subject, object, &current_permissions)))
+		return ret;
 
-    if (smack_accesses_new(&smack)) {
-        ret = PC_ERR_MEM_OPERATION;
-        goto out;
-    }
+	if (smack_accesses_new(&smack)) {
+		ret = PC_ERR_MEM_OPERATION;
+		goto out;
+	}
 
-    if (smack_accesses_add_modify(smack, subject, object, permissions, revoke)) {
-        ret = PC_ERR_MEM_OPERATION;
-        goto out;
-    }
+	if (smack_accesses_add_modify(smack, subject, object, permissions, revoke)) {
+		ret = PC_ERR_MEM_OPERATION;
+		goto out;
+	}
 
-    if (smack_accesses_apply(smack)) {
-        ret = PC_ERR_NOT_PERMITTED;
-        goto out;
-    }
+	if (smack_accesses_apply(smack)) {
+		ret = PC_ERR_NOT_PERMITTED;
+		goto out;
+	}
 
-    ret = state_save(subject, object, current_permissions);
+	ret = state_save(subject, object, current_permissions);
 
 out:
-    free(current_permissions);
-    smack_accesses_free(smack);
+	free(current_permissions);
+	smack_accesses_free(smack);
 #endif
-    return ret;
+	return ret;
 }
 
 /*
@@ -1155,17 +1158,17 @@ out:
  */
 API int app_revoke_access(const char* subject, const char* object)
 {
-    C_LOGD("Enter function: %s", __func__);
+	C_LOGD("Enter function: %s", __func__);
 #ifdef SMACK_ENABLED
-    if (!have_smack())
-        return PC_OPERATION_SUCCESS;
+	if (!have_smack())
+		return PC_OPERATION_SUCCESS;
 
-    if (!smack_label_is_valid(subject) || !smack_label_is_valid(object))
-        return PC_ERR_INVALID_PARAM;
+	if (!smack_label_is_valid(subject) || !smack_label_is_valid(object))
+		return PC_ERR_INVALID_PARAM;
 
-    return state_restore(subject, object);
+	return state_restore(subject, object);
 #else
-    return PC_OPERATION_SUCCESS;
+	return PC_OPERATION_SUCCESS;
 #endif
 }
 
@@ -1341,9 +1344,9 @@ out:
 
 API int app_uninstall(const char* app_id)
 {
-    // TODO: When real database will be used, then this function should remove app_id
-    //       from database.
-    //       It also should remove rules looks like: "anti_virus_label app_id rwx".
+	// TODO: When real database will be used, then this function should remove app_id
+	//       from database.
+	//       It also should remove rules looks like: "anti_virus_label app_id rwx".
 	C_LOGD("Enter function: %s", __func__);
 	char* smack_path = NULL;
 	int ret;
