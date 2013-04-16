@@ -82,6 +82,7 @@
 57r43275q7 obexd arwxt
 57r43275q7 obexd::client arwxt
 57r43275q7 oma-ds-agent arwxt
+57r43275q7 oma-ds-agent::cfg arwxt
 57r43275q7 org.tizen.app-selector arwxt
 57r43275q7 org.tizen.bluetooth-share-ui arwxt
 57r43275q7 org.tizen.browser arwxt
@@ -286,6 +287,7 @@ _ notification::db arwxt
 _ obexd arwxt
 _ obexd::client arwxt
 _ oma-ds-agent arwxt
+_ oma-ds-agent::cfg arwxt
 _ org.tizen.app-selector arwxt
 _ org.tizen.bluetooth-share-ui arwxt
 _ org.tizen.browser arwxt
@@ -490,6 +492,7 @@ ail notification::db arwxt
 ail obexd arwxt
 ail obexd::client arwxt
 ail oma-ds-agent arwxt
+ail oma-ds-agent::cfg arwxt
 ail org.tizen.app-selector arwxt
 ail org.tizen.bluetooth-share-ui arwxt
 ail org.tizen.browser arwxt
@@ -694,6 +697,7 @@ alarm-server notification::db arwxt
 alarm-server obexd arwxt
 alarm-server obexd::client arwxt
 alarm-server oma-ds-agent arwxt
+alarm-server oma-ds-agent::cfg arwxt
 alarm-server org.tizen.app-selector arwxt
 alarm-server org.tizen.bluetooth-share-ui arwxt
 alarm-server org.tizen.browser arwxt
@@ -898,6 +902,7 @@ aospd00043 notification::db arwxt
 aospd00043 obexd arwxt
 aospd00043 obexd::client arwxt
 aospd00043 oma-ds-agent arwxt
+aospd00043 oma-ds-agent::cfg arwxt
 aospd00043 org.tizen.app-selector arwxt
 aospd00043 org.tizen.bluetooth-share-ui arwxt
 aospd00043 org.tizen.browser arwxt
@@ -1102,6 +1107,7 @@ app-svc notification::db arwxt
 app-svc obexd arwxt
 app-svc obexd::client arwxt
 app-svc oma-ds-agent arwxt
+app-svc oma-ds-agent::cfg arwxt
 app-svc org.tizen.app-selector arwxt
 app-svc org.tizen.bluetooth-share-ui arwxt
 app-svc org.tizen.browser arwxt
@@ -1306,6 +1312,7 @@ app2sd notification::db arwxt
 app2sd obexd arwxt
 app2sd obexd::client arwxt
 app2sd oma-ds-agent arwxt
+app2sd oma-ds-agent::cfg arwxt
 app2sd org.tizen.app-selector arwxt
 app2sd org.tizen.bluetooth-share-ui arwxt
 app2sd org.tizen.browser arwxt
@@ -1510,6 +1517,7 @@ aul notification::db arwxt
 aul obexd arwxt
 aul obexd::client arwxt
 aul oma-ds-agent arwxt
+aul oma-ds-agent::cfg arwxt
 aul org.tizen.app-selector arwxt
 aul org.tizen.bluetooth-share-ui arwxt
 aul org.tizen.browser arwxt
@@ -1714,6 +1722,7 @@ bluetooth-tools notification::db arwxt
 bluetooth-tools obexd arwxt
 bluetooth-tools obexd::client arwxt
 bluetooth-tools oma-ds-agent arwxt
+bluetooth-tools oma-ds-agent::cfg arwxt
 bluetooth-tools org.tizen.app-selector arwxt
 bluetooth-tools org.tizen.bluetooth-share-ui arwxt
 bluetooth-tools org.tizen.browser arwxt
@@ -1918,6 +1927,7 @@ bluez notification::db arwxt
 bluez obexd arwxt
 bluez obexd::client arwxt
 bluez oma-ds-agent arwxt
+bluez oma-ds-agent::cfg arwxt
 bluez org.tizen.app-selector arwxt
 bluez org.tizen.bluetooth-share-ui arwxt
 bluez org.tizen.browser arwxt
@@ -2122,6 +2132,7 @@ browser-provider notification::db arwxt
 browser-provider obexd arwxt
 browser-provider obexd::client arwxt
 browser-provider oma-ds-agent arwxt
+browser-provider oma-ds-agent::cfg arwxt
 browser-provider org.tizen.app-selector arwxt
 browser-provider org.tizen.bluetooth-share-ui arwxt
 browser-provider org.tizen.browser arwxt
@@ -2326,6 +2337,7 @@ bt-service notification::db arwxt
 bt-service obexd arwxt
 bt-service obexd::client arwxt
 bt-service oma-ds-agent arwxt
+bt-service oma-ds-agent::cfg arwxt
 bt-service org.tizen.app-selector arwxt
 bt-service org.tizen.bluetooth-share-ui arwxt
 bt-service org.tizen.browser arwxt
@@ -2530,6 +2542,7 @@ bt_agent notification::db arwxt
 bt_agent obexd arwxt
 bt_agent obexd::client arwxt
 bt_agent oma-ds-agent arwxt
+bt_agent oma-ds-agent::cfg arwxt
 bt_agent org.tizen.app-selector arwxt
 bt_agent org.tizen.bluetooth-share-ui arwxt
 bt_agent org.tizen.browser arwxt
@@ -2734,6 +2747,7 @@ bt_agent::bt_hfp_agent notification::db arwxt
 bt_agent::bt_hfp_agent obexd arwxt
 bt_agent::bt_hfp_agent obexd::client arwxt
 bt_agent::bt_hfp_agent oma-ds-agent arwxt
+bt_agent::bt_hfp_agent oma-ds-agent::cfg arwxt
 bt_agent::bt_hfp_agent org.tizen.app-selector arwxt
 bt_agent::bt_hfp_agent org.tizen.bluetooth-share-ui arwxt
 bt_agent::bt_hfp_agent org.tizen.browser arwxt
@@ -2938,6 +2952,7 @@ bt_agent::bt_map_agent notification::db arwxt
 bt_agent::bt_map_agent obexd arwxt
 bt_agent::bt_map_agent obexd::client arwxt
 bt_agent::bt_map_agent oma-ds-agent arwxt
+bt_agent::bt_map_agent oma-ds-agent::cfg arwxt
 bt_agent::bt_map_agent org.tizen.app-selector arwxt
 bt_agent::bt_map_agent org.tizen.bluetooth-share-ui arwxt
 bt_agent::bt_map_agent org.tizen.browser arwxt
@@ -3142,6 +3157,7 @@ bt_agent::bt_pb_agent notification::db arwxt
 bt_agent::bt_pb_agent obexd arwxt
 bt_agent::bt_pb_agent obexd::client arwxt
 bt_agent::bt_pb_agent oma-ds-agent arwxt
+bt_agent::bt_pb_agent oma-ds-agent::cfg arwxt
 bt_agent::bt_pb_agent org.tizen.app-selector arwxt
 bt_agent::bt_pb_agent org.tizen.bluetooth-share-ui arwxt
 bt_agent::bt_pb_agent org.tizen.browser arwxt
@@ -3346,6 +3362,7 @@ bt_firmware notification::db arwxt
 bt_firmware obexd arwxt
 bt_firmware obexd::client arwxt
 bt_firmware oma-ds-agent arwxt
+bt_firmware oma-ds-agent::cfg arwxt
 bt_firmware org.tizen.app-selector arwxt
 bt_firmware org.tizen.bluetooth-share-ui arwxt
 bt_firmware org.tizen.browser arwxt
@@ -3550,6 +3567,7 @@ bt_share notification::db arwxt
 bt_share obexd arwxt
 bt_share obexd::client arwxt
 bt_share oma-ds-agent arwxt
+bt_share oma-ds-agent::cfg arwxt
 bt_share org.tizen.app-selector arwxt
 bt_share org.tizen.bluetooth-share-ui arwxt
 bt_share org.tizen.browser arwxt
@@ -3754,6 +3772,7 @@ calendar-service notification::db arwxt
 calendar-service obexd arwxt
 calendar-service obexd::client arwxt
 calendar-service oma-ds-agent arwxt
+calendar-service oma-ds-agent::cfg arwxt
 calendar-service org.tizen.app-selector arwxt
 calendar-service org.tizen.bluetooth-share-ui arwxt
 calendar-service org.tizen.browser arwxt
@@ -3958,6 +3977,7 @@ cbhm notification::db arwxt
 cbhm obexd arwxt
 cbhm obexd::client arwxt
 cbhm oma-ds-agent arwxt
+cbhm oma-ds-agent::cfg arwxt
 cbhm org.tizen.app-selector arwxt
 cbhm org.tizen.bluetooth-share-ui arwxt
 cbhm org.tizen.browser arwxt
@@ -4162,6 +4182,7 @@ connman notification::db arwxt
 connman obexd arwxt
 connman obexd::client arwxt
 connman oma-ds-agent arwxt
+connman oma-ds-agent::cfg arwxt
 connman org.tizen.app-selector arwxt
 connman org.tizen.bluetooth-share-ui arwxt
 connman org.tizen.browser arwxt
@@ -4366,6 +4387,7 @@ contacts-service notification::db arwxt
 contacts-service obexd arwxt
 contacts-service obexd::client arwxt
 contacts-service oma-ds-agent arwxt
+contacts-service oma-ds-agent::cfg arwxt
 contacts-service org.tizen.app-selector arwxt
 contacts-service org.tizen.bluetooth-share-ui arwxt
 contacts-service org.tizen.browser arwxt
@@ -4570,6 +4592,7 @@ cp7ipabg4k notification::db arwxt
 cp7ipabg4k obexd arwxt
 cp7ipabg4k obexd::client arwxt
 cp7ipabg4k oma-ds-agent arwxt
+cp7ipabg4k oma-ds-agent::cfg arwxt
 cp7ipabg4k org.tizen.app-selector arwxt
 cp7ipabg4k org.tizen.bluetooth-share-ui arwxt
 cp7ipabg4k org.tizen.browser arwxt
@@ -4774,6 +4797,7 @@ crash-worker notification::db arwxt
 crash-worker obexd arwxt
 crash-worker obexd::client arwxt
 crash-worker oma-ds-agent arwxt
+crash-worker oma-ds-agent::cfg arwxt
 crash-worker org.tizen.app-selector arwxt
 crash-worker org.tizen.bluetooth-share-ui arwxt
 crash-worker org.tizen.browser arwxt
@@ -4978,6 +5002,7 @@ cups notification::db arwxt
 cups obexd arwxt
 cups obexd::client arwxt
 cups oma-ds-agent arwxt
+cups oma-ds-agent::cfg arwxt
 cups org.tizen.app-selector arwxt
 cups org.tizen.bluetooth-share-ui arwxt
 cups org.tizen.browser arwxt
@@ -5182,6 +5207,7 @@ data-provider-master notification::db arwxt
 data-provider-master obexd arwxt
 data-provider-master obexd::client arwxt
 data-provider-master oma-ds-agent arwxt
+data-provider-master oma-ds-agent::cfg arwxt
 data-provider-master org.tizen.app-selector arwxt
 data-provider-master org.tizen.bluetooth-share-ui arwxt
 data-provider-master org.tizen.browser arwxt
@@ -5386,6 +5412,7 @@ dbus notification::db arwxt
 dbus obexd arwxt
 dbus obexd::client arwxt
 dbus oma-ds-agent arwxt
+dbus oma-ds-agent::cfg arwxt
 dbus org.tizen.app-selector arwxt
 dbus org.tizen.bluetooth-share-ui arwxt
 dbus org.tizen.browser arwxt
@@ -5590,6 +5617,7 @@ default-fonts-fc-sdk notification::db arwxt
 default-fonts-fc-sdk obexd arwxt
 default-fonts-fc-sdk obexd::client arwxt
 default-fonts-fc-sdk oma-ds-agent arwxt
+default-fonts-fc-sdk oma-ds-agent::cfg arwxt
 default-fonts-fc-sdk org.tizen.app-selector arwxt
 default-fonts-fc-sdk org.tizen.bluetooth-share-ui arwxt
 default-fonts-fc-sdk org.tizen.browser arwxt
@@ -5794,6 +5822,7 @@ dlogutil notification::db arwxt
 dlogutil obexd arwxt
 dlogutil obexd::client arwxt
 dlogutil oma-ds-agent arwxt
+dlogutil oma-ds-agent::cfg arwxt
 dlogutil org.tizen.app-selector arwxt
 dlogutil org.tizen.bluetooth-share-ui arwxt
 dlogutil org.tizen.browser arwxt
@@ -5998,6 +6027,7 @@ download-provider notification::db arwxt
 download-provider obexd arwxt
 download-provider obexd::client arwxt
 download-provider oma-ds-agent arwxt
+download-provider oma-ds-agent::cfg arwxt
 download-provider org.tizen.app-selector arwxt
 download-provider org.tizen.bluetooth-share-ui arwxt
 download-provider org.tizen.browser arwxt
@@ -6202,6 +6232,7 @@ e17 notification::db arwxt
 e17 obexd arwxt
 e17 obexd::client arwxt
 e17 oma-ds-agent arwxt
+e17 oma-ds-agent::cfg arwxt
 e17 org.tizen.app-selector arwxt
 e17 org.tizen.bluetooth-share-ui arwxt
 e17 org.tizen.browser arwxt
@@ -6406,6 +6437,7 @@ e17-data notification::db arwxt
 e17-data obexd arwxt
 e17-data obexd::client arwxt
 e17-data oma-ds-agent arwxt
+e17-data oma-ds-agent::cfg arwxt
 e17-data org.tizen.app-selector arwxt
 e17-data org.tizen.bluetooth-share-ui arwxt
 e17-data org.tizen.browser arwxt
@@ -6610,6 +6642,7 @@ efreet notification::db arwxt
 efreet obexd arwxt
 efreet obexd::client arwxt
 efreet oma-ds-agent arwxt
+efreet oma-ds-agent::cfg arwxt
 efreet org.tizen.app-selector arwxt
 efreet org.tizen.bluetooth-share-ui arwxt
 efreet org.tizen.browser arwxt
@@ -6814,6 +6847,7 @@ email-service notification::db arwxt
 email-service obexd arwxt
 email-service obexd::client arwxt
 email-service oma-ds-agent arwxt
+email-service oma-ds-agent::cfg arwxt
 email-service org.tizen.app-selector arwxt
 email-service org.tizen.bluetooth-share-ui arwxt
 email-service org.tizen.browser arwxt
@@ -7018,6 +7052,7 @@ gi2qxenosh notification::db arwxt
 gi2qxenosh obexd arwxt
 gi2qxenosh obexd::client arwxt
 gi2qxenosh oma-ds-agent arwxt
+gi2qxenosh oma-ds-agent::cfg arwxt
 gi2qxenosh org.tizen.app-selector arwxt
 gi2qxenosh org.tizen.bluetooth-share-ui arwxt
 gi2qxenosh org.tizen.browser arwxt
@@ -7222,6 +7257,7 @@ isf notification::db arwxt
 isf obexd arwxt
 isf obexd::client arwxt
 isf oma-ds-agent arwxt
+isf oma-ds-agent::cfg arwxt
 isf org.tizen.app-selector arwxt
 isf org.tizen.bluetooth-share-ui arwxt
 isf org.tizen.browser arwxt
@@ -7426,6 +7462,7 @@ libaccounts-svc notification::db arwxt
 libaccounts-svc obexd arwxt
 libaccounts-svc obexd::client arwxt
 libaccounts-svc oma-ds-agent arwxt
+libaccounts-svc oma-ds-agent::cfg arwxt
 libaccounts-svc org.tizen.app-selector arwxt
 libaccounts-svc org.tizen.bluetooth-share-ui arwxt
 libaccounts-svc org.tizen.browser arwxt
@@ -7630,6 +7667,7 @@ libslp-alarm notification::db arwxt
 libslp-alarm obexd arwxt
 libslp-alarm obexd::client arwxt
 libslp-alarm oma-ds-agent arwxt
+libslp-alarm oma-ds-agent::cfg arwxt
 libslp-alarm org.tizen.app-selector arwxt
 libslp-alarm org.tizen.bluetooth-share-ui arwxt
 libslp-alarm org.tizen.browser arwxt
@@ -7834,6 +7872,7 @@ libslp-memo notification::db arwxt
 libslp-memo obexd arwxt
 libslp-memo obexd::client arwxt
 libslp-memo oma-ds-agent arwxt
+libslp-memo oma-ds-agent::cfg arwxt
 libslp-memo org.tizen.app-selector arwxt
 libslp-memo org.tizen.bluetooth-share-ui arwxt
 libslp-memo org.tizen.browser arwxt
@@ -8038,6 +8077,7 @@ libug-phone notification::db arwxt
 libug-phone obexd arwxt
 libug-phone obexd::client arwxt
 libug-phone oma-ds-agent arwxt
+libug-phone oma-ds-agent::cfg arwxt
 libug-phone org.tizen.app-selector arwxt
 libug-phone org.tizen.bluetooth-share-ui arwxt
 libug-phone org.tizen.browser arwxt
@@ -8242,6 +8282,7 @@ livebox.web-provider notification::db arwxt
 livebox.web-provider obexd arwxt
 livebox.web-provider obexd::client arwxt
 livebox.web-provider oma-ds-agent arwxt
+livebox.web-provider oma-ds-agent::cfg arwxt
 livebox.web-provider org.tizen.app-selector arwxt
 livebox.web-provider org.tizen.bluetooth-share-ui arwxt
 livebox.web-provider org.tizen.browser arwxt
@@ -8446,6 +8487,7 @@ location_fw notification::db arwxt
 location_fw obexd arwxt
 location_fw obexd::client arwxt
 location_fw oma-ds-agent arwxt
+location_fw oma-ds-agent::cfg arwxt
 location_fw org.tizen.app-selector arwxt
 location_fw org.tizen.bluetooth-share-ui arwxt
 location_fw org.tizen.browser arwxt
@@ -8650,6 +8692,7 @@ location_fw::server notification::db arwxt
 location_fw::server obexd arwxt
 location_fw::server obexd::client arwxt
 location_fw::server oma-ds-agent arwxt
+location_fw::server oma-ds-agent::cfg arwxt
 location_fw::server org.tizen.app-selector arwxt
 location_fw::server org.tizen.bluetooth-share-ui arwxt
 location_fw::server org.tizen.browser arwxt
@@ -8854,6 +8897,7 @@ media-data notification::db arwxt
 media-data obexd arwxt
 media-data obexd::client arwxt
 media-data oma-ds-agent arwxt
+media-data oma-ds-agent::cfg arwxt
 media-data org.tizen.app-selector arwxt
 media-data org.tizen.bluetooth-share-ui arwxt
 media-data org.tizen.browser arwxt
@@ -9058,6 +9102,7 @@ media-server notification::db arwxt
 media-server obexd arwxt
 media-server obexd::client arwxt
 media-server oma-ds-agent arwxt
+media-server oma-ds-agent::cfg arwxt
 media-server org.tizen.app-selector arwxt
 media-server org.tizen.bluetooth-share-ui arwxt
 media-server org.tizen.browser arwxt
@@ -9262,6 +9307,7 @@ miracast-server notification::db arwxt
 miracast-server obexd arwxt
 miracast-server obexd::client arwxt
 miracast-server oma-ds-agent arwxt
+miracast-server oma-ds-agent::cfg arwxt
 miracast-server org.tizen.app-selector arwxt
 miracast-server org.tizen.bluetooth-share-ui arwxt
 miracast-server org.tizen.browser arwxt
@@ -9466,6 +9512,7 @@ mobileprint notification::db arwxt
 mobileprint obexd arwxt
 mobileprint obexd::client arwxt
 mobileprint oma-ds-agent arwxt
+mobileprint oma-ds-agent::cfg arwxt
 mobileprint org.tizen.app-selector arwxt
 mobileprint org.tizen.bluetooth-share-ui arwxt
 mobileprint org.tizen.browser arwxt
@@ -9670,6 +9717,7 @@ msg-service notification::db arwxt
 msg-service obexd arwxt
 msg-service obexd::client arwxt
 msg-service oma-ds-agent arwxt
+msg-service oma-ds-agent::cfg arwxt
 msg-service org.tizen.app-selector arwxt
 msg-service org.tizen.bluetooth-share-ui arwxt
 msg-service org.tizen.browser arwxt
@@ -9874,6 +9922,7 @@ net-config notification::db arwxt
 net-config obexd arwxt
 net-config obexd::client arwxt
 net-config oma-ds-agent arwxt
+net-config oma-ds-agent::cfg arwxt
 net-config org.tizen.app-selector arwxt
 net-config org.tizen.bluetooth-share-ui arwxt
 net-config org.tizen.browser arwxt
@@ -10078,6 +10127,7 @@ net.wifi-qs notification::db arwxt
 net.wifi-qs obexd arwxt
 net.wifi-qs obexd::client arwxt
 net.wifi-qs oma-ds-agent arwxt
+net.wifi-qs oma-ds-agent::cfg arwxt
 net.wifi-qs org.tizen.app-selector arwxt
 net.wifi-qs org.tizen.bluetooth-share-ui arwxt
 net.wifi-qs org.tizen.browser arwxt
@@ -10282,6 +10332,7 @@ nfc-manager notification::db arwxt
 nfc-manager obexd arwxt
 nfc-manager obexd::client arwxt
 nfc-manager oma-ds-agent arwxt
+nfc-manager oma-ds-agent::cfg arwxt
 nfc-manager org.tizen.app-selector arwxt
 nfc-manager org.tizen.bluetooth-share-ui arwxt
 nfc-manager org.tizen.browser arwxt
@@ -10486,6 +10537,7 @@ notification notification::db arwxt
 notification obexd arwxt
 notification obexd::client arwxt
 notification oma-ds-agent arwxt
+notification oma-ds-agent::cfg arwxt
 notification org.tizen.app-selector arwxt
 notification org.tizen.bluetooth-share-ui arwxt
 notification org.tizen.browser arwxt
@@ -10690,6 +10742,7 @@ obexd notification arwxt
 obexd notification::db arwxt
 obexd obexd::client arwxt
 obexd oma-ds-agent arwxt
+obexd oma-ds-agent::cfg arwxt
 obexd org.tizen.app-selector arwxt
 obexd org.tizen.bluetooth-share-ui arwxt
 obexd org.tizen.browser arwxt
@@ -10894,6 +10947,7 @@ obexd::client notification arwxt
 obexd::client notification::db arwxt
 obexd::client obexd arwxt
 obexd::client oma-ds-agent arwxt
+obexd::client oma-ds-agent::cfg arwxt
 obexd::client org.tizen.app-selector arwxt
 obexd::client org.tizen.bluetooth-share-ui arwxt
 obexd::client org.tizen.browser arwxt
@@ -11098,6 +11152,7 @@ oma-ds-agent notification arwxt
 oma-ds-agent notification::db arwxt
 oma-ds-agent obexd arwxt
 oma-ds-agent obexd::client arwxt
+oma-ds-agent oma-ds-agent::cfg arwxt
 oma-ds-agent org.tizen.app-selector arwxt
 oma-ds-agent org.tizen.bluetooth-share-ui arwxt
 oma-ds-agent org.tizen.browser arwxt
@@ -11303,6 +11358,7 @@ org.tizen.app-selector notification::db arwxt
 org.tizen.app-selector obexd arwxt
 org.tizen.app-selector obexd::client arwxt
 org.tizen.app-selector oma-ds-agent arwxt
+org.tizen.app-selector oma-ds-agent::cfg arwxt
 org.tizen.app-selector org.tizen.bluetooth-share-ui arwxt
 org.tizen.app-selector org.tizen.browser arwxt
 org.tizen.app-selector org.tizen.bt-syspopup arwxt
@@ -11507,6 +11563,7 @@ org.tizen.bluetooth-share-ui notification::db arwxt
 org.tizen.bluetooth-share-ui obexd arwxt
 org.tizen.bluetooth-share-ui obexd::client arwxt
 org.tizen.bluetooth-share-ui oma-ds-agent arwxt
+org.tizen.bluetooth-share-ui oma-ds-agent::cfg arwxt
 org.tizen.bluetooth-share-ui org.tizen.app-selector arwxt
 org.tizen.bluetooth-share-ui org.tizen.browser arwxt
 org.tizen.bluetooth-share-ui org.tizen.bt-syspopup arwxt
@@ -11711,6 +11768,7 @@ org.tizen.browser notification::db arwxt
 org.tizen.browser obexd arwxt
 org.tizen.browser obexd::client arwxt
 org.tizen.browser oma-ds-agent arwxt
+org.tizen.browser oma-ds-agent::cfg arwxt
 org.tizen.browser org.tizen.app-selector arwxt
 org.tizen.browser org.tizen.bluetooth-share-ui arwxt
 org.tizen.browser org.tizen.bt-syspopup arwxt
@@ -11915,6 +11973,7 @@ org.tizen.bt-syspopup notification::db arwxt
 org.tizen.bt-syspopup obexd arwxt
 org.tizen.bt-syspopup obexd::client arwxt
 org.tizen.bt-syspopup oma-ds-agent arwxt
+org.tizen.bt-syspopup oma-ds-agent::cfg arwxt
 org.tizen.bt-syspopup org.tizen.app-selector arwxt
 org.tizen.bt-syspopup org.tizen.bluetooth-share-ui arwxt
 org.tizen.bt-syspopup org.tizen.browser arwxt
@@ -12119,6 +12178,7 @@ org.tizen.calculator notification::db arwxt
 org.tizen.calculator obexd arwxt
 org.tizen.calculator obexd::client arwxt
 org.tizen.calculator oma-ds-agent arwxt
+org.tizen.calculator oma-ds-agent::cfg arwxt
 org.tizen.calculator org.tizen.app-selector arwxt
 org.tizen.calculator org.tizen.bluetooth-share-ui arwxt
 org.tizen.calculator org.tizen.browser arwxt
@@ -12323,6 +12383,7 @@ org.tizen.calendar notification::db arwxt
 org.tizen.calendar obexd arwxt
 org.tizen.calendar obexd::client arwxt
 org.tizen.calendar oma-ds-agent arwxt
+org.tizen.calendar oma-ds-agent::cfg arwxt
 org.tizen.calendar org.tizen.app-selector arwxt
 org.tizen.calendar org.tizen.bluetooth-share-ui arwxt
 org.tizen.calendar org.tizen.browser arwxt
@@ -12527,6 +12588,7 @@ org.tizen.call notification::db arwxt
 org.tizen.call obexd arwxt
 org.tizen.call obexd::client arwxt
 org.tizen.call oma-ds-agent arwxt
+org.tizen.call oma-ds-agent::cfg arwxt
 org.tizen.call org.tizen.app-selector arwxt
 org.tizen.call org.tizen.bluetooth-share-ui arwxt
 org.tizen.call org.tizen.browser arwxt
@@ -12731,6 +12793,7 @@ org.tizen.camera-app notification::db arwxt
 org.tizen.camera-app obexd arwxt
 org.tizen.camera-app obexd::client arwxt
 org.tizen.camera-app oma-ds-agent arwxt
+org.tizen.camera-app oma-ds-agent::cfg arwxt
 org.tizen.camera-app org.tizen.app-selector arwxt
 org.tizen.camera-app org.tizen.bluetooth-share-ui arwxt
 org.tizen.camera-app org.tizen.browser arwxt
@@ -12935,6 +12998,7 @@ org.tizen.ciss notification::db arwxt
 org.tizen.ciss obexd arwxt
 org.tizen.ciss obexd::client arwxt
 org.tizen.ciss oma-ds-agent arwxt
+org.tizen.ciss oma-ds-agent::cfg arwxt
 org.tizen.ciss org.tizen.app-selector arwxt
 org.tizen.ciss org.tizen.bluetooth-share-ui arwxt
 org.tizen.ciss org.tizen.browser arwxt
@@ -13139,6 +13203,7 @@ org.tizen.clock notification::db arwxt
 org.tizen.clock obexd arwxt
 org.tizen.clock obexd::client arwxt
 org.tizen.clock oma-ds-agent arwxt
+org.tizen.clock oma-ds-agent::cfg arwxt
 org.tizen.clock org.tizen.app-selector arwxt
 org.tizen.clock org.tizen.bluetooth-share-ui arwxt
 org.tizen.clock org.tizen.browser arwxt
@@ -13343,6 +13408,7 @@ org.tizen.contacts notification::db arwxt
 org.tizen.contacts obexd arwxt
 org.tizen.contacts obexd::client arwxt
 org.tizen.contacts oma-ds-agent arwxt
+org.tizen.contacts oma-ds-agent::cfg arwxt
 org.tizen.contacts org.tizen.app-selector arwxt
 org.tizen.contacts org.tizen.bluetooth-share-ui arwxt
 org.tizen.contacts org.tizen.browser arwxt
@@ -13547,6 +13613,7 @@ org.tizen.contacts-viewer notification::db arwxt
 org.tizen.contacts-viewer obexd arwxt
 org.tizen.contacts-viewer obexd::client arwxt
 org.tizen.contacts-viewer oma-ds-agent arwxt
+org.tizen.contacts-viewer oma-ds-agent::cfg arwxt
 org.tizen.contacts-viewer org.tizen.app-selector arwxt
 org.tizen.contacts-viewer org.tizen.bluetooth-share-ui arwxt
 org.tizen.contacts-viewer org.tizen.browser arwxt
@@ -13751,6 +13818,7 @@ org.tizen.crash-popup notification::db arwxt
 org.tizen.crash-popup obexd arwxt
 org.tizen.crash-popup obexd::client arwxt
 org.tizen.crash-popup oma-ds-agent arwxt
+org.tizen.crash-popup oma-ds-agent::cfg arwxt
 org.tizen.crash-popup org.tizen.app-selector arwxt
 org.tizen.crash-popup org.tizen.bluetooth-share-ui arwxt
 org.tizen.crash-popup org.tizen.browser arwxt
@@ -13955,6 +14023,7 @@ org.tizen.data-provider-master notification::db arwxt
 org.tizen.data-provider-master obexd arwxt
 org.tizen.data-provider-master obexd::client arwxt
 org.tizen.data-provider-master oma-ds-agent arwxt
+org.tizen.data-provider-master oma-ds-agent::cfg arwxt
 org.tizen.data-provider-master org.tizen.app-selector arwxt
 org.tizen.data-provider-master org.tizen.bluetooth-share-ui arwxt
 org.tizen.data-provider-master org.tizen.browser arwxt
@@ -14159,6 +14228,7 @@ org.tizen.data-provider-slave notification::db arwxt
 org.tizen.data-provider-slave obexd arwxt
 org.tizen.data-provider-slave obexd::client arwxt
 org.tizen.data-provider-slave oma-ds-agent arwxt
+org.tizen.data-provider-slave oma-ds-agent::cfg arwxt
 org.tizen.data-provider-slave org.tizen.app-selector arwxt
 org.tizen.data-provider-slave org.tizen.bluetooth-share-ui arwxt
 org.tizen.data-provider-slave org.tizen.browser arwxt
@@ -14363,6 +14433,7 @@ org.tizen.data-provider-webapp-slave notification::db arwxt
 org.tizen.data-provider-webapp-slave obexd arwxt
 org.tizen.data-provider-webapp-slave obexd::client arwxt
 org.tizen.data-provider-webapp-slave oma-ds-agent arwxt
+org.tizen.data-provider-webapp-slave oma-ds-agent::cfg arwxt
 org.tizen.data-provider-webapp-slave org.tizen.app-selector arwxt
 org.tizen.data-provider-webapp-slave org.tizen.bluetooth-share-ui arwxt
 org.tizen.data-provider-webapp-slave org.tizen.browser arwxt
@@ -14567,6 +14638,7 @@ org.tizen.download-manager notification::db arwxt
 org.tizen.download-manager obexd arwxt
 org.tizen.download-manager obexd::client arwxt
 org.tizen.download-manager oma-ds-agent arwxt
+org.tizen.download-manager oma-ds-agent::cfg arwxt
 org.tizen.download-manager org.tizen.app-selector arwxt
 org.tizen.download-manager org.tizen.bluetooth-share-ui arwxt
 org.tizen.download-manager org.tizen.browser arwxt
@@ -14771,6 +14843,7 @@ org.tizen.draglock notification::db arwxt
 org.tizen.draglock obexd arwxt
 org.tizen.draglock obexd::client arwxt
 org.tizen.draglock oma-ds-agent arwxt
+org.tizen.draglock oma-ds-agent::cfg arwxt
 org.tizen.draglock org.tizen.app-selector arwxt
 org.tizen.draglock org.tizen.bluetooth-share-ui arwxt
 org.tizen.draglock org.tizen.browser arwxt
@@ -14975,6 +15048,7 @@ org.tizen.email notification::db arwxt
 org.tizen.email obexd arwxt
 org.tizen.email obexd::client arwxt
 org.tizen.email oma-ds-agent arwxt
+org.tizen.email oma-ds-agent::cfg arwxt
 org.tizen.email org.tizen.app-selector arwxt
 org.tizen.email org.tizen.bluetooth-share-ui arwxt
 org.tizen.email org.tizen.browser arwxt
@@ -15179,6 +15253,7 @@ org.tizen.gallery notification::db arwxt
 org.tizen.gallery obexd arwxt
 org.tizen.gallery obexd::client arwxt
 org.tizen.gallery oma-ds-agent arwxt
+org.tizen.gallery oma-ds-agent::cfg arwxt
 org.tizen.gallery org.tizen.app-selector arwxt
 org.tizen.gallery org.tizen.bluetooth-share-ui arwxt
 org.tizen.gallery org.tizen.browser arwxt
@@ -15383,6 +15458,7 @@ org.tizen.image-viewer notification::db arwxt
 org.tizen.image-viewer obexd arwxt
 org.tizen.image-viewer obexd::client arwxt
 org.tizen.image-viewer oma-ds-agent arwxt
+org.tizen.image-viewer oma-ds-agent::cfg arwxt
 org.tizen.image-viewer org.tizen.app-selector arwxt
 org.tizen.image-viewer org.tizen.bluetooth-share-ui arwxt
 org.tizen.image-viewer org.tizen.browser arwxt
@@ -15587,6 +15663,7 @@ org.tizen.indicator notification::db arwxt
 org.tizen.indicator obexd arwxt
 org.tizen.indicator obexd::client arwxt
 org.tizen.indicator oma-ds-agent arwxt
+org.tizen.indicator oma-ds-agent::cfg arwxt
 org.tizen.indicator org.tizen.app-selector arwxt
 org.tizen.indicator org.tizen.bluetooth-share-ui arwxt
 org.tizen.indicator org.tizen.browser arwxt
@@ -15791,6 +15868,7 @@ org.tizen.lockscreen notification::db arwxt
 org.tizen.lockscreen obexd arwxt
 org.tizen.lockscreen obexd::client arwxt
 org.tizen.lockscreen oma-ds-agent arwxt
+org.tizen.lockscreen oma-ds-agent::cfg arwxt
 org.tizen.lockscreen org.tizen.app-selector arwxt
 org.tizen.lockscreen org.tizen.bluetooth-share-ui arwxt
 org.tizen.lockscreen org.tizen.browser arwxt
@@ -15995,6 +16073,7 @@ org.tizen.memo notification::db arwxt
 org.tizen.memo obexd arwxt
 org.tizen.memo obexd::client arwxt
 org.tizen.memo oma-ds-agent arwxt
+org.tizen.memo oma-ds-agent::cfg arwxt
 org.tizen.memo org.tizen.app-selector arwxt
 org.tizen.memo org.tizen.bluetooth-share-ui arwxt
 org.tizen.memo org.tizen.browser arwxt
@@ -16199,6 +16278,7 @@ org.tizen.menu-screen notification::db arwxt
 org.tizen.menu-screen obexd arwxt
 org.tizen.menu-screen obexd::client arwxt
 org.tizen.menu-screen oma-ds-agent arwxt
+org.tizen.menu-screen oma-ds-agent::cfg arwxt
 org.tizen.menu-screen org.tizen.app-selector arwxt
 org.tizen.menu-screen org.tizen.bluetooth-share-ui arwxt
 org.tizen.menu-screen org.tizen.browser arwxt
@@ -16403,6 +16483,7 @@ org.tizen.message notification::db arwxt
 org.tizen.message obexd arwxt
 org.tizen.message obexd::client arwxt
 org.tizen.message oma-ds-agent arwxt
+org.tizen.message oma-ds-agent::cfg arwxt
 org.tizen.message org.tizen.app-selector arwxt
 org.tizen.message org.tizen.bluetooth-share-ui arwxt
 org.tizen.message org.tizen.browser arwxt
@@ -16607,6 +16688,7 @@ org.tizen.music-player notification::db arwxt
 org.tizen.music-player obexd arwxt
 org.tizen.music-player obexd::client arwxt
 org.tizen.music-player oma-ds-agent arwxt
+org.tizen.music-player oma-ds-agent::cfg arwxt
 org.tizen.music-player org.tizen.app-selector arwxt
 org.tizen.music-player org.tizen.bluetooth-share-ui arwxt
 org.tizen.music-player org.tizen.browser arwxt
@@ -16811,6 +16893,7 @@ org.tizen.myfile notification::db arwxt
 org.tizen.myfile obexd arwxt
 org.tizen.myfile obexd::client arwxt
 org.tizen.myfile oma-ds-agent arwxt
+org.tizen.myfile oma-ds-agent::cfg arwxt
 org.tizen.myfile org.tizen.app-selector arwxt
 org.tizen.myfile org.tizen.bluetooth-share-ui arwxt
 org.tizen.myfile org.tizen.browser arwxt
@@ -17015,6 +17098,7 @@ org.tizen.net-popup notification::db arwxt
 org.tizen.net-popup obexd arwxt
 org.tizen.net-popup obexd::client arwxt
 org.tizen.net-popup oma-ds-agent arwxt
+org.tizen.net-popup oma-ds-agent::cfg arwxt
 org.tizen.net-popup org.tizen.app-selector arwxt
 org.tizen.net-popup org.tizen.bluetooth-share-ui arwxt
 org.tizen.net-popup org.tizen.browser arwxt
@@ -17219,6 +17303,7 @@ org.tizen.phone notification::db arwxt
 org.tizen.phone obexd arwxt
 org.tizen.phone obexd::client arwxt
 org.tizen.phone oma-ds-agent arwxt
+org.tizen.phone oma-ds-agent::cfg arwxt
 org.tizen.phone org.tizen.app-selector arwxt
 org.tizen.phone org.tizen.bluetooth-share-ui arwxt
 org.tizen.phone org.tizen.browser arwxt
@@ -17423,6 +17508,7 @@ org.tizen.pwlock notification::db arwxt
 org.tizen.pwlock obexd arwxt
 org.tizen.pwlock obexd::client arwxt
 org.tizen.pwlock oma-ds-agent arwxt
+org.tizen.pwlock oma-ds-agent::cfg arwxt
 org.tizen.pwlock org.tizen.app-selector arwxt
 org.tizen.pwlock org.tizen.bluetooth-share-ui arwxt
 org.tizen.pwlock org.tizen.browser arwxt
@@ -17627,6 +17713,7 @@ org.tizen.quickpanel notification::db arwxt
 org.tizen.quickpanel obexd arwxt
 org.tizen.quickpanel obexd::client arwxt
 org.tizen.quickpanel oma-ds-agent arwxt
+org.tizen.quickpanel oma-ds-agent::cfg arwxt
 org.tizen.quickpanel org.tizen.app-selector arwxt
 org.tizen.quickpanel org.tizen.bluetooth-share-ui arwxt
 org.tizen.quickpanel org.tizen.browser arwxt
@@ -17831,6 +17918,7 @@ org.tizen.sat-ui notification::db arwxt
 org.tizen.sat-ui obexd arwxt
 org.tizen.sat-ui obexd::client arwxt
 org.tizen.sat-ui oma-ds-agent arwxt
+org.tizen.sat-ui oma-ds-agent::cfg arwxt
 org.tizen.sat-ui org.tizen.app-selector arwxt
 org.tizen.sat-ui org.tizen.bluetooth-share-ui arwxt
 org.tizen.sat-ui org.tizen.browser arwxt
@@ -18035,6 +18123,7 @@ org.tizen.setting notification::db arwxt
 org.tizen.setting obexd arwxt
 org.tizen.setting obexd::client arwxt
 org.tizen.setting oma-ds-agent arwxt
+org.tizen.setting oma-ds-agent::cfg arwxt
 org.tizen.setting org.tizen.app-selector arwxt
 org.tizen.setting org.tizen.bluetooth-share-ui arwxt
 org.tizen.setting org.tizen.browser arwxt
@@ -18239,6 +18328,7 @@ org.tizen.smartsearch notification::db arwxt
 org.tizen.smartsearch obexd arwxt
 org.tizen.smartsearch obexd::client arwxt
 org.tizen.smartsearch oma-ds-agent arwxt
+org.tizen.smartsearch oma-ds-agent::cfg arwxt
 org.tizen.smartsearch org.tizen.app-selector arwxt
 org.tizen.smartsearch org.tizen.bluetooth-share-ui arwxt
 org.tizen.smartsearch org.tizen.browser arwxt
@@ -18443,6 +18533,7 @@ org.tizen.taskmgr notification::db arwxt
 org.tizen.taskmgr obexd arwxt
 org.tizen.taskmgr obexd::client arwxt
 org.tizen.taskmgr oma-ds-agent arwxt
+org.tizen.taskmgr oma-ds-agent::cfg arwxt
 org.tizen.taskmgr org.tizen.app-selector arwxt
 org.tizen.taskmgr org.tizen.bluetooth-share-ui arwxt
 org.tizen.taskmgr org.tizen.browser arwxt
@@ -18647,6 +18738,7 @@ org.tizen.tickernoti-syspopup notification::db arwxt
 org.tizen.tickernoti-syspopup obexd arwxt
 org.tizen.tickernoti-syspopup obexd::client arwxt
 org.tizen.tickernoti-syspopup oma-ds-agent arwxt
+org.tizen.tickernoti-syspopup oma-ds-agent::cfg arwxt
 org.tizen.tickernoti-syspopup org.tizen.app-selector arwxt
 org.tizen.tickernoti-syspopup org.tizen.bluetooth-share-ui arwxt
 org.tizen.tickernoti-syspopup org.tizen.browser arwxt
@@ -18851,6 +18943,7 @@ org.tizen.usb-syspopup notification::db arwxt
 org.tizen.usb-syspopup obexd arwxt
 org.tizen.usb-syspopup obexd::client arwxt
 org.tizen.usb-syspopup oma-ds-agent arwxt
+org.tizen.usb-syspopup oma-ds-agent::cfg arwxt
 org.tizen.usb-syspopup org.tizen.app-selector arwxt
 org.tizen.usb-syspopup org.tizen.bluetooth-share-ui arwxt
 org.tizen.usb-syspopup org.tizen.browser arwxt
@@ -19055,6 +19148,7 @@ org.tizen.video-player notification::db arwxt
 org.tizen.video-player obexd arwxt
 org.tizen.video-player obexd::client arwxt
 org.tizen.video-player oma-ds-agent arwxt
+org.tizen.video-player oma-ds-agent::cfg arwxt
 org.tizen.video-player org.tizen.app-selector arwxt
 org.tizen.video-player org.tizen.bluetooth-share-ui arwxt
 org.tizen.video-player org.tizen.browser arwxt
@@ -19259,6 +19353,7 @@ org.tizen.volume notification::db arwxt
 org.tizen.volume obexd arwxt
 org.tizen.volume obexd::client arwxt
 org.tizen.volume oma-ds-agent arwxt
+org.tizen.volume oma-ds-agent::cfg arwxt
 org.tizen.volume org.tizen.app-selector arwxt
 org.tizen.volume org.tizen.bluetooth-share-ui arwxt
 org.tizen.volume org.tizen.browser arwxt
@@ -19463,6 +19558,7 @@ osp notification::db arwxt
 osp obexd arwxt
 osp obexd::client arwxt
 osp oma-ds-agent arwxt
+osp oma-ds-agent::cfg arwxt
 osp org.tizen.app-selector arwxt
 osp org.tizen.bluetooth-share-ui arwxt
 osp org.tizen.browser arwxt
@@ -19667,6 +19763,7 @@ osp-app-service notification::db arwxt
 osp-app-service obexd arwxt
 osp-app-service obexd::client arwxt
 osp-app-service oma-ds-agent arwxt
+osp-app-service oma-ds-agent::cfg arwxt
 osp-app-service org.tizen.app-selector arwxt
 osp-app-service org.tizen.bluetooth-share-ui arwxt
 osp-app-service org.tizen.browser arwxt
@@ -19871,6 +19968,7 @@ osp-channel-service notification::db arwxt
 osp-channel-service obexd arwxt
 osp-channel-service obexd::client arwxt
 osp-channel-service oma-ds-agent arwxt
+osp-channel-service oma-ds-agent::cfg arwxt
 osp-channel-service org.tizen.app-selector arwxt
 osp-channel-service org.tizen.bluetooth-share-ui arwxt
 osp-channel-service org.tizen.browser arwxt
@@ -20075,6 +20173,7 @@ osp-connectivity-service notification::db arwxt
 osp-connectivity-service obexd arwxt
 osp-connectivity-service obexd::client arwxt
 osp-connectivity-service oma-ds-agent arwxt
+osp-connectivity-service oma-ds-agent::cfg arwxt
 osp-connectivity-service org.tizen.app-selector arwxt
 osp-connectivity-service org.tizen.bluetooth-share-ui arwxt
 osp-connectivity-service org.tizen.browser arwxt
@@ -20279,6 +20378,7 @@ osp-installer notification::db arwxt
 osp-installer obexd arwxt
 osp-installer obexd::client arwxt
 osp-installer oma-ds-agent arwxt
+osp-installer oma-ds-agent::cfg arwxt
 osp-installer org.tizen.app-selector arwxt
 osp-installer org.tizen.bluetooth-share-ui arwxt
 osp-installer org.tizen.browser arwxt
@@ -20483,6 +20583,7 @@ osp-livebox-service notification::db arwxt
 osp-livebox-service obexd arwxt
 osp-livebox-service obexd::client arwxt
 osp-livebox-service oma-ds-agent arwxt
+osp-livebox-service oma-ds-agent::cfg arwxt
 osp-livebox-service org.tizen.app-selector arwxt
 osp-livebox-service org.tizen.bluetooth-share-ui arwxt
 osp-livebox-service org.tizen.browser arwxt
@@ -20687,6 +20788,7 @@ osp-search-service notification::db arwxt
 osp-search-service obexd arwxt
 osp-search-service obexd::client arwxt
 osp-search-service oma-ds-agent arwxt
+osp-search-service oma-ds-agent::cfg arwxt
 osp-search-service org.tizen.app-selector arwxt
 osp-search-service org.tizen.bluetooth-share-ui arwxt
 osp-search-service org.tizen.browser arwxt
@@ -20891,6 +20993,7 @@ osp-security-service notification::db arwxt
 osp-security-service obexd arwxt
 osp-security-service obexd::client arwxt
 osp-security-service oma-ds-agent arwxt
+osp-security-service oma-ds-agent::cfg arwxt
 osp-security-service org.tizen.app-selector arwxt
 osp-security-service org.tizen.bluetooth-share-ui arwxt
 osp-security-service org.tizen.browser arwxt
@@ -21095,6 +21198,7 @@ pims-ipc notification::db arwxt
 pims-ipc obexd arwxt
 pims-ipc obexd::client arwxt
 pims-ipc oma-ds-agent arwxt
+pims-ipc oma-ds-agent::cfg arwxt
 pims-ipc org.tizen.app-selector arwxt
 pims-ipc org.tizen.bluetooth-share-ui arwxt
 pims-ipc org.tizen.browser arwxt
@@ -21299,6 +21403,7 @@ pkgmgr notification::db arwxt
 pkgmgr obexd arwxt
 pkgmgr obexd::client arwxt
 pkgmgr oma-ds-agent arwxt
+pkgmgr oma-ds-agent::cfg arwxt
 pkgmgr org.tizen.app-selector arwxt
 pkgmgr org.tizen.bluetooth-share-ui arwxt
 pkgmgr org.tizen.browser arwxt
@@ -21503,6 +21608,7 @@ pkgmgr-client notification::db arwxt
 pkgmgr-client obexd arwxt
 pkgmgr-client obexd::client arwxt
 pkgmgr-client oma-ds-agent arwxt
+pkgmgr-client oma-ds-agent::cfg arwxt
 pkgmgr-client org.tizen.app-selector arwxt
 pkgmgr-client org.tizen.bluetooth-share-ui arwxt
 pkgmgr-client org.tizen.browser arwxt
@@ -21707,6 +21813,7 @@ pkgmgr-info notification::db arwxt
 pkgmgr-info obexd arwxt
 pkgmgr-info obexd::client arwxt
 pkgmgr-info oma-ds-agent arwxt
+pkgmgr-info oma-ds-agent::cfg arwxt
 pkgmgr-info org.tizen.app-selector arwxt
 pkgmgr-info org.tizen.bluetooth-share-ui arwxt
 pkgmgr-info org.tizen.browser arwxt
@@ -21911,6 +22018,7 @@ pkgmgr-installer notification::db arwxt
 pkgmgr-installer obexd arwxt
 pkgmgr-installer obexd::client arwxt
 pkgmgr-installer oma-ds-agent arwxt
+pkgmgr-installer oma-ds-agent::cfg arwxt
 pkgmgr-installer org.tizen.app-selector arwxt
 pkgmgr-installer org.tizen.bluetooth-share-ui arwxt
 pkgmgr-installer org.tizen.browser arwxt
@@ -22115,6 +22223,7 @@ pkgmgr-parser notification::db arwxt
 pkgmgr-parser obexd arwxt
 pkgmgr-parser obexd::client arwxt
 pkgmgr-parser oma-ds-agent arwxt
+pkgmgr-parser oma-ds-agent::cfg arwxt
 pkgmgr-parser org.tizen.app-selector arwxt
 pkgmgr-parser org.tizen.bluetooth-share-ui arwxt
 pkgmgr-parser org.tizen.browser arwxt
@@ -22319,6 +22428,7 @@ pkgmgr-server notification::db arwxt
 pkgmgr-server obexd arwxt
 pkgmgr-server obexd::client arwxt
 pkgmgr-server oma-ds-agent arwxt
+pkgmgr-server oma-ds-agent::cfg arwxt
 pkgmgr-server org.tizen.app-selector arwxt
 pkgmgr-server org.tizen.bluetooth-share-ui arwxt
 pkgmgr-server org.tizen.browser arwxt
@@ -22523,6 +22633,7 @@ power_manager notification::db arwxt
 power_manager obexd arwxt
 power_manager obexd::client arwxt
 power_manager oma-ds-agent arwxt
+power_manager oma-ds-agent::cfg arwxt
 power_manager org.tizen.app-selector arwxt
 power_manager org.tizen.bluetooth-share-ui arwxt
 power_manager org.tizen.browser arwxt
@@ -22727,6 +22838,7 @@ privacy-manager notification::db arwxt
 privacy-manager obexd arwxt
 privacy-manager obexd::client arwxt
 privacy-manager oma-ds-agent arwxt
+privacy-manager oma-ds-agent::cfg arwxt
 privacy-manager org.tizen.app-selector arwxt
 privacy-manager org.tizen.bluetooth-share-ui arwxt
 privacy-manager org.tizen.browser arwxt
@@ -22931,6 +23043,7 @@ privacy-manager::daemon notification::db arwxt
 privacy-manager::daemon obexd arwxt
 privacy-manager::daemon obexd::client arwxt
 privacy-manager::daemon oma-ds-agent arwxt
+privacy-manager::daemon oma-ds-agent::cfg arwxt
 privacy-manager::daemon org.tizen.app-selector arwxt
 privacy-manager::daemon org.tizen.bluetooth-share-ui arwxt
 privacy-manager::daemon org.tizen.browser arwxt
@@ -23135,6 +23248,7 @@ privilege::power notification::db arwxt
 privilege::power obexd arwxt
 privilege::power obexd::client arwxt
 privilege::power oma-ds-agent arwxt
+privilege::power oma-ds-agent::cfg arwxt
 privilege::power org.tizen.app-selector arwxt
 privilege::power org.tizen.bluetooth-share-ui arwxt
 privilege::power org.tizen.browser arwxt
@@ -23339,6 +23453,7 @@ pulseaudio notification::db arwxt
 pulseaudio obexd arwxt
 pulseaudio obexd::client arwxt
 pulseaudio oma-ds-agent arwxt
+pulseaudio oma-ds-agent::cfg arwxt
 pulseaudio org.tizen.app-selector arwxt
 pulseaudio org.tizen.bluetooth-share-ui arwxt
 pulseaudio org.tizen.browser arwxt
@@ -23543,6 +23658,7 @@ push-service notification::db arwxt
 push-service obexd arwxt
 push-service obexd::client arwxt
 push-service oma-ds-agent arwxt
+push-service oma-ds-agent::cfg arwxt
 push-service org.tizen.app-selector arwxt
 push-service org.tizen.bluetooth-share-ui arwxt
 push-service org.tizen.browser arwxt
@@ -23747,6 +23863,7 @@ q7097a278m notification::db arwxt
 q7097a278m obexd arwxt
 q7097a278m obexd::client arwxt
 q7097a278m oma-ds-agent arwxt
+q7097a278m oma-ds-agent::cfg arwxt
 q7097a278m org.tizen.app-selector arwxt
 q7097a278m org.tizen.bluetooth-share-ui arwxt
 q7097a278m org.tizen.browser arwxt
@@ -23951,6 +24068,7 @@ rua notification::db arwxt
 rua obexd arwxt
 rua obexd::client arwxt
 rua oma-ds-agent arwxt
+rua oma-ds-agent::cfg arwxt
 rua org.tizen.app-selector arwxt
 rua org.tizen.bluetooth-share-ui arwxt
 rua org.tizen.browser arwxt
@@ -24155,6 +24273,7 @@ secure-storage notification::db arwxt
 secure-storage obexd arwxt
 secure-storage obexd::client arwxt
 secure-storage oma-ds-agent arwxt
+secure-storage oma-ds-agent::cfg arwxt
 secure-storage org.tizen.app-selector arwxt
 secure-storage org.tizen.bluetooth-share-ui arwxt
 secure-storage org.tizen.browser arwxt
@@ -24359,6 +24478,7 @@ security-server notification::db arwxt
 security-server obexd arwxt
 security-server obexd::client arwxt
 security-server oma-ds-agent arwxt
+security-server oma-ds-agent::cfg arwxt
 security-server org.tizen.app-selector arwxt
 security-server org.tizen.bluetooth-share-ui arwxt
 security-server org.tizen.browser arwxt
@@ -24563,6 +24683,7 @@ sensor-framework notification::db arwxt
 sensor-framework obexd arwxt
 sensor-framework obexd::client arwxt
 sensor-framework oma-ds-agent arwxt
+sensor-framework oma-ds-agent::cfg arwxt
 sensor-framework org.tizen.app-selector arwxt
 sensor-framework org.tizen.bluetooth-share-ui arwxt
 sensor-framework org.tizen.browser arwxt
@@ -24767,6 +24888,7 @@ sjjevolsjk notification::db arwxt
 sjjevolsjk obexd arwxt
 sjjevolsjk obexd::client arwxt
 sjjevolsjk oma-ds-agent arwxt
+sjjevolsjk oma-ds-agent::cfg arwxt
 sjjevolsjk org.tizen.app-selector arwxt
 sjjevolsjk org.tizen.bluetooth-share-ui arwxt
 sjjevolsjk org.tizen.browser arwxt
@@ -24971,6 +25093,7 @@ smartcard-service notification::db arwxt
 smartcard-service obexd arwxt
 smartcard-service obexd::client arwxt
 smartcard-service oma-ds-agent arwxt
+smartcard-service oma-ds-agent::cfg arwxt
 smartcard-service org.tizen.app-selector arwxt
 smartcard-service org.tizen.bluetooth-share-ui arwxt
 smartcard-service org.tizen.browser arwxt
@@ -25175,6 +25298,7 @@ sound_server notification::db arwxt
 sound_server obexd arwxt
 sound_server obexd::client arwxt
 sound_server oma-ds-agent arwxt
+sound_server oma-ds-agent::cfg arwxt
 sound_server org.tizen.app-selector arwxt
 sound_server org.tizen.bluetooth-share-ui arwxt
 sound_server org.tizen.browser arwxt
@@ -25379,6 +25503,7 @@ sqlfs notification::db arwxt
 sqlfs obexd arwxt
 sqlfs obexd::client arwxt
 sqlfs oma-ds-agent arwxt
+sqlfs oma-ds-agent::cfg arwxt
 sqlfs org.tizen.app-selector arwxt
 sqlfs org.tizen.bluetooth-share-ui arwxt
 sqlfs org.tizen.browser arwxt
@@ -25583,6 +25708,7 @@ starter notification::db arwxt
 starter obexd arwxt
 starter obexd::client arwxt
 starter oma-ds-agent arwxt
+starter oma-ds-agent::cfg arwxt
 starter org.tizen.app-selector arwxt
 starter org.tizen.bluetooth-share-ui arwxt
 starter org.tizen.browser arwxt
@@ -25787,6 +25913,7 @@ stt-server notification::db arwxt
 stt-server obexd arwxt
 stt-server obexd::client arwxt
 stt-server oma-ds-agent arwxt
+stt-server oma-ds-agent::cfg arwxt
 stt-server org.tizen.app-selector arwxt
 stt-server org.tizen.bluetooth-share-ui arwxt
 stt-server org.tizen.browser arwxt
@@ -25991,6 +26118,7 @@ svi-data notification::db arwxt
 svi-data obexd arwxt
 svi-data obexd::client arwxt
 svi-data oma-ds-agent arwxt
+svi-data oma-ds-agent::cfg arwxt
 svi-data org.tizen.app-selector arwxt
 svi-data org.tizen.bluetooth-share-ui arwxt
 svi-data org.tizen.browser arwxt
@@ -26195,6 +26323,7 @@ sys-assert notification::db arwxt
 sys-assert obexd arwxt
 sys-assert obexd::client arwxt
 sys-assert oma-ds-agent arwxt
+sys-assert oma-ds-agent::cfg arwxt
 sys-assert org.tizen.app-selector arwxt
 sys-assert org.tizen.bluetooth-share-ui arwxt
 sys-assert org.tizen.browser arwxt
@@ -26399,6 +26528,7 @@ sys-assert::core-launcher notification::db arwxt
 sys-assert::core-launcher obexd arwxt
 sys-assert::core-launcher obexd::client arwxt
 sys-assert::core-launcher oma-ds-agent arwxt
+sys-assert::core-launcher oma-ds-agent::cfg arwxt
 sys-assert::core-launcher org.tizen.app-selector arwxt
 sys-assert::core-launcher org.tizen.bluetooth-share-ui arwxt
 sys-assert::core-launcher org.tizen.browser arwxt
@@ -26603,6 +26733,7 @@ syspopup notification::db arwxt
 syspopup obexd arwxt
 syspopup obexd::client arwxt
 syspopup oma-ds-agent arwxt
+syspopup oma-ds-agent::cfg arwxt
 syspopup org.tizen.app-selector arwxt
 syspopup org.tizen.bluetooth-share-ui arwxt
 syspopup org.tizen.browser arwxt
@@ -26807,6 +26938,7 @@ system notification::db arwxt
 system obexd arwxt
 system obexd::client arwxt
 system oma-ds-agent arwxt
+system oma-ds-agent::cfg arwxt
 system org.tizen.app-selector arwxt
 system org.tizen.bluetooth-share-ui arwxt
 system org.tizen.browser arwxt
@@ -27011,6 +27143,7 @@ system-server notification::db arwxt
 system-server obexd arwxt
 system-server obexd::client arwxt
 system-server oma-ds-agent arwxt
+system-server oma-ds-agent::cfg arwxt
 system-server org.tizen.app-selector arwxt
 system-server org.tizen.bluetooth-share-ui arwxt
 system-server org.tizen.browser arwxt
@@ -27215,6 +27348,7 @@ system::use_internet notification::db arwxt
 system::use_internet obexd arwxt
 system::use_internet obexd::client arwxt
 system::use_internet oma-ds-agent arwxt
+system::use_internet oma-ds-agent::cfg arwxt
 system::use_internet org.tizen.app-selector arwxt
 system::use_internet org.tizen.bluetooth-share-ui arwxt
 system::use_internet org.tizen.browser arwxt
@@ -27419,6 +27553,7 @@ telephony_framework notification::db arwxt
 telephony_framework obexd arwxt
 telephony_framework obexd::client arwxt
 telephony_framework oma-ds-agent arwxt
+telephony_framework oma-ds-agent::cfg arwxt
 telephony_framework org.tizen.app-selector arwxt
 telephony_framework org.tizen.bluetooth-share-ui arwxt
 telephony_framework org.tizen.browser arwxt
@@ -27623,6 +27758,7 @@ thumb-server notification::db arwxt
 thumb-server obexd arwxt
 thumb-server obexd::client arwxt
 thumb-server oma-ds-agent arwxt
+thumb-server oma-ds-agent::cfg arwxt
 thumb-server org.tizen.app-selector arwxt
 thumb-server org.tizen.bluetooth-share-ui arwxt
 thumb-server org.tizen.browser arwxt
@@ -27827,6 +27963,7 @@ tts-server notification::db arwxt
 tts-server obexd arwxt
 tts-server obexd::client arwxt
 tts-server oma-ds-agent arwxt
+tts-server oma-ds-agent::cfg arwxt
 tts-server org.tizen.app-selector arwxt
 tts-server org.tizen.bluetooth-share-ui arwxt
 tts-server org.tizen.browser arwxt
@@ -28031,6 +28168,7 @@ ug-camera-efl notification::db arwxt
 ug-camera-efl obexd arwxt
 ug-camera-efl obexd::client arwxt
 ug-camera-efl oma-ds-agent arwxt
+ug-camera-efl oma-ds-agent::cfg arwxt
 ug-camera-efl org.tizen.app-selector arwxt
 ug-camera-efl org.tizen.bluetooth-share-ui arwxt
 ug-camera-efl org.tizen.browser arwxt
@@ -28235,6 +28373,7 @@ ug-image-viewer-efl notification::db arwxt
 ug-image-viewer-efl obexd arwxt
 ug-image-viewer-efl obexd::client arwxt
 ug-image-viewer-efl oma-ds-agent arwxt
+ug-image-viewer-efl oma-ds-agent::cfg arwxt
 ug-image-viewer-efl org.tizen.app-selector arwxt
 ug-image-viewer-efl org.tizen.bluetooth-share-ui arwxt
 ug-image-viewer-efl org.tizen.browser arwxt
@@ -28439,6 +28578,7 @@ ug_bluetooth notification::db arwxt
 ug_bluetooth obexd arwxt
 ug_bluetooth obexd::client arwxt
 ug_bluetooth oma-ds-agent arwxt
+ug_bluetooth oma-ds-agent::cfg arwxt
 ug_bluetooth org.tizen.app-selector arwxt
 ug_bluetooth org.tizen.bluetooth-share-ui arwxt
 ug_bluetooth org.tizen.browser arwxt
@@ -28643,6 +28783,7 @@ usb-printer-detector notification::db arwxt
 usb-printer-detector obexd arwxt
 usb-printer-detector obexd::client arwxt
 usb-printer-detector oma-ds-agent arwxt
+usb-printer-detector oma-ds-agent::cfg arwxt
 usb-printer-detector org.tizen.app-selector arwxt
 usb-printer-detector org.tizen.bluetooth-share-ui arwxt
 usb-printer-detector org.tizen.browser arwxt
@@ -28847,6 +28988,7 @@ usb-server notification::db arwxt
 usb-server obexd arwxt
 usb-server obexd::client arwxt
 usb-server oma-ds-agent arwxt
+usb-server oma-ds-agent::cfg arwxt
 usb-server org.tizen.app-selector arwxt
 usb-server org.tizen.bluetooth-share-ui arwxt
 usb-server org.tizen.browser arwxt
@@ -29051,6 +29193,7 @@ usb-syspopup notification::db arwxt
 usb-syspopup obexd arwxt
 usb-syspopup obexd::client arwxt
 usb-syspopup oma-ds-agent arwxt
+usb-syspopup oma-ds-agent::cfg arwxt
 usb-syspopup org.tizen.app-selector arwxt
 usb-syspopup org.tizen.bluetooth-share-ui arwxt
 usb-syspopup org.tizen.browser arwxt
@@ -29255,6 +29398,7 @@ webkit2-efl notification::db arwxt
 webkit2-efl obexd arwxt
 webkit2-efl obexd::client arwxt
 webkit2-efl oma-ds-agent arwxt
+webkit2-efl oma-ds-agent::cfg arwxt
 webkit2-efl org.tizen.app-selector arwxt
 webkit2-efl org.tizen.bluetooth-share-ui arwxt
 webkit2-efl org.tizen.browser arwxt
@@ -29459,6 +29603,7 @@ wifi_direct_manager notification::db arwxt
 wifi_direct_manager obexd arwxt
 wifi_direct_manager obexd::client arwxt
 wifi_direct_manager oma-ds-agent arwxt
+wifi_direct_manager oma-ds-agent::cfg arwxt
 wifi_direct_manager org.tizen.app-selector arwxt
 wifi_direct_manager org.tizen.bluetooth-share-ui arwxt
 wifi_direct_manager org.tizen.browser arwxt
@@ -29663,6 +29808,7 @@ worldclock notification::db arwxt
 worldclock obexd arwxt
 worldclock obexd::client arwxt
 worldclock oma-ds-agent arwxt
+worldclock oma-ds-agent::cfg arwxt
 worldclock org.tizen.app-selector arwxt
 worldclock org.tizen.bluetooth-share-ui arwxt
 worldclock org.tizen.browser arwxt
@@ -29867,6 +30013,7 @@ wrt notification::db arwxt
 wrt obexd arwxt
 wrt obexd::client arwxt
 wrt oma-ds-agent arwxt
+wrt oma-ds-agent::cfg arwxt
 wrt org.tizen.app-selector arwxt
 wrt org.tizen.bluetooth-share-ui arwxt
 wrt org.tizen.browser arwxt
@@ -30071,6 +30218,7 @@ wrt-commons notification::db arwxt
 wrt-commons obexd arwxt
 wrt-commons obexd::client arwxt
 wrt-commons oma-ds-agent arwxt
+wrt-commons oma-ds-agent::cfg arwxt
 wrt-commons org.tizen.app-selector arwxt
 wrt-commons org.tizen.bluetooth-share-ui arwxt
 wrt-commons org.tizen.browser arwxt
@@ -30275,6 +30423,7 @@ wrt-installer notification::db arwxt
 wrt-installer obexd arwxt
 wrt-installer obexd::client arwxt
 wrt-installer oma-ds-agent arwxt
+wrt-installer oma-ds-agent::cfg arwxt
 wrt-installer org.tizen.app-selector arwxt
 wrt-installer org.tizen.bluetooth-share-ui arwxt
 wrt-installer org.tizen.browser arwxt
@@ -30479,6 +30628,7 @@ wrt-plugins-common notification::db arwxt
 wrt-plugins-common obexd arwxt
 wrt-plugins-common obexd::client arwxt
 wrt-plugins-common oma-ds-agent arwxt
+wrt-plugins-common oma-ds-agent::cfg arwxt
 wrt-plugins-common org.tizen.app-selector arwxt
 wrt-plugins-common org.tizen.bluetooth-share-ui arwxt
 wrt-plugins-common org.tizen.browser arwxt
@@ -30683,6 +30833,7 @@ xorg notification::db arwxt
 xorg obexd arwxt
 xorg obexd::client arwxt
 xorg oma-ds-agent arwxt
+xorg oma-ds-agent::cfg arwxt
 xorg org.tizen.app-selector arwxt
 xorg org.tizen.bluetooth-share-ui arwxt
 xorg org.tizen.browser arwxt
@@ -30887,6 +31038,7 @@ zeromq notification::db arwxt
 zeromq obexd arwxt
 zeromq obexd::client arwxt
 zeromq oma-ds-agent arwxt
+zeromq oma-ds-agent::cfg arwxt
 zeromq org.tizen.app-selector arwxt
 zeromq org.tizen.bluetooth-share-ui arwxt
 zeromq org.tizen.browser arwxt
