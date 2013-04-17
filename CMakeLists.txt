@@ -82,5 +82,6 @@ INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/app_group_list DESTINATION ${SHAREDIR}
 INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/dev_group_list DESTINATION ${SHAREDIR})
 INSTALL(FILES .privilege_control_all_apps_id.db DESTINATION /opt/dbspace)
 INSTALL(FILES .privilege_control_all_avs_id.db DESTINATION /opt/dbspace)
+INSTALL(FILES .privilege_control_app_gids.db DESTINATION /opt/dbspace)
 #INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/udev/ DESTINATION lib/udev)
 INSTALL(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/slp-su DESTINATION bin)

@@ -46,4 +46,17 @@ int get_all_apps_ids(char *** apps_ids, int * len);
  */
 int get_all_avs_ids(char *** av_ids, int * len);
 
+/**
+ * This function adds an app to a suplementary group identified by gid
+ */
+int add_app_gid(const char *app_id, unsigned gid);
+
+/**
+ * This function returns (in params) suplementary group ids that an app
+ * has been assigned to.
+ * gids should be freed by caller.
+ */
+int get_app_gids(const char *app_id, unsigned **gids, int *len);
+
+
 #endif // _ACCESS_DB_H_

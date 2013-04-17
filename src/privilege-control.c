@@ -45,6 +45,7 @@
 
 #define APP_GID	5000
 #define APP_UID	5000
+#define ADMIN_GROUP		6504
 #define DEVELOPER_GID	5100
 #define DEVELOPER_UID	5100
 
@@ -247,6 +248,8 @@ static int set_dac(const char* pkg_name)
 	int result;
 	int i;
 	new_user usr;
+	char *current_smack = NULL;
+	unsigned *additional_gids = NULL;
 
 	/*
 	 * initialize user structure
@@ -316,6 +319,55 @@ static int set_dac(const char* pkg_name)
 		fp_group = NULL;
 
 		/*
+		 * in case of dialer, add admin to glist
+		 */
+		if(!strncmp(pkg_name, "com.samsung.phone", 17) || !strncmp(pkg_name, "com.samsung.call", 16) ||
+		   !strncmp(pkg_name, "phone-tabui-efl", 15))
+		{
+			gid_t *glist_new;
+			C_LOGD("Dialer app - add admin to glist");
+			glist_new = (gid_t*)realloc(glist, sizeof(gid_t) * (glist_cnt + 1));
+			if (glist_new == NULL) {
+				result = PC_ERR_MEM_OPERATION;	// return -2
+				C_LOGE("Cannot allocate memory");
+				goto error;
+			}
+			glist = glist_new;
+			glist[glist_cnt] = ADMIN_GROUP;	// 6504
+			glist_cnt++;
+		}
+
+#ifdef SMACK_ENABLED
+		{
+			gid_t *glist_new;
+			int i, cnt;
+
+			if (smack_new_label_from_self(&current_smack)) {
+				C_LOGE("smack_new_label_from_self failed");
+				result = PC_ERR_MEM_OPERATION;
+				goto error;
+			}
+			result = get_app_gids(current_smack, &additional_gids, &cnt);
+			if (result != PC_OPERATION_SUCCESS)
+				goto error;
+
+			if (cnt > 0) {
+				glist_new = (gid_t*)realloc(glist, sizeof(gid_t) * (glist_cnt + cnt));
+				if (glist_new == NULL) {
+					result = PC_ERR_MEM_OPERATION;	// return -2
+					C_LOGE("Cannot allocate memory");
+					goto error;
+				}
+				glist = glist_new;
+				for (i = 0; i < cnt; ++i) {
+					C_LOGD("Additional GID based on enabled permissions: %u", additional_gids[i]);
+					glist[glist_cnt++] = additional_gids[i];
+				}
+			}
+		}
+#endif
+
+		/*
 		 * setgroups()
 		 */
 		C_LOGD("Adding process to the following groups:");
@@ -380,6 +432,8 @@ error:
 		fclose(fp_group);
 	if(glist != NULL)
 		free(glist);
+	free(additional_gids);
+	free(current_smack);
 
 	return result;
 }
@@ -566,7 +620,6 @@ API int set_privilege(const char* pkg_name)
 	return set_app_privilege(pkg_name, NULL, NULL);
 }
 
-#ifdef SMACK_ENABLED
 static inline const char* app_type_name(app_type_t app_type)
 {
 	switch (app_type) {
@@ -579,34 +632,37 @@ static inline const char* app_type_name(app_type_t app_type)
 	}
 }
 
-static int perm_file(app_type_t app_type, const char* devcap, char** path) {
+static int perm_file_path(char** path, app_type_t app_type, const char* perm, const char *suffix)
+{
 	const char* app_type_prefix = NULL;
-	const char* perm_suffix = NULL;
+	const char* perm_basename = NULL;
 	int ret = 0;
 
-	if (devcap == NULL || strlen(devcap) == 0) {
-		C_LOGE("empty devcap");
+	if (perm == NULL || strlen(perm) == 0) {
+		C_LOGE("empty permission name");
 		return PC_ERR_INVALID_PARAM;
 	}
 
 	app_type_prefix = app_type_name(app_type);
 
-	perm_suffix = strrchr(devcap, '/');
-	if (perm_suffix)
-		++perm_suffix;
+	perm_basename = strrchr(perm, '/');
+	if (perm_basename)
+		++perm_basename;
 	else
-		perm_suffix = devcap;
+		perm_basename = perm;
 
-	ret = asprintf(path, TOSTRING(SHAREDIR) "/%s%s%s.smack",
+	ret = asprintf(path, TOSTRING(SHAREDIR) "/%s%s%s%s",
 			app_type_prefix ? app_type_prefix : "", app_type_prefix ? "_" : "",
-			perm_suffix);
+			perm_basename, suffix);
 	if (ret == -1) {
 		C_LOGE("asprintf failed");
 		return PC_ERR_MEM_OPERATION;
 	}
+
 	return PC_OPERATION_SUCCESS;
 }
 
+#ifdef SMACK_ENABLED
 static bool file_exists(const char* path) {
 	FILE* file = fopen(path, "r");
 	if (file) {
@@ -628,11 +684,10 @@ static int perm_to_smack(struct smack_accesses* smack, const char* app_label, ap
 	char smack_accesses[10];
 
 	// get file name for permission (devcap)
-	ret = perm_file(app_type, perm, &path);
-	if (ret != PC_OPERATION_SUCCESS)
-	{
-	    free(path);
-	    return ret;
+	ret = perm_file_path(&path, app_type, perm, ".smack");
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGD("No smack config file for permission %s", perm);
+		goto out;
 	}
 
 	if (asprintf(&format_string,"%%%ds %%%ds %%%lus\n",
@@ -673,7 +728,49 @@ out:
 		fclose(file);
 	return ret;
 }
+#endif //SMACK_ENABLED
 
+static int perm_to_dac(const char* app_label, app_type_t app_type, const char* perm)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+	char* path = NULL;
+	FILE* file = NULL;
+	int gid;
+
+	ret = perm_file_path(&path, app_type, perm, ".dac");
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGD("No dac config file for permission %s", perm);
+		goto out;
+	}
+
+	file = fopen(path, "r");
+	C_LOGD("path = %s", path);
+	if (file == NULL) {
+		C_LOGE("fopen failed");
+		ret = PC_OPERATION_SUCCESS;
+		goto out;
+	}
+
+	while (fscanf(file, "%d\n", &gid) == 1) {
+		C_LOGD("Adding app_id %s to group %d", app_label, gid);
+		ret = add_app_gid(app_label, gid);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("sadd_app_gid failed");
+			goto out;
+		}
+	}
+
+	ret = PC_OPERATION_SUCCESS;
+
+out:
+	free(path);
+	if (file != NULL)
+		fclose(file);
+	return ret;
+}
+
+#ifdef SMACK_ENABLED
 static int dir_set_smack_r(const char *path, const char* label,
 		enum smack_label_type type, mode_t type_mask)
 {
@@ -904,10 +1001,10 @@ out:
 static int app_add_permissions_internal(const char* app_id, app_type_t app_type, const char** perm_list, int permanent)
 {
 	C_LOGD("Enter function: %s", __func__);
+	int i, ret = PC_OPERATION_SUCCESS;
 #ifdef SMACK_ENABLED
-	char* smack_path = NULL;
-	int i, ret;
 	int fd = -1;
+	char* smack_path = NULL;
 	struct smack_accesses *smack = NULL;
 	const char* base_perm = NULL;
 
@@ -927,16 +1024,23 @@ static int app_add_permissions_internal(const char* app_id, app_type_t app_type,
 			goto out;
 		}
 	}
-
+#endif // SMACK_ENABLED
 	for (i = 0; perm_list[i] != NULL; ++i) {
+#ifdef SMACK_ENABLED
 		C_LOGD("perm_to_smack params: app_id: %s, perm_list[%d]: %s", app_id, i, perm_list[i]);
 		ret = perm_to_smack(smack, app_id, app_type, perm_list[i]);
 		if (ret != PC_OPERATION_SUCCESS){
 			C_LOGE("perm_to_smack failed");
 			goto out;
 		}
+#endif //SMACK_ENABLED
+		ret = perm_to_dac(app_id, app_type, perm_list[i]);
+		if (ret != PC_OPERATION_SUCCESS){
+			C_LOGE("perm_to_dac failed");
+			return ret;
+		}
 	}
-
+#ifdef SMACK_ENABLED
 	if (have_smack() && smack_accesses_apply(smack)) {
 		C_LOGE("smack_accesses_apply failed");
 		ret = PC_ERR_INVALID_OPERATION;
@@ -956,11 +1060,9 @@ out:
 	if (smack != NULL)
 		smack_accesses_free(smack);
 	free(smack_path);
+#endif //SMACK_ENABLED
 
 	return ret;
-#else
-	return PC_OPERATION_SUCCESS;
-#endif
 }
 
 API int app_add_permissions(const char* app_id, const char** perm_list)
@@ -1456,7 +1558,7 @@ API int add_api_feature(app_type_t app_type, const char* api_feature_name,
 	// TODO check process capabilities
 
 	// get feature file name
-	ret = perm_file(app_type, api_feature_name, &feature_file);
+	ret = perm_file_path(&feature_file, app_type, api_feature_name, ".smack");
 	if (ret != PC_OPERATION_SUCCESS ) {
 		return ret;
 	}

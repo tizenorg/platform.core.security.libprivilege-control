@@ -26,11 +26,9 @@
 #include <string.h>
 #include <sys/smack.h>
 #include <dlog.h>
+#include <ctype.h>
 
 #include "privilege-control.h"
-
-#define SMACK_APPS_LABELS_DATABASE "/opt/dbspace/.privilege_control_all_apps_id.db"
-#define SMACK_AVS_LABELS_DATABASE "/opt/dbspace/.privilege_control_all_avs_id.db"
 
 #ifdef LOG_TAG
     #undef LOG_TAG
@@ -56,7 +54,15 @@
 typedef enum {
 	DB_APP_TYPE_APPLICATION,
 	DB_APP_TYPE_ANTIVIRUS,
+	DB_APP_TYPE_GROUPS,
+	DB_APP_TYPE_COUNT /* Dummy enum element to get number of elements */
 } db_app_type_t;
+
+const char* db_file_names[DB_APP_TYPE_COUNT] = {
+		"/opt/dbspace/.privilege_control_all_apps_id.db",
+		"/opt/dbspace/.privilege_control_all_avs_id.db",
+		"/opt/dbspace/.privilege_control_app_gids.db",
+};
 
 typedef struct element_s {
 	struct element_s* next;
@@ -136,21 +142,11 @@ static int add_id_to_database_internal(const char * id, db_app_type_t app_type)
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
 	FILE* file_db = NULL;
-	char* db_type;
+	const char* db_file_name = db_file_names[app_type];
 
-	if (DB_APP_TYPE_APPLICATION == app_type) {
-		db_type = SMACK_APPS_LABELS_DATABASE;
-	}
-	else if (DB_APP_TYPE_ANTIVIRUS == app_type) {
-		db_type = SMACK_AVS_LABELS_DATABASE;
-	}
-	else {
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	file_db = fopen(db_type, "a");
+	file_db = fopen(db_file_name, "a");
 	if (NULL == file_db) {
-		C_LOGE("Error while opening database file: %s", db_type);
+		C_LOGE("Error while opening database file: %s", db_file_name);
 		ret = PC_ERR_FILE_OPERATION;
 		goto out;
 	}
@@ -175,17 +171,9 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 	int ret;
 	char* scanf_label_format = NULL;
 	FILE* file_db = NULL;
-	char* db_type;
+	const char* db_file_name = db_file_names[app_type];
 	char smack_label[SMACK_LABEL_LEN + 1];
 	element_t* begin_of_list = NULL;
-
-	if (DB_APP_TYPE_APPLICATION == app_type) {
-		db_type = SMACK_APPS_LABELS_DATABASE;
-	} else if (DB_APP_TYPE_ANTIVIRUS == app_type) {
-		db_type = SMACK_AVS_LABELS_DATABASE;
-	} else {
-		return PC_ERR_INVALID_PARAM;
-	}
 
 	if (asprintf(&scanf_label_format, "%%%ds\\n", SMACK_LABEL_LEN) < 0) {
 		C_LOGE("Error while creating scanf input label format");
@@ -193,9 +181,9 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 		goto out;
 	}
 
-	file_db = fopen(db_type, "r");
+	file_db = fopen(db_file_name, "r");
 	if (NULL == file_db) {
-		C_LOGE("Error while opening antivirus_ids database file: %s", db_type);
+		C_LOGE("Error while opening antivirus_ids database file: %s", db_file_name);
 		ret = PC_ERR_FILE_OPERATION;
 		goto out;
 	}
@@ -304,4 +292,76 @@ int add_av_id_to_databse (const char * av_id)
 		return PC_ERR_DB_OPERATION;
 
 	return PC_OPERATION_SUCCESS;
+}
+
+int add_app_gid(const char *app_id, unsigned gid)
+{
+	C_LOGD("Enter function: %s", __func__);
+	char *field = NULL;
+	int ret;
+
+	ret = asprintf(&field, "%u:%s", gid, app_id);
+	if (ret == -1)
+		return PC_ERR_MEM_OPERATION;
+
+	ret = add_id_to_database_internal(field, DB_APP_TYPE_GROUPS);
+	free(field);
+
+	return ret;
+}
+
+int get_app_gids(const char *app_id, unsigned **gids, int *len)
+{
+	char** fields;
+	int len_tmp, ret, i;
+
+	ret = get_all_ids_internal(&fields, &len_tmp, DB_APP_TYPE_GROUPS);
+	if (ret != PC_OPERATION_SUCCESS)
+		return ret;
+
+	*len = 0;
+	*gids = NULL;
+	for (i = 0; i < len_tmp; ++i) {
+		const char *field = fields[i];
+		const char *app_id_tmp = NULL;
+		unsigned gid = 0;
+
+		for (; *field; ++field) {
+			if (*field == ':') {
+				app_id_tmp = field + 1;
+				break;
+			}
+			if (isdigit(*field)) {
+				gid = gid * 10 + *field - '0';
+			} else {
+				C_LOGE("Invalid line read: %s", fields[i]);
+				ret = PC_ERR_FILE_OPERATION;
+				goto out;
+			}
+		}
+
+		if (!strcmp(app_id, app_id_tmp)) {
+			unsigned *gids_realloc = realloc(*gids, sizeof(unsigned) * (*len + 1));
+			if (gids_realloc == NULL) {
+				C_LOGE("Memory allocation failed");
+				ret = PC_ERR_MEM_OPERATION;
+				goto out;
+			}
+			*gids = gids_realloc;
+			(*gids)[(*len)++] = gid;
+		}
+	}
+
+	ret = PC_OPERATION_SUCCESS;
+out:
+	for (i = 0; i < len_tmp; ++i)
+		free(fields[i]);
+	free(fields);
+
+	if (ret != PC_OPERATION_SUCCESS) {
+		free(*gids);
+		*len = 0;
+	}
+
+	return ret;
 }
