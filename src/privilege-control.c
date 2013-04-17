@@ -1015,6 +1015,9 @@ API int app_revoke_permissions(const char* app_id)
 		goto out;
 	}
 
+	if (ftruncate(fd, 0) == -1)
+		C_LOGE("file truncate failed");
+
 	ret = PC_OPERATION_SUCCESS;
 out:
 	if (fd != -1)
