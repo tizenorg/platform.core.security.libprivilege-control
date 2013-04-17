@@ -20,6 +20,7 @@
  */
 
 #include <stdbool.h>
+#include <sys/types.h>
 
 #ifndef _PRIVILEGE_CONTROL_H_
 #define _PRIVILEGE_CONTROL_H_
@@ -292,7 +293,8 @@ int app_revoke_access(const char* subject, const char* object);
 int add_api_feature(app_type_t app_type,
 					const char* api_feature_name,
 					const char** set_smack_rule_set,
-					int** list_of_db_gids);
+					const gid_t* list_of_db_gids,
+					size_t list_size);
 
 #ifdef __cplusplus
 }

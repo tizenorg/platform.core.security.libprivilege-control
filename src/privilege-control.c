@@ -1597,42 +1597,102 @@ static int parse_and_save_rules(const char** smack_rules,
 	close(fd);
 	return ret;
 }
-#endif
 
-API int add_api_feature(app_type_t app_type, const char* api_feature_name,
-		const char** smack_rules, int** list_of_db_gids) {
+static int save_gids(FILE* file, const gid_t* list_of_db_gids, size_t list_size) {
+	int ret = PC_OPERATION_SUCCESS;
+	int written = 0;
+	size_t i = 0;
+
+	if (file == NULL) {
+		C_LOGE("Unable to create file. Error: %s", strerror(errno));
+		return PC_ERR_FILE_OPERATION;	// TODO remove smack accesses?
+	}
+
+	if(-1 == fchmod(fileno(file), 0644)) {
+		C_LOGE("Unable to chmod file. Error: %s", strerror(errno));
+		return PC_ERR_FILE_OPERATION;
+	}
+
+	for (i = 0; i < list_size ; ++i) {
+		written = fprintf(file, "%u\n", list_of_db_gids[i]);
+		if (written <= 0) {
+			C_LOGE("fprintf failed for file. Error: %s", strerror(errno));
+			ret = PC_ERR_FILE_OPERATION;
+			break;
+		}
+	}
+	return ret;
+}
+#endif // SMACK_ENABLED
+
+API int add_api_feature(app_type_t app_type,
+						const char* api_feature_name,
+						const char** smack_rules,
+						const gid_t* list_of_db_gids,
+						size_t list_size) {
 	C_LOGD("Enter function: %s", __func__);
+
 #ifdef SMACK_ENABLED
 	int ret = PC_OPERATION_SUCCESS;
-	char* feature_file = NULL;
+	char* smack_file = NULL;
+	char* dac_file = NULL;
 	struct smack_accesses* accesses = NULL;
+	FILE* file = NULL;
 
 	// TODO check process capabilities
 
-	// get feature file name
-	ret = perm_file_path(&feature_file, app_type, api_feature_name, ".smack");
+	// get feature SMACK file name
+	ret = perm_file_path(&smack_file, app_type, api_feature_name, ".smack");
 	if (ret != PC_OPERATION_SUCCESS ) {
 		return ret;
 	}
 
 	// check if feature exists
-	if (file_exists(feature_file)) {
-		C_LOGE("Feature file %s already exists", feature_file);
+	if (file_exists(smack_file)) {
+		C_LOGE("Feature file %s already exists", smack_file);
 		return PC_ERR_INVALID_PARAM;
 	}
 
+	// check .dac existence only if gids are supported
+	if (list_of_db_gids && list_size > 0) {
+		// get feature DAC file name
+		ret = perm_file_path(&dac_file, app_type, api_feature_name, ".dac");
+		if (ret != PC_OPERATION_SUCCESS ) {
+			return ret;
+		}
+
+		// check if feature exists
+		if (file_exists(dac_file)) {
+			C_LOGE("Feature file %s already exists", dac_file);
+			return PC_ERR_INVALID_PARAM;
+		}
+	}
+
 	// parse & save rules
-	if (smack_rules != NULL ) {
+	if (smack_rules) {
 		if (smack_accesses_new(&accesses)) {
 			C_LOGE("smack_acceses_new failed");
 			return PC_ERR_MEM_OPERATION;
 		}
 
-		ret = parse_and_save_rules(smack_rules, accesses, feature_file);
+		ret = parse_and_save_rules(smack_rules, accesses, smack_file);
 		smack_accesses_free(accesses);
 	}
 
-	// TODO go through gid list
+	// go through gid list
+	if (ret == PC_OPERATION_SUCCESS && list_of_db_gids && list_size > 0) {
+		// save to file
+		file = fopen(dac_file, "w+");
+		ret = save_gids(file, list_of_db_gids, list_size);
+		fclose(file);
+	}
+
+	// remove both files in case of failure
+	if (ret != PC_OPERATION_SUCCESS) {
+		unlink(smack_file);
+		unlink(dac_file);
+	}
+
 	return ret;
 #else
 	return PC_OPERATION_SUCCESS;
