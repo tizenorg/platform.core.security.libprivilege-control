@@ -338,7 +338,10 @@ static int set_dac(const char* pkg_name)
 		}
 
 #ifdef SMACK_ENABLED
-		{
+		/* FIXME: this should be reworked to not depend on SMACK
+		 * proper solution is not trivial (no app_id is passed to set_app_privilege())
+		 */
+		if (have_smack()) {
 			gid_t *glist_new;
 			int i, cnt;
 
