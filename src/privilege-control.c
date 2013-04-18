@@ -1323,13 +1323,16 @@ API int add_shared_dir_readers(const char* shared_label, const char** app_list)
 	int ret = PC_ERR_INVALID_PARAM;
 	int i;
 	int fd = -1;
-	for (i = 0; *app_list[i]; i++) {
+
+	if (!smack_label_is_valid(shared_label))
+				return PC_ERR_INVALID_PARAM;
+
+	for (i = 0; app_list[i] != NULL; i++) {
 		char *smack_path = NULL;
 		struct smack_accesses *smack = NULL;
 
-
-		if (!smack_label_is_valid(shared_label))
-				return PC_ERR_INVALID_PARAM;
+		if (!smack_label_is_valid(app_list[i]))
+					return PC_ERR_INVALID_PARAM;
 
 		ret = load_smack_from_file(
 				app_list[i], &smack, &fd, &smack_path);
