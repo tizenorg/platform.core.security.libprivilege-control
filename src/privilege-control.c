@@ -42,6 +42,7 @@
 
 #include "privilege-control.h"
 #include "access-db.h"
+#include "common.h"
 
 #define APP_GID	5000
 #define APP_UID	5000
@@ -73,27 +74,6 @@
 #ifdef SMACK_ENABLED
 static int set_smack_for_wrt(const char* widget_id);
 #endif
-
-#ifdef LOG_TAG
-    #undef LOG_TAG
-#endif // LOG_TAG
-#ifndef LOG_TAG
-    #define LOG_TAG "PRIVILEGE_CONTROL"
-#endif // LOG_TAG
-
-// conditional log macro for dlogutil (debug)
-#ifdef DLOG_DEBUG_ENABLED
-#define C_LOGD(...) LOGD(__VA_ARGS__)
-#else
-#define C_LOGD(...) do { } while(0)
-#endif //DDLOG_DEBUG_ENABLED
-
-// conditional log macro for dlogutil (error)
-#ifdef DLOG_ERROR_ENABLED
-#define C_LOGE(...) LOGE(__VA_ARGS__)
-#else
-#define C_LOGE(...) do { } while(0)
-#endif //DLOG_ERROR_ENABLED
 
 typedef struct {
 	char user_name[10];
@@ -442,36 +422,6 @@ error:
 }
 
 #ifdef SMACK_ENABLED
-/* TODO: implement such function in libsmack instead */
-static int smack_label_is_valid(const char* smack_label)
-{
-	C_LOGD("Enter function: %s", __func__);
-	int i;
-
-	if (!smack_label || smack_label[0] == '\0' || smack_label[0] != '-')
-		goto err;
-
-	for (i = 0; smack_label[i]; ++i) {
-		if (i >= SMACK_LABEL_LEN)
-			return 0;
-		switch (smack_label[i]) {
-		case '~':
-		case ' ':
-		case '/':
-		case '"':
-		case '\\':
-		case '\'':
-			goto err;
-		default:
-			break;
-		}
-	}
-
-	return 1;
-err:
-	C_LOGE("Invalid Smack label: %s", smack_label);
-	return 0;
-}
 
 /**
  * Set process SMACK label from EXEC label of a file.

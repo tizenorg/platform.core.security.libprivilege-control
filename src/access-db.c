@@ -28,28 +28,9 @@
 #include <dlog.h>
 #include <ctype.h>
 
+#include "access-db.h"
 #include "privilege-control.h"
-
-#ifdef LOG_TAG
-    #undef LOG_TAG
-#endif // LOG_TAG
-#ifndef LOG_TAG
-    #define LOG_TAG "PRIVILEGE_CONTROL"
-#endif // LOG_TAG
-
-// conditional log macro for dlogutil (debug)
-#ifdef DLOG_DEBUG_ENABLED
-#define C_LOGD(...) LOGD(__VA_ARGS__)
-#else
-#define C_LOGD(...) do { } while(0)
-#endif //DDLOG_DEBUG_ENABLED
-
-// conditional log macro for dlogutil (error)
-#ifdef DLOG_ERROR_ENABLED
-#define C_LOGE(...) LOGE(__VA_ARGS__)
-#else
-#define C_LOGE(...) do { } while(0)
-#endif //DLOG_ERROR_ENABLED
+#include "common.h"
 
 typedef enum {
 	DB_APP_TYPE_APPLICATION,
@@ -103,37 +84,6 @@ static int remove_list(element_t* first_elem)
 		first_elem = first_elem->next;
 		free(current);
 	}
-	return 0;
-}
-
-/* TODO: implement such function in libsmack instead -- copied from privilege-control.c*/
-static int smack_label_is_valid(const char* smack_label)
-{
-	C_LOGD("Enter function: %s", __func__);
-	int i;
-
-	if (!smack_label || smack_label[0] == '\0' || !smack_label[0] == '-')
-		goto err;
-
-	for (i = 0; smack_label[i]; ++i) {
-		if (i >= SMACK_LABEL_LEN)
-			return 0;
-		switch (smack_label[i]) {
-		case '~':
-		case ' ':
-		case '/':
-		case '"':
-		case '\\':
-		case '\'':
-			goto err;
-		default:
-			break;
-		}
-	}
-
-	return 1;
-err:
-	C_LOGE("Invalid Smack label: %s", smack_label);
 	return 0;
 }
 

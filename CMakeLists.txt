@@ -41,6 +41,7 @@ INCLUDE_DIRECTORIES(${pkgs_INCLUDE_DIRS})
 SET(libprivilege-control_SOURCES
 	${src_dir}/privilege-control.c
 	${src_dir}/access-db.c
+	${src_dir}/common.c
 	)
 SET(libprivilege-control_LDFLAGS " -module -avoid-version ")
 SET(libprivilege-control_CFLAGS  " ${CFLAGS} -fPIC -I${include_dir}")
