@@ -1093,7 +1093,7 @@ API int app_disable_permissions(const char* app_id, app_type_t app_type, const c
 	return PC_OPERATION_SUCCESS;
 }
 
-API int app_revoke_permissions(const char* app_id)
+static int app_revoke_permissions_internal(const char* app_id, bool persistent)
 {
 	C_LOGD("Enter function: %s", __func__);
 #ifdef SMACK_ENABLED
@@ -1120,7 +1120,7 @@ API int app_revoke_permissions(const char* app_id)
 		goto out;
 	}
 
-	if (ftruncate(fd, 0) == -1)
+	if (persistent && ftruncate(fd, 0) == -1)
 		C_LOGE("file truncate failed");
 
 	ret = PC_OPERATION_SUCCESS;
@@ -1137,12 +1137,32 @@ out:
 #endif
 }
 
+API int app_revoke_permissions(const char* app_id)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+
+	if (!smack_label_is_valid(app_id))
+		return PC_ERR_INVALID_PARAM;
+
+	ret = app_revoke_permissions_internal(app_id, true);
+	if (ret) {
+		C_LOGE("Revoking permissions failed");
+		return ret;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
 API int app_reset_permissions(const char* app_id)
 {
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
 
-	ret = app_revoke_permissions(app_id);
+	if (!smack_label_is_valid(app_id))
+		return PC_ERR_INVALID_PARAM;
+
+	ret = app_revoke_permissions_internal(app_id, false);
 	if (ret) {
 		C_LOGE("Revoking permissions failed");
 		return ret;
