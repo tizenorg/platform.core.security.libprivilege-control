@@ -90,37 +90,28 @@ static int remove_list(element_t* first_elem)
 static int add_id_to_database_internal(const char * id, db_app_type_t app_type)
 {
 	C_LOGD("Enter function: %s", __func__);
-	int ret;
-	FILE* file_db = NULL;
+	FILE* file_db AUTO_FCLOSE;
 	const char* db_file_name = db_file_names[app_type];
 
 	file_db = fopen(db_file_name, "a");
 	if (NULL == file_db) {
 		C_LOGE("Error while opening database file: %s", db_file_name);
-		ret = PC_ERR_FILE_OPERATION;
-		goto out;
+		return PC_ERR_FILE_OPERATION;
 	}
 
 	if (0 > fprintf(file_db, "%s\n", id)) {
 		C_LOGE("Write label %s to database failed: %s", id, strerror(errno));
-		ret = PC_ERR_FILE_OPERATION;
-		goto out;
+		return PC_ERR_FILE_OPERATION;
 	}
 
-	ret = PC_OPERATION_SUCCESS;
-
-out:
-	if (file_db != NULL)
-		fclose(file_db);
-
-	return ret;
+	return PC_OPERATION_SUCCESS;
 }
 
 static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type)
 {
 	int ret;
-	char* scanf_label_format = NULL;
-	FILE* file_db = NULL;
+	char* scanf_label_format AUTO_FREE;
+	FILE* file_db AUTO_FCLOSE;
 	const char* db_file_name = db_file_names[app_type];
 	char smack_label[SMACK_LABEL_LEN + 1];
 	element_t* begin_of_list = NULL;
@@ -200,9 +191,6 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 
 
 out:
-	if (file_db != NULL)
-		fclose(file_db);
-	free(scanf_label_format);
 	remove_list(begin_of_list);
 
 	return ret;
@@ -262,7 +250,7 @@ int add_app_gid(const char *app_id, unsigned gid)
 
 int get_app_gids(const char *app_id, unsigned **gids, int *len)
 {
-	char** fields;
+	char** fields AUTO_FREE;
 	int len_tmp, ret, i;
 
 	ret = get_all_ids_internal(&fields, &len_tmp, DB_APP_TYPE_GROUPS);
@@ -306,7 +294,6 @@ int get_app_gids(const char *app_id, unsigned **gids, int *len)
 out:
 	for (i = 0; i < len_tmp; ++i)
 		free(fields[i]);
-	free(fields);
 
 	if (ret != PC_OPERATION_SUCCESS) {
 		free(*gids);

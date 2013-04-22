@@ -22,6 +22,7 @@
 #ifndef COMMON_H_
 #define COMMON_H_
 
+#include <stdio.h>
 #include <dlog.h>
 
 
@@ -45,6 +46,15 @@
 #else
 #define C_LOGE(...) do { } while(0)
 #endif //DLOG_ERROR_ENABLED
+
+void freep(void *p);
+void closep(int *fd);
+void fclosep(FILE **f);
+void smack_freep(struct smack_accesses **smack);
+#define AUTO_FREE       __attribute__ ((cleanup(freep)))       = NULL
+#define AUTO_CLOSE      __attribute__ ((cleanup(closep)))      = -1
+#define AUTO_FCLOSE     __attribute__ ((cleanup(fclosep)))     = NULL
+#define AUTO_SMACK_FREE __attribute__ ((cleanup(smack_freep))) = NULL
 
 #ifdef SMACK_ENABLED
 int smack_label_is_valid(const char* smack_label);

@@ -19,6 +19,8 @@
  *
  */
 
+#include <stdlib.h>
+#include <unistd.h>
 #include <sys/smack.h>
 #include "common.h"
 
@@ -54,3 +56,26 @@ err:
 	return 0;
 }
 #endif
+
+/* Auto cleanup stuff */
+void freep(void *p)
+{
+	free(*(void**) p);
+}
+
+void closep(int *fd)
+{
+	if (*fd >= 0)
+		close(*fd);
+}
+
+void fclosep(FILE **f)
+{
+	if (*f)
+		fclose(*f);
+}
+
+void smack_freep(struct smack_accesses **smack)
+{
+	smack_accesses_free(*smack);
+}
