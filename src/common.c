@@ -24,7 +24,6 @@
 #include <sys/smack.h>
 #include "common.h"
 
-#ifdef SMACK_ENABLED
 /* TODO: implement such function in libsmack instead */
 int smack_label_is_valid(const char* smack_label)
 {
@@ -55,7 +54,6 @@ err:
 	C_LOGE("Invalid Smack label: %s", smack_label);
 	return 0;
 }
-#endif
 
 /* Auto cleanup stuff */
 void freep(void *p)

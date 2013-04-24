@@ -70,9 +70,7 @@
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
 #define ACC_LEN                 5
 
-#ifdef SMACK_ENABLED
 static int set_smack_for_wrt(const char* widget_id);
-#endif
 
 typedef struct {
 	char user_name[10];
@@ -310,7 +308,6 @@ static int set_dac(const char* pkg_name)
 			glist_cnt++;
 		}
 
-#ifdef SMACK_ENABLED
 		/* FIXME: this should be reworked to not depend on SMACK
 		 * proper solution is not trivial (no app_id is passed to set_app_privilege())
 		 */
@@ -341,7 +338,6 @@ static int set_dac(const char* pkg_name)
 				}
 			}
 		}
-#endif
 
 		/*
 		 * setgroups()
@@ -413,8 +409,6 @@ error:
 
 	return result;
 }
-
-#ifdef SMACK_ENABLED
 
 /**
  * Set process SMACK label from EXEC label of a file.
@@ -527,13 +521,11 @@ static const char* parse_widget_id(const char* path)
 	C_LOGD("return widget id: %s", basename);
 	return basename;
 }*/
-#endif // SMACK_ENABLED
 
 API int set_app_privilege(const char* name, const char* type, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
 	C_LOGD("Function params: name = %s, type = %s, path = %s", name, type, path);
-#ifdef SMACK_ENABLED
 	const char* widget_id;
 	int ret = PC_OPERATION_SUCCESS;
 
@@ -556,7 +548,6 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 
 	if (ret != PC_OPERATION_SUCCESS)
 		return ret;
-#endif // SMACK_ENABLED
 
 	return set_dac(name);
 }
@@ -609,7 +600,6 @@ static int perm_file_path(char** path, app_type_t app_type, const char* perm, co
 	return PC_OPERATION_SUCCESS;
 }
 
-#ifdef SMACK_ENABLED
 static bool file_exists(const char* path) {
 	FILE* file = fopen(path, "r");
 	if (file) {
@@ -666,7 +656,6 @@ static int perm_to_smack(struct smack_accesses* smack, const char* app_label, ap
 
 	return PC_OPERATION_SUCCESS;
 }
-#endif //SMACK_ENABLED
 
 static int perm_to_dac(const char* app_label, app_type_t app_type, const char* perm)
 {
@@ -701,7 +690,6 @@ static int perm_to_dac(const char* app_label, app_type_t app_type, const char* p
 	return PC_OPERATION_SUCCESS;
 }
 
-#ifdef SMACK_ENABLED
 static int dir_set_smack_r(const char *path, const char* label,
 		enum smack_label_type type, mode_t type_mask)
 {
@@ -767,7 +755,6 @@ static int set_smack_for_wrt(const char* widget_id)
 
 	return PC_OPERATION_SUCCESS;
 }
-#endif
 
 API char* app_id_from_socket(int sockfd)
 {
@@ -775,7 +762,6 @@ API char* app_id_from_socket(int sockfd)
 	if (!have_smack())
 		return NULL;
 
-#ifdef SMACK_ENABLED
 	char* app_id;
 	int ret;
 
@@ -788,11 +774,7 @@ API char* app_id_from_socket(int sockfd)
 	C_LOGD("app_id: %s", app_id);
 
 	return app_id;
-#else
-	return NULL;
-#endif
 }
-
 
 static int smack_file_name(const char* app_id, char** path)
 {
@@ -805,7 +787,6 @@ static int smack_file_name(const char* app_id, char** path)
 	return PC_OPERATION_SUCCESS;
 }
 
-#ifdef SMACK_ENABLED
 static int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int *fd, char** path)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -914,13 +895,11 @@ out:
 
 	return ret;
 }
-#endif
 
 static int app_add_permissions_internal(const char* app_id, app_type_t app_type, const char** perm_list, int permanent)
 {
 	C_LOGD("Enter function: %s", __func__);
 	int i, ret;
-#ifdef SMACK_ENABLED
 	char* smack_path AUTO_FREE;
 	int fd AUTO_CLOSE;
 	struct smack_accesses *smack AUTO_SMACK_FREE;
@@ -942,23 +921,21 @@ static int app_add_permissions_internal(const char* app_id, app_type_t app_type,
 			return ret;
 		}
 	}
-#endif // SMACK_ENABLED
 	for (i = 0; perm_list[i] != NULL; ++i) {
-#ifdef SMACK_ENABLED
 		C_LOGD("perm_to_smack params: app_id: %s, perm_list[%d]: %s", app_id, i, perm_list[i]);
 		ret = perm_to_smack(smack, app_id, app_type, perm_list[i]);
 		if (ret != PC_OPERATION_SUCCESS){
 			C_LOGE("perm_to_smack failed");
 			return ret;
 		}
-#endif //SMACK_ENABLED
+
 		ret = perm_to_dac(app_id, app_type, perm_list[i]);
 		if (ret != PC_OPERATION_SUCCESS){
 			C_LOGE("perm_to_dac failed");
 			return ret;
 		}
 	}
-#ifdef SMACK_ENABLED
+
 	if (have_smack() && smack_accesses_apply(smack)) {
 		C_LOGE("smack_accesses_apply failed");
 		return PC_ERR_INVALID_OPERATION;
@@ -969,7 +946,6 @@ static int app_add_permissions_internal(const char* app_id, app_type_t app_type,
 		return PC_ERR_INVALID_OPERATION;
 	}
 
-#endif
 	return PC_OPERATION_SUCCESS;
 }
 
@@ -1001,7 +977,6 @@ API int app_disable_permissions(const char* app_id, app_type_t app_type, const c
 static int app_revoke_permissions_internal(const char* app_id, bool persistent)
 {
 	C_LOGD("Enter function: %s", __func__);
-#ifdef SMACK_ENABLED
 	char* smack_path AUTO_FREE;
 	int ret;
 	int fd AUTO_CLOSE;
@@ -1027,7 +1002,7 @@ static int app_revoke_permissions_internal(const char* app_id, bool persistent)
 
 	if (persistent && ftruncate(fd, 0) == -1)
 		C_LOGE("file truncate failed");
-#endif
+
 	return PC_OPERATION_SUCCESS;
 }
 
@@ -1069,7 +1044,6 @@ API int app_reset_permissions(const char* app_id)
 API int app_label_dir(const char* label, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
-#ifdef SMACK_ENABLED
 
 	int ret = PC_OPERATION_SUCCESS;
 
@@ -1087,12 +1061,8 @@ API int app_label_dir(const char* label, const char* path)
 	ret = dir_set_smack_r(path, "", SMACK_LABEL_EXEC, S_IFMT & ~S_IFREG);
 
 	return ret;
-#else
-	return PC_OPERATION_SUCCESS;
-#endif
 }
 
-#ifdef SMACK_ENABLED
 static int smack_get_access_new(const char* subject, const char* object, char** label)
 {
 	char buff[ACC_LEN] = {'r', 'w', 'x', 'a', 't'};
@@ -1119,7 +1089,6 @@ static int smack_get_access_new(const char* subject, const char* object, char** 
 	(*label)[ACC_LEN] = 0;
 	return PC_OPERATION_SUCCESS;
 }
-#endif
 
 /*
  * This function will be used to allow direct communication between 2 OSP application.
@@ -1132,7 +1101,6 @@ API int app_give_access(const char* subject, const char* object, const char* per
 {
 	C_LOGD("Enter function: %s", __func__);
 	int ret = PC_OPERATION_SUCCESS;
-#ifdef SMACK_ENABLED
 	struct smack_accesses *smack AUTO_SMACK_FREE;
 	static const char * const revoke = "-----";
 	char *current_permissions AUTO_FREE;
@@ -1157,7 +1125,6 @@ API int app_give_access(const char* subject, const char* object, const char* per
 
 	ret = state_save(subject, object, current_permissions);
 
-#endif
 	return ret;
 }
 
@@ -1170,7 +1137,6 @@ API int app_give_access(const char* subject, const char* object, const char* per
 API int app_revoke_access(const char* subject, const char* object)
 {
 	C_LOGD("Enter function: %s", __func__);
-#ifdef SMACK_ENABLED
 	if (!have_smack())
 		return PC_OPERATION_SUCCESS;
 
@@ -1178,15 +1144,11 @@ API int app_revoke_access(const char* subject, const char* object)
 		return PC_ERR_INVALID_PARAM;
 
 	return state_restore(subject, object);
-#else
-	return PC_OPERATION_SUCCESS;
-#endif
 }
 
 API int app_label_shared_dir(const char* app_label, const char* shared_label, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
-#ifdef SMACK_ENABLED
 	char* smack_path AUTO_FREE;
 	int ret;
 	int fd AUTO_CLOSE;
@@ -1233,14 +1195,13 @@ API int app_label_shared_dir(const char* app_label, const char* shared_label, co
 		C_LOGE("smack_accesses_save failed");
 		return PC_ERR_INVALID_OPERATION;
 	}
-#endif
+
 	return PC_OPERATION_SUCCESS;
 }
 
 API int add_shared_dir_readers(const char* shared_label, const char** app_list)
 {
 	C_LOGD("Enter function: %s", __func__);
-#ifdef SMACK_ENABLED
 	int ret = PC_ERR_INVALID_PARAM;
 	int i;
 	int fd AUTO_CLOSE;
@@ -1275,14 +1236,13 @@ API int add_shared_dir_readers(const char* shared_label, const char** app_list)
 			return PC_ERR_INVALID_OPERATION;
 		}
 	}
-#endif
+
 	return PC_OPERATION_SUCCESS;
 }
 
 API int app_add_friend(const char* app_id1, const char* app_id2)
 {
 	C_LOGD("Enter function: %s", __func__);
-#ifdef SMACK_ENABLED
 	int ret;
 	int fd1 AUTO_CLOSE;
 	int fd2 AUTO_CLOSE;
@@ -1319,7 +1279,7 @@ API int app_add_friend(const char* app_id1, const char* app_id2)
 		C_LOGE("smack_accesses_save failed");
 		return PC_ERR_INVALID_OPERATION;
 	}
-#endif
+
 	return PC_OPERATION_SUCCESS;
 }
 
@@ -1346,13 +1306,11 @@ API int app_install(const char* app_id)
 		return ret;
 	}
 
-#ifdef SMACK_ENABLED
 	ret = register_app_for_av(app_id);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("Error while adding rules for anti viruses to app %s: %s ", app_id, strerror(errno));
 		return ret;
 	}
-#endif //SMACK_ENABLED
 
 	return PC_OPERATION_SUCCESS;
 }
@@ -1379,7 +1337,6 @@ API int app_uninstall(const char* app_id)
 	return PC_OPERATION_SUCCESS;
 }
 
-#ifdef SMACK_ENABLED
 static int save_rules(int fd, struct smack_accesses* accesses) {
 	if (flock(fd, LOCK_EX)) {
 		C_LOGE("flock failed, error %s", strerror(errno));
@@ -1478,7 +1435,6 @@ static int save_gids(FILE* file, const gid_t* list_of_db_gids, size_t list_size)
 	}
 	return ret;
 }
-#endif // SMACK_ENABLED
 
 API int add_api_feature(app_type_t app_type,
 						const char* api_feature_name,
@@ -1487,7 +1443,6 @@ API int add_api_feature(app_type_t app_type,
 						size_t list_size) {
 	C_LOGD("Enter function: %s", __func__);
 
-#ifdef SMACK_ENABLED
 	int ret = PC_OPERATION_SUCCESS;
 	char* smack_file = NULL;
 	char* dac_file = NULL;
@@ -1549,15 +1504,11 @@ API int add_api_feature(app_type_t app_type,
 	}
 
 	return ret;
-#else
-	return PC_OPERATION_SUCCESS;
-#endif // SMACK_ENABLED
 }
 
 API int app_register_av(const char* app_av_id)
 {
 	C_LOGD("Enter function: %s", __func__);
-#ifdef SMACK_ENABLED
 	int ret;
 	int i;
 	int fd AUTO_CLOSE;
@@ -1619,6 +1570,6 @@ out:
 	for (i=0; i<smack_label_app_list_len; ++i) {
 		free(smack_label_app_list[i]);
 	}
-#endif //SMACK_ENABLED
+
 	return PC_OPERATION_SUCCESS;
 }

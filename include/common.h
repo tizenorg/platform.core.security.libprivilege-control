@@ -56,8 +56,6 @@ void smack_freep(struct smack_accesses **smack);
 #define AUTO_FCLOSE     __attribute__ ((cleanup(fclosep)))     = NULL
 #define AUTO_SMACK_FREE __attribute__ ((cleanup(smack_freep))) = NULL
 
-#ifdef SMACK_ENABLED
 int smack_label_is_valid(const char* smack_label);
-#endif
 
 #endif /* COMMON_H_ */
