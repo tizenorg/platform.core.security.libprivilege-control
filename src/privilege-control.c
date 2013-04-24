@@ -70,7 +70,7 @@
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
 #define ACC_LEN                 5
 
-static int set_smack_for_wrt(const char* widget_id);
+static int set_smack_for_wrt(char **smack_label, const char* widget_id);
 
 typedef struct {
 	char user_name[10];
@@ -207,7 +207,7 @@ API int control_privilege(void)
 		return PC_ERR_NOT_PERMITTED;
 }
 
-static int set_dac(const char* pkg_name)
+static int set_dac(const char *smack_label, const char *pkg_name)
 {
 	C_LOGD("Enter function: %s", __func__);
 	FILE* fp_group = NULL;	// /etc/group
@@ -219,7 +219,6 @@ static int set_dac(const char* pkg_name)
 	int result;
 	int i;
 	new_user usr;
-	char *current_smack = NULL;
 	unsigned *additional_gids = NULL;
 
 	/*
@@ -308,19 +307,11 @@ static int set_dac(const char* pkg_name)
 			glist_cnt++;
 		}
 
-		/* FIXME: this should be reworked to not depend on SMACK
-		 * proper solution is not trivial (no app_id is passed to set_app_privilege())
-		 */
-		if (have_smack()) {
+		{
 			gid_t *glist_new;
 			int i, cnt;
 
-			if (smack_new_label_from_self(&current_smack)) {
-				C_LOGE("smack_new_label_from_self failed");
-				result = PC_ERR_MEM_OPERATION;
-				goto error;
-			}
-			result = get_app_gids(current_smack, &additional_gids, &cnt);
+			result = get_app_gids(smack_label, &additional_gids, &cnt);
 			if (result != PC_OPERATION_SUCCESS)
 				goto error;
 
@@ -405,7 +396,6 @@ error:
 	if(glist != NULL)
 		free(glist);
 	free(additional_gids);
-	free(current_smack);
 
 	return result;
 }
@@ -418,34 +408,34 @@ error:
  * @param path file path to take label from
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-static int set_smack_from_binary(const char* path)
+static int set_smack_from_binary(char **smack_label, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
-	char* label;
 
 	C_LOGD("Path: %s", path);
-	if (!have_smack())
-		return PC_OPERATION_SUCCESS;
 
-	ret = smack_getlabel(path, &label, SMACK_LABEL_EXEC);
+	*smack_label = NULL;
+	ret = smack_getlabel(path, smack_label, SMACK_LABEL_EXEC);
 	if (ret != 0) {
 		C_LOGE("Getting exec label from file %s failed", path);
 		return PC_ERR_INVALID_OPERATION;
 	}
 
-	if (label == NULL) {
+	if (*smack_label == NULL) {
 		/* No label to set, just return with success */
 		C_LOGD("No label to set, just return with success");
 		ret = PC_OPERATION_SUCCESS;
 	}
 	else {
-		ret = smack_set_label_for_self(label);
-		C_LOGD("label = %s", label);
-		C_LOGD("smack_set_label_for_self returned %d", ret);
+		C_LOGD("label = %s", *smack_label);
+		if (have_smack()) {
+			ret = smack_set_label_for_self(*smack_label);
+			C_LOGD("smack_set_label_for_self returned %d", ret);
+		} else
+			ret = PC_OPERATION_SUCCESS;
 	}
 
-	free(label);
 	return ret;
 }
 
@@ -527,6 +517,7 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 	C_LOGD("Enter function: %s", __func__);
 	C_LOGD("Function params: name = %s, type = %s, path = %s", name, type, path);
 	const char* widget_id;
+	char *smack_label AUTO_FREE;
 	int ret = PC_OPERATION_SUCCESS;
 
 	switch(verify_app_type(type, path)) {
@@ -538,18 +529,18 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 			ret = PC_ERR_INVALID_PARAM;
 		}
 		else
-			ret = set_smack_for_wrt(widget_id);
+			ret = set_smack_for_wrt(&smack_label, widget_id);
 		break;
 	default:
 		if (path != NULL)
-			ret = set_smack_from_binary(path);
+			ret = set_smack_from_binary(&smack_label, path);
 		break;
 	}
 
 	if (ret != PC_OPERATION_SUCCESS)
 		return ret;
 
-	return set_dac(name);
+	return set_dac(smack_label, name);
 }
 
 API int set_privilege(const char* pkg_name)
@@ -735,9 +726,14 @@ out:
 	return ret;
 }
 
-static int set_smack_for_wrt(const char* widget_id)
+static int set_smack_for_wrt(char **smack_label, const char* widget_id)
 {
 	C_LOGD("Enter function: %s", __func__);
+
+	*smack_label = strdup(widget_id);
+	if (smack_label == NULL)
+		return PC_ERR_MEM_OPERATION;
+
 	if (!have_smack())
 		return PC_OPERATION_SUCCESS;
 /*
