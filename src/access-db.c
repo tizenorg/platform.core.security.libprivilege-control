@@ -62,8 +62,10 @@ static element_t* add_element (element_t* elem, const char* value)
 		return NULL;
 
 	new_element->value = malloc(sizeof(char) * (SMACK_LABEL_LEN + 1) );
-	if (NULL == new_element->value)
+	if (NULL == new_element->value) {
+		free(new_element);
 		return NULL;
+	}
 
 	strncpy(new_element->value, value, SMACK_LABEL_LEN);
 	new_element->value[SMACK_LABEL_LEN] = '\0';
@@ -276,6 +278,12 @@ int get_app_gids(const char *app_id, unsigned **gids, int *len)
 				ret = PC_ERR_FILE_OPERATION;
 				goto out;
 			}
+		}
+
+		if (!app_id_tmp) {
+			C_LOGE("No group id found");
+			ret = PC_ERR_FILE_OPERATION;
+			goto out;
 		}
 
 		if (!strcmp(app_id, app_id_tmp)) {

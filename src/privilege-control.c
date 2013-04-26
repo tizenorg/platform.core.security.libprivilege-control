@@ -836,14 +836,14 @@ static int register_app_for_av(const char * app_id)
 	ret = smack_accesses_new(&smack);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("smack_accesses_new failed");
-		goto out;
+		return ret;
 	}
 
 	// Reading labels of all installed anti viruses from "database"
 	ret = get_all_avs_ids(&smack_label_av_list, &smack_label_av_list_len);
-	if (ret != PC_OPERATION_SUCCESS ) {
+	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("Error while geting data from database");
-		goto out;
+		return ret;
 	}
 
 	// for each anti-virus put rule: "anti_virus_id app_id rwx"
@@ -1439,8 +1439,8 @@ API int add_api_feature(app_type_t app_type,
 	C_LOGD("Enter function: %s", __func__);
 
 	int ret = PC_OPERATION_SUCCESS;
-	char* smack_file = NULL;
-	char* dac_file = NULL;
+	char* smack_file AUTO_FREE;
+	char* dac_file AUTO_FREE;
 	struct smack_accesses* accesses = NULL;
 	FILE* file = NULL;
 
@@ -1448,7 +1448,7 @@ API int add_api_feature(app_type_t app_type,
 
 	// get feature SMACK file name
 	ret = perm_file_path(&smack_file, app_type, api_feature_name, ".smack");
-	if (ret != PC_OPERATION_SUCCESS ) {
+	if (ret != PC_OPERATION_SUCCESS || !smack_file ) {
 		return ret;
 	}
 
@@ -1462,7 +1462,7 @@ API int add_api_feature(app_type_t app_type,
 	if (list_of_db_gids && list_size > 0) {
 		// get feature DAC file name
 		ret = perm_file_path(&dac_file, app_type, api_feature_name, ".dac");
-		if (ret != PC_OPERATION_SUCCESS ) {
+		if (ret != PC_OPERATION_SUCCESS || !dac_file ) {
 			return ret;
 		}
 
