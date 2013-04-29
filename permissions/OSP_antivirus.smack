@@ -1,0 +1,10 @@
+~APP~ msg-service rwx
+msg-service ~APP~ rx
+~APP~ com.samsung.message rwx
+com.samsung.message ~APP~ rx
+~APP~ com.samsung.email rwx
+com.samsung.email ~APP~ rx
+~APP~ com.samsung.browser rwx
+com.samsung.browser ~APP~ rx
+~APP~ com.samsung.setting rwx
+com.samsung.setting ~APP~ rx

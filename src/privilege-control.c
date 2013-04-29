@@ -59,8 +59,6 @@
 #define DEV_GROUP_PATH	TOSTRING(SHAREDIR) "/dev_group_list"
 
 #define SMACK_RULES_DIR  "/etc/smack/accesses.d/"
-//#define SMACK_APPS_LABELS_DATABASE "/opt/dbspace/.privilege_control_all_apps_id.db"
-//#define SMACK_AVS_LABELS_DATABASE "/opt/dbspace/.privilege_control_all_avs_id.db"
 
 #define SMACK_APP_LABEL_TEMPLATE "~APP~"
 #define SMACK_SRC_FILE_SUFFIX   "_src_file"
@@ -69,6 +67,7 @@
 #define WRT_BASE_DEVCAP         "WRT"
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
 #define ACC_LEN                 5
+#define SMACK_ANTIVIRUS_PERM    "antivirus"
 
 static int set_smack_for_wrt(char **smack_label, const char* widget_id);
 
@@ -1548,6 +1547,13 @@ API int app_register_av(const char* app_av_id)
 			ret = PC_ERR_INVALID_OPERATION;
 			goto out; // Should we abort adding rules if once smack_accesses_add will fail?
 		}
+	}
+
+	// Add permisions from OSP_antivirus.samck file - only the OSP app can be an Anti Virus
+	ret = perm_to_smack(smack, app_av_id, APP_TYPE_OSP, SMACK_ANTIVIRUS_PERM);
+	if (PC_OPERATION_SUCCESS != ret) {
+		C_LOGE("perm_to_smack failed");
+		goto out;
 	}
 
 	if (have_smack() && smack_accesses_apply(smack)) {
