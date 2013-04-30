@@ -111,7 +111,7 @@ int state_tree_push(const char* key_param, const char* value_param)
 		free(node);
 		free(key);
 		free(value);
-		return PC_ERR_INVALID_OPERATION;
+		return PC_OPERATION_SUCCESS; // 04.2013 Temporary fix. Allow for multiple call of app_give_access
 	}
 
 	tsearch(node, &state_tree, state_tree_cmp);
