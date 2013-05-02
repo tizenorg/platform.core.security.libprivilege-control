@@ -1286,6 +1286,10 @@ API int app_install(const char* app_id)
 	if (ret != PC_OPERATION_SUCCESS)
 		return ret;
 
+        if (access(smack_path, F_OK) == 0){
+                C_LOGE("file exists");
+                return PC_ERR_FILE_OPERATION;
+        }
 	fd = open(smack_path, O_RDWR|O_CREAT, 0644);
 	if (fd == -1) {
 		C_LOGE("file open failed: %s", strerror(errno));
