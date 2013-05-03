@@ -1,0 +1,3 @@
+~APP~ media-data::db rw
+~APP~ resman::db rw
+~APP~ system::media rwx

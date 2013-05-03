@@ -1,0 +1,3 @@
+~APP~ osp-security-service w
+~APP~ system::share rwx
+~APP~ system::vconf x

@@ -1,0 +1,11 @@
+~APP~ dbus w
+~APP~ email-service rw
+~APP~ email-service::db rw
+~APP~ media-data::db rw
+~APP~ wrt-security-daemon::db rw
+~APP~ wrt-security-daemon w
+~APP~ media-server wx
+~APP~ system::media rx
+~APP~ pkgmgr::db rw
+~APP~ sys-assert::core x
+media-server ~APP~ w

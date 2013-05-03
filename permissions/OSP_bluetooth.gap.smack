@@ -1,0 +1,6 @@
+~APP~ dbus w
+~APP~ mdm-server w
+~APP~ osp-connectivity-service w
+~APP~ osp-security-service rw
+~APP~ resman r
+~APP~ webkit2-efl x

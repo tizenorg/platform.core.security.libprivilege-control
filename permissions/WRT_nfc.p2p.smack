@@ -1,0 +1,8 @@
+~APP~ dbus w
+~APP~ email-service::db rw
+~APP~ email-service rw
+~APP~ nfc-manager w
+~APP~ pkgmgr::db rw
+~APP~ sys-assert::core x
+~APP~ wrt-security-daemon::db rw
+~APP~ wrt-security-daemon w

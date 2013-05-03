@@ -1,0 +1,4 @@
+~APP~ contacts-service wx
+~APP~ msg-service::db rw
+~APP~ msg-service w
+~APP~ osp-security-service w

@@ -1,0 +1,4 @@
+~APP~ osp::root-certs x
+~APP~ osp-security-service rw
+~APP~ osp::user-certs x
+~APP~ system::share rwx

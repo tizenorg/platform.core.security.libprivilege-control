@@ -1,0 +1,5 @@
+~APP~ dbus w
+~APP~ device::app_logging w
+~APP~ osp-security-service rw
+~APP~ svi-data r
+~APP~ webkit2-efl rx

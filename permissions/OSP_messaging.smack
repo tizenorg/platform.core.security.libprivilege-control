@@ -1,0 +1,8 @@
+~APP~ dbus rw
+~APP~ email-service wx
+~APP~ msg-service wx
+~APP~ osp-security-service w
+~APP~ pulseaudio rwx
+~APP~ resman::db rw
+~APP~ system::share rwx
+pulseaudio ~APP~ w

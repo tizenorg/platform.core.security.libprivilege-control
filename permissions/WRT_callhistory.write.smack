@@ -1,0 +1,8 @@
+~APP~ contacts-service x
+~APP~ dbus w
+~APP~ deviced rwxa
+~APP~ email-service rw
+~APP~ email-service::db rw
+~APP~ sys-assert::core rwxa
+~APP~ syslogd w
+~APP~ wrt-security-daemon::db rw
