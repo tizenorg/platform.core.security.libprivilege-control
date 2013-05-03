@@ -3,6 +3,8 @@
 		<domain name="system"/>
 		<provide>
 			<label name="system::vconf"/>
+			<label name="system::vconf_setting"/>
+			<label name="system::vconf_privacy"/>
 			<label name="system::camera"/>
 			<label name="system::app_logging"/>
 			<label name="system::sys_logging"/>
@@ -20,6 +22,7 @@
 			<label name="system::media"/>
 			<label name="system::ext_storage"/>
 			<label name="system::privilege_control::db"/>
+			<label name="system::clipboard"/>
 		</provide>
 	</define>
 	<request>
