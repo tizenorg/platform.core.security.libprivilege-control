@@ -45,7 +45,6 @@
 
 #define APP_GID	5000
 #define APP_UID	5000
-#define ADMIN_GROUP		6504
 #define DEVELOPER_GID	5100
 #define DEVELOPER_UID	5100
 
@@ -200,7 +199,7 @@ API int control_privilege(void)
 	if(getuid() == APP_UID)	// current user is 'app'
 		return PC_OPERATION_SUCCESS;
 
-	if(set_app_privilege("com.samsung.", NULL, NULL) == PC_OPERATION_SUCCESS)
+	if(set_app_privilege("org.tizen.", NULL, NULL) == PC_OPERATION_SUCCESS)
 		return PC_OPERATION_SUCCESS;
 	else
 		return PC_ERR_NOT_PERMITTED;
@@ -286,25 +285,6 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 		}
 		fclose(fp_group);
 		fp_group = NULL;
-
-		/*
-		 * in case of dialer, add admin to glist
-		 */
-		if(!strncmp(pkg_name, "com.samsung.phone", 17) || !strncmp(pkg_name, "com.samsung.call", 16) ||
-		   !strncmp(pkg_name, "phone-tabui-efl", 15))
-		{
-			gid_t *glist_new;
-			C_LOGD("Dialer app - add admin to glist");
-			glist_new = (gid_t*)realloc(glist, sizeof(gid_t) * (glist_cnt + 1));
-			if (glist_new == NULL) {
-				result = PC_ERR_MEM_OPERATION;	// return -2
-				C_LOGE("Cannot allocate memory");
-				goto error;
-			}
-			glist = glist_new;
-			glist[glist_cnt] = ADMIN_GROUP;	// 6504
-			glist_cnt++;
-		}
 
 		{
 			gid_t *glist_new;
@@ -894,11 +874,14 @@ out:
 static int app_add_permissions_internal(const char* app_id, app_type_t app_type, const char** perm_list, int permanent)
 {
 	C_LOGD("Enter function: %s", __func__);
-	int i, ret;
 	char* smack_path AUTO_FREE;
+	int i, ret;
 	int fd AUTO_CLOSE;
 	struct smack_accesses *smack AUTO_SMACK_FREE;
 	const char* base_perm = NULL;
+
+	if (!smack_label_is_valid(app_id))
+		return PC_ERR_INVALID_PARAM;
 
 	ret = load_smack_from_file(app_id, &smack, &fd, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS) {
@@ -977,6 +960,9 @@ static int app_revoke_permissions_internal(const char* app_id, bool persistent)
 	int fd AUTO_CLOSE;
 	struct smack_accesses *smack AUTO_SMACK_FREE;
 
+	if (!smack_label_is_valid(app_id))
+		return PC_ERR_INVALID_PARAM;
+
 	ret = load_smack_from_file(app_id, &smack, &fd, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("load_smack_from_file failed");
@@ -1042,6 +1028,9 @@ API int app_label_dir(const char* label, const char* path)
 
 	int ret = PC_OPERATION_SUCCESS;
 
+	if (!smack_label_is_valid(label))
+		return PC_ERR_INVALID_PARAM;
+
 	//setting access label on everything in given directory and below
 	ret = dir_set_smack_r(path, label, SMACK_LABEL_ACCESS, ~0);
 	if (PC_OPERATION_SUCCESS != ret)
@@ -1058,7 +1047,7 @@ API int app_label_dir(const char* label, const char* path)
 	return ret;
 }
 
-static int smack_get_access_new(const char* subject, const char* object, char** label)
+int smack_get_access_new(const char* subject, const char* object, char** label)
 {
 	char buff[ACC_LEN] = {'r', 'w', 'x', 'a', 't'};
 	char perm[2] = {'-'};
@@ -1149,6 +1138,8 @@ API int app_label_shared_dir(const char* app_label, const char* shared_label, co
 	int fd AUTO_CLOSE;
 	struct smack_accesses *smack AUTO_SMACK_FREE;
 
+	if (!smack_label_is_valid(app_label) || !smack_label_is_valid(shared_label))
+		return PC_ERR_INVALID_PARAM;
 
 	if (strcmp(app_label, shared_label) == 0) {
 		C_LOGE("app_label equals shared_label");
@@ -1246,6 +1237,9 @@ API int app_add_friend(const char* app_id1, const char* app_id2)
 	struct smack_accesses* smack1 AUTO_SMACK_FREE;
 	struct smack_accesses* smack2 AUTO_SMACK_FREE;
 
+	if (!smack_label_is_valid(app_id1) || !smack_label_is_valid(app_id2))
+		return PC_ERR_INVALID_PARAM;
+
 	ret = load_smack_from_file(app_id1, &smack1, &fd1, &smack_path1);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("load_smack_from_file failed");
@@ -1285,6 +1279,9 @@ API int app_install(const char* app_id)
 	int fd AUTO_CLOSE;
 	char* smack_path AUTO_FREE;
 
+	if (!smack_label_is_valid(app_id))
+		return PC_ERR_INVALID_PARAM;
+
 	ret = smack_file_name(app_id, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS)
 		return ret;
@@ -1318,6 +1315,9 @@ API int app_uninstall(const char* app_id)
 	C_LOGD("Enter function: %s", __func__);
 	char* smack_path AUTO_FREE;
 	int ret;
+
+	if (!smack_label_is_valid(app_id))
+		return PC_ERR_INVALID_PARAM;
 
 	ret = smack_file_name(app_id, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS)
