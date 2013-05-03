@@ -2,7 +2,7 @@
 
 Name:       libprivilege-control
 Summary:    Library to control privilege of application
-Version:    0.0.25.TIZEN
+Version:    0.0.24.TIZEN
 Release:    1
 Group:      System/Security
 License:    Apache 2.0
@@ -103,6 +103,7 @@ fi
 /usr/lib/systemd/system/smack-default-labeling.service
 /usr/lib/systemd/system/basic.target.wants/smack-default-labeling.service
 %manifest %{_datadir}/%{name}-conf.manifest
+/opt/dbspace/.privilege_control*.db
 
 %files devel
 %{_includedir}/*.h
