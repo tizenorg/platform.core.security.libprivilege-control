@@ -623,3 +623,10 @@ wrt-popup-wrt-runtime ~APP~ rwxa-
 ~APP~ system::clipboard rwxat
 ~APP~ wrt_launchpad_daemon rwxa
 wrt_launchpad_daemon ~APP~ rwxa
+~APP~ system::vconf_setting arwx
+~APP~ system::vconf_inhouse arwx
+~APP~ system::vconf_privacy arwx
+~APP~ system::vconf_system arwx
+~APP~ system::vconf_multimedia arwx
+~APP~ system::vconf_network arwx
+~APP~ system::vconf_misc arwx

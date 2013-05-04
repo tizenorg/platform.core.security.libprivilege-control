@@ -629,4 +629,10 @@ cp7ipabg4ksh ~APP~ rw
 sjjevolsjksh ~APP~ rw
 gi2qxenosh ~APP~ rw
 ~APP~ gi2qxenosh rw
-
+~APP~ system::vconf_setting arwx
+~APP~ system::vconf_inhouse arwx
+~APP~ system::vconf_privacy arwx
+~APP~ system::vconf_system arwx
+~APP~ system::vconf_multimedia arwx
+~APP~ system::vconf_network arwx
+~APP~ system::vconf_misc arwx
