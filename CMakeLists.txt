@@ -44,10 +44,10 @@ SET(libprivilege-control_SOURCES
 	)
 SET(libprivilege-control_LDFLAGS " -module -avoid-version ")
 SET(libprivilege-control_CFLAGS  " ${CFLAGS} -fPIC -I${include_dir}")
-#SET(libprivilege-control_LIBADD " ")
+SET(libprivilege-control_LIBADD  "${pkgs_LDFLAGS} -lcap")
 
 ADD_LIBRARY(privilege-control SHARED ${libprivilege-control_SOURCES})
-TARGET_LINK_LIBRARIES(privilege-control ${pkgs_LDFLAGS} ${pkgs_LIBRARIES})
+TARGET_LINK_LIBRARIES(privilege-control ${libprivilege-control_LIBADD} ${pkgs_LIBRARIES})
 SET_TARGET_PROPERTIES(privilege-control PROPERTIES COMPILE_FLAGS "${libprivilege-control_CFLAGS}")
 SET_TARGET_PROPERTIES(privilege-control PROPERTIES SOVERSION ${VERSION_MAJOR})
 SET_TARGET_PROPERTIES(privilege-control PROPERTIES VERSION ${VERSION})
