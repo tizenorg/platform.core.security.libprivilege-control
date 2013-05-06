@@ -84,8 +84,9 @@ char* app_id_from_socket(int sockfd);
  * Inform about installation of a new app.
  * It is intended to be called during app installation.
  * It will create an empty SMACK rules file used by other functions operating
- * on permissions. It is needed for tracking lifetime of an app.
- * It must be called by privileged user, before using any other app_* function.
+ * on permissions if it doesn't already exist. It is needed for tracking
+ * lifetime of an app. It must be called by privileged user, before using any
+ * other app_* function. It may be called more than once during installation.
  *
  *
  * @param app_id application identifier
