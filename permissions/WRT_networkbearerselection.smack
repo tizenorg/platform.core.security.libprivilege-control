@@ -1,0 +1,6 @@
+~APP~ dbus w
+~APP~ email-service::db rw
+~APP~ email-service rw
+~APP~ pkgmgr::db rw
+~APP~ sys-assert::core x
+~APP~ syslogd w

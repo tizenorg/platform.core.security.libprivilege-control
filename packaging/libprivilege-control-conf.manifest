@@ -5,6 +5,11 @@
 			<label name="system::vconf"/>
 			<label name="system::vconf_setting"/>
 			<label name="system::vconf_privacy"/>
+			<label name="system::vconf_inhouse"/>
+			<label name="system::vconf_system"/>
+			<label name="system::vconf_multimedia"/>
+			<label name="system::vconf_network"/>
+			<label name="system::vconf_misc"/>
 			<label name="system::camera"/>
 			<label name="system::app_logging"/>
 			<label name="system::sys_logging"/>

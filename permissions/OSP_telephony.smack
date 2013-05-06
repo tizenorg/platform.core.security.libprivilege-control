@@ -1,0 +1,4 @@
+~APP~ dbus w
+~APP~ osp-connectivity-service w
+~APP~ osp-security-service w
+~APP~ system::share rwx

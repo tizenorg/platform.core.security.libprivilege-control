@@ -1,0 +1,5 @@
+~APP~ dbus w
+~APP~ email-service rw
+~APP~ email-service::db rw
+~APP~ msg-service::db rw
+~APP~ wrt-security-daemon::db rw

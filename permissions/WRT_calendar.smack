@@ -1,0 +1,10 @@
+~APP~ calendar-service rwx
+~APP~ dbus w
+~APP~ email-service::db rw
+~APP~ email-service rw
+~APP~ pkgmgr::db rw
+~APP~ sys-assert::core wx
+~APP~ syslogd w
+~APP~ wrt-security-daemon::db rw
+~APP~ wrt-security-daemon w
+~APP~ deviced rwax
