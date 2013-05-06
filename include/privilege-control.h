@@ -21,6 +21,7 @@
 
 #include <stdbool.h>
 #include <sys/types.h>
+#include <sys/smack.h>
 
 #ifndef _PRIVILEGE_CONTROL_H_
 #define _PRIVILEGE_CONTROL_H_
@@ -56,6 +57,30 @@ typedef enum {
 int control_privilege(void) __attribute__((deprecated));
 
 int set_privilege(const char* pkg_name) __attribute__((deprecated));
+
+/**
+ * Function get process smack label base on pid.
+ * @param in:  pid of process
+ * @param out: label of process
+ * @return PC_OPERATION_SUCCESS on success PC_ERR_* on error.
+ */
+int get_smack_label_from_process(pid_t pid, char smack_label[SMACK_LABEL_LEN + 1]);
+
+/**
+ * Check if process with pid have access to object.
+ * This function check if subject have access to object via smack_have_access() function.
+ * If YES then returned access granted. In NO then function check if process with pid have
+ * CAP_MAC_OVERRIDE capability. If YES then return access granted.
+ * If NO then return access denied.
+ *
+ * @param pid of process
+ * @param label of object to access
+ * @param access_type
+ * @return 0 (no access) or 1 (access) or -1 (error)
+ */
+int smack_pid_have_access(pid_t pid,
+							const char* object,
+							const char *access_type);
 
 /**
  * Set DAC and SMACK privileges for application.

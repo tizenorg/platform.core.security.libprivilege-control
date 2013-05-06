@@ -36,6 +36,8 @@
 #include <sys/stat.h>
 #include <sys/file.h>
 #include <sys/smack.h>
+#include <linux/capability.h>
+#include <sys/capability.h>
 #include <stdbool.h>
 #include <search.h>
 
@@ -247,6 +249,116 @@ static int get_user_groups(uid_t user_id, int *nbgroup, gid_t **groups_list)
 	}
 	*groups_list = groups;
 	return  PC_OPERATION_SUCCESS;
+}
+
+/**
+ * TODO: this function should be moved to libsmack in open-source.
+ */
+API int get_smack_label_from_process(pid_t pid, char smack_label[SMACK_LABEL_LEN + 1])
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+	int fd AUTO_CLOSE;
+	int PATH_MAX_LEN = 64;
+	char path[PATH_MAX_LEN + 1];
+
+	if (pid < 0) {
+		ret = PC_ERR_INVALID_PARAM;
+		goto out;
+	}
+
+	bzero(smack_label, SMACK_LABEL_LEN + 1);
+	if (!have_smack()) { // If no smack just return success with empty label
+		C_LOGD("No SMACK. Return empty label");
+		ret = PC_OPERATION_SUCCESS;
+		goto out;
+	}
+
+	bzero(path, PATH_MAX_LEN + 1);
+	snprintf(path, PATH_MAX_LEN, "/proc/%d/attr/current", pid);
+	fd = open(path, O_RDONLY);
+	if (fd < 0) {
+		C_LOGE("cannot open file %s (errno: %s)", path, strerror(errno));
+		ret = PC_ERR_FILE_OPERATION;
+		goto out;
+	}
+
+	ret = read(fd, smack_label, SMACK_LABEL_LEN);
+	if (ret < 0) {
+		C_LOGE("cannot read from file %s", path);
+		ret = PC_ERR_FILE_OPERATION;
+		goto out;
+	}
+
+	ret = PC_OPERATION_SUCCESS;
+
+out:
+	return ret;
+}
+
+API int smack_pid_have_access(pid_t pid,
+								const char* object,
+								const char *access_type)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+	char pid_subject_label[SMACK_LABEL_LEN + 1];
+	cap_t cap;
+	cap_flag_value_t cap_v;
+
+	if (!have_smack()) {
+		C_LOGD("No SMACK. Return access granted");
+		return 1;
+	}
+
+	if (pid < 0 || object == NULL || strlen(object) == 0 ||
+			access_type == NULL || strlen(access_type) == 0) {
+		C_LOGE("Invalid param");
+		return -1;
+	}
+
+	//get SMACK label of process
+	ret = get_smack_label_from_process(pid, pid_subject_label);
+	if (PC_OPERATION_SUCCESS != ret) {
+		C_LOGE("get_smack_label_from_process %d failed: %d", pid, ret);
+		return -1;
+	}
+	C_LOGD("pid %d have label: %s", pid, pid_subject_label);
+
+	// if read empty label then do not call smack_have_access()
+	if (pid_subject_label[0] != '\0') {
+		ret = smack_have_access(pid_subject_label, object, access_type);
+		if ( -1 == ret) {
+			C_LOGE("smack_have_access failed");
+			return -1;
+		}
+		if ( 1 == ret ) { // smack_have_access return 1 (access granted)
+			C_LOGD("smack_have_access return 1 (access granted)");
+			return 1;
+		}
+	}
+
+	// smack_have_access return 0 (access denied). Now CAP_MAC_OVERRIDE should be checked
+	C_LOGD("smack_have_access return 0 (access denied)");
+	cap = cap_get_pid(pid);
+	if (cap == NULL) {
+		C_LOGE("cap_get_pid failed");
+		return -1;
+	}
+	ret = cap_get_flag(cap, CAP_MAC_OVERRIDE, CAP_EFFECTIVE, &cap_v);
+	if (0 != ret) {
+		C_LOGE("cap_get_flag failed");
+		return -1;
+	}
+
+	if (cap_v == CAP_SET) {
+		C_LOGD("pid %d have CAP_MAC_OVERRIDE", pid);
+		return 1;
+
+	} else {
+		C_LOGD("pid %d have no CAP_MAC_OVERRIDE", pid);
+		return 0;
+	}
 }
 
 static int set_dac(const char *smack_label, const char *pkg_name)

@@ -8,6 +8,7 @@ Source0:    %{name}-%{version}.tar.gz
 Source2:    smack-default-labeling.service
 Source1001:    %{name}.manifest
 BuildRequires: cmake
+BuildRequires: libcap-devel
 BuildRequires: pkgconfig(libsmack)
 BuildRequires: pkgconfig(dlog)
 
@@ -17,6 +18,7 @@ development package of library to control privilege of in-house application
 %package devel
 Summary:    Control privilege of application (devel)
 Requires:   %{name} = %{version}-%{release}
+Requires:   pkgconfig(libsmack)
 
 %description devel
 Library to control privilege of application (devel)
