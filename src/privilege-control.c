@@ -68,8 +68,6 @@
 #define ACC_LEN                 5
 #define SMACK_ANTIVIRUS_PERM    "antivirus"
 
-static int set_smack_for_wrt(char **smack_label, const char* widget_id);
-
 typedef struct {
 	char user_name[10];
 	int uid;
@@ -83,6 +81,18 @@ typedef struct state_node_t {
 } state_node;
 
 static void *state_tree = NULL;
+
+/**
+ * Return values
+ * <0 - error
+ * 0 - skip
+ * 1 - label
+ */
+typedef int (*label_decision_fn)(const FTSENT*);
+enum {
+	DECISION_SKIP = 0,
+	DECISION_LABEL = 1
+};
 
 int state_tree_cmp(const void *first, const void *second)
 {
@@ -388,7 +398,7 @@ error:
  * @param path file path to take label from
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-static int set_smack_from_binary(char **smack_label, const char* path)
+static int set_smack_from_binary(char **smack_label, const char* path, app_type_t type)
 {
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
@@ -396,7 +406,11 @@ static int set_smack_from_binary(char **smack_label, const char* path)
 	C_LOGD("Path: %s", path);
 
 	*smack_label = NULL;
-	ret = smack_getlabel(path, smack_label, SMACK_LABEL_EXEC);
+	if(type == APP_TYPE_WGT) {
+		ret = smack_lgetlabel(path, smack_label, SMACK_LABEL_EXEC);
+	} else {
+		ret = smack_getlabel(path, smack_label, SMACK_LABEL_EXEC);
+	}
 	if (ret != 0) {
 		C_LOGE("Getting exec label from file %s failed", path);
 		return PC_ERR_INVALID_OPERATION;
@@ -496,30 +510,13 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
 	C_LOGD("Function params: name = %s, type = %s, path = %s", name, type, path);
-	const char* widget_id;
 	char *smack_label AUTO_FREE;
 	int ret = PC_OPERATION_SUCCESS;
+	app_type_t app_type;
 
-	switch(verify_app_type(type, path)) {
-	case APP_TYPE_WGT:
-		//widget_id = parse_widget_id(path);
-		widget_id = name;
-		if (widget_id == NULL) {
-			C_LOGE("PC_ERR_INVALID_PARAM");
-			ret = PC_ERR_INVALID_PARAM;
-		}
-		else
-		{
-			smack_label = strdup(widget_id);
-			ret = set_smack_from_binary(&smack_label, path);
-		}
-		break;
-	default:
-		if (path != NULL)
-			ret = set_smack_from_binary(&smack_label, path);
-		break;
-	}
-
+	app_type = verify_app_type(type, path);
+	if (path != NULL)
+		ret = set_smack_from_binary(&smack_label, path, app_type);
 	if (ret != PC_OPERATION_SUCCESS)
 		return ret;
 
@@ -664,72 +661,95 @@ static int perm_to_dac(const char* app_label, app_type_t app_type, const char* p
 	return PC_OPERATION_SUCCESS;
 }
 
+static int label_all(const FTSENT* ftsent)
+{
+	return DECISION_LABEL;
+}
+
+static int label_execs(const FTSENT* ftsent)
+{
+	C_LOGD("Mode: %d", ftsent->fts_statp->st_mode);
+	// label only regular executable files
+	if (S_ISREG(ftsent->fts_statp->st_mode) && (ftsent->fts_statp->st_mode & S_IXUSR))
+		return DECISION_LABEL;
+	return DECISION_SKIP;
+}
+
+static int label_dirs(const FTSENT* ftsent)
+{
+	// label only directories
+	if (S_ISDIR(ftsent->fts_statp->st_mode))
+		return DECISION_LABEL;
+	return DECISION_SKIP;
+}
+
+static int label_links_to_execs(const FTSENT* ftsent)
+{
+	struct stat buf;
+	char* target AUTO_FREE;
+
+	// check if it's a link
+	if ( !S_ISLNK(ftsent->fts_statp->st_mode))
+		return DECISION_SKIP;
+
+	target = realpath(ftsent->fts_path, NULL);
+	if (!target) {
+		C_LOGE("Getting link target for %s failed. Error %s", ftsent->fts_path, strerror(errno));
+		return PC_ERR_FILE_OPERATION;
+	}
+	if (-1 == stat(target, &buf)) {
+		C_LOGE("stat failed for %s, error: %s",target, strerror(errno));
+		return PC_ERR_FILE_OPERATION;
+	}
+	// skip if link target is not a regular executable file
+	if (buf.st_mode != (buf.st_mode | S_IXUSR | S_IFREG)) {
+		C_LOGD("%s Is not a regular executable file. Skipping.", target);
+		return DECISION_SKIP;
+	}
+
+	return DECISION_LABEL;
+}
+
 static int dir_set_smack_r(const char *path, const char* label,
-		enum smack_label_type type, mode_t type_mask)
+		enum smack_label_type type, label_decision_fn fn)
 {
 	C_LOGD("Enter function: %s", __func__);
-	int ret;
 	const char* path_argv[] = {path, NULL};
-	FTS *fts = NULL;
+	FTS *fts AUTO_FTS_CLOSE;
 	FTSENT *ftsent;
-
-	ret = PC_ERR_FILE_OPERATION;
+	int ret;
 
 	fts = fts_open((char * const *) path_argv, FTS_PHYSICAL | FTS_NOCHDIR, NULL);
 	if (fts == NULL) {
 		C_LOGE("fts_open failed");
-		goto out;
+		return PC_ERR_FILE_OPERATION;
 	}
 
 	while ((ftsent = fts_read(fts)) != NULL) {
 		/* Check for error (FTS_ERR) or failed stat(2) (FTS_NS) */
 		if (ftsent->fts_info == FTS_ERR || ftsent->fts_info == FTS_NS) {
 			C_LOGE("FTS_ERR error or failed stat(2) (FTS_NS)");
-			goto out;
+			return PC_ERR_FILE_OPERATION;
 		}
 
-		if (ftsent->fts_statp->st_mode & type_mask) {
+		ret = fn(ftsent);
+		if (ret < 0) {
+			return ret;
+		}
+
+		if (ret == DECISION_LABEL) {
 			C_LOGD("smack_lsetlabel (label: %s (type: %d), path: %s)", label, type, ftsent->fts_path);
 			if (smack_lsetlabel(ftsent->fts_path, label, type) != 0) {
 				C_LOGE("smack_lsetlabel failed");
-				goto out;
+				return PC_ERR_FILE_OPERATION;
 			}
 		}
 	}
 
 	/* If last call to fts_read() set errno, we need to return error. */
-	if (errno == 0)
-		ret = PC_OPERATION_SUCCESS;
-	else
+	if (errno != 0) {
 		C_LOGE("Last errno: %s", strerror(errno));
-
-out:
-	if (fts != NULL)
-		fts_close(fts);
-	return ret;
-}
-
-static int set_smack_for_wrt(char **smack_label, const char* widget_id)
-{
-	C_LOGD("Enter function: %s", __func__);
-
-	*smack_label = strdup(widget_id);
-	if (smack_label == NULL)
-		return PC_ERR_MEM_OPERATION;
-
-	if (!have_smack())
-		return PC_OPERATION_SUCCESS;
-/*
-	int ret;
-	ret = app_reset_permissions(widget_id);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("app_reset_permissions failed");
-		return ret;
-	}
-*/
-	if (smack_set_label_for_self(widget_id) != 0) {
-		C_LOGE("smack_set_label_for_self failed");
-		return PC_ERR_INVALID_OPERATION;
+		return PC_ERR_FILE_OPERATION;
 	}
 	return PC_OPERATION_SUCCESS;
 }
@@ -1035,18 +1055,17 @@ API int app_label_dir(const char* label, const char* path)
 		return PC_ERR_INVALID_PARAM;
 
 	//setting access label on everything in given directory and below
-	ret = dir_set_smack_r(path, label, SMACK_LABEL_ACCESS, ~0);
+	ret = dir_set_smack_r(path, label, SMACK_LABEL_ACCESS, &label_all);
 	if (PC_OPERATION_SUCCESS != ret)
 		return ret;
 
 	//setting execute label for everything with permission to execute
-	ret = dir_set_smack_r(path, label, SMACK_LABEL_EXEC, S_IXUSR);
+	ret = dir_set_smack_r(path, label, SMACK_LABEL_EXEC, &label_execs);
 	if (PC_OPERATION_SUCCESS != ret)
 		return ret;
 
-	//removing execute label from directories
-	ret = dir_set_smack_r(path, "", SMACK_LABEL_EXEC, S_IFMT & ~S_IFREG);
-
+	//setting execute label for everything with permission to execute
+	ret = dir_set_smack_r(path, label, SMACK_LABEL_EXEC, &label_links_to_execs);
 	return ret;
 }
 
@@ -1150,14 +1169,14 @@ API int app_label_shared_dir(const char* app_label, const char* shared_label, co
 	}
 
 	//setting label on everything in given directory and below
-	ret = dir_set_smack_r(path, shared_label, SMACK_LABEL_ACCESS, ~0);
+	ret = dir_set_smack_r(path, shared_label, SMACK_LABEL_ACCESS, label_all);
 	if(ret != PC_OPERATION_SUCCESS){
 		C_LOGE("dir_set_smakc_r failed");
 		return ret;
 	}
 
 	//setting transmute on dir
-	ret = dir_set_smack_r(path, "1", SMACK_LABEL_TRANSMUTE, S_IFDIR);
+	ret = dir_set_smack_r(path, "1", SMACK_LABEL_TRANSMUTE, label_dirs);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("dir_set_smakc_r failed");
 		return ret;
