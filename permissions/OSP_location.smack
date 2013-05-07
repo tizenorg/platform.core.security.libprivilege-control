@@ -1,0 +1,3 @@
+~APP~ location_fw::db rw
+~APP~ mdm-server w
+~APP~ osp-security-service rw

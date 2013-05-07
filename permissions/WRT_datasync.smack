@@ -1,0 +1,10 @@
+~APP~ dbus w
+~APP~ email-service rw
+~APP~ email-service::db rw
+~APP~ oma-ds-agent wx
+~APP~ oma-ds-agent::cfg r
+~APP~ pkgmgr::db rw
+~APP~ sys-assert::core x
+~APP~ syslogd w
+~APP~ wrt-security-daemon w
+~APP~ wrt-security-daemon::db rw

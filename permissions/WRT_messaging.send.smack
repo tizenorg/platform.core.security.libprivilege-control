@@ -1,0 +1,9 @@
+e17 ~APP~ w
+~APP~ dbus w
+~APP~ email-service rw
+~APP~ email-service::db rw
+~APP~ msg-service w
+~APP~ pkgmgr::db rw
+~APP~ sys-assert::core x
+~APP~ system::homedir x
+~APP~ wrt-security-daemon::db rw

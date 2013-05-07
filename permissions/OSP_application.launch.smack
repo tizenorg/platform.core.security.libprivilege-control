@@ -1,0 +1,3 @@
+~APP~ osp-security-service w
+~APP~ resman r
+~APP~ system::share rw
