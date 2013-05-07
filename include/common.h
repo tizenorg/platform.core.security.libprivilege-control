@@ -24,7 +24,7 @@
 
 #include <stdio.h>
 #include <dlog.h>
-
+#include <fts.h>
 
 #ifdef LOG_TAG
     #undef LOG_TAG
@@ -51,10 +51,12 @@ void freep(void *p);
 void closep(int *fd);
 void fclosep(FILE **f);
 void smack_freep(struct smack_accesses **smack);
+void fts_closep(FTS **f);
 #define AUTO_FREE       __attribute__ ((cleanup(freep)))       = NULL
 #define AUTO_CLOSE      __attribute__ ((cleanup(closep)))      = -1
 #define AUTO_FCLOSE     __attribute__ ((cleanup(fclosep)))     = NULL
 #define AUTO_SMACK_FREE __attribute__ ((cleanup(smack_freep))) = NULL
+#define AUTO_FTS_CLOSE  __attribute__ ((cleanup(fts_closep)))   = NULL
 
 int smack_label_is_valid(const char* smack_label);
 
