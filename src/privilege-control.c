@@ -157,8 +157,10 @@ char* state_tree_pop_new(char *key)
 int state_save(const char *subject, const char *object, const char *perm)
 {
 	char *key = NULL;
-	if (-1 == asprintf(&key, "%s|%s", subject, object))
+	if (-1 == asprintf(&key, "%s|%s", subject, object)) {
+		C_LOGE("Error in %s: asprintf failed.", __func__);
 		return PC_ERR_INVALID_OPERATION;
+	}
 	int ret = state_tree_push(key, perm);
 	free(key);
 	return ret;
@@ -170,21 +172,31 @@ int state_restore(const char* subject, const char* object)
 	char *perm AUTO_FREE;
 	struct smack_accesses *smack AUTO_SMACK_FREE;
 
-	if (-1 == asprintf(&key, "%s|%s", subject, object))
+	if (-1 == asprintf(&key, "%s|%s", subject, object)) {
+		C_LOGE("Error in %s: asprintf failed.", __func__);
 		return PC_ERR_INVALID_OPERATION;
+	}
 
 	perm = state_tree_pop_new(key);
-	if (!perm)
+	if (!perm) {
+		C_LOGE("Error in %s: state_tree_pop_new failed - no data for subject=%s object=%s.", __func__, subject, object);
 		return PC_ERR_INVALID_OPERATION;
+	}
 
-	if (smack_accesses_new(&smack))
+	if (smack_accesses_new(&smack)) {
+		C_LOGE("Error in %s: smack_accesses_new failed - memory error.", __func__);
 		return PC_ERR_MEM_OPERATION;
+	}
 
-	if (smack_accesses_add(smack, subject, object, perm))
+	if (smack_accesses_add(smack, subject, object, perm)) {
+		C_LOGE("Error in %s: smack_accesses_add failed.", __func__);
 		return PC_ERR_MEM_OPERATION;
+	}
 
-	if (smack_accesses_apply(smack))
+	if (smack_accesses_apply(smack)) {
+		C_LOGE("Error in %s: smack_accesses_apply failed - operation not permitted.", __func__);
 		return PC_ERR_NOT_PERMITTED;
+	}
 
 	return PC_OPERATION_SUCCESS;
 }
@@ -1395,24 +1407,32 @@ API int app_give_access(const char* subject, const char* object, const char* per
 	if (!have_smack())
 		return PC_OPERATION_SUCCESS;
 
-	if (!smack_label_is_valid(subject) || !smack_label_is_valid(object))
+	if (!smack_label_is_valid(subject) || !smack_label_is_valid(object)) {
+		C_LOGE("Error in %s: invalid param.", __func__);
 		return PC_ERR_INVALID_PARAM;
+	}
 
-	if (PC_OPERATION_SUCCESS != (ret = smack_get_access_new(subject, object, &current_permissions)))
+	if (PC_OPERATION_SUCCESS != (ret = smack_get_access_new(subject, object, &current_permissions))) {
+		C_LOGE("Error in %s: smack_get_access_new failed.", __func__);
 		return ret;
+	}
 
-	if (smack_accesses_new(&smack))
+	if (smack_accesses_new(&smack)) {
+		C_LOGE("Error in %s: smack_accesses_new failed.", __func__);
 		return PC_ERR_MEM_OPERATION;
+	}
 
-	if (smack_accesses_add_modify(smack, subject, object, permissions, ""))
+	if (smack_accesses_add_modify(smack, subject, object, permissions, "")) {
+		C_LOGE("Error in %s: smack_accesses_add_modify failed.", __func__);
 		return PC_ERR_MEM_OPERATION;
+	}
 
-	if (smack_accesses_apply(smack))
+	if (smack_accesses_apply(smack)) {
+		C_LOGE("Error in %s: smack_accesses_apply failed.", __func__);
 		return PC_ERR_NOT_PERMITTED;
+	}
 
-	ret = state_save(subject, object, current_permissions);
-
-	return ret;
+	return state_save(subject, object, current_permissions);
 }
 
 /*
@@ -1427,8 +1447,10 @@ API int app_revoke_access(const char* subject, const char* object)
 	if (!have_smack())
 		return PC_OPERATION_SUCCESS;
 
-	if (!smack_label_is_valid(subject) || !smack_label_is_valid(object))
+	if (!smack_label_is_valid(subject) || !smack_label_is_valid(object)) {
+		C_LOGE("Error in %s: invalid param.", __func__);
 		return PC_ERR_INVALID_PARAM;
+	}
 
 	return state_restore(subject, object);
 }
