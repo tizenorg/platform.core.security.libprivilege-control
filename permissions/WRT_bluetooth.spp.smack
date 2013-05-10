@@ -1,0 +1,13 @@
+dbus ~APP~ rwx
+e17 ~APP~ w
+~APP~ dbus w
+~APP~ email-service rw
+~APP~ email-service::db rw
+~APP~ mdm-server w
+~APP~ pkgmgr::db rw
+~APP~ wrt-security-daemon w
+~APP~ wrt-security-daemon::db rw
+~APP~ resman r
+~APP~ syslogd w
+~APP~ sys-assert::core x
+~APP~ bt-service::spp w

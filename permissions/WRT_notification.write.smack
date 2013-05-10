@@ -1,0 +1,9 @@
+~APP~ email-service rw
+~APP~ email-service::db rw
+~APP~ notification::db rw
+~APP~ pkgmgr::db rw
+~APP~ sys-assert::core x
+~APP~ syslogd w
+~APP~ system::media rx
+~APP~ wrt-security-daemon w
+~APP~ wrt-security-daemon::db rw

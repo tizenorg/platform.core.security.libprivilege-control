@@ -1,0 +1,5 @@
+~APP~ dbus w
+~APP~ osp-security-service w
+~APP~ resman r
+~APP~ system::use_internet w
+system::use_internet ~APP~ w

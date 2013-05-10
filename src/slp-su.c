@@ -36,14 +36,14 @@
 #endif // LOG_TAG
 
 // conditional log macro for dlogutil (debug)
-#ifdef DDLOG_DEBUG_ENABLED
+#ifdef DLOG_DEBUG_ENABLED
 #define C_LOGD(...) LOGD(__VA_ARGS__)
 #else
 #define C_LOGD(...) do { } while(0)
 #endif //DLOG_DEBUG_ENABLED
 
 // conditional log macro for dlogutil (error)
-#ifdef DDLOG_ERROR_ENABLED
+#ifdef DLOG_ERROR_ENABLED
 #define C_LOGE(...) LOGE(__VA_ARGS__)
 #else
 #define C_LOGE(...) do { } while(0)

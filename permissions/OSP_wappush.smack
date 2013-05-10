@@ -1,0 +1,4 @@
+~APP~ msg-service w
+~APP~ osp-security-service w
+~APP~ msg-service::wappush rw
+~APP~ msg-service::write rw

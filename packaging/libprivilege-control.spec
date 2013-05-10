@@ -103,6 +103,7 @@ fi
 /usr/lib/systemd/system/smack-default-labeling.service
 /usr/lib/systemd/system/basic.target.wants/smack-default-labeling.service
 %manifest %{_datadir}/%{name}-conf.manifest
+/opt/dbspace/.privilege_control*.db
 
 %files devel
 %{_includedir}/*.h

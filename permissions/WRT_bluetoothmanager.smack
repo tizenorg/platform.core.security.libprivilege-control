@@ -1,0 +1,7 @@
+dbus ~APP~ rwx
+~APP~ dbus w
+~APP~ mdm-server w
+~APP~ pkgmgr::db rw
+~APP~ sys-assert::core x
+~APP~ syslogd w
+~APP~ bt-service::admin w

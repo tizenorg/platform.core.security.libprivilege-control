@@ -1,0 +1,6 @@
+~APP~ contacts-service rwx
+~APP~ csc-manager rw
+~APP~ resman r
+~APP~ contacts-service::read r
+~APP~ contacts-service::write w
+~APP~ contacts-service::svc rw

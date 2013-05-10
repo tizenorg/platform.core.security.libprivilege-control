@@ -20,6 +20,7 @@
  */
 
 #include <stdbool.h>
+#include <sys/types.h>
 
 #ifndef _PRIVILEGE_CONTROL_H_
 #define _PRIVILEGE_CONTROL_H_
@@ -43,6 +44,7 @@ extern "C" {
 #define PC_ERR_NOT_PERMITTED		-3
 #define PC_ERR_INVALID_PARAM		-4
 #define PC_ERR_INVALID_OPERATION	-5
+#define PC_ERR_DB_OPERATION			-6
 
 typedef enum {
        APP_TYPE_WGT,
@@ -83,7 +85,7 @@ char* app_id_from_socket(int sockfd);
  * It is intended to be called during app installation.
  * It will create an empty SMACK rules file used by other functions operating
  * on permissions. It is needed for tracking lifetime of an app.
- * It must be called by privileged user, befor using any other app_* function.
+ * It must be called by privileged user, before using any other app_* function.
  *
  *
  * @param app_id application identifier
@@ -103,6 +105,18 @@ int app_install(const char* app_id);
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
 int app_uninstall(const char* app_id);
+
+/**
+ * Inform about installation of new Anti Virus application.
+ * It is intended to be called during Anti Virus installation.
+ * It will give this application SMACK rules to RWX access to all other apps
+ * installed in system.
+ * It must be called by privileged user.
+ *
+ * @param app_id application identifier
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error.
+ */
+int app_register_av(const char* app_av_id);
 
 /**
  * Grant SMACK permissions based on permissions list.
@@ -152,6 +166,20 @@ int app_add_volatile_permissions(const char* app_id, const char** perm_list)  __
 int app_enable_permissions(const char* app_id, app_type_t app_type, const char** perm_list, bool persistent);
 
 /**
+ * Remove previously granted SMACK permissions based on permissions list.
+ * It will remove given permissions from an app, leaving other granted
+ * permissions untouched. Results will be persistent.
+ * It must be called by privileged user.
+ *
+ *
+ * @param app_id application identifier
+ * @param app_type application type
+ * @param perm_list array of permission names, last element must be NULL
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_disable_permissions(const char* app_id, app_type_t app_type, const char** perm_list);
+
+/**
  * Revoke SMACK permissions from an application.
  * This function should be called during app deinstallation.
  * It will revoke all SMACK rules previously granted by app_add_permissions().
@@ -192,6 +220,7 @@ int app_label_dir(const char* app_label, const char* path);
  * This function should be called once during app installation.
  * Results will be persistent on the file system.
  * It must be called by privileged user.
+ * Labels app_label and shared_label should not be equal.
  *
  * @param app_label label name, used as subject for SMACK rule
  * @param shared_label, used as object for SMACK rule
@@ -227,6 +256,45 @@ int add_shared_dir_readers(const char* shared_label, const char** app_list);
  */
 int app_add_friend(const char* app_id1, const char* app_id2);
 
+/**
+ * Modify SMACK rules to give access from (subject)customer_label to (object)
+ * provider_label.
+ * Note: This function will do nothing if subject has already rwxat access to
+ * object. You can revoke this modyfication by calling app_rovoke_access.
+ *
+ * @param subject - label of client application
+ * @param object  - label of provider application
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_give_access(const char* subject, const char* object, const char* permission);
+
+/**
+ * Revoke access granted by app_give_access. This function will not remove
+ * accesses that were granted before app_give_access call.
+ *
+ * @param subject - label of client application
+ * @param object  - label of provider application
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_revoke_access(const char* subject, const char* object);
+
+/**
+ * Adds new api feature by installing new *.smack file.
+ * It must be called by privileged user.
+ *
+ * @param app_type application type
+ * @param api_feature_name name of newly added feature
+ * @param smack_rule_set set of rules required by the feature - NULL terminated
+ * list of NULL terminated rules.
+ * @param list_of_db_gids list of gids required to access databases controlled
+ * by the feature
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int add_api_feature(app_type_t app_type,
+					const char* api_feature_name,
+					const char** set_smack_rule_set,
+					const gid_t* list_of_db_gids,
+					size_t list_size);
 
 #ifdef __cplusplus
 }

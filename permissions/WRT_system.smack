@@ -1,0 +1,11 @@
+~APP~ dbus w
+~APP~ deviced rwx
+~APP~ email-service rw
+~APP~ email-service::db rw
+~APP~ pkgmgr::db rw
+~APP~ sound_server rw
+~APP~ sys-assert::core x
+~APP~ syslogd w
+~APP~ wrt-security-daemon w
+~APP~ wrt-security-daemon::db rw
+~APP~ telephony_framework::api_sim r

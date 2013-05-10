@@ -1,0 +1,4 @@
+~APP~ msg-service w
+~APP~ resman r
+~APP~ msg-service::cellbroadcast rw
+~APP~ msg-service::write rw

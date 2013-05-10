@@ -1,0 +1,15 @@
+~APP~ ail::db rw
+~APP~ dbus w
+~APP~ email-service rw
+~APP~ email-service::db rw
+~APP~ isf rwx
+~APP~ pkgmgr::db rw
+~APP~ sys-assert::core x
+~APP~ syslogd w
+~APP~ system::homedir rx
+~APP~ system::share wx
+~APP~ system::vconf rwx
+~APP~ tizenutc00 rwx
+~APP~ wrt-commons::db_wrt_autosave rw
+~APP~ wrt-security-daemon::db r
+~APP~ xorg w

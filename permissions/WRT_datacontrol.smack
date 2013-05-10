@@ -1,0 +1,11 @@
+~APP~ data-provider-master r
+~APP~ email-service::db rw
+~APP~ pkgmgr::db rw
+~APP~ sys-assert::core wx
+~APP~ syslogd w
+~APP~ system::share rw
+~APP~ wrt-security-daemon w
+~APP~ dbus w
+~APP~ email-service rw
+~APP~ wrt-security-daemon::db rw
+~APP~ media-server w

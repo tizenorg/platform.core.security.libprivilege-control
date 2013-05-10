@@ -1,0 +1,8 @@
+~APP~ dbus w
+~APP~ download-provider w
+~APP~ osp-security-service w
+~APP~ resman rw
+~APP~ svi-data x
+~APP~ system::media rx
+~APP~ system::use_internet w
+system::use_internet ~APP~ w

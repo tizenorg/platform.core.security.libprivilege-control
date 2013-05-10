@@ -1,0 +1,11 @@
+~APP~ dbus w
+~APP~ email-service rw
+~APP~ email-service::db rw
+~APP~ contacts-service x
+~APP~ wrt-security-daemon::db rw
+~APP~ wrt-security-daemon w
+~APP~ pkgmgr::db r
+~APP~ sys-assert::core rwax
+~APP~ syslogd w
+~APP~ contacts-service::read r
+~APP~ contacts-service::svc r
