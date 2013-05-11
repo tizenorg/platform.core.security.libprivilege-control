@@ -49,6 +49,7 @@
 57r43275q7 device::recording arwxt
 57r43275q7 device::sys_logging arwxt
 57r43275q7 device::video arwxt
+57r43275q7 deviced arwxt
 57r43275q7 dlogutil arwxt
 57r43275q7 dlogutil::dlogscript arwxt
 57r43275q7 download-provider arwxt
@@ -153,6 +154,7 @@
 57r43275q7 q7097a278m arwxt
 57r43275q7 rua arwxt
 57r43275q7 rua::db arwxt
+57r43275q7 sdbd arwxt
 57r43275q7 secure-storage arwxt
 57r43275q7 security-server arwxt
 57r43275q7 sensor-framework arwxt
@@ -258,6 +260,7 @@ _ device::hwcodec arwxt
 _ device::recording arwxt
 _ device::sys_logging arwxt
 _ device::video arwxt
+_ deviced arwxt
 _ dlogutil arwxt
 _ dlogutil::dlogscript arwxt
 _ download-provider arwxt
@@ -362,6 +365,7 @@ _ push-service::db arwxt
 _ q7097a278m arwxt
 _ rua arwxt
 _ rua::db arwxt
+_ sdbd arwxt
 _ secure-storage arwxt
 _ security-server arwxt
 _ sensor-framework arwxt
@@ -467,6 +471,7 @@ ail device::hwcodec arwxt
 ail device::recording arwxt
 ail device::sys_logging arwxt
 ail device::video arwxt
+ail deviced arwxt
 ail dlogutil arwxt
 ail dlogutil::dlogscript arwxt
 ail download-provider arwxt
@@ -571,6 +576,7 @@ ail push-service::db arwxt
 ail q7097a278m arwxt
 ail rua arwxt
 ail rua::db arwxt
+ail sdbd arwxt
 ail secure-storage arwxt
 ail security-server arwxt
 ail sensor-framework arwxt
@@ -676,6 +682,7 @@ alarm-server device::hwcodec arwxt
 alarm-server device::recording arwxt
 alarm-server device::sys_logging arwxt
 alarm-server device::video arwxt
+alarm-server deviced arwxt
 alarm-server dlogutil arwxt
 alarm-server dlogutil::dlogscript arwxt
 alarm-server download-provider arwxt
@@ -780,6 +787,7 @@ alarm-server push-service::db arwxt
 alarm-server q7097a278m arwxt
 alarm-server rua arwxt
 alarm-server rua::db arwxt
+alarm-server sdbd arwxt
 alarm-server secure-storage arwxt
 alarm-server security-server arwxt
 alarm-server sensor-framework arwxt
@@ -885,6 +893,7 @@ aospd00043 device::hwcodec arwxt
 aospd00043 device::recording arwxt
 aospd00043 device::sys_logging arwxt
 aospd00043 device::video arwxt
+aospd00043 deviced arwxt
 aospd00043 dlogutil arwxt
 aospd00043 dlogutil::dlogscript arwxt
 aospd00043 download-provider arwxt
@@ -989,6 +998,7 @@ aospd00043 push-service::db arwxt
 aospd00043 q7097a278m arwxt
 aospd00043 rua arwxt
 aospd00043 rua::db arwxt
+aospd00043 sdbd arwxt
 aospd00043 secure-storage arwxt
 aospd00043 security-server arwxt
 aospd00043 sensor-framework arwxt
@@ -1094,6 +1104,7 @@ app-svc device::hwcodec arwxt
 app-svc device::recording arwxt
 app-svc device::sys_logging arwxt
 app-svc device::video arwxt
+app-svc deviced arwxt
 app-svc dlogutil arwxt
 app-svc dlogutil::dlogscript arwxt
 app-svc download-provider arwxt
@@ -1198,6 +1209,7 @@ app-svc push-service::db arwxt
 app-svc q7097a278m arwxt
 app-svc rua arwxt
 app-svc rua::db arwxt
+app-svc sdbd arwxt
 app-svc secure-storage arwxt
 app-svc security-server arwxt
 app-svc sensor-framework arwxt
@@ -1303,6 +1315,7 @@ app2sd device::hwcodec arwxt
 app2sd device::recording arwxt
 app2sd device::sys_logging arwxt
 app2sd device::video arwxt
+app2sd deviced arwxt
 app2sd dlogutil arwxt
 app2sd dlogutil::dlogscript arwxt
 app2sd download-provider arwxt
@@ -1407,6 +1420,7 @@ app2sd push-service::db arwxt
 app2sd q7097a278m arwxt
 app2sd rua arwxt
 app2sd rua::db arwxt
+app2sd sdbd arwxt
 app2sd secure-storage arwxt
 app2sd security-server arwxt
 app2sd sensor-framework arwxt
@@ -1512,6 +1526,7 @@ aul device::hwcodec arwxt
 aul device::recording arwxt
 aul device::sys_logging arwxt
 aul device::video arwxt
+aul deviced arwxt
 aul dlogutil arwxt
 aul dlogutil::dlogscript arwxt
 aul download-provider arwxt
@@ -1616,6 +1631,7 @@ aul push-service::db arwxt
 aul q7097a278m arwxt
 aul rua arwxt
 aul rua::db arwxt
+aul sdbd arwxt
 aul secure-storage arwxt
 aul security-server arwxt
 aul sensor-framework arwxt
@@ -1721,6 +1737,7 @@ bluetooth-tools device::hwcodec arwxt
 bluetooth-tools device::recording arwxt
 bluetooth-tools device::sys_logging arwxt
 bluetooth-tools device::video arwxt
+bluetooth-tools deviced arwxt
 bluetooth-tools dlogutil arwxt
 bluetooth-tools dlogutil::dlogscript arwxt
 bluetooth-tools download-provider arwxt
@@ -1825,6 +1842,7 @@ bluetooth-tools push-service::db arwxt
 bluetooth-tools q7097a278m arwxt
 bluetooth-tools rua arwxt
 bluetooth-tools rua::db arwxt
+bluetooth-tools sdbd arwxt
 bluetooth-tools secure-storage arwxt
 bluetooth-tools security-server arwxt
 bluetooth-tools sensor-framework arwxt
@@ -1930,6 +1948,7 @@ bluez device::hwcodec arwxt
 bluez device::recording arwxt
 bluez device::sys_logging arwxt
 bluez device::video arwxt
+bluez deviced arwxt
 bluez dlogutil arwxt
 bluez dlogutil::dlogscript arwxt
 bluez download-provider arwxt
@@ -2034,6 +2053,7 @@ bluez push-service::db arwxt
 bluez q7097a278m arwxt
 bluez rua arwxt
 bluez rua::db arwxt
+bluez sdbd arwxt
 bluez secure-storage arwxt
 bluez security-server arwxt
 bluez sensor-framework arwxt
@@ -2139,6 +2159,7 @@ browser-provider device::hwcodec arwxt
 browser-provider device::recording arwxt
 browser-provider device::sys_logging arwxt
 browser-provider device::video arwxt
+browser-provider deviced arwxt
 browser-provider dlogutil arwxt
 browser-provider dlogutil::dlogscript arwxt
 browser-provider download-provider arwxt
@@ -2243,6 +2264,7 @@ browser-provider push-service::db arwxt
 browser-provider q7097a278m arwxt
 browser-provider rua arwxt
 browser-provider rua::db arwxt
+browser-provider sdbd arwxt
 browser-provider secure-storage arwxt
 browser-provider security-server arwxt
 browser-provider sensor-framework arwxt
@@ -2348,6 +2370,7 @@ bt-service device::hwcodec arwxt
 bt-service device::recording arwxt
 bt-service device::sys_logging arwxt
 bt-service device::video arwxt
+bt-service deviced arwxt
 bt-service dlogutil arwxt
 bt-service dlogutil::dlogscript arwxt
 bt-service download-provider arwxt
@@ -2452,6 +2475,7 @@ bt-service push-service::db arwxt
 bt-service q7097a278m arwxt
 bt-service rua arwxt
 bt-service rua::db arwxt
+bt-service sdbd arwxt
 bt-service secure-storage arwxt
 bt-service security-server arwxt
 bt-service sensor-framework arwxt
@@ -2557,6 +2581,7 @@ bt_agent device::hwcodec arwxt
 bt_agent device::recording arwxt
 bt_agent device::sys_logging arwxt
 bt_agent device::video arwxt
+bt_agent deviced arwxt
 bt_agent dlogutil arwxt
 bt_agent dlogutil::dlogscript arwxt
 bt_agent download-provider arwxt
@@ -2661,6 +2686,7 @@ bt_agent push-service::db arwxt
 bt_agent q7097a278m arwxt
 bt_agent rua arwxt
 bt_agent rua::db arwxt
+bt_agent sdbd arwxt
 bt_agent secure-storage arwxt
 bt_agent security-server arwxt
 bt_agent sensor-framework arwxt
@@ -2766,6 +2792,7 @@ bt_agent::bt_hfp_agent device::hwcodec arwxt
 bt_agent::bt_hfp_agent device::recording arwxt
 bt_agent::bt_hfp_agent device::sys_logging arwxt
 bt_agent::bt_hfp_agent device::video arwxt
+bt_agent::bt_hfp_agent deviced arwxt
 bt_agent::bt_hfp_agent dlogutil arwxt
 bt_agent::bt_hfp_agent dlogutil::dlogscript arwxt
 bt_agent::bt_hfp_agent download-provider arwxt
@@ -2870,6 +2897,7 @@ bt_agent::bt_hfp_agent push-service::db arwxt
 bt_agent::bt_hfp_agent q7097a278m arwxt
 bt_agent::bt_hfp_agent rua arwxt
 bt_agent::bt_hfp_agent rua::db arwxt
+bt_agent::bt_hfp_agent sdbd arwxt
 bt_agent::bt_hfp_agent secure-storage arwxt
 bt_agent::bt_hfp_agent security-server arwxt
 bt_agent::bt_hfp_agent sensor-framework arwxt
@@ -2975,6 +3003,7 @@ bt_agent::bt_map_agent device::hwcodec arwxt
 bt_agent::bt_map_agent device::recording arwxt
 bt_agent::bt_map_agent device::sys_logging arwxt
 bt_agent::bt_map_agent device::video arwxt
+bt_agent::bt_map_agent deviced arwxt
 bt_agent::bt_map_agent dlogutil arwxt
 bt_agent::bt_map_agent dlogutil::dlogscript arwxt
 bt_agent::bt_map_agent download-provider arwxt
@@ -3079,6 +3108,7 @@ bt_agent::bt_map_agent push-service::db arwxt
 bt_agent::bt_map_agent q7097a278m arwxt
 bt_agent::bt_map_agent rua arwxt
 bt_agent::bt_map_agent rua::db arwxt
+bt_agent::bt_map_agent sdbd arwxt
 bt_agent::bt_map_agent secure-storage arwxt
 bt_agent::bt_map_agent security-server arwxt
 bt_agent::bt_map_agent sensor-framework arwxt
@@ -3184,6 +3214,7 @@ bt_agent::bt_pb_agent device::hwcodec arwxt
 bt_agent::bt_pb_agent device::recording arwxt
 bt_agent::bt_pb_agent device::sys_logging arwxt
 bt_agent::bt_pb_agent device::video arwxt
+bt_agent::bt_pb_agent deviced arwxt
 bt_agent::bt_pb_agent dlogutil arwxt
 bt_agent::bt_pb_agent dlogutil::dlogscript arwxt
 bt_agent::bt_pb_agent download-provider arwxt
@@ -3288,6 +3319,7 @@ bt_agent::bt_pb_agent push-service::db arwxt
 bt_agent::bt_pb_agent q7097a278m arwxt
 bt_agent::bt_pb_agent rua arwxt
 bt_agent::bt_pb_agent rua::db arwxt
+bt_agent::bt_pb_agent sdbd arwxt
 bt_agent::bt_pb_agent secure-storage arwxt
 bt_agent::bt_pb_agent security-server arwxt
 bt_agent::bt_pb_agent sensor-framework arwxt
@@ -3393,6 +3425,7 @@ bt_firmware device::hwcodec arwxt
 bt_firmware device::recording arwxt
 bt_firmware device::sys_logging arwxt
 bt_firmware device::video arwxt
+bt_firmware deviced arwxt
 bt_firmware dlogutil arwxt
 bt_firmware dlogutil::dlogscript arwxt
 bt_firmware download-provider arwxt
@@ -3497,6 +3530,7 @@ bt_firmware push-service::db arwxt
 bt_firmware q7097a278m arwxt
 bt_firmware rua arwxt
 bt_firmware rua::db arwxt
+bt_firmware sdbd arwxt
 bt_firmware secure-storage arwxt
 bt_firmware security-server arwxt
 bt_firmware sensor-framework arwxt
@@ -3602,6 +3636,7 @@ bt_share device::hwcodec arwxt
 bt_share device::recording arwxt
 bt_share device::sys_logging arwxt
 bt_share device::video arwxt
+bt_share deviced arwxt
 bt_share dlogutil arwxt
 bt_share dlogutil::dlogscript arwxt
 bt_share download-provider arwxt
@@ -3706,6 +3741,7 @@ bt_share push-service::db arwxt
 bt_share q7097a278m arwxt
 bt_share rua arwxt
 bt_share rua::db arwxt
+bt_share sdbd arwxt
 bt_share secure-storage arwxt
 bt_share security-server arwxt
 bt_share sensor-framework arwxt
@@ -3811,6 +3847,7 @@ calendar-service device::hwcodec arwxt
 calendar-service device::recording arwxt
 calendar-service device::sys_logging arwxt
 calendar-service device::video arwxt
+calendar-service deviced arwxt
 calendar-service dlogutil arwxt
 calendar-service dlogutil::dlogscript arwxt
 calendar-service download-provider arwxt
@@ -3915,6 +3952,7 @@ calendar-service push-service::db arwxt
 calendar-service q7097a278m arwxt
 calendar-service rua arwxt
 calendar-service rua::db arwxt
+calendar-service sdbd arwxt
 calendar-service secure-storage arwxt
 calendar-service security-server arwxt
 calendar-service sensor-framework arwxt
@@ -4020,6 +4058,7 @@ cbhm device::hwcodec arwxt
 cbhm device::recording arwxt
 cbhm device::sys_logging arwxt
 cbhm device::video arwxt
+cbhm deviced arwxt
 cbhm dlogutil arwxt
 cbhm dlogutil::dlogscript arwxt
 cbhm download-provider arwxt
@@ -4124,6 +4163,7 @@ cbhm push-service::db arwxt
 cbhm q7097a278m arwxt
 cbhm rua arwxt
 cbhm rua::db arwxt
+cbhm sdbd arwxt
 cbhm secure-storage arwxt
 cbhm security-server arwxt
 cbhm sensor-framework arwxt
@@ -4229,6 +4269,7 @@ connman device::hwcodec arwxt
 connman device::recording arwxt
 connman device::sys_logging arwxt
 connman device::video arwxt
+connman deviced arwxt
 connman dlogutil arwxt
 connman dlogutil::dlogscript arwxt
 connman download-provider arwxt
@@ -4333,6 +4374,7 @@ connman push-service::db arwxt
 connman q7097a278m arwxt
 connman rua arwxt
 connman rua::db arwxt
+connman sdbd arwxt
 connman secure-storage arwxt
 connman security-server arwxt
 connman sensor-framework arwxt
@@ -4438,6 +4480,7 @@ contacts-service device::hwcodec arwxt
 contacts-service device::recording arwxt
 contacts-service device::sys_logging arwxt
 contacts-service device::video arwxt
+contacts-service deviced arwxt
 contacts-service dlogutil arwxt
 contacts-service dlogutil::dlogscript arwxt
 contacts-service download-provider arwxt
@@ -4542,6 +4585,7 @@ contacts-service push-service::db arwxt
 contacts-service q7097a278m arwxt
 contacts-service rua arwxt
 contacts-service rua::db arwxt
+contacts-service sdbd arwxt
 contacts-service secure-storage arwxt
 contacts-service security-server arwxt
 contacts-service sensor-framework arwxt
@@ -4647,6 +4691,7 @@ cp7ipabg4k device::hwcodec arwxt
 cp7ipabg4k device::recording arwxt
 cp7ipabg4k device::sys_logging arwxt
 cp7ipabg4k device::video arwxt
+cp7ipabg4k deviced arwxt
 cp7ipabg4k dlogutil arwxt
 cp7ipabg4k dlogutil::dlogscript arwxt
 cp7ipabg4k download-provider arwxt
@@ -4751,6 +4796,7 @@ cp7ipabg4k push-service::db arwxt
 cp7ipabg4k q7097a278m arwxt
 cp7ipabg4k rua arwxt
 cp7ipabg4k rua::db arwxt
+cp7ipabg4k sdbd arwxt
 cp7ipabg4k secure-storage arwxt
 cp7ipabg4k security-server arwxt
 cp7ipabg4k sensor-framework arwxt
@@ -4856,6 +4902,7 @@ crash-worker device::hwcodec arwxt
 crash-worker device::recording arwxt
 crash-worker device::sys_logging arwxt
 crash-worker device::video arwxt
+crash-worker deviced arwxt
 crash-worker dlogutil arwxt
 crash-worker dlogutil::dlogscript arwxt
 crash-worker download-provider arwxt
@@ -4960,6 +5007,7 @@ crash-worker push-service::db arwxt
 crash-worker q7097a278m arwxt
 crash-worker rua arwxt
 crash-worker rua::db arwxt
+crash-worker sdbd arwxt
 crash-worker secure-storage arwxt
 crash-worker security-server arwxt
 crash-worker sensor-framework arwxt
@@ -5065,6 +5113,7 @@ cups device::hwcodec arwxt
 cups device::recording arwxt
 cups device::sys_logging arwxt
 cups device::video arwxt
+cups deviced arwxt
 cups dlogutil arwxt
 cups dlogutil::dlogscript arwxt
 cups download-provider arwxt
@@ -5169,6 +5218,7 @@ cups push-service::db arwxt
 cups q7097a278m arwxt
 cups rua arwxt
 cups rua::db arwxt
+cups sdbd arwxt
 cups secure-storage arwxt
 cups security-server arwxt
 cups sensor-framework arwxt
@@ -5274,6 +5324,7 @@ data-provider-master device::hwcodec arwxt
 data-provider-master device::recording arwxt
 data-provider-master device::sys_logging arwxt
 data-provider-master device::video arwxt
+data-provider-master deviced arwxt
 data-provider-master dlogutil arwxt
 data-provider-master dlogutil::dlogscript arwxt
 data-provider-master download-provider arwxt
@@ -5378,6 +5429,7 @@ data-provider-master push-service::db arwxt
 data-provider-master q7097a278m arwxt
 data-provider-master rua arwxt
 data-provider-master rua::db arwxt
+data-provider-master sdbd arwxt
 data-provider-master secure-storage arwxt
 data-provider-master security-server arwxt
 data-provider-master sensor-framework arwxt
@@ -5483,6 +5535,7 @@ dbus device::hwcodec arwxt
 dbus device::recording arwxt
 dbus device::sys_logging arwxt
 dbus device::video arwxt
+dbus deviced arwxt
 dbus dlogutil arwxt
 dbus dlogutil::dlogscript arwxt
 dbus download-provider arwxt
@@ -5587,6 +5640,7 @@ dbus push-service::db arwxt
 dbus q7097a278m arwxt
 dbus rua arwxt
 dbus rua::db arwxt
+dbus sdbd arwxt
 dbus secure-storage arwxt
 dbus security-server arwxt
 dbus sensor-framework arwxt
@@ -5692,6 +5746,7 @@ default-fonts-fc-sdk device::hwcodec arwxt
 default-fonts-fc-sdk device::recording arwxt
 default-fonts-fc-sdk device::sys_logging arwxt
 default-fonts-fc-sdk device::video arwxt
+default-fonts-fc-sdk deviced arwxt
 default-fonts-fc-sdk dlogutil arwxt
 default-fonts-fc-sdk dlogutil::dlogscript arwxt
 default-fonts-fc-sdk download-provider arwxt
@@ -5796,6 +5851,7 @@ default-fonts-fc-sdk push-service::db arwxt
 default-fonts-fc-sdk q7097a278m arwxt
 default-fonts-fc-sdk rua arwxt
 default-fonts-fc-sdk rua::db arwxt
+default-fonts-fc-sdk sdbd arwxt
 default-fonts-fc-sdk secure-storage arwxt
 default-fonts-fc-sdk security-server arwxt
 default-fonts-fc-sdk sensor-framework arwxt
@@ -5850,6 +5906,217 @@ default-fonts-fc-sdk xorg arwxt
 default-fonts-fc-sdk zeromq arwxt
 
 
+deviced 57r43275q7 arwxt
+deviced _ arwxt
+deviced ail arwxt
+deviced ail::db arwxt
+deviced alarm-server arwxt
+deviced alarm-server::db arwxt
+deviced aospd00043 arwxt
+deviced app-package::db arwxt
+deviced app-svc arwxt
+deviced app-svc::db arwxt
+deviced app2sd arwxt
+deviced aul arwxt
+deviced aul::db arwxt
+deviced badge::db arwxt
+deviced bluetooth-tools arwxt
+deviced bluez arwxt
+deviced browser-provider arwxt
+deviced browser::db arwxt
+deviced browser::db_external arwxt
+deviced bt-service arwxt
+deviced bt_agent arwxt
+deviced bt_agent::bt_hfp_agent arwxt
+deviced bt_agent::bt_map_agent arwxt
+deviced bt_agent::bt_pb_agent arwxt
+deviced bt_firmware arwxt
+deviced bt_share arwxt
+deviced bt_share::db arwxt
+deviced calendar-service arwxt
+deviced calendar-service::db arwxt
+deviced cbhm arwxt
+deviced cert-svc arwxt
+deviced connman arwxt
+deviced contacts-service arwxt
+deviced contacts-service::db arwxt
+deviced cp7ipabg4k arwxt
+deviced crash-worker arwxt
+deviced cups arwxt
+deviced data-provider-master arwxt
+deviced data-provider-master::data arwxt
+deviced data-provider-master::db arwxt
+deviced data-provider-master::share arwxt
+deviced dbus arwxt
+deviced default-fonts-fc-sdk arwxt
+deviced default-fonts-fc-sdk::config arwxt
+deviced device::app_logging arwxt
+deviced device::audio arwxt
+deviced device::bklight arwxt
+deviced device::camera arwxt
+deviced device::hwcodec arwxt
+deviced device::recording arwxt
+deviced device::sys_logging arwxt
+deviced device::video arwxt
+deviced dlogutil arwxt
+deviced dlogutil::dlogscript arwxt
+deviced download-provider arwxt
+deviced e17 arwxt
+deviced e17-data arwxt
+deviced efreet arwxt
+deviced email-service arwxt
+deviced email-service::db arwxt
+deviced gi2qxenosh arwxt
+deviced isf arwxt
+deviced libaccounts-svc arwxt
+deviced libaccounts-svc::db arwxt
+deviced libslp-alarm arwxt
+deviced libslp-alarm::db arwxt
+deviced libslp-memo arwxt
+deviced libslp-memo::db arwxt
+deviced libug-phone arwxt
+deviced livebox.web-provider arwxt
+deviced location_fw arwxt
+deviced location_fw::server arwxt
+deviced media-data arwxt
+deviced media-data::db arwxt
+deviced media-server arwxt
+deviced miracast-server arwxt
+deviced mobileprint arwxt
+deviced msg-service arwxt
+deviced msg-service::db arwxt
+deviced net-config arwxt
+deviced net.wifi-qs arwxt
+deviced nfc-manager arwxt
+deviced notification arwxt
+deviced notification::db arwxt
+deviced obexd arwxt
+deviced obexd::client arwxt
+deviced oma-ds-agent arwxt
+deviced oma-ds-agent::cfg arwxt
+deviced org.tizen.app-selector arwxt
+deviced org.tizen.bluetooth-share-ui arwxt
+deviced org.tizen.browser arwxt
+deviced org.tizen.bt-syspopup arwxt
+deviced org.tizen.calculator arwxt
+deviced org.tizen.calendar arwxt
+deviced org.tizen.call arwxt
+deviced org.tizen.camera-app arwxt
+deviced org.tizen.ciss arwxt
+deviced org.tizen.clock arwxt
+deviced org.tizen.contacts arwxt
+deviced org.tizen.contacts-viewer arwxt
+deviced org.tizen.crash-popup arwxt
+deviced org.tizen.data-provider-master arwxt
+deviced org.tizen.data-provider-slave arwxt
+deviced org.tizen.data-provider-webapp-slave arwxt
+deviced org.tizen.download-manager arwxt
+deviced org.tizen.draglock arwxt
+deviced org.tizen.email arwxt
+deviced org.tizen.gallery arwxt
+deviced org.tizen.image-viewer arwxt
+deviced org.tizen.indicator arwxt
+deviced org.tizen.lockscreen arwxt
+deviced org.tizen.memo arwxt
+deviced org.tizen.menu-screen arwxt
+deviced org.tizen.message arwxt
+deviced org.tizen.music-player arwxt
+deviced org.tizen.myfile arwxt
+deviced org.tizen.net-popup arwxt
+deviced org.tizen.phone arwxt
+deviced org.tizen.pwlock arwxt
+deviced org.tizen.quickpanel arwxt
+deviced org.tizen.sat-ui arwxt
+deviced org.tizen.setting arwxt
+deviced org.tizen.smartsearch arwxt
+deviced org.tizen.taskmgr arwxt
+deviced org.tizen.tickernoti-syspopup arwxt
+deviced org.tizen.usb-syspopup arwxt
+deviced org.tizen.video-player arwxt
+deviced org.tizen.volume arwxt
+deviced osp arwxt
+deviced osp-app-service arwxt
+deviced osp-channel-service arwxt
+deviced osp-connectivity-service arwxt
+deviced osp-installer arwxt
+deviced osp-livebox-service arwxt
+deviced osp-search-service arwxt
+deviced osp-security-service arwxt
+deviced osp::privilege-description-db arwxt
+deviced pims-ipc arwxt
+deviced pkgmgr arwxt
+deviced pkgmgr-client arwxt
+deviced pkgmgr-info arwxt
+deviced pkgmgr-installer arwxt
+deviced pkgmgr-parser arwxt
+deviced pkgmgr-server arwxt
+deviced pkgmgr::db arwxt
+deviced power_manager arwxt
+deviced privacy-manager arwxt
+deviced privacy-manager::daemon arwxt
+deviced privacy-manager::db arwxt
+deviced privilege::power arwxt
+deviced pulseaudio arwxt
+deviced push-service arwxt
+deviced push-service::db arwxt
+deviced q7097a278m arwxt
+deviced rua arwxt
+deviced rua::db arwxt
+deviced sdbd arwxt
+deviced secure-storage arwxt
+deviced security-server arwxt
+deviced sensor-framework arwxt
+deviced sjjevolsjk arwxt
+deviced smartcard-service arwxt
+deviced sound_server arwxt
+deviced sqlfs arwxt
+deviced starter arwxt
+deviced stt-server arwxt
+deviced svi-data arwxt
+deviced sys-assert arwxt
+deviced sys-assert::core arwxt
+deviced sys-assert::core-launcher arwxt
+deviced syspopup arwxt
+deviced syspopup::db arwxt
+deviced system arwxt
+deviced system-server arwxt
+deviced system::clipboard arwxt
+deviced system::ext_storage arwxt
+deviced system::homedir arwxt
+deviced system::media arwxt
+deviced system::use_internet arwxt
+deviced system::vconf arwxt
+deviced telephony_framework arwxt
+deviced telephony_framework::db arwxt
+deviced thumb-server arwxt
+deviced tizenprv00.privacy-popup arwxt
+deviced tts-engine-samsung::vdata arwxt
+deviced tts-server arwxt
+deviced ug-camera-efl arwxt
+deviced ug-image-viewer-efl arwxt
+deviced ug_bluetooth arwxt
+deviced usb-printer-detector arwxt
+deviced usb-server arwxt
+deviced usb-server::usb-r arwxt
+deviced usb-server::usb-rx arwxt
+deviced usb-syspopup arwxt
+deviced usb-syspopup::usb-rx arwxt
+deviced webkit2-efl arwxt
+deviced wifi_direct_manager arwxt
+deviced worldclock arwxt
+deviced worldclock::db arwxt
+deviced wrt arwxt
+deviced wrt-commons arwxt
+deviced wrt-commons::db_wrt arwxt
+deviced wrt-commons::db_wrt_autosave arwxt
+deviced wrt-commons::db_wrt_custom_handler arwxt
+deviced wrt-installer arwxt
+deviced wrt-plugins-common arwxt
+deviced wrt-security::db_ace arwxt
+deviced xorg arwxt
+deviced zeromq arwxt
+
+
 dlogutil 57r43275q7 arwxt
 dlogutil _ arwxt
 dlogutil ail arwxt
@@ -5902,6 +6169,7 @@ dlogutil device::hwcodec arwxt
 dlogutil device::recording arwxt
 dlogutil device::sys_logging arwxt
 dlogutil device::video arwxt
+dlogutil deviced arwxt
 dlogutil dlogutil::dlogscript arwxt
 dlogutil download-provider arwxt
 dlogutil e17 arwxt
@@ -6005,6 +6273,7 @@ dlogutil push-service::db arwxt
 dlogutil q7097a278m arwxt
 dlogutil rua arwxt
 dlogutil rua::db arwxt
+dlogutil sdbd arwxt
 dlogutil secure-storage arwxt
 dlogutil security-server arwxt
 dlogutil sensor-framework arwxt
@@ -6111,6 +6380,7 @@ download-provider device::hwcodec arwxt
 download-provider device::recording arwxt
 download-provider device::sys_logging arwxt
 download-provider device::video arwxt
+download-provider deviced arwxt
 download-provider dlogutil arwxt
 download-provider dlogutil::dlogscript arwxt
 download-provider e17 arwxt
@@ -6214,6 +6484,7 @@ download-provider push-service::db arwxt
 download-provider q7097a278m arwxt
 download-provider rua arwxt
 download-provider rua::db arwxt
+download-provider sdbd arwxt
 download-provider secure-storage arwxt
 download-provider security-server arwxt
 download-provider sensor-framework arwxt
@@ -6320,6 +6591,7 @@ e17 device::hwcodec arwxt
 e17 device::recording arwxt
 e17 device::sys_logging arwxt
 e17 device::video arwxt
+e17 deviced arwxt
 e17 dlogutil arwxt
 e17 dlogutil::dlogscript arwxt
 e17 download-provider arwxt
@@ -6423,6 +6695,7 @@ e17 push-service::db arwxt
 e17 q7097a278m arwxt
 e17 rua arwxt
 e17 rua::db arwxt
+e17 sdbd arwxt
 e17 secure-storage arwxt
 e17 security-server arwxt
 e17 sensor-framework arwxt
@@ -6529,6 +6802,7 @@ e17-data device::hwcodec arwxt
 e17-data device::recording arwxt
 e17-data device::sys_logging arwxt
 e17-data device::video arwxt
+e17-data deviced arwxt
 e17-data dlogutil arwxt
 e17-data dlogutil::dlogscript arwxt
 e17-data download-provider arwxt
@@ -6632,6 +6906,7 @@ e17-data push-service::db arwxt
 e17-data q7097a278m arwxt
 e17-data rua arwxt
 e17-data rua::db arwxt
+e17-data sdbd arwxt
 e17-data secure-storage arwxt
 e17-data security-server arwxt
 e17-data sensor-framework arwxt
@@ -6738,6 +7013,7 @@ efreet device::hwcodec arwxt
 efreet device::recording arwxt
 efreet device::sys_logging arwxt
 efreet device::video arwxt
+efreet deviced arwxt
 efreet dlogutil arwxt
 efreet dlogutil::dlogscript arwxt
 efreet download-provider arwxt
@@ -6841,6 +7117,7 @@ efreet push-service::db arwxt
 efreet q7097a278m arwxt
 efreet rua arwxt
 efreet rua::db arwxt
+efreet sdbd arwxt
 efreet secure-storage arwxt
 efreet security-server arwxt
 efreet sensor-framework arwxt
@@ -6947,6 +7224,7 @@ email-service device::hwcodec arwxt
 email-service device::recording arwxt
 email-service device::sys_logging arwxt
 email-service device::video arwxt
+email-service deviced arwxt
 email-service dlogutil arwxt
 email-service dlogutil::dlogscript arwxt
 email-service download-provider arwxt
@@ -7050,6 +7328,7 @@ email-service push-service::db arwxt
 email-service q7097a278m arwxt
 email-service rua arwxt
 email-service rua::db arwxt
+email-service sdbd arwxt
 email-service secure-storage arwxt
 email-service security-server arwxt
 email-service sensor-framework arwxt
@@ -7156,6 +7435,7 @@ gi2qxenosh device::hwcodec arwxt
 gi2qxenosh device::recording arwxt
 gi2qxenosh device::sys_logging arwxt
 gi2qxenosh device::video arwxt
+gi2qxenosh deviced arwxt
 gi2qxenosh dlogutil arwxt
 gi2qxenosh dlogutil::dlogscript arwxt
 gi2qxenosh download-provider arwxt
@@ -7259,6 +7539,7 @@ gi2qxenosh push-service::db arwxt
 gi2qxenosh q7097a278m arwxt
 gi2qxenosh rua arwxt
 gi2qxenosh rua::db arwxt
+gi2qxenosh sdbd arwxt
 gi2qxenosh secure-storage arwxt
 gi2qxenosh security-server arwxt
 gi2qxenosh sensor-framework arwxt
@@ -7365,6 +7646,7 @@ isf device::hwcodec arwxt
 isf device::recording arwxt
 isf device::sys_logging arwxt
 isf device::video arwxt
+isf deviced arwxt
 isf dlogutil arwxt
 isf dlogutil::dlogscript arwxt
 isf download-provider arwxt
@@ -7468,6 +7750,7 @@ isf push-service::db arwxt
 isf q7097a278m arwxt
 isf rua arwxt
 isf rua::db arwxt
+isf sdbd arwxt
 isf secure-storage arwxt
 isf security-server arwxt
 isf sensor-framework arwxt
@@ -7574,6 +7857,7 @@ libaccounts-svc device::hwcodec arwxt
 libaccounts-svc device::recording arwxt
 libaccounts-svc device::sys_logging arwxt
 libaccounts-svc device::video arwxt
+libaccounts-svc deviced arwxt
 libaccounts-svc dlogutil arwxt
 libaccounts-svc dlogutil::dlogscript arwxt
 libaccounts-svc download-provider arwxt
@@ -7677,6 +7961,7 @@ libaccounts-svc push-service::db arwxt
 libaccounts-svc q7097a278m arwxt
 libaccounts-svc rua arwxt
 libaccounts-svc rua::db arwxt
+libaccounts-svc sdbd arwxt
 libaccounts-svc secure-storage arwxt
 libaccounts-svc security-server arwxt
 libaccounts-svc sensor-framework arwxt
@@ -7783,6 +8068,7 @@ libslp-alarm device::hwcodec arwxt
 libslp-alarm device::recording arwxt
 libslp-alarm device::sys_logging arwxt
 libslp-alarm device::video arwxt
+libslp-alarm deviced arwxt
 libslp-alarm dlogutil arwxt
 libslp-alarm dlogutil::dlogscript arwxt
 libslp-alarm download-provider arwxt
@@ -7886,6 +8172,7 @@ libslp-alarm push-service::db arwxt
 libslp-alarm q7097a278m arwxt
 libslp-alarm rua arwxt
 libslp-alarm rua::db arwxt
+libslp-alarm sdbd arwxt
 libslp-alarm secure-storage arwxt
 libslp-alarm security-server arwxt
 libslp-alarm sensor-framework arwxt
@@ -7992,6 +8279,7 @@ libslp-memo device::hwcodec arwxt
 libslp-memo device::recording arwxt
 libslp-memo device::sys_logging arwxt
 libslp-memo device::video arwxt
+libslp-memo deviced arwxt
 libslp-memo dlogutil arwxt
 libslp-memo dlogutil::dlogscript arwxt
 libslp-memo download-provider arwxt
@@ -8095,6 +8383,7 @@ libslp-memo push-service::db arwxt
 libslp-memo q7097a278m arwxt
 libslp-memo rua arwxt
 libslp-memo rua::db arwxt
+libslp-memo sdbd arwxt
 libslp-memo secure-storage arwxt
 libslp-memo security-server arwxt
 libslp-memo sensor-framework arwxt
@@ -8201,6 +8490,7 @@ libug-phone device::hwcodec arwxt
 libug-phone device::recording arwxt
 libug-phone device::sys_logging arwxt
 libug-phone device::video arwxt
+libug-phone deviced arwxt
 libug-phone dlogutil arwxt
 libug-phone dlogutil::dlogscript arwxt
 libug-phone download-provider arwxt
@@ -8304,6 +8594,7 @@ libug-phone push-service::db arwxt
 libug-phone q7097a278m arwxt
 libug-phone rua arwxt
 libug-phone rua::db arwxt
+libug-phone sdbd arwxt
 libug-phone secure-storage arwxt
 libug-phone security-server arwxt
 libug-phone sensor-framework arwxt
@@ -8410,6 +8701,7 @@ livebox.web-provider device::hwcodec arwxt
 livebox.web-provider device::recording arwxt
 livebox.web-provider device::sys_logging arwxt
 livebox.web-provider device::video arwxt
+livebox.web-provider deviced arwxt
 livebox.web-provider dlogutil arwxt
 livebox.web-provider dlogutil::dlogscript arwxt
 livebox.web-provider download-provider arwxt
@@ -8513,6 +8805,7 @@ livebox.web-provider push-service::db arwxt
 livebox.web-provider q7097a278m arwxt
 livebox.web-provider rua arwxt
 livebox.web-provider rua::db arwxt
+livebox.web-provider sdbd arwxt
 livebox.web-provider secure-storage arwxt
 livebox.web-provider security-server arwxt
 livebox.web-provider sensor-framework arwxt
@@ -8619,6 +8912,7 @@ location_fw device::hwcodec arwxt
 location_fw device::recording arwxt
 location_fw device::sys_logging arwxt
 location_fw device::video arwxt
+location_fw deviced arwxt
 location_fw dlogutil arwxt
 location_fw dlogutil::dlogscript arwxt
 location_fw download-provider arwxt
@@ -8722,6 +9016,7 @@ location_fw push-service::db arwxt
 location_fw q7097a278m arwxt
 location_fw rua arwxt
 location_fw rua::db arwxt
+location_fw sdbd arwxt
 location_fw secure-storage arwxt
 location_fw security-server arwxt
 location_fw sensor-framework arwxt
@@ -8828,6 +9123,7 @@ location_fw::server device::hwcodec arwxt
 location_fw::server device::recording arwxt
 location_fw::server device::sys_logging arwxt
 location_fw::server device::video arwxt
+location_fw::server deviced arwxt
 location_fw::server dlogutil arwxt
 location_fw::server dlogutil::dlogscript arwxt
 location_fw::server download-provider arwxt
@@ -8931,6 +9227,7 @@ location_fw::server push-service::db arwxt
 location_fw::server q7097a278m arwxt
 location_fw::server rua arwxt
 location_fw::server rua::db arwxt
+location_fw::server sdbd arwxt
 location_fw::server secure-storage arwxt
 location_fw::server security-server arwxt
 location_fw::server sensor-framework arwxt
@@ -9037,6 +9334,7 @@ media-data device::hwcodec arwxt
 media-data device::recording arwxt
 media-data device::sys_logging arwxt
 media-data device::video arwxt
+media-data deviced arwxt
 media-data dlogutil arwxt
 media-data dlogutil::dlogscript arwxt
 media-data download-provider arwxt
@@ -9140,6 +9438,7 @@ media-data push-service::db arwxt
 media-data q7097a278m arwxt
 media-data rua arwxt
 media-data rua::db arwxt
+media-data sdbd arwxt
 media-data secure-storage arwxt
 media-data security-server arwxt
 media-data sensor-framework arwxt
@@ -9246,6 +9545,7 @@ media-server device::hwcodec arwxt
 media-server device::recording arwxt
 media-server device::sys_logging arwxt
 media-server device::video arwxt
+media-server deviced arwxt
 media-server dlogutil arwxt
 media-server dlogutil::dlogscript arwxt
 media-server download-provider arwxt
@@ -9349,6 +9649,7 @@ media-server push-service::db arwxt
 media-server q7097a278m arwxt
 media-server rua arwxt
 media-server rua::db arwxt
+media-server sdbd arwxt
 media-server secure-storage arwxt
 media-server security-server arwxt
 media-server sensor-framework arwxt
@@ -9455,6 +9756,7 @@ miracast-server device::hwcodec arwxt
 miracast-server device::recording arwxt
 miracast-server device::sys_logging arwxt
 miracast-server device::video arwxt
+miracast-server deviced arwxt
 miracast-server dlogutil arwxt
 miracast-server dlogutil::dlogscript arwxt
 miracast-server download-provider arwxt
@@ -9558,6 +9860,7 @@ miracast-server push-service::db arwxt
 miracast-server q7097a278m arwxt
 miracast-server rua arwxt
 miracast-server rua::db arwxt
+miracast-server sdbd arwxt
 miracast-server secure-storage arwxt
 miracast-server security-server arwxt
 miracast-server sensor-framework arwxt
@@ -9664,6 +9967,7 @@ mobileprint device::hwcodec arwxt
 mobileprint device::recording arwxt
 mobileprint device::sys_logging arwxt
 mobileprint device::video arwxt
+mobileprint deviced arwxt
 mobileprint dlogutil arwxt
 mobileprint dlogutil::dlogscript arwxt
 mobileprint download-provider arwxt
@@ -9767,6 +10071,7 @@ mobileprint push-service::db arwxt
 mobileprint q7097a278m arwxt
 mobileprint rua arwxt
 mobileprint rua::db arwxt
+mobileprint sdbd arwxt
 mobileprint secure-storage arwxt
 mobileprint security-server arwxt
 mobileprint sensor-framework arwxt
@@ -9873,6 +10178,7 @@ msg-service device::hwcodec arwxt
 msg-service device::recording arwxt
 msg-service device::sys_logging arwxt
 msg-service device::video arwxt
+msg-service deviced arwxt
 msg-service dlogutil arwxt
 msg-service dlogutil::dlogscript arwxt
 msg-service download-provider arwxt
@@ -9976,6 +10282,7 @@ msg-service push-service::db arwxt
 msg-service q7097a278m arwxt
 msg-service rua arwxt
 msg-service rua::db arwxt
+msg-service sdbd arwxt
 msg-service secure-storage arwxt
 msg-service security-server arwxt
 msg-service sensor-framework arwxt
@@ -10082,6 +10389,7 @@ net-config device::hwcodec arwxt
 net-config device::recording arwxt
 net-config device::sys_logging arwxt
 net-config device::video arwxt
+net-config deviced arwxt
 net-config dlogutil arwxt
 net-config dlogutil::dlogscript arwxt
 net-config download-provider arwxt
@@ -10185,6 +10493,7 @@ net-config push-service::db arwxt
 net-config q7097a278m arwxt
 net-config rua arwxt
 net-config rua::db arwxt
+net-config sdbd arwxt
 net-config secure-storage arwxt
 net-config security-server arwxt
 net-config sensor-framework arwxt
@@ -10291,6 +10600,7 @@ net.wifi-qs device::hwcodec arwxt
 net.wifi-qs device::recording arwxt
 net.wifi-qs device::sys_logging arwxt
 net.wifi-qs device::video arwxt
+net.wifi-qs deviced arwxt
 net.wifi-qs dlogutil arwxt
 net.wifi-qs dlogutil::dlogscript arwxt
 net.wifi-qs download-provider arwxt
@@ -10394,6 +10704,7 @@ net.wifi-qs push-service::db arwxt
 net.wifi-qs q7097a278m arwxt
 net.wifi-qs rua arwxt
 net.wifi-qs rua::db arwxt
+net.wifi-qs sdbd arwxt
 net.wifi-qs secure-storage arwxt
 net.wifi-qs security-server arwxt
 net.wifi-qs sensor-framework arwxt
@@ -10500,6 +10811,7 @@ nfc-manager device::hwcodec arwxt
 nfc-manager device::recording arwxt
 nfc-manager device::sys_logging arwxt
 nfc-manager device::video arwxt
+nfc-manager deviced arwxt
 nfc-manager dlogutil arwxt
 nfc-manager dlogutil::dlogscript arwxt
 nfc-manager download-provider arwxt
@@ -10603,6 +10915,7 @@ nfc-manager push-service::db arwxt
 nfc-manager q7097a278m arwxt
 nfc-manager rua arwxt
 nfc-manager rua::db arwxt
+nfc-manager sdbd arwxt
 nfc-manager secure-storage arwxt
 nfc-manager security-server arwxt
 nfc-manager sensor-framework arwxt
@@ -10709,6 +11022,7 @@ notification device::hwcodec arwxt
 notification device::recording arwxt
 notification device::sys_logging arwxt
 notification device::video arwxt
+notification deviced arwxt
 notification dlogutil arwxt
 notification dlogutil::dlogscript arwxt
 notification download-provider arwxt
@@ -10812,6 +11126,7 @@ notification push-service::db arwxt
 notification q7097a278m arwxt
 notification rua arwxt
 notification rua::db arwxt
+notification sdbd arwxt
 notification secure-storage arwxt
 notification security-server arwxt
 notification sensor-framework arwxt
@@ -10918,6 +11233,7 @@ obexd device::hwcodec arwxt
 obexd device::recording arwxt
 obexd device::sys_logging arwxt
 obexd device::video arwxt
+obexd deviced arwxt
 obexd dlogutil arwxt
 obexd dlogutil::dlogscript arwxt
 obexd download-provider arwxt
@@ -11021,6 +11337,7 @@ obexd push-service::db arwxt
 obexd q7097a278m arwxt
 obexd rua arwxt
 obexd rua::db arwxt
+obexd sdbd arwxt
 obexd secure-storage arwxt
 obexd security-server arwxt
 obexd sensor-framework arwxt
@@ -11127,6 +11444,7 @@ obexd::client device::hwcodec arwxt
 obexd::client device::recording arwxt
 obexd::client device::sys_logging arwxt
 obexd::client device::video arwxt
+obexd::client deviced arwxt
 obexd::client dlogutil arwxt
 obexd::client dlogutil::dlogscript arwxt
 obexd::client download-provider arwxt
@@ -11230,6 +11548,7 @@ obexd::client push-service::db arwxt
 obexd::client q7097a278m arwxt
 obexd::client rua arwxt
 obexd::client rua::db arwxt
+obexd::client sdbd arwxt
 obexd::client secure-storage arwxt
 obexd::client security-server arwxt
 obexd::client sensor-framework arwxt
@@ -11336,6 +11655,7 @@ oma-ds-agent device::hwcodec arwxt
 oma-ds-agent device::recording arwxt
 oma-ds-agent device::sys_logging arwxt
 oma-ds-agent device::video arwxt
+oma-ds-agent deviced arwxt
 oma-ds-agent dlogutil arwxt
 oma-ds-agent dlogutil::dlogscript arwxt
 oma-ds-agent download-provider arwxt
@@ -11439,6 +11759,7 @@ oma-ds-agent push-service::db arwxt
 oma-ds-agent q7097a278m arwxt
 oma-ds-agent rua arwxt
 oma-ds-agent rua::db arwxt
+oma-ds-agent sdbd arwxt
 oma-ds-agent secure-storage arwxt
 oma-ds-agent security-server arwxt
 oma-ds-agent sensor-framework arwxt
@@ -11545,6 +11866,7 @@ org.tizen.app-selector device::hwcodec arwxt
 org.tizen.app-selector device::recording arwxt
 org.tizen.app-selector device::sys_logging arwxt
 org.tizen.app-selector device::video arwxt
+org.tizen.app-selector deviced arwxt
 org.tizen.app-selector dlogutil arwxt
 org.tizen.app-selector dlogutil::dlogscript arwxt
 org.tizen.app-selector download-provider arwxt
@@ -11648,6 +11970,7 @@ org.tizen.app-selector push-service::db arwxt
 org.tizen.app-selector q7097a278m arwxt
 org.tizen.app-selector rua arwxt
 org.tizen.app-selector rua::db arwxt
+org.tizen.app-selector sdbd arwxt
 org.tizen.app-selector secure-storage arwxt
 org.tizen.app-selector security-server arwxt
 org.tizen.app-selector sensor-framework arwxt
@@ -11754,6 +12077,7 @@ org.tizen.bluetooth-share-ui device::hwcodec arwxt
 org.tizen.bluetooth-share-ui device::recording arwxt
 org.tizen.bluetooth-share-ui device::sys_logging arwxt
 org.tizen.bluetooth-share-ui device::video arwxt
+org.tizen.bluetooth-share-ui deviced arwxt
 org.tizen.bluetooth-share-ui dlogutil arwxt
 org.tizen.bluetooth-share-ui dlogutil::dlogscript arwxt
 org.tizen.bluetooth-share-ui download-provider arwxt
@@ -11857,6 +12181,7 @@ org.tizen.bluetooth-share-ui push-service::db arwxt
 org.tizen.bluetooth-share-ui q7097a278m arwxt
 org.tizen.bluetooth-share-ui rua arwxt
 org.tizen.bluetooth-share-ui rua::db arwxt
+org.tizen.bluetooth-share-ui sdbd arwxt
 org.tizen.bluetooth-share-ui secure-storage arwxt
 org.tizen.bluetooth-share-ui security-server arwxt
 org.tizen.bluetooth-share-ui sensor-framework arwxt
@@ -11963,6 +12288,7 @@ org.tizen.browser device::hwcodec arwxt
 org.tizen.browser device::recording arwxt
 org.tizen.browser device::sys_logging arwxt
 org.tizen.browser device::video arwxt
+org.tizen.browser deviced arwxt
 org.tizen.browser dlogutil arwxt
 org.tizen.browser dlogutil::dlogscript arwxt
 org.tizen.browser download-provider arwxt
@@ -12066,6 +12392,7 @@ org.tizen.browser push-service::db arwxt
 org.tizen.browser q7097a278m arwxt
 org.tizen.browser rua arwxt
 org.tizen.browser rua::db arwxt
+org.tizen.browser sdbd arwxt
 org.tizen.browser secure-storage arwxt
 org.tizen.browser security-server arwxt
 org.tizen.browser sensor-framework arwxt
@@ -12172,6 +12499,7 @@ org.tizen.bt-syspopup device::hwcodec arwxt
 org.tizen.bt-syspopup device::recording arwxt
 org.tizen.bt-syspopup device::sys_logging arwxt
 org.tizen.bt-syspopup device::video arwxt
+org.tizen.bt-syspopup deviced arwxt
 org.tizen.bt-syspopup dlogutil arwxt
 org.tizen.bt-syspopup dlogutil::dlogscript arwxt
 org.tizen.bt-syspopup download-provider arwxt
@@ -12275,6 +12603,7 @@ org.tizen.bt-syspopup push-service::db arwxt
 org.tizen.bt-syspopup q7097a278m arwxt
 org.tizen.bt-syspopup rua arwxt
 org.tizen.bt-syspopup rua::db arwxt
+org.tizen.bt-syspopup sdbd arwxt
 org.tizen.bt-syspopup secure-storage arwxt
 org.tizen.bt-syspopup security-server arwxt
 org.tizen.bt-syspopup sensor-framework arwxt
@@ -12381,6 +12710,7 @@ org.tizen.calculator device::hwcodec arwxt
 org.tizen.calculator device::recording arwxt
 org.tizen.calculator device::sys_logging arwxt
 org.tizen.calculator device::video arwxt
+org.tizen.calculator deviced arwxt
 org.tizen.calculator dlogutil arwxt
 org.tizen.calculator dlogutil::dlogscript arwxt
 org.tizen.calculator download-provider arwxt
@@ -12484,6 +12814,7 @@ org.tizen.calculator push-service::db arwxt
 org.tizen.calculator q7097a278m arwxt
 org.tizen.calculator rua arwxt
 org.tizen.calculator rua::db arwxt
+org.tizen.calculator sdbd arwxt
 org.tizen.calculator secure-storage arwxt
 org.tizen.calculator security-server arwxt
 org.tizen.calculator sensor-framework arwxt
@@ -12590,6 +12921,7 @@ org.tizen.calendar device::hwcodec arwxt
 org.tizen.calendar device::recording arwxt
 org.tizen.calendar device::sys_logging arwxt
 org.tizen.calendar device::video arwxt
+org.tizen.calendar deviced arwxt
 org.tizen.calendar dlogutil arwxt
 org.tizen.calendar dlogutil::dlogscript arwxt
 org.tizen.calendar download-provider arwxt
@@ -12693,6 +13025,7 @@ org.tizen.calendar push-service::db arwxt
 org.tizen.calendar q7097a278m arwxt
 org.tizen.calendar rua arwxt
 org.tizen.calendar rua::db arwxt
+org.tizen.calendar sdbd arwxt
 org.tizen.calendar secure-storage arwxt
 org.tizen.calendar security-server arwxt
 org.tizen.calendar sensor-framework arwxt
@@ -12799,6 +13132,7 @@ org.tizen.call device::hwcodec arwxt
 org.tizen.call device::recording arwxt
 org.tizen.call device::sys_logging arwxt
 org.tizen.call device::video arwxt
+org.tizen.call deviced arwxt
 org.tizen.call dlogutil arwxt
 org.tizen.call dlogutil::dlogscript arwxt
 org.tizen.call download-provider arwxt
@@ -12902,6 +13236,7 @@ org.tizen.call push-service::db arwxt
 org.tizen.call q7097a278m arwxt
 org.tizen.call rua arwxt
 org.tizen.call rua::db arwxt
+org.tizen.call sdbd arwxt
 org.tizen.call secure-storage arwxt
 org.tizen.call security-server arwxt
 org.tizen.call sensor-framework arwxt
@@ -13008,6 +13343,7 @@ org.tizen.camera-app device::hwcodec arwxt
 org.tizen.camera-app device::recording arwxt
 org.tizen.camera-app device::sys_logging arwxt
 org.tizen.camera-app device::video arwxt
+org.tizen.camera-app deviced arwxt
 org.tizen.camera-app dlogutil arwxt
 org.tizen.camera-app dlogutil::dlogscript arwxt
 org.tizen.camera-app download-provider arwxt
@@ -13111,6 +13447,7 @@ org.tizen.camera-app push-service::db arwxt
 org.tizen.camera-app q7097a278m arwxt
 org.tizen.camera-app rua arwxt
 org.tizen.camera-app rua::db arwxt
+org.tizen.camera-app sdbd arwxt
 org.tizen.camera-app secure-storage arwxt
 org.tizen.camera-app security-server arwxt
 org.tizen.camera-app sensor-framework arwxt
@@ -13217,6 +13554,7 @@ org.tizen.ciss device::hwcodec arwxt
 org.tizen.ciss device::recording arwxt
 org.tizen.ciss device::sys_logging arwxt
 org.tizen.ciss device::video arwxt
+org.tizen.ciss deviced arwxt
 org.tizen.ciss dlogutil arwxt
 org.tizen.ciss dlogutil::dlogscript arwxt
 org.tizen.ciss download-provider arwxt
@@ -13320,6 +13658,7 @@ org.tizen.ciss push-service::db arwxt
 org.tizen.ciss q7097a278m arwxt
 org.tizen.ciss rua arwxt
 org.tizen.ciss rua::db arwxt
+org.tizen.ciss sdbd arwxt
 org.tizen.ciss secure-storage arwxt
 org.tizen.ciss security-server arwxt
 org.tizen.ciss sensor-framework arwxt
@@ -13426,6 +13765,7 @@ org.tizen.clock device::hwcodec arwxt
 org.tizen.clock device::recording arwxt
 org.tizen.clock device::sys_logging arwxt
 org.tizen.clock device::video arwxt
+org.tizen.clock deviced arwxt
 org.tizen.clock dlogutil arwxt
 org.tizen.clock dlogutil::dlogscript arwxt
 org.tizen.clock download-provider arwxt
@@ -13529,6 +13869,7 @@ org.tizen.clock push-service::db arwxt
 org.tizen.clock q7097a278m arwxt
 org.tizen.clock rua arwxt
 org.tizen.clock rua::db arwxt
+org.tizen.clock sdbd arwxt
 org.tizen.clock secure-storage arwxt
 org.tizen.clock security-server arwxt
 org.tizen.clock sensor-framework arwxt
@@ -13635,6 +13976,7 @@ org.tizen.contacts device::hwcodec arwxt
 org.tizen.contacts device::recording arwxt
 org.tizen.contacts device::sys_logging arwxt
 org.tizen.contacts device::video arwxt
+org.tizen.contacts deviced arwxt
 org.tizen.contacts dlogutil arwxt
 org.tizen.contacts dlogutil::dlogscript arwxt
 org.tizen.contacts download-provider arwxt
@@ -13738,6 +14080,7 @@ org.tizen.contacts push-service::db arwxt
 org.tizen.contacts q7097a278m arwxt
 org.tizen.contacts rua arwxt
 org.tizen.contacts rua::db arwxt
+org.tizen.contacts sdbd arwxt
 org.tizen.contacts secure-storage arwxt
 org.tizen.contacts security-server arwxt
 org.tizen.contacts sensor-framework arwxt
@@ -13844,6 +14187,7 @@ org.tizen.contacts-viewer device::hwcodec arwxt
 org.tizen.contacts-viewer device::recording arwxt
 org.tizen.contacts-viewer device::sys_logging arwxt
 org.tizen.contacts-viewer device::video arwxt
+org.tizen.contacts-viewer deviced arwxt
 org.tizen.contacts-viewer dlogutil arwxt
 org.tizen.contacts-viewer dlogutil::dlogscript arwxt
 org.tizen.contacts-viewer download-provider arwxt
@@ -13947,6 +14291,7 @@ org.tizen.contacts-viewer push-service::db arwxt
 org.tizen.contacts-viewer q7097a278m arwxt
 org.tizen.contacts-viewer rua arwxt
 org.tizen.contacts-viewer rua::db arwxt
+org.tizen.contacts-viewer sdbd arwxt
 org.tizen.contacts-viewer secure-storage arwxt
 org.tizen.contacts-viewer security-server arwxt
 org.tizen.contacts-viewer sensor-framework arwxt
@@ -14053,6 +14398,7 @@ org.tizen.crash-popup device::hwcodec arwxt
 org.tizen.crash-popup device::recording arwxt
 org.tizen.crash-popup device::sys_logging arwxt
 org.tizen.crash-popup device::video arwxt
+org.tizen.crash-popup deviced arwxt
 org.tizen.crash-popup dlogutil arwxt
 org.tizen.crash-popup dlogutil::dlogscript arwxt
 org.tizen.crash-popup download-provider arwxt
@@ -14156,6 +14502,7 @@ org.tizen.crash-popup push-service::db arwxt
 org.tizen.crash-popup q7097a278m arwxt
 org.tizen.crash-popup rua arwxt
 org.tizen.crash-popup rua::db arwxt
+org.tizen.crash-popup sdbd arwxt
 org.tizen.crash-popup secure-storage arwxt
 org.tizen.crash-popup security-server arwxt
 org.tizen.crash-popup sensor-framework arwxt
@@ -14262,6 +14609,7 @@ org.tizen.data-provider-master device::hwcodec arwxt
 org.tizen.data-provider-master device::recording arwxt
 org.tizen.data-provider-master device::sys_logging arwxt
 org.tizen.data-provider-master device::video arwxt
+org.tizen.data-provider-master deviced arwxt
 org.tizen.data-provider-master dlogutil arwxt
 org.tizen.data-provider-master dlogutil::dlogscript arwxt
 org.tizen.data-provider-master download-provider arwxt
@@ -14365,6 +14713,7 @@ org.tizen.data-provider-master push-service::db arwxt
 org.tizen.data-provider-master q7097a278m arwxt
 org.tizen.data-provider-master rua arwxt
 org.tizen.data-provider-master rua::db arwxt
+org.tizen.data-provider-master sdbd arwxt
 org.tizen.data-provider-master secure-storage arwxt
 org.tizen.data-provider-master security-server arwxt
 org.tizen.data-provider-master sensor-framework arwxt
@@ -14471,6 +14820,7 @@ org.tizen.data-provider-slave device::hwcodec arwxt
 org.tizen.data-provider-slave device::recording arwxt
 org.tizen.data-provider-slave device::sys_logging arwxt
 org.tizen.data-provider-slave device::video arwxt
+org.tizen.data-provider-slave deviced arwxt
 org.tizen.data-provider-slave dlogutil arwxt
 org.tizen.data-provider-slave dlogutil::dlogscript arwxt
 org.tizen.data-provider-slave download-provider arwxt
@@ -14574,6 +14924,7 @@ org.tizen.data-provider-slave push-service::db arwxt
 org.tizen.data-provider-slave q7097a278m arwxt
 org.tizen.data-provider-slave rua arwxt
 org.tizen.data-provider-slave rua::db arwxt
+org.tizen.data-provider-slave sdbd arwxt
 org.tizen.data-provider-slave secure-storage arwxt
 org.tizen.data-provider-slave security-server arwxt
 org.tizen.data-provider-slave sensor-framework arwxt
@@ -14680,6 +15031,7 @@ org.tizen.data-provider-webapp-slave device::hwcodec arwxt
 org.tizen.data-provider-webapp-slave device::recording arwxt
 org.tizen.data-provider-webapp-slave device::sys_logging arwxt
 org.tizen.data-provider-webapp-slave device::video arwxt
+org.tizen.data-provider-webapp-slave deviced arwxt
 org.tizen.data-provider-webapp-slave dlogutil arwxt
 org.tizen.data-provider-webapp-slave dlogutil::dlogscript arwxt
 org.tizen.data-provider-webapp-slave download-provider arwxt
@@ -14783,6 +15135,7 @@ org.tizen.data-provider-webapp-slave push-service::db arwxt
 org.tizen.data-provider-webapp-slave q7097a278m arwxt
 org.tizen.data-provider-webapp-slave rua arwxt
 org.tizen.data-provider-webapp-slave rua::db arwxt
+org.tizen.data-provider-webapp-slave sdbd arwxt
 org.tizen.data-provider-webapp-slave secure-storage arwxt
 org.tizen.data-provider-webapp-slave security-server arwxt
 org.tizen.data-provider-webapp-slave sensor-framework arwxt
@@ -14889,6 +15242,7 @@ org.tizen.download-manager device::hwcodec arwxt
 org.tizen.download-manager device::recording arwxt
 org.tizen.download-manager device::sys_logging arwxt
 org.tizen.download-manager device::video arwxt
+org.tizen.download-manager deviced arwxt
 org.tizen.download-manager dlogutil arwxt
 org.tizen.download-manager dlogutil::dlogscript arwxt
 org.tizen.download-manager download-provider arwxt
@@ -14992,6 +15346,7 @@ org.tizen.download-manager push-service::db arwxt
 org.tizen.download-manager q7097a278m arwxt
 org.tizen.download-manager rua arwxt
 org.tizen.download-manager rua::db arwxt
+org.tizen.download-manager sdbd arwxt
 org.tizen.download-manager secure-storage arwxt
 org.tizen.download-manager security-server arwxt
 org.tizen.download-manager sensor-framework arwxt
@@ -15098,6 +15453,7 @@ org.tizen.draglock device::hwcodec arwxt
 org.tizen.draglock device::recording arwxt
 org.tizen.draglock device::sys_logging arwxt
 org.tizen.draglock device::video arwxt
+org.tizen.draglock deviced arwxt
 org.tizen.draglock dlogutil arwxt
 org.tizen.draglock dlogutil::dlogscript arwxt
 org.tizen.draglock download-provider arwxt
@@ -15201,6 +15557,7 @@ org.tizen.draglock push-service::db arwxt
 org.tizen.draglock q7097a278m arwxt
 org.tizen.draglock rua arwxt
 org.tizen.draglock rua::db arwxt
+org.tizen.draglock sdbd arwxt
 org.tizen.draglock secure-storage arwxt
 org.tizen.draglock security-server arwxt
 org.tizen.draglock sensor-framework arwxt
@@ -15307,6 +15664,7 @@ org.tizen.email device::hwcodec arwxt
 org.tizen.email device::recording arwxt
 org.tizen.email device::sys_logging arwxt
 org.tizen.email device::video arwxt
+org.tizen.email deviced arwxt
 org.tizen.email dlogutil arwxt
 org.tizen.email dlogutil::dlogscript arwxt
 org.tizen.email download-provider arwxt
@@ -15410,6 +15768,7 @@ org.tizen.email push-service::db arwxt
 org.tizen.email q7097a278m arwxt
 org.tizen.email rua arwxt
 org.tizen.email rua::db arwxt
+org.tizen.email sdbd arwxt
 org.tizen.email secure-storage arwxt
 org.tizen.email security-server arwxt
 org.tizen.email sensor-framework arwxt
@@ -15516,6 +15875,7 @@ org.tizen.gallery device::hwcodec arwxt
 org.tizen.gallery device::recording arwxt
 org.tizen.gallery device::sys_logging arwxt
 org.tizen.gallery device::video arwxt
+org.tizen.gallery deviced arwxt
 org.tizen.gallery dlogutil arwxt
 org.tizen.gallery dlogutil::dlogscript arwxt
 org.tizen.gallery download-provider arwxt
@@ -15619,6 +15979,7 @@ org.tizen.gallery push-service::db arwxt
 org.tizen.gallery q7097a278m arwxt
 org.tizen.gallery rua arwxt
 org.tizen.gallery rua::db arwxt
+org.tizen.gallery sdbd arwxt
 org.tizen.gallery secure-storage arwxt
 org.tizen.gallery security-server arwxt
 org.tizen.gallery sensor-framework arwxt
@@ -15725,6 +16086,7 @@ org.tizen.image-viewer device::hwcodec arwxt
 org.tizen.image-viewer device::recording arwxt
 org.tizen.image-viewer device::sys_logging arwxt
 org.tizen.image-viewer device::video arwxt
+org.tizen.image-viewer deviced arwxt
 org.tizen.image-viewer dlogutil arwxt
 org.tizen.image-viewer dlogutil::dlogscript arwxt
 org.tizen.image-viewer download-provider arwxt
@@ -15828,6 +16190,7 @@ org.tizen.image-viewer push-service::db arwxt
 org.tizen.image-viewer q7097a278m arwxt
 org.tizen.image-viewer rua arwxt
 org.tizen.image-viewer rua::db arwxt
+org.tizen.image-viewer sdbd arwxt
 org.tizen.image-viewer secure-storage arwxt
 org.tizen.image-viewer security-server arwxt
 org.tizen.image-viewer sensor-framework arwxt
@@ -15934,6 +16297,7 @@ org.tizen.indicator device::hwcodec arwxt
 org.tizen.indicator device::recording arwxt
 org.tizen.indicator device::sys_logging arwxt
 org.tizen.indicator device::video arwxt
+org.tizen.indicator deviced arwxt
 org.tizen.indicator dlogutil arwxt
 org.tizen.indicator dlogutil::dlogscript arwxt
 org.tizen.indicator download-provider arwxt
@@ -16037,6 +16401,7 @@ org.tizen.indicator push-service::db arwxt
 org.tizen.indicator q7097a278m arwxt
 org.tizen.indicator rua arwxt
 org.tizen.indicator rua::db arwxt
+org.tizen.indicator sdbd arwxt
 org.tizen.indicator secure-storage arwxt
 org.tizen.indicator security-server arwxt
 org.tizen.indicator sensor-framework arwxt
@@ -16143,6 +16508,7 @@ org.tizen.lockscreen device::hwcodec arwxt
 org.tizen.lockscreen device::recording arwxt
 org.tizen.lockscreen device::sys_logging arwxt
 org.tizen.lockscreen device::video arwxt
+org.tizen.lockscreen deviced arwxt
 org.tizen.lockscreen dlogutil arwxt
 org.tizen.lockscreen dlogutil::dlogscript arwxt
 org.tizen.lockscreen download-provider arwxt
@@ -16246,6 +16612,7 @@ org.tizen.lockscreen push-service::db arwxt
 org.tizen.lockscreen q7097a278m arwxt
 org.tizen.lockscreen rua arwxt
 org.tizen.lockscreen rua::db arwxt
+org.tizen.lockscreen sdbd arwxt
 org.tizen.lockscreen secure-storage arwxt
 org.tizen.lockscreen security-server arwxt
 org.tizen.lockscreen sensor-framework arwxt
@@ -16352,6 +16719,7 @@ org.tizen.memo device::hwcodec arwxt
 org.tizen.memo device::recording arwxt
 org.tizen.memo device::sys_logging arwxt
 org.tizen.memo device::video arwxt
+org.tizen.memo deviced arwxt
 org.tizen.memo dlogutil arwxt
 org.tizen.memo dlogutil::dlogscript arwxt
 org.tizen.memo download-provider arwxt
@@ -16455,6 +16823,7 @@ org.tizen.memo push-service::db arwxt
 org.tizen.memo q7097a278m arwxt
 org.tizen.memo rua arwxt
 org.tizen.memo rua::db arwxt
+org.tizen.memo sdbd arwxt
 org.tizen.memo secure-storage arwxt
 org.tizen.memo security-server arwxt
 org.tizen.memo sensor-framework arwxt
@@ -16561,6 +16930,7 @@ org.tizen.menu-screen device::hwcodec arwxt
 org.tizen.menu-screen device::recording arwxt
 org.tizen.menu-screen device::sys_logging arwxt
 org.tizen.menu-screen device::video arwxt
+org.tizen.menu-screen deviced arwxt
 org.tizen.menu-screen dlogutil arwxt
 org.tizen.menu-screen dlogutil::dlogscript arwxt
 org.tizen.menu-screen download-provider arwxt
@@ -16664,6 +17034,7 @@ org.tizen.menu-screen push-service::db arwxt
 org.tizen.menu-screen q7097a278m arwxt
 org.tizen.menu-screen rua arwxt
 org.tizen.menu-screen rua::db arwxt
+org.tizen.menu-screen sdbd arwxt
 org.tizen.menu-screen secure-storage arwxt
 org.tizen.menu-screen security-server arwxt
 org.tizen.menu-screen sensor-framework arwxt
@@ -16770,6 +17141,7 @@ org.tizen.message device::hwcodec arwxt
 org.tizen.message device::recording arwxt
 org.tizen.message device::sys_logging arwxt
 org.tizen.message device::video arwxt
+org.tizen.message deviced arwxt
 org.tizen.message dlogutil arwxt
 org.tizen.message dlogutil::dlogscript arwxt
 org.tizen.message download-provider arwxt
@@ -16873,6 +17245,7 @@ org.tizen.message push-service::db arwxt
 org.tizen.message q7097a278m arwxt
 org.tizen.message rua arwxt
 org.tizen.message rua::db arwxt
+org.tizen.message sdbd arwxt
 org.tizen.message secure-storage arwxt
 org.tizen.message security-server arwxt
 org.tizen.message sensor-framework arwxt
@@ -16979,6 +17352,7 @@ org.tizen.music-player device::hwcodec arwxt
 org.tizen.music-player device::recording arwxt
 org.tizen.music-player device::sys_logging arwxt
 org.tizen.music-player device::video arwxt
+org.tizen.music-player deviced arwxt
 org.tizen.music-player dlogutil arwxt
 org.tizen.music-player dlogutil::dlogscript arwxt
 org.tizen.music-player download-provider arwxt
@@ -17082,6 +17456,7 @@ org.tizen.music-player push-service::db arwxt
 org.tizen.music-player q7097a278m arwxt
 org.tizen.music-player rua arwxt
 org.tizen.music-player rua::db arwxt
+org.tizen.music-player sdbd arwxt
 org.tizen.music-player secure-storage arwxt
 org.tizen.music-player security-server arwxt
 org.tizen.music-player sensor-framework arwxt
@@ -17188,6 +17563,7 @@ org.tizen.myfile device::hwcodec arwxt
 org.tizen.myfile device::recording arwxt
 org.tizen.myfile device::sys_logging arwxt
 org.tizen.myfile device::video arwxt
+org.tizen.myfile deviced arwxt
 org.tizen.myfile dlogutil arwxt
 org.tizen.myfile dlogutil::dlogscript arwxt
 org.tizen.myfile download-provider arwxt
@@ -17291,6 +17667,7 @@ org.tizen.myfile push-service::db arwxt
 org.tizen.myfile q7097a278m arwxt
 org.tizen.myfile rua arwxt
 org.tizen.myfile rua::db arwxt
+org.tizen.myfile sdbd arwxt
 org.tizen.myfile secure-storage arwxt
 org.tizen.myfile security-server arwxt
 org.tizen.myfile sensor-framework arwxt
@@ -17397,6 +17774,7 @@ org.tizen.net-popup device::hwcodec arwxt
 org.tizen.net-popup device::recording arwxt
 org.tizen.net-popup device::sys_logging arwxt
 org.tizen.net-popup device::video arwxt
+org.tizen.net-popup deviced arwxt
 org.tizen.net-popup dlogutil arwxt
 org.tizen.net-popup dlogutil::dlogscript arwxt
 org.tizen.net-popup download-provider arwxt
@@ -17500,6 +17878,7 @@ org.tizen.net-popup push-service::db arwxt
 org.tizen.net-popup q7097a278m arwxt
 org.tizen.net-popup rua arwxt
 org.tizen.net-popup rua::db arwxt
+org.tizen.net-popup sdbd arwxt
 org.tizen.net-popup secure-storage arwxt
 org.tizen.net-popup security-server arwxt
 org.tizen.net-popup sensor-framework arwxt
@@ -17606,6 +17985,7 @@ org.tizen.phone device::hwcodec arwxt
 org.tizen.phone device::recording arwxt
 org.tizen.phone device::sys_logging arwxt
 org.tizen.phone device::video arwxt
+org.tizen.phone deviced arwxt
 org.tizen.phone dlogutil arwxt
 org.tizen.phone dlogutil::dlogscript arwxt
 org.tizen.phone download-provider arwxt
@@ -17709,6 +18089,7 @@ org.tizen.phone push-service::db arwxt
 org.tizen.phone q7097a278m arwxt
 org.tizen.phone rua arwxt
 org.tizen.phone rua::db arwxt
+org.tizen.phone sdbd arwxt
 org.tizen.phone secure-storage arwxt
 org.tizen.phone security-server arwxt
 org.tizen.phone sensor-framework arwxt
@@ -17815,6 +18196,7 @@ org.tizen.pwlock device::hwcodec arwxt
 org.tizen.pwlock device::recording arwxt
 org.tizen.pwlock device::sys_logging arwxt
 org.tizen.pwlock device::video arwxt
+org.tizen.pwlock deviced arwxt
 org.tizen.pwlock dlogutil arwxt
 org.tizen.pwlock dlogutil::dlogscript arwxt
 org.tizen.pwlock download-provider arwxt
@@ -17918,6 +18300,7 @@ org.tizen.pwlock push-service::db arwxt
 org.tizen.pwlock q7097a278m arwxt
 org.tizen.pwlock rua arwxt
 org.tizen.pwlock rua::db arwxt
+org.tizen.pwlock sdbd arwxt
 org.tizen.pwlock secure-storage arwxt
 org.tizen.pwlock security-server arwxt
 org.tizen.pwlock sensor-framework arwxt
@@ -18024,6 +18407,7 @@ org.tizen.quickpanel device::hwcodec arwxt
 org.tizen.quickpanel device::recording arwxt
 org.tizen.quickpanel device::sys_logging arwxt
 org.tizen.quickpanel device::video arwxt
+org.tizen.quickpanel deviced arwxt
 org.tizen.quickpanel dlogutil arwxt
 org.tizen.quickpanel dlogutil::dlogscript arwxt
 org.tizen.quickpanel download-provider arwxt
@@ -18127,6 +18511,7 @@ org.tizen.quickpanel push-service::db arwxt
 org.tizen.quickpanel q7097a278m arwxt
 org.tizen.quickpanel rua arwxt
 org.tizen.quickpanel rua::db arwxt
+org.tizen.quickpanel sdbd arwxt
 org.tizen.quickpanel secure-storage arwxt
 org.tizen.quickpanel security-server arwxt
 org.tizen.quickpanel sensor-framework arwxt
@@ -18233,6 +18618,7 @@ org.tizen.sat-ui device::hwcodec arwxt
 org.tizen.sat-ui device::recording arwxt
 org.tizen.sat-ui device::sys_logging arwxt
 org.tizen.sat-ui device::video arwxt
+org.tizen.sat-ui deviced arwxt
 org.tizen.sat-ui dlogutil arwxt
 org.tizen.sat-ui dlogutil::dlogscript arwxt
 org.tizen.sat-ui download-provider arwxt
@@ -18336,6 +18722,7 @@ org.tizen.sat-ui push-service::db arwxt
 org.tizen.sat-ui q7097a278m arwxt
 org.tizen.sat-ui rua arwxt
 org.tizen.sat-ui rua::db arwxt
+org.tizen.sat-ui sdbd arwxt
 org.tizen.sat-ui secure-storage arwxt
 org.tizen.sat-ui security-server arwxt
 org.tizen.sat-ui sensor-framework arwxt
@@ -18442,6 +18829,7 @@ org.tizen.setting device::hwcodec arwxt
 org.tizen.setting device::recording arwxt
 org.tizen.setting device::sys_logging arwxt
 org.tizen.setting device::video arwxt
+org.tizen.setting deviced arwxt
 org.tizen.setting dlogutil arwxt
 org.tizen.setting dlogutil::dlogscript arwxt
 org.tizen.setting download-provider arwxt
@@ -18545,6 +18933,7 @@ org.tizen.setting push-service::db arwxt
 org.tizen.setting q7097a278m arwxt
 org.tizen.setting rua arwxt
 org.tizen.setting rua::db arwxt
+org.tizen.setting sdbd arwxt
 org.tizen.setting secure-storage arwxt
 org.tizen.setting security-server arwxt
 org.tizen.setting sensor-framework arwxt
@@ -18651,6 +19040,7 @@ org.tizen.smartsearch device::hwcodec arwxt
 org.tizen.smartsearch device::recording arwxt
 org.tizen.smartsearch device::sys_logging arwxt
 org.tizen.smartsearch device::video arwxt
+org.tizen.smartsearch deviced arwxt
 org.tizen.smartsearch dlogutil arwxt
 org.tizen.smartsearch dlogutil::dlogscript arwxt
 org.tizen.smartsearch download-provider arwxt
@@ -18754,6 +19144,7 @@ org.tizen.smartsearch push-service::db arwxt
 org.tizen.smartsearch q7097a278m arwxt
 org.tizen.smartsearch rua arwxt
 org.tizen.smartsearch rua::db arwxt
+org.tizen.smartsearch sdbd arwxt
 org.tizen.smartsearch secure-storage arwxt
 org.tizen.smartsearch security-server arwxt
 org.tizen.smartsearch sensor-framework arwxt
@@ -18860,6 +19251,7 @@ org.tizen.taskmgr device::hwcodec arwxt
 org.tizen.taskmgr device::recording arwxt
 org.tizen.taskmgr device::sys_logging arwxt
 org.tizen.taskmgr device::video arwxt
+org.tizen.taskmgr deviced arwxt
 org.tizen.taskmgr dlogutil arwxt
 org.tizen.taskmgr dlogutil::dlogscript arwxt
 org.tizen.taskmgr download-provider arwxt
@@ -18963,6 +19355,7 @@ org.tizen.taskmgr push-service::db arwxt
 org.tizen.taskmgr q7097a278m arwxt
 org.tizen.taskmgr rua arwxt
 org.tizen.taskmgr rua::db arwxt
+org.tizen.taskmgr sdbd arwxt
 org.tizen.taskmgr secure-storage arwxt
 org.tizen.taskmgr security-server arwxt
 org.tizen.taskmgr sensor-framework arwxt
@@ -19069,6 +19462,7 @@ org.tizen.tickernoti-syspopup device::hwcodec arwxt
 org.tizen.tickernoti-syspopup device::recording arwxt
 org.tizen.tickernoti-syspopup device::sys_logging arwxt
 org.tizen.tickernoti-syspopup device::video arwxt
+org.tizen.tickernoti-syspopup deviced arwxt
 org.tizen.tickernoti-syspopup dlogutil arwxt
 org.tizen.tickernoti-syspopup dlogutil::dlogscript arwxt
 org.tizen.tickernoti-syspopup download-provider arwxt
@@ -19172,6 +19566,7 @@ org.tizen.tickernoti-syspopup push-service::db arwxt
 org.tizen.tickernoti-syspopup q7097a278m arwxt
 org.tizen.tickernoti-syspopup rua arwxt
 org.tizen.tickernoti-syspopup rua::db arwxt
+org.tizen.tickernoti-syspopup sdbd arwxt
 org.tizen.tickernoti-syspopup secure-storage arwxt
 org.tizen.tickernoti-syspopup security-server arwxt
 org.tizen.tickernoti-syspopup sensor-framework arwxt
@@ -19278,6 +19673,7 @@ org.tizen.usb-syspopup device::hwcodec arwxt
 org.tizen.usb-syspopup device::recording arwxt
 org.tizen.usb-syspopup device::sys_logging arwxt
 org.tizen.usb-syspopup device::video arwxt
+org.tizen.usb-syspopup deviced arwxt
 org.tizen.usb-syspopup dlogutil arwxt
 org.tizen.usb-syspopup dlogutil::dlogscript arwxt
 org.tizen.usb-syspopup download-provider arwxt
@@ -19381,6 +19777,7 @@ org.tizen.usb-syspopup push-service::db arwxt
 org.tizen.usb-syspopup q7097a278m arwxt
 org.tizen.usb-syspopup rua arwxt
 org.tizen.usb-syspopup rua::db arwxt
+org.tizen.usb-syspopup sdbd arwxt
 org.tizen.usb-syspopup secure-storage arwxt
 org.tizen.usb-syspopup security-server arwxt
 org.tizen.usb-syspopup sensor-framework arwxt
@@ -19487,6 +19884,7 @@ org.tizen.video-player device::hwcodec arwxt
 org.tizen.video-player device::recording arwxt
 org.tizen.video-player device::sys_logging arwxt
 org.tizen.video-player device::video arwxt
+org.tizen.video-player deviced arwxt
 org.tizen.video-player dlogutil arwxt
 org.tizen.video-player dlogutil::dlogscript arwxt
 org.tizen.video-player download-provider arwxt
@@ -19590,6 +19988,7 @@ org.tizen.video-player push-service::db arwxt
 org.tizen.video-player q7097a278m arwxt
 org.tizen.video-player rua arwxt
 org.tizen.video-player rua::db arwxt
+org.tizen.video-player sdbd arwxt
 org.tizen.video-player secure-storage arwxt
 org.tizen.video-player security-server arwxt
 org.tizen.video-player sensor-framework arwxt
@@ -19696,6 +20095,7 @@ org.tizen.volume device::hwcodec arwxt
 org.tizen.volume device::recording arwxt
 org.tizen.volume device::sys_logging arwxt
 org.tizen.volume device::video arwxt
+org.tizen.volume deviced arwxt
 org.tizen.volume dlogutil arwxt
 org.tizen.volume dlogutil::dlogscript arwxt
 org.tizen.volume download-provider arwxt
@@ -19799,6 +20199,7 @@ org.tizen.volume push-service::db arwxt
 org.tizen.volume q7097a278m arwxt
 org.tizen.volume rua arwxt
 org.tizen.volume rua::db arwxt
+org.tizen.volume sdbd arwxt
 org.tizen.volume secure-storage arwxt
 org.tizen.volume security-server arwxt
 org.tizen.volume sensor-framework arwxt
@@ -19905,6 +20306,7 @@ osp device::hwcodec arwxt
 osp device::recording arwxt
 osp device::sys_logging arwxt
 osp device::video arwxt
+osp deviced arwxt
 osp dlogutil arwxt
 osp dlogutil::dlogscript arwxt
 osp download-provider arwxt
@@ -20008,6 +20410,7 @@ osp push-service::db arwxt
 osp q7097a278m arwxt
 osp rua arwxt
 osp rua::db arwxt
+osp sdbd arwxt
 osp secure-storage arwxt
 osp security-server arwxt
 osp sensor-framework arwxt
@@ -20114,6 +20517,7 @@ osp-app-service device::hwcodec arwxt
 osp-app-service device::recording arwxt
 osp-app-service device::sys_logging arwxt
 osp-app-service device::video arwxt
+osp-app-service deviced arwxt
 osp-app-service dlogutil arwxt
 osp-app-service dlogutil::dlogscript arwxt
 osp-app-service download-provider arwxt
@@ -20217,6 +20621,7 @@ osp-app-service push-service::db arwxt
 osp-app-service q7097a278m arwxt
 osp-app-service rua arwxt
 osp-app-service rua::db arwxt
+osp-app-service sdbd arwxt
 osp-app-service secure-storage arwxt
 osp-app-service security-server arwxt
 osp-app-service sensor-framework arwxt
@@ -20323,6 +20728,7 @@ osp-channel-service device::hwcodec arwxt
 osp-channel-service device::recording arwxt
 osp-channel-service device::sys_logging arwxt
 osp-channel-service device::video arwxt
+osp-channel-service deviced arwxt
 osp-channel-service dlogutil arwxt
 osp-channel-service dlogutil::dlogscript arwxt
 osp-channel-service download-provider arwxt
@@ -20426,6 +20832,7 @@ osp-channel-service push-service::db arwxt
 osp-channel-service q7097a278m arwxt
 osp-channel-service rua arwxt
 osp-channel-service rua::db arwxt
+osp-channel-service sdbd arwxt
 osp-channel-service secure-storage arwxt
 osp-channel-service security-server arwxt
 osp-channel-service sensor-framework arwxt
@@ -20532,6 +20939,7 @@ osp-connectivity-service device::hwcodec arwxt
 osp-connectivity-service device::recording arwxt
 osp-connectivity-service device::sys_logging arwxt
 osp-connectivity-service device::video arwxt
+osp-connectivity-service deviced arwxt
 osp-connectivity-service dlogutil arwxt
 osp-connectivity-service dlogutil::dlogscript arwxt
 osp-connectivity-service download-provider arwxt
@@ -20635,6 +21043,7 @@ osp-connectivity-service push-service::db arwxt
 osp-connectivity-service q7097a278m arwxt
 osp-connectivity-service rua arwxt
 osp-connectivity-service rua::db arwxt
+osp-connectivity-service sdbd arwxt
 osp-connectivity-service secure-storage arwxt
 osp-connectivity-service security-server arwxt
 osp-connectivity-service sensor-framework arwxt
@@ -20741,6 +21150,7 @@ osp-installer device::hwcodec arwxt
 osp-installer device::recording arwxt
 osp-installer device::sys_logging arwxt
 osp-installer device::video arwxt
+osp-installer deviced arwxt
 osp-installer dlogutil arwxt
 osp-installer dlogutil::dlogscript arwxt
 osp-installer download-provider arwxt
@@ -20844,6 +21254,7 @@ osp-installer push-service::db arwxt
 osp-installer q7097a278m arwxt
 osp-installer rua arwxt
 osp-installer rua::db arwxt
+osp-installer sdbd arwxt
 osp-installer secure-storage arwxt
 osp-installer security-server arwxt
 osp-installer sensor-framework arwxt
@@ -20950,6 +21361,7 @@ osp-livebox-service device::hwcodec arwxt
 osp-livebox-service device::recording arwxt
 osp-livebox-service device::sys_logging arwxt
 osp-livebox-service device::video arwxt
+osp-livebox-service deviced arwxt
 osp-livebox-service dlogutil arwxt
 osp-livebox-service dlogutil::dlogscript arwxt
 osp-livebox-service download-provider arwxt
@@ -21053,6 +21465,7 @@ osp-livebox-service push-service::db arwxt
 osp-livebox-service q7097a278m arwxt
 osp-livebox-service rua arwxt
 osp-livebox-service rua::db arwxt
+osp-livebox-service sdbd arwxt
 osp-livebox-service secure-storage arwxt
 osp-livebox-service security-server arwxt
 osp-livebox-service sensor-framework arwxt
@@ -21159,6 +21572,7 @@ osp-search-service device::hwcodec arwxt
 osp-search-service device::recording arwxt
 osp-search-service device::sys_logging arwxt
 osp-search-service device::video arwxt
+osp-search-service deviced arwxt
 osp-search-service dlogutil arwxt
 osp-search-service dlogutil::dlogscript arwxt
 osp-search-service download-provider arwxt
@@ -21262,6 +21676,7 @@ osp-search-service push-service::db arwxt
 osp-search-service q7097a278m arwxt
 osp-search-service rua arwxt
 osp-search-service rua::db arwxt
+osp-search-service sdbd arwxt
 osp-search-service secure-storage arwxt
 osp-search-service security-server arwxt
 osp-search-service sensor-framework arwxt
@@ -21368,6 +21783,7 @@ osp-security-service device::hwcodec arwxt
 osp-security-service device::recording arwxt
 osp-security-service device::sys_logging arwxt
 osp-security-service device::video arwxt
+osp-security-service deviced arwxt
 osp-security-service dlogutil arwxt
 osp-security-service dlogutil::dlogscript arwxt
 osp-security-service download-provider arwxt
@@ -21471,6 +21887,7 @@ osp-security-service push-service::db arwxt
 osp-security-service q7097a278m arwxt
 osp-security-service rua arwxt
 osp-security-service rua::db arwxt
+osp-security-service sdbd arwxt
 osp-security-service secure-storage arwxt
 osp-security-service security-server arwxt
 osp-security-service sensor-framework arwxt
@@ -21577,6 +21994,7 @@ pims-ipc device::hwcodec arwxt
 pims-ipc device::recording arwxt
 pims-ipc device::sys_logging arwxt
 pims-ipc device::video arwxt
+pims-ipc deviced arwxt
 pims-ipc dlogutil arwxt
 pims-ipc dlogutil::dlogscript arwxt
 pims-ipc download-provider arwxt
@@ -21680,6 +22098,7 @@ pims-ipc push-service::db arwxt
 pims-ipc q7097a278m arwxt
 pims-ipc rua arwxt
 pims-ipc rua::db arwxt
+pims-ipc sdbd arwxt
 pims-ipc secure-storage arwxt
 pims-ipc security-server arwxt
 pims-ipc sensor-framework arwxt
@@ -21786,6 +22205,7 @@ pkgmgr device::hwcodec arwxt
 pkgmgr device::recording arwxt
 pkgmgr device::sys_logging arwxt
 pkgmgr device::video arwxt
+pkgmgr deviced arwxt
 pkgmgr dlogutil arwxt
 pkgmgr dlogutil::dlogscript arwxt
 pkgmgr download-provider arwxt
@@ -21889,6 +22309,7 @@ pkgmgr push-service::db arwxt
 pkgmgr q7097a278m arwxt
 pkgmgr rua arwxt
 pkgmgr rua::db arwxt
+pkgmgr sdbd arwxt
 pkgmgr secure-storage arwxt
 pkgmgr security-server arwxt
 pkgmgr sensor-framework arwxt
@@ -21995,6 +22416,7 @@ pkgmgr-client device::hwcodec arwxt
 pkgmgr-client device::recording arwxt
 pkgmgr-client device::sys_logging arwxt
 pkgmgr-client device::video arwxt
+pkgmgr-client deviced arwxt
 pkgmgr-client dlogutil arwxt
 pkgmgr-client dlogutil::dlogscript arwxt
 pkgmgr-client download-provider arwxt
@@ -22098,6 +22520,7 @@ pkgmgr-client push-service::db arwxt
 pkgmgr-client q7097a278m arwxt
 pkgmgr-client rua arwxt
 pkgmgr-client rua::db arwxt
+pkgmgr-client sdbd arwxt
 pkgmgr-client secure-storage arwxt
 pkgmgr-client security-server arwxt
 pkgmgr-client sensor-framework arwxt
@@ -22204,6 +22627,7 @@ pkgmgr-info device::hwcodec arwxt
 pkgmgr-info device::recording arwxt
 pkgmgr-info device::sys_logging arwxt
 pkgmgr-info device::video arwxt
+pkgmgr-info deviced arwxt
 pkgmgr-info dlogutil arwxt
 pkgmgr-info dlogutil::dlogscript arwxt
 pkgmgr-info download-provider arwxt
@@ -22307,6 +22731,7 @@ pkgmgr-info push-service::db arwxt
 pkgmgr-info q7097a278m arwxt
 pkgmgr-info rua arwxt
 pkgmgr-info rua::db arwxt
+pkgmgr-info sdbd arwxt
 pkgmgr-info secure-storage arwxt
 pkgmgr-info security-server arwxt
 pkgmgr-info sensor-framework arwxt
@@ -22413,6 +22838,7 @@ pkgmgr-installer device::hwcodec arwxt
 pkgmgr-installer device::recording arwxt
 pkgmgr-installer device::sys_logging arwxt
 pkgmgr-installer device::video arwxt
+pkgmgr-installer deviced arwxt
 pkgmgr-installer dlogutil arwxt
 pkgmgr-installer dlogutil::dlogscript arwxt
 pkgmgr-installer download-provider arwxt
@@ -22516,6 +22942,7 @@ pkgmgr-installer push-service::db arwxt
 pkgmgr-installer q7097a278m arwxt
 pkgmgr-installer rua arwxt
 pkgmgr-installer rua::db arwxt
+pkgmgr-installer sdbd arwxt
 pkgmgr-installer secure-storage arwxt
 pkgmgr-installer security-server arwxt
 pkgmgr-installer sensor-framework arwxt
@@ -22622,6 +23049,7 @@ pkgmgr-parser device::hwcodec arwxt
 pkgmgr-parser device::recording arwxt
 pkgmgr-parser device::sys_logging arwxt
 pkgmgr-parser device::video arwxt
+pkgmgr-parser deviced arwxt
 pkgmgr-parser dlogutil arwxt
 pkgmgr-parser dlogutil::dlogscript arwxt
 pkgmgr-parser download-provider arwxt
@@ -22725,6 +23153,7 @@ pkgmgr-parser push-service::db arwxt
 pkgmgr-parser q7097a278m arwxt
 pkgmgr-parser rua arwxt
 pkgmgr-parser rua::db arwxt
+pkgmgr-parser sdbd arwxt
 pkgmgr-parser secure-storage arwxt
 pkgmgr-parser security-server arwxt
 pkgmgr-parser sensor-framework arwxt
@@ -22831,6 +23260,7 @@ pkgmgr-server device::hwcodec arwxt
 pkgmgr-server device::recording arwxt
 pkgmgr-server device::sys_logging arwxt
 pkgmgr-server device::video arwxt
+pkgmgr-server deviced arwxt
 pkgmgr-server dlogutil arwxt
 pkgmgr-server dlogutil::dlogscript arwxt
 pkgmgr-server download-provider arwxt
@@ -22934,6 +23364,7 @@ pkgmgr-server push-service::db arwxt
 pkgmgr-server q7097a278m arwxt
 pkgmgr-server rua arwxt
 pkgmgr-server rua::db arwxt
+pkgmgr-server sdbd arwxt
 pkgmgr-server secure-storage arwxt
 pkgmgr-server security-server arwxt
 pkgmgr-server sensor-framework arwxt
@@ -23040,6 +23471,7 @@ power_manager device::hwcodec arwxt
 power_manager device::recording arwxt
 power_manager device::sys_logging arwxt
 power_manager device::video arwxt
+power_manager deviced arwxt
 power_manager dlogutil arwxt
 power_manager dlogutil::dlogscript arwxt
 power_manager download-provider arwxt
@@ -23143,6 +23575,7 @@ power_manager push-service::db arwxt
 power_manager q7097a278m arwxt
 power_manager rua arwxt
 power_manager rua::db arwxt
+power_manager sdbd arwxt
 power_manager secure-storage arwxt
 power_manager security-server arwxt
 power_manager sensor-framework arwxt
@@ -23249,6 +23682,7 @@ privacy-manager device::hwcodec arwxt
 privacy-manager device::recording arwxt
 privacy-manager device::sys_logging arwxt
 privacy-manager device::video arwxt
+privacy-manager deviced arwxt
 privacy-manager dlogutil arwxt
 privacy-manager dlogutil::dlogscript arwxt
 privacy-manager download-provider arwxt
@@ -23352,6 +23786,7 @@ privacy-manager push-service::db arwxt
 privacy-manager q7097a278m arwxt
 privacy-manager rua arwxt
 privacy-manager rua::db arwxt
+privacy-manager sdbd arwxt
 privacy-manager secure-storage arwxt
 privacy-manager security-server arwxt
 privacy-manager sensor-framework arwxt
@@ -23458,6 +23893,7 @@ privacy-manager::daemon device::hwcodec arwxt
 privacy-manager::daemon device::recording arwxt
 privacy-manager::daemon device::sys_logging arwxt
 privacy-manager::daemon device::video arwxt
+privacy-manager::daemon deviced arwxt
 privacy-manager::daemon dlogutil arwxt
 privacy-manager::daemon dlogutil::dlogscript arwxt
 privacy-manager::daemon download-provider arwxt
@@ -23561,6 +23997,7 @@ privacy-manager::daemon push-service::db arwxt
 privacy-manager::daemon q7097a278m arwxt
 privacy-manager::daemon rua arwxt
 privacy-manager::daemon rua::db arwxt
+privacy-manager::daemon sdbd arwxt
 privacy-manager::daemon secure-storage arwxt
 privacy-manager::daemon security-server arwxt
 privacy-manager::daemon sensor-framework arwxt
@@ -23667,6 +24104,7 @@ privilege::power device::hwcodec arwxt
 privilege::power device::recording arwxt
 privilege::power device::sys_logging arwxt
 privilege::power device::video arwxt
+privilege::power deviced arwxt
 privilege::power dlogutil arwxt
 privilege::power dlogutil::dlogscript arwxt
 privilege::power download-provider arwxt
@@ -23770,6 +24208,7 @@ privilege::power push-service::db arwxt
 privilege::power q7097a278m arwxt
 privilege::power rua arwxt
 privilege::power rua::db arwxt
+privilege::power sdbd arwxt
 privilege::power secure-storage arwxt
 privilege::power security-server arwxt
 privilege::power sensor-framework arwxt
@@ -23876,6 +24315,7 @@ pulseaudio device::hwcodec arwxt
 pulseaudio device::recording arwxt
 pulseaudio device::sys_logging arwxt
 pulseaudio device::video arwxt
+pulseaudio deviced arwxt
 pulseaudio dlogutil arwxt
 pulseaudio dlogutil::dlogscript arwxt
 pulseaudio download-provider arwxt
@@ -23979,6 +24419,7 @@ pulseaudio push-service::db arwxt
 pulseaudio q7097a278m arwxt
 pulseaudio rua arwxt
 pulseaudio rua::db arwxt
+pulseaudio sdbd arwxt
 pulseaudio secure-storage arwxt
 pulseaudio security-server arwxt
 pulseaudio sensor-framework arwxt
@@ -24085,6 +24526,7 @@ push-service device::hwcodec arwxt
 push-service device::recording arwxt
 push-service device::sys_logging arwxt
 push-service device::video arwxt
+push-service deviced arwxt
 push-service dlogutil arwxt
 push-service dlogutil::dlogscript arwxt
 push-service download-provider arwxt
@@ -24188,6 +24630,7 @@ push-service push-service::db arwxt
 push-service q7097a278m arwxt
 push-service rua arwxt
 push-service rua::db arwxt
+push-service sdbd arwxt
 push-service secure-storage arwxt
 push-service security-server arwxt
 push-service sensor-framework arwxt
@@ -24294,6 +24737,7 @@ q7097a278m device::hwcodec arwxt
 q7097a278m device::recording arwxt
 q7097a278m device::sys_logging arwxt
 q7097a278m device::video arwxt
+q7097a278m deviced arwxt
 q7097a278m dlogutil arwxt
 q7097a278m dlogutil::dlogscript arwxt
 q7097a278m download-provider arwxt
@@ -24397,6 +24841,7 @@ q7097a278m push-service arwxt
 q7097a278m push-service::db arwxt
 q7097a278m rua arwxt
 q7097a278m rua::db arwxt
+q7097a278m sdbd arwxt
 q7097a278m secure-storage arwxt
 q7097a278m security-server arwxt
 q7097a278m sensor-framework arwxt
@@ -24503,6 +24948,7 @@ rua device::hwcodec arwxt
 rua device::recording arwxt
 rua device::sys_logging arwxt
 rua device::video arwxt
+rua deviced arwxt
 rua dlogutil arwxt
 rua dlogutil::dlogscript arwxt
 rua download-provider arwxt
@@ -24606,6 +25052,7 @@ rua push-service arwxt
 rua push-service::db arwxt
 rua q7097a278m arwxt
 rua rua::db arwxt
+rua sdbd arwxt
 rua secure-storage arwxt
 rua security-server arwxt
 rua sensor-framework arwxt
@@ -24660,6 +25107,217 @@ rua xorg arwxt
 rua zeromq arwxt
 
 
+sdbd 57r43275q7 arwxt
+sdbd _ arwxt
+sdbd ail arwxt
+sdbd ail::db arwxt
+sdbd alarm-server arwxt
+sdbd alarm-server::db arwxt
+sdbd aospd00043 arwxt
+sdbd app-package::db arwxt
+sdbd app-svc arwxt
+sdbd app-svc::db arwxt
+sdbd app2sd arwxt
+sdbd aul arwxt
+sdbd aul::db arwxt
+sdbd badge::db arwxt
+sdbd bluetooth-tools arwxt
+sdbd bluez arwxt
+sdbd browser-provider arwxt
+sdbd browser::db arwxt
+sdbd browser::db_external arwxt
+sdbd bt-service arwxt
+sdbd bt_agent arwxt
+sdbd bt_agent::bt_hfp_agent arwxt
+sdbd bt_agent::bt_map_agent arwxt
+sdbd bt_agent::bt_pb_agent arwxt
+sdbd bt_firmware arwxt
+sdbd bt_share arwxt
+sdbd bt_share::db arwxt
+sdbd calendar-service arwxt
+sdbd calendar-service::db arwxt
+sdbd cbhm arwxt
+sdbd cert-svc arwxt
+sdbd connman arwxt
+sdbd contacts-service arwxt
+sdbd contacts-service::db arwxt
+sdbd cp7ipabg4k arwxt
+sdbd crash-worker arwxt
+sdbd cups arwxt
+sdbd data-provider-master arwxt
+sdbd data-provider-master::data arwxt
+sdbd data-provider-master::db arwxt
+sdbd data-provider-master::share arwxt
+sdbd dbus arwxt
+sdbd default-fonts-fc-sdk arwxt
+sdbd default-fonts-fc-sdk::config arwxt
+sdbd device::app_logging arwxt
+sdbd device::audio arwxt
+sdbd device::bklight arwxt
+sdbd device::camera arwxt
+sdbd device::hwcodec arwxt
+sdbd device::recording arwxt
+sdbd device::sys_logging arwxt
+sdbd device::video arwxt
+sdbd deviced arwxt
+sdbd dlogutil arwxt
+sdbd dlogutil::dlogscript arwxt
+sdbd download-provider arwxt
+sdbd e17 arwxt
+sdbd e17-data arwxt
+sdbd efreet arwxt
+sdbd email-service arwxt
+sdbd email-service::db arwxt
+sdbd gi2qxenosh arwxt
+sdbd isf arwxt
+sdbd libaccounts-svc arwxt
+sdbd libaccounts-svc::db arwxt
+sdbd libslp-alarm arwxt
+sdbd libslp-alarm::db arwxt
+sdbd libslp-memo arwxt
+sdbd libslp-memo::db arwxt
+sdbd libug-phone arwxt
+sdbd livebox.web-provider arwxt
+sdbd location_fw arwxt
+sdbd location_fw::server arwxt
+sdbd media-data arwxt
+sdbd media-data::db arwxt
+sdbd media-server arwxt
+sdbd miracast-server arwxt
+sdbd mobileprint arwxt
+sdbd msg-service arwxt
+sdbd msg-service::db arwxt
+sdbd net-config arwxt
+sdbd net.wifi-qs arwxt
+sdbd nfc-manager arwxt
+sdbd notification arwxt
+sdbd notification::db arwxt
+sdbd obexd arwxt
+sdbd obexd::client arwxt
+sdbd oma-ds-agent arwxt
+sdbd oma-ds-agent::cfg arwxt
+sdbd org.tizen.app-selector arwxt
+sdbd org.tizen.bluetooth-share-ui arwxt
+sdbd org.tizen.browser arwxt
+sdbd org.tizen.bt-syspopup arwxt
+sdbd org.tizen.calculator arwxt
+sdbd org.tizen.calendar arwxt
+sdbd org.tizen.call arwxt
+sdbd org.tizen.camera-app arwxt
+sdbd org.tizen.ciss arwxt
+sdbd org.tizen.clock arwxt
+sdbd org.tizen.contacts arwxt
+sdbd org.tizen.contacts-viewer arwxt
+sdbd org.tizen.crash-popup arwxt
+sdbd org.tizen.data-provider-master arwxt
+sdbd org.tizen.data-provider-slave arwxt
+sdbd org.tizen.data-provider-webapp-slave arwxt
+sdbd org.tizen.download-manager arwxt
+sdbd org.tizen.draglock arwxt
+sdbd org.tizen.email arwxt
+sdbd org.tizen.gallery arwxt
+sdbd org.tizen.image-viewer arwxt
+sdbd org.tizen.indicator arwxt
+sdbd org.tizen.lockscreen arwxt
+sdbd org.tizen.memo arwxt
+sdbd org.tizen.menu-screen arwxt
+sdbd org.tizen.message arwxt
+sdbd org.tizen.music-player arwxt
+sdbd org.tizen.myfile arwxt
+sdbd org.tizen.net-popup arwxt
+sdbd org.tizen.phone arwxt
+sdbd org.tizen.pwlock arwxt
+sdbd org.tizen.quickpanel arwxt
+sdbd org.tizen.sat-ui arwxt
+sdbd org.tizen.setting arwxt
+sdbd org.tizen.smartsearch arwxt
+sdbd org.tizen.taskmgr arwxt
+sdbd org.tizen.tickernoti-syspopup arwxt
+sdbd org.tizen.usb-syspopup arwxt
+sdbd org.tizen.video-player arwxt
+sdbd org.tizen.volume arwxt
+sdbd osp arwxt
+sdbd osp-app-service arwxt
+sdbd osp-channel-service arwxt
+sdbd osp-connectivity-service arwxt
+sdbd osp-installer arwxt
+sdbd osp-livebox-service arwxt
+sdbd osp-search-service arwxt
+sdbd osp-security-service arwxt
+sdbd osp::privilege-description-db arwxt
+sdbd pims-ipc arwxt
+sdbd pkgmgr arwxt
+sdbd pkgmgr-client arwxt
+sdbd pkgmgr-info arwxt
+sdbd pkgmgr-installer arwxt
+sdbd pkgmgr-parser arwxt
+sdbd pkgmgr-server arwxt
+sdbd pkgmgr::db arwxt
+sdbd power_manager arwxt
+sdbd privacy-manager arwxt
+sdbd privacy-manager::daemon arwxt
+sdbd privacy-manager::db arwxt
+sdbd privilege::power arwxt
+sdbd pulseaudio arwxt
+sdbd push-service arwxt
+sdbd push-service::db arwxt
+sdbd q7097a278m arwxt
+sdbd rua arwxt
+sdbd rua::db arwxt
+sdbd secure-storage arwxt
+sdbd security-server arwxt
+sdbd sensor-framework arwxt
+sdbd sjjevolsjk arwxt
+sdbd smartcard-service arwxt
+sdbd sound_server arwxt
+sdbd sqlfs arwxt
+sdbd starter arwxt
+sdbd stt-server arwxt
+sdbd svi-data arwxt
+sdbd sys-assert arwxt
+sdbd sys-assert::core arwxt
+sdbd sys-assert::core-launcher arwxt
+sdbd syspopup arwxt
+sdbd syspopup::db arwxt
+sdbd system arwxt
+sdbd system-server arwxt
+sdbd system::clipboard arwxt
+sdbd system::ext_storage arwxt
+sdbd system::homedir arwxt
+sdbd system::media arwxt
+sdbd system::use_internet arwxt
+sdbd system::vconf arwxt
+sdbd telephony_framework arwxt
+sdbd telephony_framework::db arwxt
+sdbd thumb-server arwxt
+sdbd tizenprv00.privacy-popup arwxt
+sdbd tts-engine-samsung::vdata arwxt
+sdbd tts-server arwxt
+sdbd ug-camera-efl arwxt
+sdbd ug-image-viewer-efl arwxt
+sdbd ug_bluetooth arwxt
+sdbd usb-printer-detector arwxt
+sdbd usb-server arwxt
+sdbd usb-server::usb-r arwxt
+sdbd usb-server::usb-rx arwxt
+sdbd usb-syspopup arwxt
+sdbd usb-syspopup::usb-rx arwxt
+sdbd webkit2-efl arwxt
+sdbd wifi_direct_manager arwxt
+sdbd worldclock arwxt
+sdbd worldclock::db arwxt
+sdbd wrt arwxt
+sdbd wrt-commons arwxt
+sdbd wrt-commons::db_wrt arwxt
+sdbd wrt-commons::db_wrt_autosave arwxt
+sdbd wrt-commons::db_wrt_custom_handler arwxt
+sdbd wrt-installer arwxt
+sdbd wrt-plugins-common arwxt
+sdbd wrt-security::db_ace arwxt
+sdbd xorg arwxt
+sdbd zeromq arwxt
+
+
 secure-storage 57r43275q7 arwxt
 secure-storage _ arwxt
 secure-storage ail arwxt
@@ -24712,6 +25370,7 @@ secure-storage device::hwcodec arwxt
 secure-storage device::recording arwxt
 secure-storage device::sys_logging arwxt
 secure-storage device::video arwxt
+secure-storage deviced arwxt
 secure-storage dlogutil arwxt
 secure-storage dlogutil::dlogscript arwxt
 secure-storage download-provider arwxt
@@ -24816,6 +25475,7 @@ secure-storage push-service::db arwxt
 secure-storage q7097a278m arwxt
 secure-storage rua arwxt
 secure-storage rua::db arwxt
+secure-storage sdbd arwxt
 secure-storage security-server arwxt
 secure-storage sensor-framework arwxt
 secure-storage sjjevolsjk arwxt
@@ -24921,6 +25581,7 @@ security-server device::hwcodec arwxt
 security-server device::recording arwxt
 security-server device::sys_logging arwxt
 security-server device::video arwxt
+security-server deviced arwxt
 security-server dlogutil arwxt
 security-server dlogutil::dlogscript arwxt
 security-server download-provider arwxt
@@ -25025,6 +25686,7 @@ security-server push-service::db arwxt
 security-server q7097a278m arwxt
 security-server rua arwxt
 security-server rua::db arwxt
+security-server sdbd arwxt
 security-server secure-storage arwxt
 security-server sensor-framework arwxt
 security-server sjjevolsjk arwxt
@@ -25130,6 +25792,7 @@ sensor-framework device::hwcodec arwxt
 sensor-framework device::recording arwxt
 sensor-framework device::sys_logging arwxt
 sensor-framework device::video arwxt
+sensor-framework deviced arwxt
 sensor-framework dlogutil arwxt
 sensor-framework dlogutil::dlogscript arwxt
 sensor-framework download-provider arwxt
@@ -25234,6 +25897,7 @@ sensor-framework push-service::db arwxt
 sensor-framework q7097a278m arwxt
 sensor-framework rua arwxt
 sensor-framework rua::db arwxt
+sensor-framework sdbd arwxt
 sensor-framework secure-storage arwxt
 sensor-framework security-server arwxt
 sensor-framework sjjevolsjk arwxt
@@ -25339,6 +26003,7 @@ sjjevolsjk device::hwcodec arwxt
 sjjevolsjk device::recording arwxt
 sjjevolsjk device::sys_logging arwxt
 sjjevolsjk device::video arwxt
+sjjevolsjk deviced arwxt
 sjjevolsjk dlogutil arwxt
 sjjevolsjk dlogutil::dlogscript arwxt
 sjjevolsjk download-provider arwxt
@@ -25443,6 +26108,7 @@ sjjevolsjk push-service::db arwxt
 sjjevolsjk q7097a278m arwxt
 sjjevolsjk rua arwxt
 sjjevolsjk rua::db arwxt
+sjjevolsjk sdbd arwxt
 sjjevolsjk secure-storage arwxt
 sjjevolsjk security-server arwxt
 sjjevolsjk sensor-framework arwxt
@@ -25548,6 +26214,7 @@ smartcard-service device::hwcodec arwxt
 smartcard-service device::recording arwxt
 smartcard-service device::sys_logging arwxt
 smartcard-service device::video arwxt
+smartcard-service deviced arwxt
 smartcard-service dlogutil arwxt
 smartcard-service dlogutil::dlogscript arwxt
 smartcard-service download-provider arwxt
@@ -25652,6 +26319,7 @@ smartcard-service push-service::db arwxt
 smartcard-service q7097a278m arwxt
 smartcard-service rua arwxt
 smartcard-service rua::db arwxt
+smartcard-service sdbd arwxt
 smartcard-service secure-storage arwxt
 smartcard-service security-server arwxt
 smartcard-service sensor-framework arwxt
@@ -25757,6 +26425,7 @@ sound_server device::hwcodec arwxt
 sound_server device::recording arwxt
 sound_server device::sys_logging arwxt
 sound_server device::video arwxt
+sound_server deviced arwxt
 sound_server dlogutil arwxt
 sound_server dlogutil::dlogscript arwxt
 sound_server download-provider arwxt
@@ -25861,6 +26530,7 @@ sound_server push-service::db arwxt
 sound_server q7097a278m arwxt
 sound_server rua arwxt
 sound_server rua::db arwxt
+sound_server sdbd arwxt
 sound_server secure-storage arwxt
 sound_server security-server arwxt
 sound_server sensor-framework arwxt
@@ -25966,6 +26636,7 @@ sqlfs device::hwcodec arwxt
 sqlfs device::recording arwxt
 sqlfs device::sys_logging arwxt
 sqlfs device::video arwxt
+sqlfs deviced arwxt
 sqlfs dlogutil arwxt
 sqlfs dlogutil::dlogscript arwxt
 sqlfs download-provider arwxt
@@ -26070,6 +26741,7 @@ sqlfs push-service::db arwxt
 sqlfs q7097a278m arwxt
 sqlfs rua arwxt
 sqlfs rua::db arwxt
+sqlfs sdbd arwxt
 sqlfs secure-storage arwxt
 sqlfs security-server arwxt
 sqlfs sensor-framework arwxt
@@ -26175,6 +26847,7 @@ starter device::hwcodec arwxt
 starter device::recording arwxt
 starter device::sys_logging arwxt
 starter device::video arwxt
+starter deviced arwxt
 starter dlogutil arwxt
 starter dlogutil::dlogscript arwxt
 starter download-provider arwxt
@@ -26279,6 +26952,7 @@ starter push-service::db arwxt
 starter q7097a278m arwxt
 starter rua arwxt
 starter rua::db arwxt
+starter sdbd arwxt
 starter secure-storage arwxt
 starter security-server arwxt
 starter sensor-framework arwxt
@@ -26384,6 +27058,7 @@ stt-server device::hwcodec arwxt
 stt-server device::recording arwxt
 stt-server device::sys_logging arwxt
 stt-server device::video arwxt
+stt-server deviced arwxt
 stt-server dlogutil arwxt
 stt-server dlogutil::dlogscript arwxt
 stt-server download-provider arwxt
@@ -26488,6 +27163,7 @@ stt-server push-service::db arwxt
 stt-server q7097a278m arwxt
 stt-server rua arwxt
 stt-server rua::db arwxt
+stt-server sdbd arwxt
 stt-server secure-storage arwxt
 stt-server security-server arwxt
 stt-server sensor-framework arwxt
@@ -26593,6 +27269,7 @@ svi-data device::hwcodec arwxt
 svi-data device::recording arwxt
 svi-data device::sys_logging arwxt
 svi-data device::video arwxt
+svi-data deviced arwxt
 svi-data dlogutil arwxt
 svi-data dlogutil::dlogscript arwxt
 svi-data download-provider arwxt
@@ -26697,6 +27374,7 @@ svi-data push-service::db arwxt
 svi-data q7097a278m arwxt
 svi-data rua arwxt
 svi-data rua::db arwxt
+svi-data sdbd arwxt
 svi-data secure-storage arwxt
 svi-data security-server arwxt
 svi-data sensor-framework arwxt
@@ -26802,6 +27480,7 @@ sys-assert device::hwcodec arwxt
 sys-assert device::recording arwxt
 sys-assert device::sys_logging arwxt
 sys-assert device::video arwxt
+sys-assert deviced arwxt
 sys-assert dlogutil arwxt
 sys-assert dlogutil::dlogscript arwxt
 sys-assert download-provider arwxt
@@ -26906,6 +27585,7 @@ sys-assert push-service::db arwxt
 sys-assert q7097a278m arwxt
 sys-assert rua arwxt
 sys-assert rua::db arwxt
+sys-assert sdbd arwxt
 sys-assert secure-storage arwxt
 sys-assert security-server arwxt
 sys-assert sensor-framework arwxt
@@ -27011,6 +27691,7 @@ sys-assert::core-launcher device::hwcodec arwxt
 sys-assert::core-launcher device::recording arwxt
 sys-assert::core-launcher device::sys_logging arwxt
 sys-assert::core-launcher device::video arwxt
+sys-assert::core-launcher deviced arwxt
 sys-assert::core-launcher dlogutil arwxt
 sys-assert::core-launcher dlogutil::dlogscript arwxt
 sys-assert::core-launcher download-provider arwxt
@@ -27115,6 +27796,7 @@ sys-assert::core-launcher push-service::db arwxt
 sys-assert::core-launcher q7097a278m arwxt
 sys-assert::core-launcher rua arwxt
 sys-assert::core-launcher rua::db arwxt
+sys-assert::core-launcher sdbd arwxt
 sys-assert::core-launcher secure-storage arwxt
 sys-assert::core-launcher security-server arwxt
 sys-assert::core-launcher sensor-framework arwxt
@@ -27220,6 +27902,7 @@ syspopup device::hwcodec arwxt
 syspopup device::recording arwxt
 syspopup device::sys_logging arwxt
 syspopup device::video arwxt
+syspopup deviced arwxt
 syspopup dlogutil arwxt
 syspopup dlogutil::dlogscript arwxt
 syspopup download-provider arwxt
@@ -27324,6 +28007,7 @@ syspopup push-service::db arwxt
 syspopup q7097a278m arwxt
 syspopup rua arwxt
 syspopup rua::db arwxt
+syspopup sdbd arwxt
 syspopup secure-storage arwxt
 syspopup security-server arwxt
 syspopup sensor-framework arwxt
@@ -27429,6 +28113,7 @@ system device::hwcodec arwxt
 system device::recording arwxt
 system device::sys_logging arwxt
 system device::video arwxt
+system deviced arwxt
 system dlogutil arwxt
 system dlogutil::dlogscript arwxt
 system download-provider arwxt
@@ -27533,6 +28218,7 @@ system push-service::db arwxt
 system q7097a278m arwxt
 system rua arwxt
 system rua::db arwxt
+system sdbd arwxt
 system secure-storage arwxt
 system security-server arwxt
 system sensor-framework arwxt
@@ -27638,6 +28324,7 @@ system-server device::hwcodec arwxt
 system-server device::recording arwxt
 system-server device::sys_logging arwxt
 system-server device::video arwxt
+system-server deviced arwxt
 system-server dlogutil arwxt
 system-server dlogutil::dlogscript arwxt
 system-server download-provider arwxt
@@ -27742,6 +28429,7 @@ system-server push-service::db arwxt
 system-server q7097a278m arwxt
 system-server rua arwxt
 system-server rua::db arwxt
+system-server sdbd arwxt
 system-server secure-storage arwxt
 system-server security-server arwxt
 system-server sensor-framework arwxt
@@ -27847,6 +28535,7 @@ system::use_internet device::hwcodec arwxt
 system::use_internet device::recording arwxt
 system::use_internet device::sys_logging arwxt
 system::use_internet device::video arwxt
+system::use_internet deviced arwxt
 system::use_internet dlogutil arwxt
 system::use_internet dlogutil::dlogscript arwxt
 system::use_internet download-provider arwxt
@@ -27951,6 +28640,7 @@ system::use_internet push-service::db arwxt
 system::use_internet q7097a278m arwxt
 system::use_internet rua arwxt
 system::use_internet rua::db arwxt
+system::use_internet sdbd arwxt
 system::use_internet secure-storage arwxt
 system::use_internet security-server arwxt
 system::use_internet sensor-framework arwxt
@@ -28056,6 +28746,7 @@ telephony_framework device::hwcodec arwxt
 telephony_framework device::recording arwxt
 telephony_framework device::sys_logging arwxt
 telephony_framework device::video arwxt
+telephony_framework deviced arwxt
 telephony_framework dlogutil arwxt
 telephony_framework dlogutil::dlogscript arwxt
 telephony_framework download-provider arwxt
@@ -28160,6 +28851,7 @@ telephony_framework push-service::db arwxt
 telephony_framework q7097a278m arwxt
 telephony_framework rua arwxt
 telephony_framework rua::db arwxt
+telephony_framework sdbd arwxt
 telephony_framework secure-storage arwxt
 telephony_framework security-server arwxt
 telephony_framework sensor-framework arwxt
@@ -28265,6 +28957,7 @@ thumb-server device::hwcodec arwxt
 thumb-server device::recording arwxt
 thumb-server device::sys_logging arwxt
 thumb-server device::video arwxt
+thumb-server deviced arwxt
 thumb-server dlogutil arwxt
 thumb-server dlogutil::dlogscript arwxt
 thumb-server download-provider arwxt
@@ -28369,6 +29062,7 @@ thumb-server push-service::db arwxt
 thumb-server q7097a278m arwxt
 thumb-server rua arwxt
 thumb-server rua::db arwxt
+thumb-server sdbd arwxt
 thumb-server secure-storage arwxt
 thumb-server security-server arwxt
 thumb-server sensor-framework arwxt
@@ -28474,6 +29168,7 @@ tizenprv00.privacy-popup device::hwcodec arwxt
 tizenprv00.privacy-popup device::recording arwxt
 tizenprv00.privacy-popup device::sys_logging arwxt
 tizenprv00.privacy-popup device::video arwxt
+tizenprv00.privacy-popup deviced arwxt
 tizenprv00.privacy-popup dlogutil arwxt
 tizenprv00.privacy-popup dlogutil::dlogscript arwxt
 tizenprv00.privacy-popup download-provider arwxt
@@ -28578,6 +29273,7 @@ tizenprv00.privacy-popup push-service::db arwxt
 tizenprv00.privacy-popup q7097a278m arwxt
 tizenprv00.privacy-popup rua arwxt
 tizenprv00.privacy-popup rua::db arwxt
+tizenprv00.privacy-popup sdbd arwxt
 tizenprv00.privacy-popup secure-storage arwxt
 tizenprv00.privacy-popup security-server arwxt
 tizenprv00.privacy-popup sensor-framework arwxt
@@ -28683,6 +29379,7 @@ tts-server device::hwcodec arwxt
 tts-server device::recording arwxt
 tts-server device::sys_logging arwxt
 tts-server device::video arwxt
+tts-server deviced arwxt
 tts-server dlogutil arwxt
 tts-server dlogutil::dlogscript arwxt
 tts-server download-provider arwxt
@@ -28787,6 +29484,7 @@ tts-server push-service::db arwxt
 tts-server q7097a278m arwxt
 tts-server rua arwxt
 tts-server rua::db arwxt
+tts-server sdbd arwxt
 tts-server secure-storage arwxt
 tts-server security-server arwxt
 tts-server sensor-framework arwxt
@@ -28892,6 +29590,7 @@ ug-camera-efl device::hwcodec arwxt
 ug-camera-efl device::recording arwxt
 ug-camera-efl device::sys_logging arwxt
 ug-camera-efl device::video arwxt
+ug-camera-efl deviced arwxt
 ug-camera-efl dlogutil arwxt
 ug-camera-efl dlogutil::dlogscript arwxt
 ug-camera-efl download-provider arwxt
@@ -28996,6 +29695,7 @@ ug-camera-efl push-service::db arwxt
 ug-camera-efl q7097a278m arwxt
 ug-camera-efl rua arwxt
 ug-camera-efl rua::db arwxt
+ug-camera-efl sdbd arwxt
 ug-camera-efl secure-storage arwxt
 ug-camera-efl security-server arwxt
 ug-camera-efl sensor-framework arwxt
@@ -29101,6 +29801,7 @@ ug-image-viewer-efl device::hwcodec arwxt
 ug-image-viewer-efl device::recording arwxt
 ug-image-viewer-efl device::sys_logging arwxt
 ug-image-viewer-efl device::video arwxt
+ug-image-viewer-efl deviced arwxt
 ug-image-viewer-efl dlogutil arwxt
 ug-image-viewer-efl dlogutil::dlogscript arwxt
 ug-image-viewer-efl download-provider arwxt
@@ -29205,6 +29906,7 @@ ug-image-viewer-efl push-service::db arwxt
 ug-image-viewer-efl q7097a278m arwxt
 ug-image-viewer-efl rua arwxt
 ug-image-viewer-efl rua::db arwxt
+ug-image-viewer-efl sdbd arwxt
 ug-image-viewer-efl secure-storage arwxt
 ug-image-viewer-efl security-server arwxt
 ug-image-viewer-efl sensor-framework arwxt
@@ -29310,6 +30012,7 @@ ug_bluetooth device::hwcodec arwxt
 ug_bluetooth device::recording arwxt
 ug_bluetooth device::sys_logging arwxt
 ug_bluetooth device::video arwxt
+ug_bluetooth deviced arwxt
 ug_bluetooth dlogutil arwxt
 ug_bluetooth dlogutil::dlogscript arwxt
 ug_bluetooth download-provider arwxt
@@ -29414,6 +30117,7 @@ ug_bluetooth push-service::db arwxt
 ug_bluetooth q7097a278m arwxt
 ug_bluetooth rua arwxt
 ug_bluetooth rua::db arwxt
+ug_bluetooth sdbd arwxt
 ug_bluetooth secure-storage arwxt
 ug_bluetooth security-server arwxt
 ug_bluetooth sensor-framework arwxt
@@ -29519,6 +30223,7 @@ usb-printer-detector device::hwcodec arwxt
 usb-printer-detector device::recording arwxt
 usb-printer-detector device::sys_logging arwxt
 usb-printer-detector device::video arwxt
+usb-printer-detector deviced arwxt
 usb-printer-detector dlogutil arwxt
 usb-printer-detector dlogutil::dlogscript arwxt
 usb-printer-detector download-provider arwxt
@@ -29623,6 +30328,7 @@ usb-printer-detector push-service::db arwxt
 usb-printer-detector q7097a278m arwxt
 usb-printer-detector rua arwxt
 usb-printer-detector rua::db arwxt
+usb-printer-detector sdbd arwxt
 usb-printer-detector secure-storage arwxt
 usb-printer-detector security-server arwxt
 usb-printer-detector sensor-framework arwxt
@@ -29728,6 +30434,7 @@ usb-server device::hwcodec arwxt
 usb-server device::recording arwxt
 usb-server device::sys_logging arwxt
 usb-server device::video arwxt
+usb-server deviced arwxt
 usb-server dlogutil arwxt
 usb-server dlogutil::dlogscript arwxt
 usb-server download-provider arwxt
@@ -29832,6 +30539,7 @@ usb-server push-service::db arwxt
 usb-server q7097a278m arwxt
 usb-server rua arwxt
 usb-server rua::db arwxt
+usb-server sdbd arwxt
 usb-server secure-storage arwxt
 usb-server security-server arwxt
 usb-server sensor-framework arwxt
@@ -29937,6 +30645,7 @@ usb-syspopup device::hwcodec arwxt
 usb-syspopup device::recording arwxt
 usb-syspopup device::sys_logging arwxt
 usb-syspopup device::video arwxt
+usb-syspopup deviced arwxt
 usb-syspopup dlogutil arwxt
 usb-syspopup dlogutil::dlogscript arwxt
 usb-syspopup download-provider arwxt
@@ -30041,6 +30750,7 @@ usb-syspopup push-service::db arwxt
 usb-syspopup q7097a278m arwxt
 usb-syspopup rua arwxt
 usb-syspopup rua::db arwxt
+usb-syspopup sdbd arwxt
 usb-syspopup secure-storage arwxt
 usb-syspopup security-server arwxt
 usb-syspopup sensor-framework arwxt
@@ -30146,6 +30856,7 @@ webkit2-efl device::hwcodec arwxt
 webkit2-efl device::recording arwxt
 webkit2-efl device::sys_logging arwxt
 webkit2-efl device::video arwxt
+webkit2-efl deviced arwxt
 webkit2-efl dlogutil arwxt
 webkit2-efl dlogutil::dlogscript arwxt
 webkit2-efl download-provider arwxt
@@ -30250,6 +30961,7 @@ webkit2-efl push-service::db arwxt
 webkit2-efl q7097a278m arwxt
 webkit2-efl rua arwxt
 webkit2-efl rua::db arwxt
+webkit2-efl sdbd arwxt
 webkit2-efl secure-storage arwxt
 webkit2-efl security-server arwxt
 webkit2-efl sensor-framework arwxt
@@ -30355,6 +31067,7 @@ wifi_direct_manager device::hwcodec arwxt
 wifi_direct_manager device::recording arwxt
 wifi_direct_manager device::sys_logging arwxt
 wifi_direct_manager device::video arwxt
+wifi_direct_manager deviced arwxt
 wifi_direct_manager dlogutil arwxt
 wifi_direct_manager dlogutil::dlogscript arwxt
 wifi_direct_manager download-provider arwxt
@@ -30459,6 +31172,7 @@ wifi_direct_manager push-service::db arwxt
 wifi_direct_manager q7097a278m arwxt
 wifi_direct_manager rua arwxt
 wifi_direct_manager rua::db arwxt
+wifi_direct_manager sdbd arwxt
 wifi_direct_manager secure-storage arwxt
 wifi_direct_manager security-server arwxt
 wifi_direct_manager sensor-framework arwxt
@@ -30564,6 +31278,7 @@ worldclock device::hwcodec arwxt
 worldclock device::recording arwxt
 worldclock device::sys_logging arwxt
 worldclock device::video arwxt
+worldclock deviced arwxt
 worldclock dlogutil arwxt
 worldclock dlogutil::dlogscript arwxt
 worldclock download-provider arwxt
@@ -30668,6 +31383,7 @@ worldclock push-service::db arwxt
 worldclock q7097a278m arwxt
 worldclock rua arwxt
 worldclock rua::db arwxt
+worldclock sdbd arwxt
 worldclock secure-storage arwxt
 worldclock security-server arwxt
 worldclock sensor-framework arwxt
@@ -30773,6 +31489,7 @@ wrt device::hwcodec arwxt
 wrt device::recording arwxt
 wrt device::sys_logging arwxt
 wrt device::video arwxt
+wrt deviced arwxt
 wrt dlogutil arwxt
 wrt dlogutil::dlogscript arwxt
 wrt download-provider arwxt
@@ -30877,6 +31594,7 @@ wrt push-service::db arwxt
 wrt q7097a278m arwxt
 wrt rua arwxt
 wrt rua::db arwxt
+wrt sdbd arwxt
 wrt secure-storage arwxt
 wrt security-server arwxt
 wrt sensor-framework arwxt
@@ -30982,6 +31700,7 @@ wrt-commons device::hwcodec arwxt
 wrt-commons device::recording arwxt
 wrt-commons device::sys_logging arwxt
 wrt-commons device::video arwxt
+wrt-commons deviced arwxt
 wrt-commons dlogutil arwxt
 wrt-commons dlogutil::dlogscript arwxt
 wrt-commons download-provider arwxt
@@ -31086,6 +31805,7 @@ wrt-commons push-service::db arwxt
 wrt-commons q7097a278m arwxt
 wrt-commons rua arwxt
 wrt-commons rua::db arwxt
+wrt-commons sdbd arwxt
 wrt-commons secure-storage arwxt
 wrt-commons security-server arwxt
 wrt-commons sensor-framework arwxt
@@ -31191,6 +31911,7 @@ wrt-installer device::hwcodec arwxt
 wrt-installer device::recording arwxt
 wrt-installer device::sys_logging arwxt
 wrt-installer device::video arwxt
+wrt-installer deviced arwxt
 wrt-installer dlogutil arwxt
 wrt-installer dlogutil::dlogscript arwxt
 wrt-installer download-provider arwxt
@@ -31295,6 +32016,7 @@ wrt-installer push-service::db arwxt
 wrt-installer q7097a278m arwxt
 wrt-installer rua arwxt
 wrt-installer rua::db arwxt
+wrt-installer sdbd arwxt
 wrt-installer secure-storage arwxt
 wrt-installer security-server arwxt
 wrt-installer sensor-framework arwxt
@@ -31400,6 +32122,7 @@ wrt-plugins-common device::hwcodec arwxt
 wrt-plugins-common device::recording arwxt
 wrt-plugins-common device::sys_logging arwxt
 wrt-plugins-common device::video arwxt
+wrt-plugins-common deviced arwxt
 wrt-plugins-common dlogutil arwxt
 wrt-plugins-common dlogutil::dlogscript arwxt
 wrt-plugins-common download-provider arwxt
@@ -31504,6 +32227,7 @@ wrt-plugins-common push-service::db arwxt
 wrt-plugins-common q7097a278m arwxt
 wrt-plugins-common rua arwxt
 wrt-plugins-common rua::db arwxt
+wrt-plugins-common sdbd arwxt
 wrt-plugins-common secure-storage arwxt
 wrt-plugins-common security-server arwxt
 wrt-plugins-common sensor-framework arwxt
@@ -31609,6 +32333,7 @@ xorg device::hwcodec arwxt
 xorg device::recording arwxt
 xorg device::sys_logging arwxt
 xorg device::video arwxt
+xorg deviced arwxt
 xorg dlogutil arwxt
 xorg dlogutil::dlogscript arwxt
 xorg download-provider arwxt
@@ -31713,6 +32438,7 @@ xorg push-service::db arwxt
 xorg q7097a278m arwxt
 xorg rua arwxt
 xorg rua::db arwxt
+xorg sdbd arwxt
 xorg secure-storage arwxt
 xorg security-server arwxt
 xorg sensor-framework arwxt
@@ -31818,6 +32544,7 @@ zeromq device::hwcodec arwxt
 zeromq device::recording arwxt
 zeromq device::sys_logging arwxt
 zeromq device::video arwxt
+zeromq deviced arwxt
 zeromq dlogutil arwxt
 zeromq dlogutil::dlogscript arwxt
 zeromq download-provider arwxt
@@ -31922,6 +32649,7 @@ zeromq push-service::db arwxt
 zeromq q7097a278m arwxt
 zeromq rua arwxt
 zeromq rua::db arwxt
+zeromq sdbd arwxt
 zeromq secure-storage arwxt
 zeromq security-server arwxt
 zeromq sensor-framework arwxt

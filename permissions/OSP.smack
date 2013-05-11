@@ -427,3 +427,7 @@ gi2qxenosh ~APP~ rw
 ~APP~ org.tizen.indicator w
 org.tizen.indicator ~APP~ w
 ~APP~ app-package::db rw
+deviced ~APP~ rwx
+~APP~ sdbd rwx
+sdbd ~APP~ rwx
+~APP~ _ arwxt
