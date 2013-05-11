@@ -1,10 +1,2 @@
-~APP~ dbus w
-~APP~ email-service rw
-~APP~ email-service::db rw
-~APP~ nfc-manager w
-~APP~ pkgmgr::db rw
-~APP~ syslogd w
-~APP~ wrt-security-daemon w
-~APP~ wrt-security-daemon::db rw
 ~APP~ nfc-manager__admin w
 ~APP~ nfc-manager::common w

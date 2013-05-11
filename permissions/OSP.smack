@@ -48,7 +48,7 @@ bt_share ~APP~ rwxa-
 bt_share::db ~APP~ rwxa-
 ~APP~ bt-service rwxa-
 bt-service ~APP~ rwxa-
-~APP~ calendar-service w
+~APP~ calendar-service rwx
 calendar-service ~APP~ w
 ~APP~ cbhm rwxa-
 cbhm ~APP~ rwxa-
@@ -73,7 +73,7 @@ data-provider-master::data ~APP~ rwxa-
 data-provider-master::share ~APP~ rwxat
 ~APP~ connman rwxa-
 connman ~APP~ rwxa-
-~APP~ contacts-service w
+~APP~ contacts-service rwx
 contacts-service ~APP~ w
 ~APP~ context-service rwxa-
 context-service ~APP~ rwxa-
@@ -115,7 +115,7 @@ e17-data ~APP~ rwxa-
 eas-engine ~APP~ rwxa-
 ~APP~ efreet rwxa-
 efreet ~APP~ rwxa-
-~APP~ email-service w
+~APP~ email-service wx
 email-service ~APP~ w
 ~APP~ factory-reset rwxa-
 factory-reset ~APP~ rwxa-
@@ -176,8 +176,8 @@ mobex-agent::db ~APP~ rwxa-
 mobicore-daemon ~APP~ rwxa-
 ~APP~ mobileprint rwxa-
 mobileprint ~APP~ rwxa-
-~APP~ msg-service w
-msg-service ~APP~ w
+~APP~ msg-service rwx
+msg-service ~APP~ rwx
 ~APP~ msg-service::db rw
 ~APP~ mtp-responder rwxa-
 mtp-responder ~APP~ rwxa-
@@ -269,7 +269,7 @@ sensor-framework ~APP~ rwxa-
 shortcut-service::db ~APP~ rwxa-
 ~APP~ smartcard-service rwxa-
 smartcard-service ~APP~ rwxa-
-~APP~ sound_server rwxa-
+~APP~ sound_server rwxat
 sound_server ~APP~ rwxa-
 ~APP~ sqlfs rwxa-
 sqlfs ~APP~ rwxa-
@@ -424,7 +424,7 @@ gi2qxenosh ~APP~ rw
 ~APP~ osp::share arwxt
 ~APP~ sdbd::home rx
 ~APP~ * t
-~APP~ org.tizen.indicator w
+~APP~ org.tizen.indicator rwx
 org.tizen.indicator ~APP~ w
 ~APP~ app-package::db rw
 deviced ~APP~ rwx

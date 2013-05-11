@@ -1,11 +1,1 @@
-~APP~ dbus w
-~APP~ deviced rwxa
-~APP~ email-service rw
-~APP~ email-service::db rw
-~APP~ nfc-manager w
-~APP~ pkgmgr::db rw
-~APP~ sys-assert::core wx
-~APP~ syslogd w
-~APP~ wrt-security-daemon w
-~APP~ wrt-security-daemon::db rw
 ~APP~ nfc-manager::common w

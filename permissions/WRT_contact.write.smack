@@ -1,13 +1,4 @@
 ~APP~ contacts-service x
-~APP~ dbus w
-~APP~ deviced rwxa
-~APP~ email-service rw
-~APP~ email-service::db rw
-~APP~ pkgmgr::db r
-~APP~ sys-assert::core rwxa
-~APP~ syslogd w
-~APP~ wrt-security-daemon w
-~APP~ wrt-security-daemon::db rw
 ~APP~ contacts-service::read r
 ~APP~ contacts-service::write w
 ~APP~ contacts-service::svc rw

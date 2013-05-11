@@ -1,9 +1,0 @@
-~APP~ dbus r
-~APP~ mdm-server w
-~APP~ osp-security-service w
-~APP~ power_manager w
-~APP~ pulseaudio rwx
-~APP~ resman::db rw
-~APP~ sound_server rw
-~APP~ system::share rwx
-pulseaudio ~APP~ w

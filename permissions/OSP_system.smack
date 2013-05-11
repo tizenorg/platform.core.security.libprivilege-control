@@ -4,5 +4,3 @@
 ~APP~ org.tizen.message r
 ~APP~ org.tizen.smemo r
 ~APP~ org.tizen.svoice r
-~APP~ device::bklight r
-~APP~ system::share rw

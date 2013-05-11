@@ -1,13 +1,1 @@
 ~APP~ org.tizen.browser x
-~APP~ dbus r
-~APP~ device::camera r
-~APP~ device::hwcodec rw
-~APP~ device::video r
-~APP~ osp-security-service w
-~APP~ power_manager w
-~APP~ pulseaudio rwx
-~APP~ resman::db rw
-~APP~ sound_server rw
-~APP~ system::share rwx
-~APP~ system::use_internet rw
-pulseaudio ~APP~ w

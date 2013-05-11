@@ -1,4 +1,0 @@
-~APP~ osp-security-service w
-~APP~ power_manager w
-~APP~ resman::db rw
-~APP~ sound_server rw

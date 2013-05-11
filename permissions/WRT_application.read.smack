@@ -1,9 +1,0 @@
-~APP~ app-svc::db rw
-~APP~ dbus w
-~APP~ email-service rw
-~APP~ email-service::db rw
-~APP~ pkgmgr::db rw
-~APP~ sys-assert::core x
-~APP~ syslogd w
-~APP~ wrt-security-daemon w
-~APP~ wrt-security-daemon::db rw

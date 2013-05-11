@@ -1,8 +1,5 @@
 ~APP~ calendar-service rwx
 ~APP~ contacts-service wx
-~APP~ csc-manager rw
-~APP~ osp-security-service w
-~APP~ resman r
 ~APP~ calendar-service::read r
 ~APP~ calendar-service::write w
 ~APP~ calendar-service::svc rw

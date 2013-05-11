@@ -1,6 +1,2 @@
 ~APP~ calendar-service wx
 ~APP~ contacts-service wx
-~APP~ csc-manager rw
-~APP~ osp-security-service w
-~APP~ resman::db rw
-~APP~ system::share rwx

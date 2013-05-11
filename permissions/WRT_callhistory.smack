@@ -1,9 +1,1 @@
 ~APP~ contacts-service rwx
-~APP~ csc-manager rw
-~APP~ dbus w
-~APP~ email-service::db rw
-~APP~ email-service rw
-~APP~ pkgmgr::db rw
-~APP~ syslogd w
-~APP~ wrt-security-daemon::db rw
-~APP~ sys-assert::core rwax

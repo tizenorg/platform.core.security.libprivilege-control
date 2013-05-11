@@ -1,6 +1,0 @@
-~APP~ data-provider-master r
-~APP~ dbus w
-~APP~ osp-connectivity-service w
-~APP~ osp-security-service w
-~APP~ resman r
-~APP~ system::share rwx

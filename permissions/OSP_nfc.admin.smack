@@ -1,5 +1,1 @@
-~APP~ dbus w
-~APP~ mdm-server w
-~APP~ nfc-manager w
-~APP~ osp-security-service w
 ~APP~ nfc-manager::admin w

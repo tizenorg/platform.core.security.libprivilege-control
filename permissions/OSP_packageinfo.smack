@@ -29,9 +29,4 @@
 ~APP~ org.tizen.video-player rx
 ~APP~ org.tizen.voicerecorder rx
 ~APP~ org.tizen.youtube rx
-~APP~ dbus w
-~APP~ media-server w
-~APP~ mobileprint rx
 ~APP~ nfc-app rx
-~APP~ osp-security-service w
-~APP~ video-hub rx

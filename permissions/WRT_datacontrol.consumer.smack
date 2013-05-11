@@ -1,8 +1,0 @@
-~APP~ dbus w
-~APP~ email-service rw
-~APP~ email-service::db rw
-~APP~ media-server w
-~APP~ osp::datacontrol rwx
-~APP~ pkgmgr::db rw
-~APP~ wrt-security-daemon w
-~APP~ wrt-security-daemon::db rw
