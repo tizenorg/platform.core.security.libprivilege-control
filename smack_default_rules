@@ -55,3 +55,11 @@ _ live-magazine::data arwxt
 _ wrt-commons::db_wrt_custom_handler rw
 _ system::media arwxt
 _ sys-assert::core arwxt
+
+sdbd system::vconf rwxat
+_ deviced rwx
+e17 mobileprint x
+pkgmgr sdbd rwxat
+wrt-launcher sdbd x
+_ wrt_launchpad_daemon rx
+sdbd wrt_launcher rx
