@@ -402,6 +402,6 @@ sdbd ~APP~ rwx
 ~APP~ * t
 ~APP~ org.tizen.indicator rwx
 org.tizen.indicator ~APP~ w
-~APP~ app-package::db_external rw
+~APP~ browser::db_external rw
 ~APP~ default-fonts-fc-sdk::config r
 ~APP~ _ arwx
