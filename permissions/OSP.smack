@@ -369,6 +369,7 @@ livebox.web-provider ~APP~ rwx--
 ~APP~ resman::db rwxa-
 ~APP~ ug-email-docsearch-efl rwxat
 ~APP~ deviced rwxa-
+deviced ~APP~ rwx
 ~APP~ wrt-popup-wrt-runtime rwxa-
 wrt-popup-wrt-runtime ~APP~ rwxa-
 ~APP~ privacy-manager::db rw
@@ -396,9 +397,11 @@ gi2qxenosh ~APP~ rw
 ~APP~ system::vconf_misc arwx
 ~APP~ osp::share arwxt
 ~APP~ sdbd::home rx
+~APP~ sdbd rwx
+sdbd ~APP~ rwx
 ~APP~ * t
 ~APP~ org.tizen.indicator rwx
 org.tizen.indicator ~APP~ w
 ~APP~ app-package::db_external rw
 ~APP~ default-fonts-fc-sdk::config r
-
+~APP~ _ arwx
