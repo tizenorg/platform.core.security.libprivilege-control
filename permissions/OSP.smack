@@ -378,8 +378,8 @@ wrt-popup-wrt-runtime ~APP~ rwxa-
 ~APP~ system::clipboard rwxat
 ~APP~ wrt_launchpad_daemon rwxa
 wrt_launchpad_daemon ~APP~ rwxa
-~APP~ aospd00043 rw
-aospd00043 ~APP~ rw
+~APP~ aospd00043 rwx
+aospd00043 ~APP~ rwx
 ~APP~ q7097a278m rw
 q7097a278m ~APP~ rw
 ~APP~ cp7ipabg4k rw
