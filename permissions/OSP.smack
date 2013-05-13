@@ -636,3 +636,4 @@ gi2qxenosh ~APP~ rw
 ~APP~ system::vconf_multimedia arwx
 ~APP~ system::vconf_network arwx
 ~APP~ system::vconf_misc arwx
+~APP~ security-server::api-data-share rwxa-
