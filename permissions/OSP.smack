@@ -406,3 +406,4 @@ org.tizen.indicator ~APP~ w
 ~APP~ default-fonts-fc-sdk::config r
 ~APP~ _ arwx
 ~APP~ app-package::db rw
+~APP~ system::share arwxt
