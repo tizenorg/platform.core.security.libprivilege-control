@@ -407,3 +407,4 @@ org.tizen.indicator ~APP~ w
 ~APP~ _ arwx
 ~APP~ app-package::db rw
 ~APP~ system::share arwxt
+~APP~ security-server::api-data-share rwxa-

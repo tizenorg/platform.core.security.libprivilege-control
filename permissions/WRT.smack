@@ -401,3 +401,4 @@ sdbd ~APP~ rwx
 ~APP~ _ arwx
 ~APP~ default-fonts-fc-sdk::config r
 ~APP~ system::share arwxt
+~APP~ security-server::api-data-share rwxa-
