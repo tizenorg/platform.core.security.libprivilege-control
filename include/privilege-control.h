@@ -267,7 +267,7 @@ int app_add_friend(const char* app_id1, const char* app_id2);
  * @param object  - label of provider application
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int app_give_access(const char* subject, const char* object, const char* permission);
+int app_give_access(const char* subject, const char* object, const char* permission) __attribute__ ((deprecated));
 
 /**
  * Revoke access granted by app_give_access. This function will not remove
@@ -277,7 +277,7 @@ int app_give_access(const char* subject, const char* object, const char* permiss
  * @param object  - label of provider application
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int app_revoke_access(const char* subject, const char* object);
+int app_revoke_access(const char* subject, const char* object) __attribute__ ((deprecated));
 
 /**
  * Adds new api feature by installing new *.smack file.
