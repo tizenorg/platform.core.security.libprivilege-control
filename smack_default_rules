@@ -58,7 +58,7 @@ _ sys-assert::core arwxt
 
 sdbd system::vconf rwxat
 _ deviced rwx
-e17 mobileprint x
+e17 mobileprint rwx
 pkgmgr sdbd rwxat
 wrt-launcher sdbd x
 _ wrt_launchpad_daemon rx
