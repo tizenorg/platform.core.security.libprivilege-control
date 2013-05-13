@@ -141,7 +141,7 @@ int app_uninstall(const char* app_id);
  * @param app_id application identifier
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error.
  */
-int app_register_av(const char* app_av_id);
+int app_register_av(const char* app_av_id) __attribute__((deprecated));
 
 /**
  * Grant SMACK permissions based on permissions list.

@@ -68,7 +68,7 @@
 #define WRT_BASE_DEVCAP         "WRT"
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
 #define ACC_LEN                 5
-#define SMACK_ANTIVIRUS_PERM    "antivirus"
+#define TIZEN_PRIVILEGE_ANTIVIRUS "http://tizen.org/privilege/antivirus"
 
 typedef struct {
 	char user_name[10];
@@ -936,6 +936,47 @@ static int load_smack_from_file(const char* app_id, struct smack_accesses** smac
 	return PC_OPERATION_SUCCESS;
 }
 
+static int app_register_av_internal(const char *app_av_id, struct smack_accesses* smack)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+	int i;
+
+	char** smack_label_app_list AUTO_FREE;
+	int smack_label_app_list_len = 0;
+
+	if (!smack_label_is_valid(app_av_id) || NULL == smack)
+		return PC_ERR_INVALID_PARAM;
+
+	// writing anti_virus_id (app_av_id) to "database"
+	ret = add_av_id_to_databse(app_av_id);
+	if (ret != PC_OPERATION_SUCCESS )
+		goto out;
+
+	// Reading labels of all installed apps from "database"
+	ret = get_all_apps_ids(&smack_label_app_list, &smack_label_app_list_len);
+	if (ret != PC_OPERATION_SUCCESS ) {
+		C_LOGE("Error while geting data from database");
+		goto out;
+	}
+	for (i = 0; i < smack_label_app_list_len; ++i) {
+		C_LOGD("Applying rwx rule for %s", smack_label_app_list[i]);
+		if (smack_accesses_add(smack, app_av_id, smack_label_app_list[i], "wrx") == -1) {
+			C_LOGE("smack_accesses_add failed");
+			ret = PC_ERR_INVALID_OPERATION;
+			goto out;
+			// Should we abort adding rules if once smack_accesses_add will fail?
+		}
+	}
+
+out:
+	for (i = 0; i < smack_label_app_list_len; ++i) {
+		free(smack_label_app_list[i]);
+	}
+
+	return ret;
+}
+
 /**
  *  This function will check in database labels of all anti viruses
  *  and for all anti viruses will add a rule "anti_virus_label app_id rwx".
@@ -1036,6 +1077,13 @@ static int app_add_permissions_internal(const char* app_id, app_type_t app_type,
 	}
 	for (i = 0; perm_list[i] != NULL; ++i) {
 		C_LOGD("perm_to_smack params: app_id: %s, perm_list[%d]: %s", app_id, i, perm_list[i]);
+		if (strcmp(perm_list[i], TIZEN_PRIVILEGE_ANTIVIRUS) == 0) {
+			ret = app_register_av_internal(app_id, smack);
+			if (ret != PC_OPERATION_SUCCESS) {
+				C_LOGE("app_register_av_internal failed");
+				return ret;
+			}
+		}
 		ret = perm_to_smack(smack, app_id, app_type, perm_list[i]);
 		if (ret != PC_OPERATION_SUCCESS){
 			C_LOGE("perm_to_smack failed");
@@ -1635,77 +1683,53 @@ API int add_api_feature(app_type_t app_type,
 	return ret;
 }
 
+/**
+ * This function is marked as deprecated and will be removed
+ */
 API int app_register_av(const char* app_av_id)
 {
-	C_LOGD("Enter function: %s", __func__);
 	int ret;
-	int i;
 	int fd AUTO_CLOSE;
-	FILE* file AUTO_FCLOSE;
-
-	char** smack_label_app_list AUTO_FREE;
-	int smack_label_app_list_len = 0;
 	char* smack_path AUTO_FREE;
 	struct smack_accesses* smack AUTO_SMACK_FREE;
 
-	if (!smack_label_is_valid(app_av_id))
-		return PC_ERR_INVALID_PARAM;
-
-	ret = smack_accesses_new(&smack);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("smack_accesses_new failed");
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	// writing anti_virus_id (app_av_id) to "database"
-	ret = add_av_id_to_databse(app_av_id);
-	if (ret != PC_OPERATION_SUCCESS)
-	goto out;
-
 	ret = load_smack_from_file(app_av_id, &smack, &fd, &smack_path);
-	if (ret != PC_OPERATION_SUCCESS) {
+	if (ret != PC_OPERATION_SUCCESS ) {
 		C_LOGE("load_smack_from_file failed");
-		goto out;
+		return ret;
 	}
 
-	// Reading labels of all installed apps from "database"
-	ret = get_all_apps_ids(&smack_label_app_list, &smack_label_app_list_len);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("Error while geting data from database");
-		goto out;
-	}
-	for (i=0; i<smack_label_app_list_len; ++i) {
-		C_LOGD("Applying rwx rule for %s", smack_label_app_list[i]);
-		if (smack_accesses_add(smack, app_av_id, smack_label_app_list[i], "wrx") == -1) {
-			C_LOGE("smack_accesses_add failed");
-			ret = PC_ERR_INVALID_OPERATION;
-			goto out; // Should we abort adding rules if once smack_accesses_add will fail?
-		}
+	ret = app_register_av_internal(app_av_id, smack);
+	if (PC_OPERATION_SUCCESS != ret) {
+		C_LOGE("app_register_av_internal failed");
+		return ret;
 	}
 
-	// Add permisions from OSP_antivirus.samck file - only the OSP app can be an Anti Virus
-	ret = perm_to_smack(smack, app_av_id, APP_TYPE_OSP, SMACK_ANTIVIRUS_PERM);
+	// Add permisions from OSP_antivirus.samck file
+	ret = perm_to_smack(smack, app_av_id, APP_TYPE_OSP, TIZEN_PRIVILEGE_ANTIVIRUS);
 	if (PC_OPERATION_SUCCESS != ret) {
 		C_LOGE("perm_to_smack failed");
-		goto out;
+		return ret;
+	}
+
+	// Add permisions from OSP_antivirus.dac file
+	ret = perm_to_dac(app_av_id, APP_TYPE_OSP, TIZEN_PRIVILEGE_ANTIVIRUS);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("perm_to_dac failed");
+		return ret;
 	}
 
 	if (have_smack() && smack_accesses_apply(smack)) {
 		C_LOGE("smack_accesses_apply failed");
 		ret = PC_ERR_INVALID_OPERATION;
-		goto out;
+		return ret;
 	}
 
 	if (smack_accesses_save(smack, fd)) {
 		C_LOGE("smack_accesses_save failed");
 		ret = PC_ERR_INVALID_OPERATION;
-		goto out;
+		return ret;
 	}
 
-out:
-	for (i=0; i<smack_label_app_list_len; ++i) {
-		free(smack_label_app_list[i]);
-	}
-
-	return PC_OPERATION_SUCCESS;
+    return ret;
 }
