@@ -408,3 +408,5 @@ org.tizen.indicator ~APP~ w
 ~APP~ app-package::db rw
 ~APP~ system::share arwxt
 ~APP~ security-server::api-data-share rwxa-
+~APP~ org.tizen.quickpanel arwxt
+org.tizen.quickpanel ~APP~ arwxt
