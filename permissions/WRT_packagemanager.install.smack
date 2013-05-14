@@ -1,16 +1,11 @@
 ~APP~ syslogd rwx
 ~APP~ telephony_framework rx
 ~APP~ ode rx
-~APP~ org.tizen.indicator rwx
 ~APP~ org.tizen.volume rx
 ~APP~ org.tizen.cluster-home rx
 ~APP~ drmfw rx
 ~APP~ org.tizen.app-tray rx
-~APP~ contacts-service rx
 ~APP~ org.tizen.miniapp-tray rx
 ~APP~ org.tizen.quickpanel rx
-~APP~ email-service rx
-~APP~ msg-service rx
 ~APP~ brcm_daemon rx
-~APP~ calendar-service rx
 ~APP~ org.tizen.data-provider-slave rx

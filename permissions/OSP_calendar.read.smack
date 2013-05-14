@@ -1,4 +1,2 @@
-~APP~ calendar-service rwx
-~APP~ contacts-service wx
 ~APP~ calendar-service::read r
-~APP~ calendar-service::svc r
+~APP~ calendar-service::svc rw

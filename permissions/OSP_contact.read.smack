@@ -1,3 +1,2 @@
-~APP~ contacts-service rwx
 ~APP~ contacts-service::read r
-~APP~ contacts-service::svc r
+~APP~ contacts-service::svc rw

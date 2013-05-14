@@ -355,7 +355,7 @@ zeromq ~APP~ rwxa-
 ~APP~ location_fw::client rwxa-
 location_fw::client ~APP~ rwxa-
 ~APP~ wrt-security-daemon::db rw---
-~APP~ syslogd rw---
+~APP~ syslogd rwx--
 ~APP~ nas9xepmna rwxa-
 nas9xepmna ~APP~ rwxa-
 ~APP~ wrt-security-daemon rwxa-
