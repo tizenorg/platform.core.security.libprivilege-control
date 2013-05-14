@@ -984,8 +984,8 @@ static int app_revoke_permissions_internal(const char* app_id, bool persistent)
 		return ret;
 	}
 
-	if (persistent && ftruncate(fd, 0) == -1)
-		C_LOGE("file truncate failed");
+	if (persistent && remove(smack_path) != 0)
+		C_LOGE("file remove failed");
 
 	return PC_OPERATION_SUCCESS;
 }
