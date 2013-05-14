@@ -1,7 +1,7 @@
 ~APP~ org.tizen.add-viewer rx
 ~APP~ org.tizen.app-tray rx
 ~APP~ org.tizen.audio-tuning rx
-~APP~ org.tizen.browser rx
+~APP~ org.tizen.browser rwx
 ~APP~ org.tizen.calendar rx
 ~APP~ org.tizen.ciss rx
 ~APP~ org.tizen.cluster-home rx
@@ -9,14 +9,13 @@
 ~APP~ org.tizen.desk-dock rx
 ~APP~ org.tizen.download-manager rx
 ~APP~ org.tizen.easy-home rx
-~APP~ org.tizen.email rx
+~APP~ org.tizen.email rwx
 ~APP~ org.tizen.episode rx
 ~APP~ org.tizen.fileshare-service rx
 ~APP~ org.tizen.gallery-service rx
 ~APP~ org.tizen.group-cast rx
 ~APP~ org.tizen.image-editor rx
-~APP~ org.tizen.indicator rwx
-~APP~ org.tizen.message rx
+~APP~ org.tizen.message rwx
 ~APP~ org.tizen.miniapp-tray rx
 ~APP~ org.tizen.music-player rx
 ~APP~ org.tizen.myfile rx
