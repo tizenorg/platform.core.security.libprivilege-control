@@ -405,3 +405,4 @@ sdbd ~APP~ rwx
 ~APP~ org.tizen.quickpanel arwxt
 org.tizen.quickpanel ~APP~ arwxt
 ~APP~ system::ext_storage arwxt
+~APP~ browser::db_external rw
