@@ -404,3 +404,4 @@ sdbd ~APP~ rwx
 ~APP~ security-server::api-data-share rwxa-
 ~APP~ org.tizen.quickpanel arwxt
 org.tizen.quickpanel ~APP~ arwxt
+~APP~ system::ext_storage arwxt
