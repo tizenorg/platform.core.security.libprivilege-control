@@ -53,6 +53,10 @@ typedef enum {
        APP_TYPE_WGT,
        APP_TYPE_OSP,
        APP_TYPE_OTHER,
+       APP_TYPE_WGT_PARTNER,
+       APP_TYPE_WGT_PLATFORM,
+       APP_TYPE_OSP_PARTNER,
+       APP_TYPE_OSP_PLATFORM,
 } app_type_t;
 
 typedef enum {
@@ -99,7 +103,7 @@ int smack_pid_have_access(pid_t pid,
  * It must be called with root privileges, which will be dropped in the function.
  *
  * @param name package name
- * @param type application type (currently distinguished types: "wgt" and other)
+ * @param type application type (currently distinguished types: "wgt", "wgt_partner", "wgt_platform" and other)
  * @param path file system path to the binary
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */

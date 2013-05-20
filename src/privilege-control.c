@@ -518,7 +518,9 @@ static int set_smack_from_binary(char **smack_label, const char* path, app_type_
 	C_LOGD("Path: %s", path);
 
 	*smack_label = NULL;
-	if(type == APP_TYPE_WGT) {
+	if(type == APP_TYPE_WGT
+	|| type == APP_TYPE_WGT_PARTNER
+	|| type == APP_TYPE_WGT_PLATFORM) {
 		ret = smack_lgetlabel(path, smack_label, SMACK_LABEL_EXEC);
 	} else {
 		ret = smack_getlabel(path, smack_label, SMACK_LABEL_EXEC);
@@ -591,9 +593,18 @@ static app_type_t verify_app_type(const char* type, const char* path)
 		if (!strcmp(type, "wgt")) {
 			C_LOGD("PKG_TYPE_WGT");
 			return APP_TYPE_WGT; /* good */
+		} else if (!strcmp(type, "wgt_partner")) {
+			C_LOGD("PKG_TYPE_WGT_PARTNER");
+			return APP_TYPE_WGT_PARTNER; /* good */
+		} else if (!strcmp(type, "wgt_platform")) {
+			C_LOGD("PKG_TYPE_WGT_PLATFORM");
+			return APP_TYPE_WGT_PLATFORM; /* good */
 		}
+
 	} else {
-		if (type == NULL || strcmp(type, "wgt")){
+		if (type == NULL || (strcmp(type, "wgt")
+				&& strcmp(type, "wgt_partner")
+				&& strcmp(type, "wgt_platform"))){
 			C_LOGD("PKG_TYPE_OTHER");
 			return APP_TYPE_OTHER; /* good */
 		}
@@ -610,13 +621,12 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 	C_LOGD("Function params: name = %s, type = %s, path = %s", name, type, path);
 	char *smack_label AUTO_FREE;
 	int ret = PC_OPERATION_SUCCESS;
-	app_type_t app_type;
 
-	app_type = verify_app_type(type, path);
-	if (path != NULL)
-		ret = set_smack_from_binary(&smack_label, path, app_type);
-	if (ret != PC_OPERATION_SUCCESS)
-		return ret;
+	if (path != NULL) {
+		ret = set_smack_from_binary(&smack_label, path, verify_app_type(type, path));
+		if (ret != PC_OPERATION_SUCCESS)
+			return ret;
+	}
 
 	return set_dac(smack_label, name);
 }
@@ -633,6 +643,30 @@ static inline const char* app_type_name(app_type_t app_type)
 	case APP_TYPE_WGT:
 		return "WRT";
 	case APP_TYPE_OSP:
+		return "OSP";
+	case APP_TYPE_WGT_PARTNER:
+		return "WRT_partner";
+	case APP_TYPE_WGT_PLATFORM:
+		return "WRT_platform";
+	case APP_TYPE_OSP_PARTNER:
+		return "OSP_partner";
+	case APP_TYPE_OSP_PLATFORM:
+		return "OSP_platform";
+	default:
+		return NULL;
+	}
+}
+
+static inline const char* app_type_group_name(app_type_t app_type)
+{
+	switch (app_type) {
+	case APP_TYPE_WGT:
+	case APP_TYPE_WGT_PARTNER:
+	case APP_TYPE_WGT_PLATFORM:
+		return "WRT";
+	case APP_TYPE_OSP:
+	case APP_TYPE_OSP_PARTNER:
+	case APP_TYPE_OSP_PLATFORM:
 		return "OSP";
 	default:
 		return NULL;
@@ -699,7 +733,7 @@ static int perm_file_path(char** path, app_type_t app_type, const char* perm, co
 		return PC_ERR_INVALID_PARAM;
 	}
 
-	app_type_prefix = app_type_name(app_type);
+	app_type_prefix = app_type_group_name(app_type);
 
 	ret = base_name_from_perm(perm, &perm_basename);
 	if (ret != PC_OPERATION_SUCCESS) {
