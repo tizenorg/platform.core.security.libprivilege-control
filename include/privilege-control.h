@@ -221,7 +221,6 @@ int app_disable_permissions(const char* pkg_id, app_type_t app_type, const char*
  * Revoke SMACK permissions from an application.
  * This function should be called during app deinstallation.
  * It will revoke all SMACK rules previously granted by app_add_permissions().
- * It will also remove a rules file from disk.
  * It must be called by privileged user.
  *
  * @param pkg_id application identifier
