@@ -12,6 +12,9 @@
 - - meta-data cleanup
 - Signed-off-by: Anas Nashif <anas.nashif@intel.com>
 
+* Mon Jul 1 2013 Maciej Wereski <m.wereski@partner.samsung.com>
+- move passwd and group to setup package
+
 * Thu Feb 14 2013 Tomasz Swierczek - 0.0.24.TIZEN
 - Refactoring: adjust names of some internal identifiers.
 - Refactoring: removed compilation warnings when SMACK is disabled.
