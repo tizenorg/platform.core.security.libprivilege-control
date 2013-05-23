@@ -1051,6 +1051,38 @@ out:
 	return ret;
 }
 
+/**
+ *  This function will grant app_id RX access to all public directories and
+ *  files, previously designated by app_setup_path(APP_PATH_PUBLIC_RO)
+ *  This should be call in app_install function.
+ */
+static int register_app_for_public_dirs(const char *app_id, struct smack_accesses *smack)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret, i;
+	char **public_dirs AUTO_FREE;
+	int public_dirs_cnt = 0;
+
+	ret = db_get_public_dirs(&public_dirs, &public_dirs_cnt);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("Error while geting data from database");
+		return ret;
+	}
+
+	for (i = 0; i < public_dirs_cnt; ++i) {
+		C_LOGD("Allowing app %s to access public path %s", app_id, public_dirs[i]);
+		if (smack_accesses_add(smack, app_id, public_dirs[i], "rx")) {
+			C_LOGE("app_add_rule failed");
+			while (i < public_dirs_cnt)
+				free(public_dirs[i++]);
+			return PC_ERR_INVALID_OPERATION;
+		}
+		free(public_dirs[i]);
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
 static int app_add_permissions_internal(const char* app_id, app_type_t app_type, const char** perm_list, int permanent)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -1376,6 +1408,133 @@ API int add_shared_dir_readers(const char* shared_label, const char** app_list)
 	return PC_OPERATION_SUCCESS;
 }
 
+static char* smack_label_for_path(const char *app_id, const char *path)
+{
+	C_LOGD("Enter function: %s", __func__);
+	char *salt AUTO_FREE;
+	char *label;
+	char *x;
+
+	/* Prefix $1$ causes crypt() to use MD5 function */
+	if (-1 == asprintf(&salt, "$1$%s", app_id)) {
+		C_LOGE("asprintf failed");
+		return NULL;
+	}
+
+	label = crypt(path, salt);
+	if (label == NULL) {
+		C_LOGE("crypt failed");
+		return NULL;
+	}
+
+	/* crypt() output may contain slash character,
+	 * which is not legal in Smack labels */
+	for (x = label; *x; ++x) {
+		if (*x == '/')
+			*x = '%';
+	}
+
+	return label;
+}
+
+/* FIXME: remove this pragma once deprecated API is deleted */
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+API int app_setup_path(const char* app_id, const char* path, app_path_type_t app_path_type, ...)
+{
+	C_LOGD("Enter function: %s", __func__);
+	va_list ap;
+
+	if (!smack_label_is_valid(app_id)) {
+		C_LOGE("Invalid app_id %s", app_id);
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	switch (app_path_type) {
+	case APP_PATH_PRIVATE:
+		va_start(ap, app_path_type);
+		va_end(ap);
+		return app_label_dir(app_id, path);
+
+	case APP_PATH_GROUP_RW: {
+		const char *shared_label;
+
+		va_start(ap, app_path_type);
+		shared_label = va_arg(ap, const char *);
+		va_end(ap);
+
+		if (!smack_label_is_valid(shared_label)) {
+			C_LOGE("Invalid shared_label %s", shared_label);
+			return PC_ERR_INVALID_PARAM;
+		}
+
+		if (strcmp(app_id, shared_label) == 0) {
+			C_LOGE("app_id equals shared_label");
+			return PC_ERR_INVALID_PARAM;
+		}
+
+		return app_label_shared_dir(app_id, shared_label, path);
+	}
+
+	case APP_PATH_PUBLIC_RO: {
+		char **app_ids AUTO_FREE;
+		int app_ids_cnt = 0;
+		const char *label;
+		int i, ret;
+
+		va_start(ap, app_path_type);
+		va_end(ap);
+
+		C_LOGD("New public RO path %s", path);
+		label = smack_label_for_path(app_id, path);
+		if (label == NULL)
+			return PC_ERR_INVALID_OPERATION;
+
+		C_LOGD("Generated label '%s' for public RO path %s", label, path);
+		ret = app_label_shared_dir(app_id, label, path);
+		if (ret != PC_OPERATION_SUCCESS)
+			return ret;
+
+		/* FIXME: This should be in some kind of transaction/lock */
+		ret = db_add_public_dir(label);
+		if (ret != PC_OPERATION_SUCCESS)
+			return ret;
+
+		ret = get_all_apps_ids(&app_ids, &app_ids_cnt);
+		if (ret != PC_OPERATION_SUCCESS)
+			return ret;
+
+		for (i = 0; i < app_ids_cnt; ++i) {
+			C_LOGD("Allowing app %s to access public path %s", app_id, label[i]);
+			ret = app_add_rule(app_ids[i], label, "rx");
+			if (ret != PC_OPERATION_SUCCESS) {
+				C_LOGE("smack_accesses_new failed");
+				while (i < app_ids_cnt)
+					free(app_ids[i++]);
+				return ret;
+			}
+			free(app_ids[i]);
+		}
+
+		return PC_OPERATION_SUCCESS;
+	}
+
+	case APP_PATH_SETTINGS_RW:
+		va_start(ap, app_path_type);
+		va_end(ap);
+		/* TODO */
+		break;
+
+	default:
+		va_start(ap, app_path_type);
+		va_end(ap);
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+/* FIXME: remove this pragma once deprecated API is deleted */
+#pragma GCC diagnostic warning "-Wdeprecated-declarations"
+
 API int app_add_friend(const char* app_id1, const char* app_id2)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -1405,6 +1564,7 @@ API int app_install(const char* app_id)
 	int ret;
 	int fd AUTO_CLOSE;
 	char* smack_path AUTO_FREE;
+	struct smack_accesses *smack AUTO_SMACK_FREE;
 
 	if (!smack_label_is_valid(app_id))
 		return PC_ERR_INVALID_PARAM;
@@ -1419,6 +1579,11 @@ API int app_install(const char* app_id)
 		return PC_ERR_FILE_OPERATION;
 	}
 
+	if (smack_accesses_new(&smack)) {
+		C_LOGE("smack_accesses_new failed");
+		return PC_ERR_MEM_OPERATION;
+	}
+
 	ret = add_app_id_to_databse(app_id);
 	if (ret != PC_OPERATION_SUCCESS ) {
 		C_LOGE("Error while adding app %s to database: %s ", app_id, strerror(errno));
@@ -1429,6 +1594,22 @@ API int app_install(const char* app_id)
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("Error while adding rules for anti viruses to app %s: %s ", app_id, strerror(errno));
 		return ret;
+	}
+
+	ret = register_app_for_public_dirs(app_id, smack);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("Error while adding rules for access to public dirs for app %s: %s ", app_id, strerror(errno));
+		return ret;
+	}
+
+	if (have_smack() && smack_accesses_apply(smack)) {
+		C_LOGE("smack_accesses_apply failed");
+		return PC_ERR_INVALID_OPERATION;
+	}
+
+	if (smack_accesses_save(smack, fd)) {
+		C_LOGE("smack_accesses_save failed");
+		return PC_ERR_INVALID_OPERATION;
 	}
 
 	return PC_OPERATION_SUCCESS;

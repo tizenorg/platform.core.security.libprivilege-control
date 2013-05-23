@@ -58,5 +58,15 @@ int add_app_gid(const char *app_id, unsigned gid);
  */
 int get_app_gids(const char *app_id, unsigned **gids, int *len);
 
+/**
+ * This functions add public RO path to the database.
+ */
+int db_add_public_dir(const char *dir_label);
+
+/**
+ * This function returns (in params) list of public RO paths
+ * dir_labels should be freed by caller.
+ */
+int db_get_public_dirs(char ***dir_labels, int *len);
 
 #endif // _ACCESS_DB_H_
