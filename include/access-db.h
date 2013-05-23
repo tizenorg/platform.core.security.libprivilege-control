@@ -35,10 +35,40 @@ int add_app_id_to_databse(const char * app_id);
 int add_av_id_to_databse(const char * av_id);
 
 /**
+ * This function add appsetting_id to database.
+ * Needs to be call by privileged user.
+ */
+int add_appsetting_id_to_databse(const char *appsetting_id);
+
+/**
+ * This function add setting_dir_id to database.
+ * Needs to be call by privileged user.
+ */
+int add_setting_dir_id_to_databse(const char *setting_dir_id);
+
+
+/**
  * This function returns (in params) labels of all installed applications.
  * apps_ids should be freed by caller.
  */
 int get_all_apps_ids(char *** apps_ids, int * len);
+
+
+/**
+ * This function returns (in params) labels of all registered settings dirs of
+ * all installed applications.
+ * apps_ids should be freed by caller.
+ */
+int get_all_settings_dir_ids(char ***apps_ids, int *len);
+
+
+/**
+ * This function returns (in params) labels of all registered apps with
+ * appsettings privilege
+ *
+ * apps_ids should be freed by caller.
+ */
+int get_all_appsetting_ids(char ***apps_ids, int *len);
 
 /**
  * This function returns (in params) labels of all installed anti viruses.

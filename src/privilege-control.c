@@ -70,6 +70,9 @@
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
 #define ACC_LEN                 5
 #define TIZEN_PRIVILEGE_ANTIVIRUS "http://tizen.org/privilege/antivirus"
+#define TIZEN_PRIVILEGE_APPSETTING "http://tizen.org/privilege/appsetting"
+
+
 
 typedef struct {
 	char user_name[10];
@@ -1052,6 +1055,78 @@ static int app_add_rule(const char *app_id, const char *object, const char *perm
 	return PC_OPERATION_SUCCESS;
 }
 
+
+static int
+app_register_appsetting(const char *app_id, struct smack_accesses *smack)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+	int i;
+
+	char **label_app_list AUTO_FREE;
+	char **label_dir_list AUTO_FREE;
+	int app_list_len = 0;
+	int dir_list_len = 0;
+
+	if (!smack_label_is_valid(app_id))
+		return PC_ERR_INVALID_PARAM;
+
+
+	/* writing appsetting_id (app_id) to "database"*/
+	ret = add_appsetting_id_to_databse(app_id);
+	if (ret != PC_OPERATION_SUCCESS)
+		goto out;
+
+
+	/* Reading labels of all installed apps from "database"*/
+	ret = get_all_apps_ids(&label_app_list, &app_list_len);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("Error while geting data from database");
+		goto out;
+	}
+
+	/*Add smack rules to rx access each app*/
+	for (i = 0; i < app_list_len; ++i) {
+		C_LOGD("Appsetting: applying rx rule for %s", label_app_list[i]);
+		if (smack_accesses_add(smack, app_id,
+				label_app_list[i], "rx") == -1) {
+			C_LOGE("smack_accesses_add failed");
+			ret = PC_ERR_INVALID_OPERATION;
+			goto out;
+		}
+	}
+
+	/* Reading labels of all registered settings dirs from "database"*/
+	ret = get_all_settings_dir_ids(
+			&label_dir_list, &dir_list_len);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("Error while geting data from database");
+		goto out;
+	}
+	/*Add smack rules to rwx access each app*/
+	for (i = 0; i < dir_list_len; ++i) {
+		C_LOGD("Appsetting: applying rwx rule for %s", label_dir_list[i]);
+		if (smack_accesses_add(smack, app_id,
+				label_dir_list[i], "rwx") == -1) {
+			C_LOGE("smack_accesses_add failed");
+			ret = PC_ERR_INVALID_OPERATION;
+			goto out;
+			/* Should we abort adding rules if once
+			 * smack_accesses_add will fail?*/
+		}
+	}
+
+	out:
+	for (i = 0; i < app_list_len; ++i) {
+		free(label_app_list[i]);
+	}
+	for (i = 0; i < dir_list_len; ++i) {
+		free(label_dir_list[i]);
+	}
+
+	return ret;
+}
+
 static int app_register_av_internal(const char *app_av_id, struct smack_accesses* smack)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -1135,6 +1210,50 @@ out:
 }
 
 /**
+ *  This function will check in database labels of all setting applications
+ *  and for all of them will add a rule "appsetting_id app_id rwx".
+ *  This should be call in app_install function.
+ */
+static int register_app_for_appsetting(const char *app_id)
+{
+	C_LOGD("Enter function: %s",__func__);
+	int ret, i;
+	char **smack_label_list AUTO_FREE;
+	int smack_label_list_len = 0;
+
+	/* Reading labels of all installed setting managers from "database"*/
+	ret = get_all_appsetting_ids(&smack_label_list, &smack_label_list_len);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("Error while geting data from database");
+		return ret;
+	}
+
+	/* for each appsetting put rule: "appsetting_id app_id rx"*/
+	for (i = 0; i < smack_label_list_len; ++i) {
+		C_LOGD("Appsetting: app_add_rule (%s, %s rx)", smack_label_list[i], app_id);
+		ret = app_add_rule(smack_label_list[i], app_id, "rx");
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("app_add_rule failed");
+			goto out;
+		}
+
+		free(smack_label_list[i]);
+	}
+
+	ret = PC_OPERATION_SUCCESS;
+
+out:
+	/* If something failed, then no all char* smack_label_list[i]
+	 are deallocated. They must be freed*/
+	for (; i < smack_label_list_len; ++i) {
+		free(smack_label_list[i]);
+	}
+
+	return ret;
+}
+
+
+/**
  *  This function will grant app_id RX access to all public directories and
  *  files, previously designated by app_setup_path(APP_PATH_PUBLIC_RO)
  *  This should be call in app_install function.
@@ -1203,6 +1322,14 @@ static int app_add_permissions_internal(const char* app_id, app_type_t app_type,
 				return ret;
 			}
 		}
+		if (strcmp(perm_list[i], TIZEN_PRIVILEGE_APPSETTING) == 0) {
+			ret = app_register_appsetting(app_id, smack);
+			if (ret != PC_OPERATION_SUCCESS) {
+				C_LOGE("app_register_appsetting failed");
+				return ret;
+			}
+		}
+
 		ret = perm_to_smack(smack, app_id, app_type, perm_list[i]);
 		if (ret != PC_OPERATION_SUCCESS){
 			C_LOGE("perm_to_smack failed");
@@ -1528,7 +1655,6 @@ static char* smack_label_for_path(const char *app_id, const char *path)
 
 	return label;
 }
-
 /* FIXME: remove this pragma once deprecated API is deleted */
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 API int app_setup_path(const char* app_id, const char* path, app_path_type_t app_path_type, ...)
@@ -1611,11 +1737,62 @@ API int app_setup_path(const char* app_id, const char* path, app_path_type_t app
 	}
 
 	case APP_PATH_SETTINGS_RW:
+	{
+		char **app_ids AUTO_FREE;
+		int app_ids_cnt = 0;
+		const char *label;
+		int i;
+		int ret;
+
 		va_start(ap, app_path_type);
 		va_end(ap);
-		/* TODO */
-		break;
 
+		/*get path id*/
+		label = smack_label_for_path(app_id, path);
+		if (label == NULL)
+			return PC_ERR_INVALID_OPERATION;
+
+		/*set id for path and all subfolders*/
+		C_LOGD("Appsetting: generated label '%s' for setting path %s", label, path);
+		ret = app_label_shared_dir(app_id, label, path);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("Appsetting: app_label_shared_dir failed (%d)", ret);
+			return ret;
+		}
+
+		/*add path to database*/
+		/* FIXME: This should be in some kind of transaction/lock */
+		ret = add_setting_dir_id_to_databse(label);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("Appsetting: add_setting_dir_id_to_databse failed");
+			return ret;
+		}
+
+		/*read all apps with appsetting privilege*/
+		ret = get_all_appsetting_ids(&app_ids, &app_ids_cnt);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("Appsetting: get_all_appsetting_ids failed");
+			return ret;
+		}
+		C_LOGD("Appsetting: %d appsetting privileged apps registeres",
+				app_ids_cnt);
+
+		/*give RWX rights to all apps that have appsetting privilege*/
+		for (i = 0; i < app_ids_cnt; ++i) {
+			C_LOGD("Appsetting: allowing app %s to access setting path %s",
+					app_ids[i], label);
+			ret = app_add_rule(app_ids[i], label, "rwx");
+			if (ret != PC_OPERATION_SUCCESS) {
+				C_LOGE("app_add_rule failed");
+				while (i < app_ids_cnt)
+					free(app_ids[i++]);
+				return ret;
+			}
+			free(app_ids[i]);
+		}
+
+		return PC_OPERATION_SUCCESS;
+	}
 	default:
 		va_start(ap, app_path_type);
 		va_end(ap);
@@ -1685,6 +1862,12 @@ API int app_install(const char* app_id)
 	ret = register_app_for_av(app_id);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("Error while adding rules for anti viruses to app %s: %s ", app_id, strerror(errno));
+		return ret;
+	}
+
+	ret = register_app_for_appsetting(app_id);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("Error while adding rules for setting managers to app %s: %s ", app_id, strerror(errno));
 		return ret;
 	}
 

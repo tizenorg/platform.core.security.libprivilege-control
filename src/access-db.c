@@ -37,6 +37,8 @@ typedef enum {
 	DB_APP_TYPE_ANTIVIRUS,
 	DB_APP_TYPE_GROUPS,
 	DB_APP_TYPE_PUBLIC_DIRS,
+	DB_APP_TYPE_APPSETTING,
+	DB_APP_TYPE_SETTING_DIR,
 	DB_APP_TYPE_COUNT /* Dummy enum element to get number of elements */
 } db_app_type_t;
 
@@ -45,6 +47,8 @@ const char* db_file_names[DB_APP_TYPE_COUNT] = {
 		"/opt/dbspace/.privilege_control_all_avs_id.db",
 		"/opt/dbspace/.privilege_control_app_gids.db",
 		"/opt/dbspace/.privilege_control_public_dirs.db",
+		"/opt/dbspace/.privilege_control_app_setting.db",
+		"/opt/dbspace/.privilege_control_setting_dir.db",
 };
 
 typedef struct element_s {
@@ -208,6 +212,22 @@ int get_all_apps_ids (char *** apps_ids, int * len)
 	return PC_OPERATION_SUCCESS;
 }
 
+int get_all_settings_dir_ids(char ***apps_ids, int *len)
+{
+	if (get_all_ids_internal(apps_ids, len, DB_APP_TYPE_SETTING_DIR))
+		return PC_ERR_DB_OPERATION;
+
+	return PC_OPERATION_SUCCESS;
+}
+
+int get_all_appsetting_ids(char ***apps_ids, int *len)
+{
+	if (get_all_ids_internal(apps_ids, len, DB_APP_TYPE_APPSETTING))
+		return PC_ERR_DB_OPERATION;
+
+	return PC_OPERATION_SUCCESS;
+}
+
 int get_all_avs_ids (char *** av_ids, int * len)
 {
 	if (get_all_ids_internal(av_ids, len, DB_APP_TYPE_ANTIVIRUS))
@@ -231,6 +251,27 @@ int add_av_id_to_databse (const char * av_id)
 	C_LOGD("Enter function: %s", __func__);
 
 	if (add_id_to_database_internal(av_id, DB_APP_TYPE_ANTIVIRUS))
+		return PC_ERR_DB_OPERATION;
+
+	return PC_OPERATION_SUCCESS;
+}
+
+int add_appsetting_id_to_databse(const char *appsetting_id)
+{
+	C_LOGD("Enter function: %s", __func__);
+
+	if (add_id_to_database_internal(appsetting_id, DB_APP_TYPE_APPSETTING))
+		return PC_ERR_DB_OPERATION;
+
+	return PC_OPERATION_SUCCESS;
+}
+
+int add_setting_dir_id_to_databse(const char *setting_dir_id)
+{
+	C_LOGD("Enter function: %s", __func__);
+
+	if (add_id_to_database_internal(
+			setting_dir_id, DB_APP_TYPE_SETTING_DIR))
 		return PC_ERR_DB_OPERATION;
 
 	return PC_OPERATION_SUCCESS;
