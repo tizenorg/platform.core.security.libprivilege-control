@@ -36,6 +36,7 @@ typedef enum {
 	DB_APP_TYPE_APPLICATION,
 	DB_APP_TYPE_ANTIVIRUS,
 	DB_APP_TYPE_GROUPS,
+	DB_APP_TYPE_PUBLIC_DIRS,
 	DB_APP_TYPE_COUNT /* Dummy enum element to get number of elements */
 } db_app_type_t;
 
@@ -43,6 +44,7 @@ const char* db_file_names[DB_APP_TYPE_COUNT] = {
 		"/opt/dbspace/.privilege_control_all_apps_id.db",
 		"/opt/dbspace/.privilege_control_all_avs_id.db",
 		"/opt/dbspace/.privilege_control_app_gids.db",
+		"/opt/dbspace/.privilege_control_public_dirs.db",
 };
 
 typedef struct element_s {
@@ -309,4 +311,24 @@ out:
 	}
 
 	return ret;
+}
+
+int db_add_public_dir(const char *dir_label)
+{
+	C_LOGD("Enter function: %s", __func__);
+
+	if (add_id_to_database_internal(dir_label, DB_APP_TYPE_PUBLIC_DIRS))
+		return PC_ERR_DB_OPERATION;
+
+	return PC_OPERATION_SUCCESS;
+}
+
+int db_get_public_dirs(char ***dir_labels, int *len)
+{
+	C_LOGD("Enter function: %s", __func__);
+
+	if (get_all_ids_internal(dir_labels, len, DB_APP_TYPE_PUBLIC_DIRS))
+		return PC_ERR_DB_OPERATION;
+
+	return PC_OPERATION_SUCCESS;
 }
