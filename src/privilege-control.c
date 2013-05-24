@@ -1383,14 +1383,14 @@ API int app_add_volatile_permissions(const char* app_id, const char** perm_list)
 	return app_add_permissions_internal(app_id, APP_TYPE_OTHER, perm_list, 0);
 }
 
-API int app_enable_permissions(const char* app_id, app_type_t app_type, const char** perm_list, bool persistent)
+API int app_enable_permissions(const char* pkg_id, app_type_t app_type, const char** perm_list, bool persistent)
 {
 	C_LOGD("Enter function: %s", __func__);
-	return app_add_permissions_internal(app_id, app_type, perm_list, persistent);
+	return app_add_permissions_internal(pkg_id, app_type, perm_list, persistent);
 }
 
 /* FIXME: this function is only a stub */
-API int app_disable_permissions(const char* app_id, app_type_t app_type, const char** perm_list)
+API int app_disable_permissions(const char* pkg_id, app_type_t app_type, const char** perm_list)
 {
 	C_LOGD("Enter function: %s", __func__);
 	return PC_OPERATION_SUCCESS;
@@ -1431,15 +1431,15 @@ static int app_revoke_permissions_internal(const char* app_id, bool persistent)
 	return PC_OPERATION_SUCCESS;
 }
 
-API int app_revoke_permissions(const char* app_id)
+API int app_revoke_permissions(const char* pkg_id)
 {
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
 
-	if (!smack_label_is_valid(app_id))
+	if (!smack_label_is_valid(pkg_id))
 		return PC_ERR_INVALID_PARAM;
 
-	ret = app_revoke_permissions_internal(app_id, true);
+	ret = app_revoke_permissions_internal(pkg_id, true);
 	if (ret) {
 		C_LOGE("Revoking permissions failed");
 		return ret;
@@ -1448,22 +1448,22 @@ API int app_revoke_permissions(const char* app_id)
 	return PC_OPERATION_SUCCESS;
 }
 
-API int app_reset_permissions(const char* app_id)
+API int app_reset_permissions(const char* pkg_id)
 {
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
 
-	if (!smack_label_is_valid(app_id))
+	if (!smack_label_is_valid(pkg_id))
 		return PC_ERR_INVALID_PARAM;
 
-	ret = app_revoke_permissions_internal(app_id, false);
+	ret = app_revoke_permissions_internal(pkg_id, false);
 	if (ret) {
 		C_LOGE("Revoking permissions failed");
 		return ret;
 	}
 
 	/* Add empty permissions set to trigger re-read of rules */
-	return app_enable_permissions(app_id, APP_TYPE_OTHER, (const char*[]){NULL}, 0);
+	return app_enable_permissions(pkg_id, APP_TYPE_OTHER, (const char*[]){NULL}, 0);
 }
 
 API int app_label_dir(const char* label, const char* path)
@@ -1672,13 +1672,13 @@ static char* smack_label_for_path(const char *app_id, const char *path)
 }
 /* FIXME: remove this pragma once deprecated API is deleted */
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-API int app_setup_path(const char* app_id, const char* path, app_path_type_t app_path_type, ...)
+API int app_setup_path(const char* pkg_id, const char* path, app_path_type_t app_path_type, ...)
 {
 	C_LOGD("Enter function: %s", __func__);
 	va_list ap;
 
-	if (!smack_label_is_valid(app_id)) {
-		C_LOGE("Invalid app_id %s", app_id);
+	if (!smack_label_is_valid(pkg_id)) {
+		C_LOGE("Invalid app_id %s", pkg_id);
 		return PC_ERR_INVALID_PARAM;
 	}
 
@@ -1686,7 +1686,7 @@ API int app_setup_path(const char* app_id, const char* path, app_path_type_t app
 	case APP_PATH_PRIVATE:
 		va_start(ap, app_path_type);
 		va_end(ap);
-		return app_label_dir(app_id, path);
+		return app_label_dir(pkg_id, path);
 
 	case APP_PATH_GROUP_RW: {
 		const char *shared_label;
@@ -1700,12 +1700,12 @@ API int app_setup_path(const char* app_id, const char* path, app_path_type_t app
 			return PC_ERR_INVALID_PARAM;
 		}
 
-		if (strcmp(app_id, shared_label) == 0) {
+		if (strcmp(pkg_id, shared_label) == 0) {
 			C_LOGE("app_id equals shared_label");
 			return PC_ERR_INVALID_PARAM;
 		}
 
-		return app_label_shared_dir(app_id, shared_label, path);
+		return app_label_shared_dir(pkg_id, shared_label, path);
 	}
 
 	case APP_PATH_PUBLIC_RO: {
@@ -1718,12 +1718,12 @@ API int app_setup_path(const char* app_id, const char* path, app_path_type_t app
 		va_end(ap);
 
 		C_LOGD("New public RO path %s", path);
-		label = smack_label_for_path(app_id, path);
+		label = smack_label_for_path(pkg_id, path);
 		if (label == NULL)
 			return PC_ERR_INVALID_OPERATION;
 
 		C_LOGD("Generated label '%s' for public RO path %s", label, path);
-		ret = app_label_shared_dir(app_id, label, path);
+		ret = app_label_shared_dir(pkg_id, label, path);
 		if (ret != PC_OPERATION_SUCCESS)
 			return ret;
 
@@ -1737,7 +1737,7 @@ API int app_setup_path(const char* app_id, const char* path, app_path_type_t app
 			return ret;
 
 		for (i = 0; i < app_ids_cnt; ++i) {
-			C_LOGD("Allowing app %s to access public path %s", app_id, label[i]);
+			C_LOGD("Allowing app %s to access public path %s", pkg_id, label[i]);
 			ret = app_add_rule(app_ids[i], label, "rx");
 			if (ret != PC_OPERATION_SUCCESS) {
 				C_LOGE("smack_accesses_new failed");
@@ -1763,13 +1763,13 @@ API int app_setup_path(const char* app_id, const char* path, app_path_type_t app
 		va_end(ap);
 
 		/*get path id*/
-		label = smack_label_for_path(app_id, path);
+		label = smack_label_for_path(pkg_id, path);
 		if (label == NULL)
 			return PC_ERR_INVALID_OPERATION;
 
 		/*set id for path and all subfolders*/
 		C_LOGD("Appsetting: generated label '%s' for setting path %s", label, path);
-		ret = app_label_shared_dir(app_id, label, path);
+		ret = app_label_shared_dir(pkg_id, label, path);
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("Appsetting: app_label_shared_dir failed (%d)", ret);
 			return ret;
@@ -1819,21 +1819,21 @@ API int app_setup_path(const char* app_id, const char* path, app_path_type_t app
 /* FIXME: remove this pragma once deprecated API is deleted */
 #pragma GCC diagnostic warning "-Wdeprecated-declarations"
 
-API int app_add_friend(const char* app_id1, const char* app_id2)
+API int app_add_friend(const char* pkg_id1, const char* pkg_id2)
 {
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
 
-	if (!smack_label_is_valid(app_id1) || !smack_label_is_valid(app_id2))
+	if (!smack_label_is_valid(pkg_id1) || !smack_label_is_valid(pkg_id2))
 		return PC_ERR_INVALID_PARAM;
 
-	ret = app_add_rule(app_id1, app_id2, "rwxat");
+	ret = app_add_rule(pkg_id1, pkg_id2, "rwxat");
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("app_add_rule failed");
 		return ret;
 	}
 
-	ret = app_add_rule(app_id2, app_id1, "rwxat");
+	ret = app_add_rule(pkg_id2, pkg_id1, "rwxat");
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("app_add_rule failed");
 		return ret;
@@ -1842,7 +1842,7 @@ API int app_add_friend(const char* app_id1, const char* app_id2)
 	return PC_OPERATION_SUCCESS;
 }
 
-API int app_install(const char* app_id)
+API int app_install(const char* pkg_id)
 {
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
@@ -1850,10 +1850,10 @@ API int app_install(const char* app_id)
 	char* smack_path AUTO_FREE;
 	struct smack_accesses *smack AUTO_SMACK_FREE;
 
-	if (!smack_label_is_valid(app_id))
+	if (!smack_label_is_valid(pkg_id))
 		return PC_ERR_INVALID_PARAM;
 
-	ret = smack_file_name(app_id, &smack_path);
+	ret = smack_file_name(pkg_id, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS)
 		return ret;
 
@@ -1868,27 +1868,27 @@ API int app_install(const char* app_id)
 		return PC_ERR_MEM_OPERATION;
 	}
 
-	ret = add_app_id_to_databse(app_id);
+	ret = add_app_id_to_databse(pkg_id);
 	if (ret != PC_OPERATION_SUCCESS ) {
-		C_LOGE("Error while adding app %s to database: %s ", app_id, strerror(errno));
+		C_LOGE("Error while adding app %s to database: %s ", pkg_id, strerror(errno));
 		return ret;
 	}
 
-	ret = register_app_for_av(app_id);
+	ret = register_app_for_av(pkg_id);
 	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("Error while adding rules for anti viruses to app %s: %s ", app_id, strerror(errno));
+		C_LOGE("Error while adding rules for anti viruses to app %s: %s ", pkg_id, strerror(errno));
 		return ret;
 	}
 
-	ret = register_app_for_appsetting(app_id);
+	ret = register_app_for_appsetting(pkg_id);
 	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("Error while adding rules for setting managers to app %s: %s ", app_id, strerror(errno));
+		C_LOGE("Error while adding rules for setting managers to app %s: %s ", pkg_id, strerror(errno));
 		return ret;
 	}
 
-	ret = register_app_for_public_dirs(app_id, smack);
+	ret = register_app_for_public_dirs(pkg_id, smack);
 	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("Error while adding rules for access to public dirs for app %s: %s ", app_id, strerror(errno));
+		C_LOGE("Error while adding rules for access to public dirs for app %s: %s ", pkg_id, strerror(errno));
 		return ret;
 	}
 
@@ -1905,7 +1905,7 @@ API int app_install(const char* app_id)
 	return PC_OPERATION_SUCCESS;
 }
 
-API int app_uninstall(const char* app_id)
+API int app_uninstall(const char* pkg_id)
 {
 	// TODO: When real database will be used, then this function should remove app_id
 	//       from database.
@@ -1914,10 +1914,10 @@ API int app_uninstall(const char* app_id)
 	char* smack_path AUTO_FREE;
 	int ret;
 
-	if (!smack_label_is_valid(app_id))
+	if (!smack_label_is_valid(pkg_id))
 		return PC_ERR_INVALID_PARAM;
 
-	ret = smack_file_name(app_id, &smack_path);
+	ret = smack_file_name(pkg_id, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS)
 		return ret;
 
