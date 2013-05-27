@@ -90,6 +90,11 @@ then
 fi
 
 
+if [ ! -e "/opt/etc/smack-app/accesses.d" ]
+then
+	mkdir -p /opt/etc/smack-app/accesses.d
+fi
+
 %files
 %{_libdir}/*.so.*
 %{_bindir}/slp-su

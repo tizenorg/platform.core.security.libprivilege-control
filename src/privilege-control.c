@@ -60,7 +60,8 @@
 #define APP_GROUP_PATH	TOSTRING(SHAREDIR) "/app_group_list"
 #define DEV_GROUP_PATH	TOSTRING(SHAREDIR) "/dev_group_list"
 
-#define SMACK_RULES_DIR  "/etc/smack/accesses.d/"
+#define SMACK_RULES_DIR		"/opt/etc/smack-app/accesses.d/"
+#define SMACK_LOADED_APP_RULES	"/var/run/smack-app/"
 
 #define SMACK_APP_LABEL_TEMPLATE "~APP~"
 #define SMACK_SRC_FILE_SUFFIX   "_src_file"
@@ -99,6 +100,9 @@ enum {
 	DECISION_SKIP = 0,
 	DECISION_LABEL = 1
 };
+
+static int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int *fd, char** path);
+static bool file_exists(const char* path);
 
 int state_tree_cmp(const void *first, const void *second)
 {
@@ -231,6 +235,17 @@ API int control_privilege(void)
 		return PC_OPERATION_SUCCESS;
 	else
 		return PC_ERR_NOT_PERMITTED;
+}
+
+static int smack_mark_file_name(const char *app_id, char **path)
+{
+	if (asprintf(path, SMACK_LOADED_APP_RULES "/%s", app_id) == -1) {
+		C_LOGE("asprintf failed");
+		*path = NULL;
+		return PC_ERR_MEM_OPERATION;
+	}
+
+	return PC_OPERATION_SUCCESS;
 }
 
 /**
@@ -518,14 +533,13 @@ error:
 }
 
 /**
- * Set process SMACK label from EXEC label of a file.
- * This function is emulating EXEC label behaviour of SMACK for programs
- * run by dlopen/dlsym instead of execv.
+ * Get SMACK label from EXEC label of a file.
+ * SMACK label should be free by caller
  *
  * @param path file path to take label from
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-static int set_smack_from_binary(char **smack_label, const char* path, app_type_t type)
+static int get_smack_from_binary(char **smack_label, const char* path, app_type_t type)
 {
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
@@ -533,7 +547,7 @@ static int set_smack_from_binary(char **smack_label, const char* path, app_type_
 	C_LOGD("Path: %s", path);
 
 	*smack_label = NULL;
-	if(type == APP_TYPE_WGT
+	if (type == APP_TYPE_WGT
 	|| type == APP_TYPE_WGT_PARTNER
 	|| type == APP_TYPE_WGT_PLATFORM) {
 		ret = smack_lgetlabel(path, smack_label, SMACK_LABEL_EXEC);
@@ -545,15 +559,31 @@ static int set_smack_from_binary(char **smack_label, const char* path, app_type_
 		return PC_ERR_INVALID_OPERATION;
 	}
 
-	if (*smack_label == NULL) {
+	return PC_OPERATION_SUCCESS;
+}
+
+/**
+ * Set process SMACK label.
+ * This function is emulating EXEC label behaviour of SMACK for programs
+ * run by dlopen/dlsym instead of execv.
+ *
+ * @param smack label
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+static int set_smack_for_self (char *smack_label)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+
+	if (smack_label == NULL) {
 		/* No label to set, just return with success */
 		C_LOGD("No label to set, just return with success");
 		ret = PC_OPERATION_SUCCESS;
 	}
 	else {
-		C_LOGD("label = %s", *smack_label);
+		C_LOGD("label = %s", smack_label);
 		if (have_smack()) {
-			ret = smack_set_label_for_self(*smack_label);
+			ret = smack_set_label_for_self(smack_label);
 			C_LOGD("smack_set_label_for_self returned %d", ret);
 		} else
 			ret = PC_OPERATION_SUCCESS;
@@ -630,15 +660,104 @@ static app_type_t verify_app_type(const char* type, const char* path)
 	exit(EXIT_FAILURE);
 }
 
+static int add_app_first_run_rules(const char *app_id)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+	int fd AUTO_CLOSE;
+	char *smack_path AUTO_FREE;
+	struct smack_accesses* smack AUTO_SMACK_FREE;
+
+	ret = load_smack_from_file(app_id, &smack, &fd, &smack_path);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("Error while load_smack_from_file");
+		return ret;
+	}
+	if (have_smack() && smack_accesses_apply(smack)) {
+		C_LOGE("smack_accesses_apply failed");
+		return PC_ERR_INVALID_OPERATION;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
+/**
+ * This function check if application SMACK rules was already loaded
+ * by checking if specific file exist. This Function desn't create such file.
+ * It returns:
+ *  0 if rules weren't yet loaded,
+ *  1 if rules were loaded
+ * -1 if error occurs while checking
+ */
+static int check_if_rules_were_loaded(const char *app_id)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+	char *path AUTO_FREE;
+
+	ret = smack_mark_file_name(app_id, &path);
+	if(PC_OPERATION_SUCCESS != ret) {
+		return -1;
+	}
+
+	return file_exists(path);
+}
+
+/**
+ * This function creates a (empty) file for app if rules for this app
+ * were loaded.
+ */
+static void mark_rules_as_loaded(const char *app_id)
+{
+	struct stat s;
+	char *path AUTO_FREE;
+	FILE *file = NULL;
+
+	if(smack_mark_file_name(app_id, &path)) {
+		C_LOGE("Error in smack_mark_file_name");
+		return;
+	}
+
+	if (-1 == stat(SMACK_LOADED_APP_RULES, &s)) {
+		if (ENOENT == errno) {
+			C_LOGD("Creating dir %s", SMACK_LOADED_APP_RULES);
+			mkdir(SMACK_LOADED_APP_RULES, S_IRWXU | S_IRWXG | S_IRWXO);
+		}
+	}
+
+	file = fopen(path, "w");
+	fclose(file);
+}
+
 API int set_app_privilege(const char* name, const char* type, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
 	C_LOGD("Function params: name = %s, type = %s, path = %s", name, type, path);
-	char *smack_label AUTO_FREE;
 	int ret = PC_OPERATION_SUCCESS;
+	int were_rules_loaded = 0;
+	char *smack_label AUTO_FREE;
 
-	if (path != NULL) {
-		ret = set_smack_from_binary(&smack_label, path, verify_app_type(type, path));
+	if (path != NULL && have_smack()) {
+		ret = get_smack_from_binary(&smack_label, path, verify_app_type(type, path));
+		if (ret != PC_OPERATION_SUCCESS)
+			return ret;
+
+		were_rules_loaded = check_if_rules_were_loaded(smack_label);
+		if (were_rules_loaded < 0) {
+			C_LOGE("Error while check_if_rules_was_loaded");
+			return PC_ERR_INVALID_OPERATION;
+		}
+		if (!were_rules_loaded) { // first run of application
+			C_LOGD("This is first run of this application. Adding SMACK rules");
+			ret = add_app_first_run_rules(smack_label);
+			if (ret != PC_OPERATION_SUCCESS ) {
+				C_LOGE("Error while add_app_first_run_rules");
+				// should we return here with error code?
+			}
+			mark_rules_as_loaded(smack_label);
+		}
+
+		ret = set_smack_for_self(smack_label);
 		if (ret != PC_OPERATION_SUCCESS)
 			return ret;
 	}
