@@ -54,6 +54,11 @@ mkdir -p %{buildroot}/usr/share/privilege-control/
 %postun -p /sbin/ldconfig
 
 
+if [ ! -e "/opt/etc/smack-app/accesses.d" ]
+then
+	mkdir -p /opt/etc/smack-app/accesses.d
+fi
+
 %files
 %manifest %{name}.manifest
 %license LICENSE
