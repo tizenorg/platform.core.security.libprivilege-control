@@ -63,3 +63,4 @@ pkgmgr sdbd rwxat
 wrt-launcher sdbd x
 _ wrt_launchpad_daemon rwx
 sdbd wrt_launcher rx
+download-provider::db system::use_internet w
