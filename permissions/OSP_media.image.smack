@@ -1,6 +1,0 @@
-~APP~ dbus w
-~APP~ osp-security-service w
-~APP~ power_manager w
-~APP~ resman::db rw
-~APP~ system::share wx
-system::use_internet ~APP~ w

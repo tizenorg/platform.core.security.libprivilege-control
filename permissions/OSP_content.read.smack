@@ -1,8 +1,1 @@
-~APP~ dbus w
 ~APP~ drmfw w
-~APP~ media-data::db rw
-~APP~ media-server rwx
-~APP~ osp-security-service w
-~APP~ resman r
-~APP~ system::media rwx
-media-server ~APP~ w

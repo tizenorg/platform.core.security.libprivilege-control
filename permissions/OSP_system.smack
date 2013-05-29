@@ -1,8 +1,5 @@
-~APP~ org.tizen.easy-home r
-~APP~ org.tizen.gallery-service r
-~APP~ org.tizen.indicator x
-~APP~ org.tizen.message r
-~APP~ org.tizen.smemo r
+~APP~ org.tizen.easy-home rx
+~APP~ org.tizen.gallery-service rx
+~APP~ org.tizen.message rwx
+~APP~ org.tizen.smemo rx
 ~APP~ org.tizen.svoice r
-~APP~ device::bklight r
-~APP~ system::share rw

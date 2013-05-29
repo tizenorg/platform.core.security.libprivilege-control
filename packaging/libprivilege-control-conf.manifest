@@ -25,6 +25,7 @@
 			<label name="system::homedir"/>
 			<label name="system::syslogd"/>
 			<label name="system::media"/>
+			<label name="system::share"/>
 			<label name="system::ext_storage"/>
 			<label name="system::privilege_control::db"/>
 			<label name="system::clipboard"/>

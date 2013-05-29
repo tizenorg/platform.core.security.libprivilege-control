@@ -1,9 +1,2 @@
-~APP~ calendar-service rwx
-~APP~ dbus w
-~APP~ email-service rw
-~APP~ email-service::db rw
-~APP~ pkgmgr::db rw
-~APP~ sys-assert::core x
-~APP~ syslogd w
-~APP~ wrt-security-daemon w
-~APP~ wrt-security-daemon::db rw
+~APP~ calendar-service::read r
+~APP~ calendar-service::svc rw

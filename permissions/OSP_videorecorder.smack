@@ -1,17 +1,1 @@
-~APP~ dbus r
-~APP~ device::camera rw
-~APP~ device::hwcodec rw
-~APP~ device::video rw
-~APP~ mdm-server w
-~APP~ osp-security-service w
-~APP~ power_manager w
-~APP~ pulseaudio rwx
-~APP~ resman rw
-~APP~ sound_server rw
-~APP~ svi-data r
-~APP~ system::media x
-~APP~ system::share rwx
-~APP~ ui-gadget::client rw
 org.tizen.volume ~APP~ r
-pulseaudio ~APP~ w
-ui-gadget::client ~APP~ rw

@@ -1,6 +1,0 @@
-~APP~ data-provider-master::data x
-~APP~ data-provider-master::db rw
-~APP~ data-provider-master::share x
-~APP~ data-provider-master w
-~APP~ osp::datacontrol rwx
-~APP~ resman r

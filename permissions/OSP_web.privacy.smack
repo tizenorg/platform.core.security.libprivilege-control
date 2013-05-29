@@ -1,8 +1,2 @@
 ~APP~ org.tizen.browser::db_external rw
-~APP~ org.tizen.browser x
-~APP~ dbus w
-~APP~ device::app_logging w
-~APP~ osp-security-service rw
-~APP~ system::share wx
-~APP~ system::use_internet w
-~APP~ webkit2-efl rx
+~APP~ org.tizen.browser rwx

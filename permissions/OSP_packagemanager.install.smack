@@ -1,4 +1,0 @@
-~APP~ org.tizen.indicator w
-~APP~ dbus w
-~APP~ pkgmgr-client r
-~APP~ pkgmgr::db r

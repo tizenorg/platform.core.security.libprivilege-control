@@ -1,4 +1,6 @@
-~APP~ contacts-service wx
-~APP~ msg-service::db rw
-~APP~ msg-service w
-~APP~ osp-security-service w
+~APP~ msg-service::smstrigger rw
+~APP~ msg-service::read rw
+~APP~ contacts-service::read r
+~APP~ contacts-service::write w
+~APP~ contacts-service::phonelog-read r
+~APP~ contacts-service::phonelog-write w

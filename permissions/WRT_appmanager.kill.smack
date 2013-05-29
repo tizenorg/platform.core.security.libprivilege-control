@@ -1,3 +1,0 @@
-~APP~ pkgmgr::db rw
-~APP~ sys-assert::core x
-~APP~ syslogd w

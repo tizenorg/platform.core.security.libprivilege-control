@@ -1,6 +1,1 @@
-~APP~ dbus w
-~APP~ mdm-server w
-~APP~ osp-connectivity-service w
-~APP~ osp-security-service w
-~APP~ resman r
-bt-service ~APP~ r
+~APP~ bt-service::opp w
