@@ -77,3 +77,10 @@ void smack_freep(struct smack_accesses **smack)
 {
 	smack_accesses_free(*smack);
 }
+
+void fts_closep(FTS **f)
+{
+	if (*f)
+		fts_close(*f);
+
+}

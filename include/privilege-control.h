@@ -84,8 +84,9 @@ char* app_id_from_socket(int sockfd);
  * Inform about installation of a new app.
  * It is intended to be called during app installation.
  * It will create an empty SMACK rules file used by other functions operating
- * on permissions. It is needed for tracking lifetime of an app.
- * It must be called by privileged user, before using any other app_* function.
+ * on permissions if it doesn't already exist. It is needed for tracking
+ * lifetime of an app. It must be called by privileged user, before using any
+ * other app_* function. It may be called more than once during installation.
  *
  *
  * @param app_id application identifier
@@ -266,7 +267,7 @@ int app_add_friend(const char* app_id1, const char* app_id2);
  * @param object  - label of provider application
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int app_give_access(const char* subject, const char* object, const char* permission);
+int app_give_access(const char* subject, const char* object, const char* permission) __attribute__ ((deprecated));
 
 /**
  * Revoke access granted by app_give_access. This function will not remove
@@ -276,7 +277,7 @@ int app_give_access(const char* subject, const char* object, const char* permiss
  * @param object  - label of provider application
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int app_revoke_access(const char* subject, const char* object);
+int app_revoke_access(const char* subject, const char* object) __attribute__ ((deprecated));
 
 /**
  * Adds new api feature by installing new *.smack file.
