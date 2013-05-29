@@ -13,6 +13,7 @@ BuildRequires: cmake
 BuildRequires: libcap-devel
 BuildRequires: pkgconfig(libsmack)
 BuildRequires: pkgconfig(dlog)
+BuildRequires: pkgconfig(libiri)
 
 %description
 development package of library to control privilege of in-house application

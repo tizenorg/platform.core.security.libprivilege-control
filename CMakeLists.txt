@@ -13,7 +13,7 @@ SET(VERSION "${VERSION_MAJOR}.0.2")
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
 
 INCLUDE(FindPkgConfig)
-pkg_check_modules(pkgs REQUIRED libsmack dlog)
+pkg_check_modules(pkgs REQUIRED libsmack libiri dlog)
 
 FOREACH(flag ${pkgs_CFLAGS})
 	SET(EXTRA_CFLAGS "${EXTRA_CFLAGS} ${flag}")

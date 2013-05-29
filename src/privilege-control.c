@@ -40,6 +40,7 @@
 #include <sys/capability.h>
 #include <stdbool.h>
 #include <search.h>
+#include <iri.h>
 
 #include "privilege-control.h"
 #include "access-db.h"
@@ -638,10 +639,59 @@ static inline const char* app_type_name(app_type_t app_type)
 	}
 }
 
+/**
+ * This function changes permission URI to basename for file name.
+ * For e.g. from http://tizen.org/privilege/contact.read will be
+ * created basename : org.tizen.privilege.contact.read
+ */
+
+static int base_name_from_perm(const char *perm, char **name) {
+	iri_t *ip = NULL;
+	char *host_dot = NULL;
+	char *rest_slash = NULL;
+	int ret;
+
+	ip = iri_parse(perm);
+	if (ip == NULL || ip->host == NULL) {
+		C_LOGE("Bad permission format : %s", perm);
+		iri_destroy(ip);
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if (ip->path == NULL) {
+		ip->path = ip->host;
+		ip->host = NULL;
+	}
+
+	if (ip->host) {
+		host_dot = strrchr(ip->host, '.');
+		if (host_dot) {
+			*host_dot = '\0';
+			++host_dot;
+		}
+	}
+
+	while ((rest_slash = strchr(ip->path, '/'))) {
+		*rest_slash = '.';
+	}
+
+	ret = asprintf(name, "%s%s%s%s",
+			host_dot ? host_dot : "", host_dot ? "." : "",
+			ip->host ? ip->host : "", ip->path);
+	if (ret == -1) {
+		C_LOGE("asprintf failed");
+		iri_destroy(ip);
+		return PC_ERR_MEM_OPERATION;
+	}
+
+	iri_destroy(ip);
+	return PC_OPERATION_SUCCESS;
+}
+
 static int perm_file_path(char** path, app_type_t app_type, const char* perm, const char *suffix)
 {
 	const char* app_type_prefix = NULL;
-	const char* perm_basename = NULL;
+	char* perm_basename = NULL;
 	int ret = 0;
 
 	if (perm == NULL || strlen(perm) == 0) {
@@ -651,11 +701,11 @@ static int perm_file_path(char** path, app_type_t app_type, const char* perm, co
 
 	app_type_prefix = app_type_name(app_type);
 
-	perm_basename = strrchr(perm, '/');
-	if (perm_basename)
-		++perm_basename;
-	else
-		perm_basename = perm;
+	ret = base_name_from_perm(perm, &perm_basename);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("Couldn't get permission basename");
+		return ret;
+	}
 
 	ret = asprintf(path, TOSTRING(SHAREDIR) "/%s%s%s%s",
 			app_type_prefix ? app_type_prefix : "", app_type_prefix ? "_" : "",
@@ -664,6 +714,8 @@ static int perm_file_path(char** path, app_type_t app_type, const char* perm, co
 		C_LOGE("asprintf failed");
 		return PC_ERR_MEM_OPERATION;
 	}
+
+	C_LOGD("Path : %s", *path);
 
 	return PC_OPERATION_SUCCESS;
 }
