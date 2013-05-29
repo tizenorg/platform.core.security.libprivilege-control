@@ -63,7 +63,8 @@ typedef enum {
 	APP_PATH_PRIVATE,
 	APP_PATH_GROUP_RW,
 	APP_PATH_PUBLIC_RO,
-	APP_PATH_SETTINGS_RW
+	APP_PATH_SETTINGS_RW,
+	APP_PATH_ANY_LABEL,
 } app_path_type_t;
 
 /* APIs - used by applications */

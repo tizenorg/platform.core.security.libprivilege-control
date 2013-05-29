@@ -1912,6 +1912,15 @@ API int app_setup_path(const char* pkg_id, const char* path, app_path_type_t app
 
 		return PC_OPERATION_SUCCESS;
 	}
+
+	case APP_PATH_ANY_LABEL: {
+		const char *label = NULL;
+		va_start(ap, app_path_type);
+		label = va_arg(ap, const char *);
+		va_end(ap);
+		return app_label_dir(label, path);
+	}
+
 	default:
 		va_start(ap, app_path_type);
 		va_end(ap);
