@@ -36,8 +36,11 @@
 #include <sys/stat.h>
 #include <sys/file.h>
 #include <sys/smack.h>
+#include <linux/capability.h>
+#include <sys/capability.h>
 #include <stdbool.h>
 #include <search.h>
+#include <iri.h>
 
 #include "privilege-control.h"
 #include "access-db.h"
@@ -66,7 +69,7 @@
 #define WRT_BASE_DEVCAP         "WRT"
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
 #define ACC_LEN                 5
-#define SMACK_ANTIVIRUS_PERM    "antivirus"
+#define TIZEN_PRIVILEGE_ANTIVIRUS "http://tizen.org/privilege/antivirus"
 
 typedef struct {
 	char user_name[10];
@@ -213,6 +216,116 @@ API int control_privilege(void)
 		return PC_OPERATION_SUCCESS;
 	else
 		return PC_ERR_NOT_PERMITTED;
+}
+
+/**
+ * TODO: this function should be moved to libsmack in open-source.
+ */
+API int get_smack_label_from_process(pid_t pid, char smack_label[SMACK_LABEL_LEN + 1])
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+	int fd AUTO_CLOSE;
+	int PATH_MAX_LEN = 64;
+	char path[PATH_MAX_LEN + 1];
+
+	if (pid < 0) {
+		ret = PC_ERR_INVALID_PARAM;
+		goto out;
+	}
+
+	bzero(smack_label, SMACK_LABEL_LEN + 1);
+	if (!have_smack()) { // If no smack just return success with empty label
+		C_LOGD("No SMACK. Return empty label");
+		ret = PC_OPERATION_SUCCESS;
+		goto out;
+	}
+
+	bzero(path, PATH_MAX_LEN + 1);
+	snprintf(path, PATH_MAX_LEN, "/proc/%d/attr/current", pid);
+	fd = open(path, O_RDONLY);
+	if (fd < 0) {
+		C_LOGE("cannot open file %s (errno: %s)", path, strerror(errno));
+		ret = PC_ERR_FILE_OPERATION;
+		goto out;
+	}
+
+	ret = read(fd, smack_label, SMACK_LABEL_LEN);
+	if (ret < 0) {
+		C_LOGE("cannot read from file %s", path);
+		ret = PC_ERR_FILE_OPERATION;
+		goto out;
+	}
+
+	ret = PC_OPERATION_SUCCESS;
+
+out:
+	return ret;
+}
+
+API int smack_pid_have_access(pid_t pid,
+								const char* object,
+								const char *access_type)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+	char pid_subject_label[SMACK_LABEL_LEN + 1];
+	cap_t cap;
+	cap_flag_value_t cap_v;
+
+	if (!have_smack()) {
+		C_LOGD("No SMACK. Return access granted");
+		return 1;
+	}
+
+	if (pid < 0 || object == NULL || strlen(object) == 0 ||
+			access_type == NULL || strlen(access_type) == 0) {
+		C_LOGE("Invalid param");
+		return -1;
+	}
+
+	//get SMACK label of process
+	ret = get_smack_label_from_process(pid, pid_subject_label);
+	if (PC_OPERATION_SUCCESS != ret) {
+		C_LOGE("get_smack_label_from_process %d failed: %d", pid, ret);
+		return -1;
+	}
+	C_LOGD("pid %d have label: %s", pid, pid_subject_label);
+
+	// if read empty label then do not call smack_have_access()
+	if (pid_subject_label[0] != '\0') {
+		ret = smack_have_access(pid_subject_label, object, access_type);
+		if ( -1 == ret) {
+			C_LOGE("smack_have_access failed");
+			return -1;
+		}
+		if ( 1 == ret ) { // smack_have_access return 1 (access granted)
+			C_LOGD("smack_have_access return 1 (access granted)");
+			return 1;
+		}
+	}
+
+	// smack_have_access return 0 (access denied). Now CAP_MAC_OVERRIDE should be checked
+	C_LOGD("smack_have_access return 0 (access denied)");
+	cap = cap_get_pid(pid);
+	if (cap == NULL) {
+		C_LOGE("cap_get_pid failed");
+		return -1;
+	}
+	ret = cap_get_flag(cap, CAP_MAC_OVERRIDE, CAP_EFFECTIVE, &cap_v);
+	if (0 != ret) {
+		C_LOGE("cap_get_flag failed");
+		return -1;
+	}
+
+	if (cap_v == CAP_SET) {
+		C_LOGD("pid %d have CAP_MAC_OVERRIDE", pid);
+		return 1;
+
+	} else {
+		C_LOGD("pid %d have no CAP_MAC_OVERRIDE", pid);
+		return 0;
+	}
 }
 
 static int set_dac(const char *smack_label, const char *pkg_name)
@@ -526,10 +639,59 @@ static inline const char* app_type_name(app_type_t app_type)
 	}
 }
 
+/**
+ * This function changes permission URI to basename for file name.
+ * For e.g. from http://tizen.org/privilege/contact.read will be
+ * created basename : org.tizen.privilege.contact.read
+ */
+
+static int base_name_from_perm(const char *perm, char **name) {
+	iri_t *ip = NULL;
+	char *host_dot = NULL;
+	char *rest_slash = NULL;
+	int ret;
+
+	ip = iri_parse(perm);
+	if (ip == NULL || ip->host == NULL) {
+		C_LOGE("Bad permission format : %s", perm);
+		iri_destroy(ip);
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if (ip->path == NULL) {
+		ip->path = ip->host;
+		ip->host = NULL;
+	}
+
+	if (ip->host) {
+		host_dot = strrchr(ip->host, '.');
+		if (host_dot) {
+			*host_dot = '\0';
+			++host_dot;
+		}
+	}
+
+	while ((rest_slash = strchr(ip->path, '/'))) {
+		*rest_slash = '.';
+	}
+
+	ret = asprintf(name, "%s%s%s%s",
+			host_dot ? host_dot : "", host_dot ? "." : "",
+			ip->host ? ip->host : "", ip->path);
+	if (ret == -1) {
+		C_LOGE("asprintf failed");
+		iri_destroy(ip);
+		return PC_ERR_MEM_OPERATION;
+	}
+
+	iri_destroy(ip);
+	return PC_OPERATION_SUCCESS;
+}
+
 static int perm_file_path(char** path, app_type_t app_type, const char* perm, const char *suffix)
 {
 	const char* app_type_prefix = NULL;
-	const char* perm_basename = NULL;
+	char* perm_basename = NULL;
 	int ret = 0;
 
 	if (perm == NULL || strlen(perm) == 0) {
@@ -539,11 +701,11 @@ static int perm_file_path(char** path, app_type_t app_type, const char* perm, co
 
 	app_type_prefix = app_type_name(app_type);
 
-	perm_basename = strrchr(perm, '/');
-	if (perm_basename)
-		++perm_basename;
-	else
-		perm_basename = perm;
+	ret = base_name_from_perm(perm, &perm_basename);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("Couldn't get permission basename");
+		return ret;
+	}
 
 	ret = asprintf(path, TOSTRING(SHAREDIR) "/%s%s%s%s",
 			app_type_prefix ? app_type_prefix : "", app_type_prefix ? "_" : "",
@@ -552,6 +714,8 @@ static int perm_file_path(char** path, app_type_t app_type, const char* perm, co
 		C_LOGE("asprintf failed");
 		return PC_ERR_MEM_OPERATION;
 	}
+
+	C_LOGD("Path : %s", *path);
 
 	return PC_OPERATION_SUCCESS;
 }
@@ -809,6 +973,80 @@ static int load_smack_from_file(const char* app_id, struct smack_accesses** smac
 	return PC_OPERATION_SUCCESS;
 }
 
+static int app_add_rule(const char *app_id, const char *object, const char *perm)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+	int fd AUTO_CLOSE;
+	char *smack_path AUTO_FREE;
+	struct smack_accesses* smack AUTO_SMACK_FREE;
+
+	ret = load_smack_from_file(app_id, &smack, &fd, &smack_path);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("load_smack_from_file failed");
+		return ret;
+	}
+
+	ret = smack_accesses_add(smack, app_id, object, perm);
+	if (ret == -1) {
+		C_LOGE("smack_accesses_add failed");
+		return PC_ERR_INVALID_OPERATION;
+	}
+
+	if (have_smack() && smack_accesses_apply(smack)) {
+		C_LOGE("smack_accesses_apply failed");
+		return PC_ERR_INVALID_OPERATION;
+	}
+
+	if (smack_accesses_save(smack, fd)) {
+		C_LOGE("smack_accesses_save failed");
+		return PC_ERR_INVALID_OPERATION;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
+static int app_register_av_internal(const char *app_av_id, struct smack_accesses* smack)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret;
+	int i;
+
+	char** smack_label_app_list AUTO_FREE;
+	int smack_label_app_list_len = 0;
+
+	if (!smack_label_is_valid(app_av_id) || NULL == smack)
+		return PC_ERR_INVALID_PARAM;
+
+	// writing anti_virus_id (app_av_id) to "database"
+	ret = add_av_id_to_databse(app_av_id);
+	if (ret != PC_OPERATION_SUCCESS )
+		goto out;
+
+	// Reading labels of all installed apps from "database"
+	ret = get_all_apps_ids(&smack_label_app_list, &smack_label_app_list_len);
+	if (ret != PC_OPERATION_SUCCESS ) {
+		C_LOGE("Error while geting data from database");
+		goto out;
+	}
+	for (i = 0; i < smack_label_app_list_len; ++i) {
+		C_LOGD("Applying rwx rule for %s", smack_label_app_list[i]);
+		if (smack_accesses_add(smack, app_av_id, smack_label_app_list[i], "wrx") == -1) {
+			C_LOGE("smack_accesses_add failed");
+			ret = PC_ERR_INVALID_OPERATION;
+			goto out;
+			// Should we abort adding rules if once smack_accesses_add will fail?
+		}
+	}
+
+out:
+	for (i = 0; i < smack_label_app_list_len; ++i) {
+		free(smack_label_app_list[i]);
+	}
+
+	return ret;
+}
+
 /**
  *  This function will check in database labels of all anti viruses
  *  and for all anti viruses will add a rule "anti_virus_label app_id rwx".
@@ -819,13 +1057,6 @@ static int register_app_for_av(const char * app_id)
 	int ret, i;
 	char** smack_label_av_list AUTO_FREE;
 	int smack_label_av_list_len = 0;
-	struct smack_accesses* smack AUTO_SMACK_FREE;
-
-	ret = smack_accesses_new(&smack);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("smack_accesses_new failed");
-		return ret;
-	}
 
 	// Reading labels of all installed anti viruses from "database"
 	ret = get_all_avs_ids(&smack_label_av_list, &smack_label_av_list_len);
@@ -836,34 +1067,12 @@ static int register_app_for_av(const char * app_id)
 
 	// for each anti-virus put rule: "anti_virus_id app_id rwx"
 	for (i = 0; i < smack_label_av_list_len; ++i) {
-		int fd AUTO_CLOSE;
-		char* smack_path AUTO_FREE;
-		C_LOGD("Adding rwx rule for antivirus: %s", smack_label_av_list[i]);
-
-		ret = load_smack_from_file(smack_label_av_list[i], &smack, &fd, &smack_path);
-		if (ret != PC_OPERATION_SUCCESS ) {
-			C_LOGE("load_smack_from_file failed");
+		ret = app_add_rule(smack_label_av_list[i], app_id, "wrx");
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("app_add_rule failed");
 			goto out;
 		}
 
-		if (smack_accesses_add(smack, smack_label_av_list[i], app_id, "wrx") == -1) {
-			C_LOGE("smack_accesses_add failed");
-			ret = PC_ERR_INVALID_OPERATION;
-			goto out; // Should we abort adding rules if once smack_accesses_add will fail?
-		}
-
-		if (have_smack() && smack_accesses_apply(smack)) {
-			C_LOGE("smack_accesses_apply failed");
-			ret = PC_ERR_INVALID_OPERATION;
-			goto out;
-		}
-
-		if (smack_accesses_save(smack, fd)) {
-			C_LOGE("smack_accesses_save failed");
-			ret = PC_ERR_INVALID_OPERATION;
-			goto out;
-		}
-		// Clearing char* smack_label_av_list[i] got from database.
 		free(smack_label_av_list[i]);
 	}
 
@@ -877,6 +1086,38 @@ out:
 	}
 
 	return ret;
+}
+
+/**
+ *  This function will grant app_id RX access to all public directories and
+ *  files, previously designated by app_setup_path(APP_PATH_PUBLIC_RO)
+ *  This should be call in app_install function.
+ */
+static int register_app_for_public_dirs(const char *app_id, struct smack_accesses *smack)
+{
+	C_LOGD("Enter function: %s", __func__);
+	int ret, i;
+	char **public_dirs AUTO_FREE;
+	int public_dirs_cnt = 0;
+
+	ret = db_get_public_dirs(&public_dirs, &public_dirs_cnt);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("Error while geting data from database");
+		return ret;
+	}
+
+	for (i = 0; i < public_dirs_cnt; ++i) {
+		C_LOGD("Allowing app %s to access public path %s", app_id, public_dirs[i]);
+		if (smack_accesses_add(smack, app_id, public_dirs[i], "rx")) {
+			C_LOGE("app_add_rule failed");
+			while (i < public_dirs_cnt)
+				free(public_dirs[i++]);
+			return PC_ERR_INVALID_OPERATION;
+		}
+		free(public_dirs[i]);
+	}
+
+	return PC_OPERATION_SUCCESS;
 }
 
 static int app_add_permissions_internal(const char* app_id, app_type_t app_type, const char** perm_list, int permanent)
@@ -909,6 +1150,13 @@ static int app_add_permissions_internal(const char* app_id, app_type_t app_type,
 	}
 	for (i = 0; perm_list[i] != NULL; ++i) {
 		C_LOGD("perm_to_smack params: app_id: %s, perm_list[%d]: %s", app_id, i, perm_list[i]);
+		if (strcmp(perm_list[i], TIZEN_PRIVILEGE_ANTIVIRUS) == 0) {
+			ret = app_register_av_internal(app_id, smack);
+			if (ret != PC_OPERATION_SUCCESS) {
+				C_LOGE("app_register_av_internal failed");
+				return ret;
+			}
+		}
 		ret = perm_to_smack(smack, app_id, app_type, perm_list[i]);
 		if (ret != PC_OPERATION_SUCCESS){
 			C_LOGE("perm_to_smack failed");
@@ -1140,10 +1388,7 @@ API int app_revoke_access(const char* subject, const char* object)
 API int app_label_shared_dir(const char* app_label, const char* shared_label, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
-	char* smack_path AUTO_FREE;
 	int ret;
-	int fd AUTO_CLOSE;
-	struct smack_accesses *smack AUTO_SMACK_FREE;
 
 	if (!smack_label_is_valid(app_label) || !smack_label_is_valid(shared_label))
 		return PC_ERR_INVALID_PARAM;
@@ -1167,26 +1412,10 @@ API int app_label_shared_dir(const char* app_label, const char* shared_label, co
 		return ret;
 	}
 
-	ret = load_smack_from_file(app_label, &smack, &fd, &smack_path);
+	ret = app_add_rule(app_label, shared_label, "rwxat");
 	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("load_smack_from_file failed");
+		C_LOGE("app_add_rule failed");
 		return ret;
-	}
-
-	//setting access rule for application
-	if (smack_accesses_add(smack, app_label,shared_label, "wrxat") == -1) {
-		C_LOGE("smack_accesses_add failed");
-		return ret;
-	}
-
-	if (have_smack() && smack_accesses_apply(smack)) {
-		C_LOGE("smack_accesses_apply failed");
-		return PC_ERR_INVALID_OPERATION;
-	}
-
-	if (smack_accesses_save(smack, fd)) {
-		C_LOGE("smack_accesses_save failed");
-		return PC_ERR_INVALID_OPERATION;
 	}
 
 	return PC_OPERATION_SUCCESS;
@@ -1195,85 +1424,172 @@ API int app_label_shared_dir(const char* app_label, const char* shared_label, co
 API int add_shared_dir_readers(const char* shared_label, const char** app_list)
 {
 	C_LOGD("Enter function: %s", __func__);
-	int ret = PC_ERR_INVALID_PARAM;
+	int ret;
 	int i;
-	int fd AUTO_CLOSE;
 
 	if (!smack_label_is_valid(shared_label))
 				return PC_ERR_INVALID_PARAM;
 
 	for (i = 0; app_list[i] != NULL; i++) {
-		char *smack_path AUTO_FREE;
-		struct smack_accesses *smack AUTO_SMACK_FREE;
 
 		if (!smack_label_is_valid(app_list[i]))
 					return PC_ERR_INVALID_PARAM;
 
-		ret = load_smack_from_file(
-				app_list[i], &smack, &fd, &smack_path);
+		ret = app_add_rule(app_list[i], shared_label, "rx");
 		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("load_smack_from_file failed");
+			C_LOGE("app_add_rule failed");
 			return ret;
-		}
-		if (smack_accesses_add_modify(smack, app_list[i], shared_label,
-				"rx", "") == -1) {
-			C_LOGE("smack_accesses_add failed");
-			return PC_ERR_INVALID_OPERATION;
-		}
-		if (have_smack() && smack_accesses_apply(smack)) {
-			C_LOGE("smack_accesses_apply failed");
-			return PC_ERR_INVALID_OPERATION;
-		}
-		if (smack_accesses_save(smack, fd)) {
-			C_LOGE("smack_accesses_save failed");
-			return PC_ERR_INVALID_OPERATION;
 		}
 	}
 
 	return PC_OPERATION_SUCCESS;
 }
 
+static char* smack_label_for_path(const char *app_id, const char *path)
+{
+	C_LOGD("Enter function: %s", __func__);
+	char *salt AUTO_FREE;
+	char *label;
+	char *x;
+
+	/* Prefix $1$ causes crypt() to use MD5 function */
+	if (-1 == asprintf(&salt, "$1$%s", app_id)) {
+		C_LOGE("asprintf failed");
+		return NULL;
+	}
+
+	label = crypt(path, salt);
+	if (label == NULL) {
+		C_LOGE("crypt failed");
+		return NULL;
+	}
+
+	/* crypt() output may contain slash character,
+	 * which is not legal in Smack labels */
+	for (x = label; *x; ++x) {
+		if (*x == '/')
+			*x = '%';
+	}
+
+	return label;
+}
+
+/* FIXME: remove this pragma once deprecated API is deleted */
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+API int app_setup_path(const char* app_id, const char* path, app_path_type_t app_path_type, ...)
+{
+	C_LOGD("Enter function: %s", __func__);
+	va_list ap;
+
+	if (!smack_label_is_valid(app_id)) {
+		C_LOGE("Invalid app_id %s", app_id);
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	switch (app_path_type) {
+	case APP_PATH_PRIVATE:
+		va_start(ap, app_path_type);
+		va_end(ap);
+		return app_label_dir(app_id, path);
+
+	case APP_PATH_GROUP_RW: {
+		const char *shared_label;
+
+		va_start(ap, app_path_type);
+		shared_label = va_arg(ap, const char *);
+		va_end(ap);
+
+		if (!smack_label_is_valid(shared_label)) {
+			C_LOGE("Invalid shared_label %s", shared_label);
+			return PC_ERR_INVALID_PARAM;
+		}
+
+		if (strcmp(app_id, shared_label) == 0) {
+			C_LOGE("app_id equals shared_label");
+			return PC_ERR_INVALID_PARAM;
+		}
+
+		return app_label_shared_dir(app_id, shared_label, path);
+	}
+
+	case APP_PATH_PUBLIC_RO: {
+		char **app_ids AUTO_FREE;
+		int app_ids_cnt = 0;
+		const char *label;
+		int i, ret;
+
+		va_start(ap, app_path_type);
+		va_end(ap);
+
+		C_LOGD("New public RO path %s", path);
+		label = smack_label_for_path(app_id, path);
+		if (label == NULL)
+			return PC_ERR_INVALID_OPERATION;
+
+		C_LOGD("Generated label '%s' for public RO path %s", label, path);
+		ret = app_label_shared_dir(app_id, label, path);
+		if (ret != PC_OPERATION_SUCCESS)
+			return ret;
+
+		/* FIXME: This should be in some kind of transaction/lock */
+		ret = db_add_public_dir(label);
+		if (ret != PC_OPERATION_SUCCESS)
+			return ret;
+
+		ret = get_all_apps_ids(&app_ids, &app_ids_cnt);
+		if (ret != PC_OPERATION_SUCCESS)
+			return ret;
+
+		for (i = 0; i < app_ids_cnt; ++i) {
+			C_LOGD("Allowing app %s to access public path %s", app_id, label[i]);
+			ret = app_add_rule(app_ids[i], label, "rx");
+			if (ret != PC_OPERATION_SUCCESS) {
+				C_LOGE("smack_accesses_new failed");
+				while (i < app_ids_cnt)
+					free(app_ids[i++]);
+				return ret;
+			}
+			free(app_ids[i]);
+		}
+
+		return PC_OPERATION_SUCCESS;
+	}
+
+	case APP_PATH_SETTINGS_RW:
+		va_start(ap, app_path_type);
+		va_end(ap);
+		/* TODO */
+		break;
+
+	default:
+		va_start(ap, app_path_type);
+		va_end(ap);
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+/* FIXME: remove this pragma once deprecated API is deleted */
+#pragma GCC diagnostic warning "-Wdeprecated-declarations"
+
 API int app_add_friend(const char* app_id1, const char* app_id2)
 {
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
-	int fd1 AUTO_CLOSE;
-	int fd2 AUTO_CLOSE;
-	char* smack_path1 AUTO_FREE;
-	char* smack_path2 AUTO_FREE;
-	struct smack_accesses* smack1 AUTO_SMACK_FREE;
-	struct smack_accesses* smack2 AUTO_SMACK_FREE;
 
 	if (!smack_label_is_valid(app_id1) || !smack_label_is_valid(app_id2))
 		return PC_ERR_INVALID_PARAM;
 
-	ret = load_smack_from_file(app_id1, &smack1, &fd1, &smack_path1);
+	ret = app_add_rule(app_id1, app_id2, "rwxat");
 	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("load_smack_from_file failed");
+		C_LOGE("app_add_rule failed");
 		return ret;
 	}
 
-	ret = load_smack_from_file(app_id2, &smack2, &fd2, &smack_path2);
+	ret = app_add_rule(app_id2, app_id1, "rwxat");
 	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("load_smack_from_file failed");
+		C_LOGE("app_add_rule failed");
 		return ret;
-	}
-
-	if (smack_accesses_add(smack1, app_id1, app_id2, "wrxat") == -1 ||
-		(smack_accesses_add(smack2, app_id2, app_id1, "wrxat") == -1)) {
-		C_LOGE("smack_accesses_add failed");
-		return ret;
-	}
-
-	if (have_smack() &&
-		(smack_accesses_apply(smack1) || smack_accesses_apply(smack2))) {
-		C_LOGE("smack_accesses_apply failed");
-		return PC_ERR_INVALID_OPERATION;
-	}
-
-	if (smack_accesses_save(smack1, fd1) || smack_accesses_save(smack2, fd2)) {
-		C_LOGE("smack_accesses_save failed");
-		return PC_ERR_INVALID_OPERATION;
 	}
 
 	return PC_OPERATION_SUCCESS;
@@ -1285,6 +1601,7 @@ API int app_install(const char* app_id)
 	int ret;
 	int fd AUTO_CLOSE;
 	char* smack_path AUTO_FREE;
+	struct smack_accesses *smack AUTO_SMACK_FREE;
 
 	if (!smack_label_is_valid(app_id))
 		return PC_ERR_INVALID_PARAM;
@@ -1299,6 +1616,11 @@ API int app_install(const char* app_id)
 		return PC_ERR_FILE_OPERATION;
 	}
 
+	if (smack_accesses_new(&smack)) {
+		C_LOGE("smack_accesses_new failed");
+		return PC_ERR_MEM_OPERATION;
+	}
+
 	ret = add_app_id_to_databse(app_id);
 	if (ret != PC_OPERATION_SUCCESS ) {
 		C_LOGE("Error while adding app %s to database: %s ", app_id, strerror(errno));
@@ -1309,6 +1631,22 @@ API int app_install(const char* app_id)
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("Error while adding rules for anti viruses to app %s: %s ", app_id, strerror(errno));
 		return ret;
+	}
+
+	ret = register_app_for_public_dirs(app_id, smack);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("Error while adding rules for access to public dirs for app %s: %s ", app_id, strerror(errno));
+		return ret;
+	}
+
+	if (have_smack() && smack_accesses_apply(smack)) {
+		C_LOGE("smack_accesses_apply failed");
+		return PC_ERR_INVALID_OPERATION;
+	}
+
+	if (smack_accesses_save(smack, fd)) {
+		C_LOGE("smack_accesses_save failed");
+		return PC_ERR_INVALID_OPERATION;
 	}
 
 	return PC_OPERATION_SUCCESS;
@@ -1507,77 +1845,53 @@ API int add_api_feature(app_type_t app_type,
 	return ret;
 }
 
+/**
+ * This function is marked as deprecated and will be removed
+ */
 API int app_register_av(const char* app_av_id)
 {
-	C_LOGD("Enter function: %s", __func__);
 	int ret;
-	int i;
 	int fd AUTO_CLOSE;
-	FILE* file AUTO_FCLOSE;
-
-	char** smack_label_app_list AUTO_FREE;
-	int smack_label_app_list_len = 0;
 	char* smack_path AUTO_FREE;
 	struct smack_accesses* smack AUTO_SMACK_FREE;
 
-	if (!smack_label_is_valid(app_av_id))
-		return PC_ERR_INVALID_PARAM;
-
-	ret = smack_accesses_new(&smack);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("smack_accesses_new failed");
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	// writing anti_virus_id (app_av_id) to "database"
-	ret = add_av_id_to_databse(app_av_id);
-	if (ret != PC_OPERATION_SUCCESS)
-	goto out;
-
 	ret = load_smack_from_file(app_av_id, &smack, &fd, &smack_path);
-	if (ret != PC_OPERATION_SUCCESS) {
+	if (ret != PC_OPERATION_SUCCESS ) {
 		C_LOGE("load_smack_from_file failed");
-		goto out;
+		return ret;
 	}
 
-	// Reading labels of all installed apps from "database"
-	ret = get_all_apps_ids(&smack_label_app_list, &smack_label_app_list_len);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("Error while geting data from database");
-		goto out;
-	}
-	for (i=0; i<smack_label_app_list_len; ++i) {
-		C_LOGD("Applying rwx rule for %s", smack_label_app_list[i]);
-		if (smack_accesses_add(smack, app_av_id, smack_label_app_list[i], "wrx") == -1) {
-			C_LOGE("smack_accesses_add failed");
-			ret = PC_ERR_INVALID_OPERATION;
-			goto out; // Should we abort adding rules if once smack_accesses_add will fail?
-		}
+	ret = app_register_av_internal(app_av_id, smack);
+	if (PC_OPERATION_SUCCESS != ret) {
+		C_LOGE("app_register_av_internal failed");
+		return ret;
 	}
 
-	// Add permisions from OSP_antivirus.samck file - only the OSP app can be an Anti Virus
-	ret = perm_to_smack(smack, app_av_id, APP_TYPE_OSP, SMACK_ANTIVIRUS_PERM);
+	// Add permisions from OSP_antivirus.samck file
+	ret = perm_to_smack(smack, app_av_id, APP_TYPE_OSP, TIZEN_PRIVILEGE_ANTIVIRUS);
 	if (PC_OPERATION_SUCCESS != ret) {
 		C_LOGE("perm_to_smack failed");
-		goto out;
+		return ret;
+	}
+
+	// Add permisions from OSP_antivirus.dac file
+	ret = perm_to_dac(app_av_id, APP_TYPE_OSP, TIZEN_PRIVILEGE_ANTIVIRUS);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("perm_to_dac failed");
+		return ret;
 	}
 
 	if (have_smack() && smack_accesses_apply(smack)) {
 		C_LOGE("smack_accesses_apply failed");
 		ret = PC_ERR_INVALID_OPERATION;
-		goto out;
+		return ret;
 	}
 
 	if (smack_accesses_save(smack, fd)) {
 		C_LOGE("smack_accesses_save failed");
 		ret = PC_ERR_INVALID_OPERATION;
-		goto out;
+		return ret;
 	}
 
-out:
-	for (i=0; i<smack_label_app_list_len; ++i) {
-		free(smack_label_app_list[i]);
-	}
-
-	return PC_OPERATION_SUCCESS;
+    return ret;
 }

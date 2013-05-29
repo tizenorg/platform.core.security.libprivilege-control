@@ -2,7 +2,7 @@
 
 Name:       libprivilege-control
 Summary:    Library to control privilege of application
-Version:    0.0.27.TIZEN
+Version:    0.0.28.TIZEN
 Release:    1
 Group:      System/Security
 License:    Apache 2.0
@@ -10,8 +10,10 @@ Source0:    %{name}-%{version}.tar.gz
 Source1:    %{name}-conf.manifest
 Source2:    smack-default-labeling.service
 BuildRequires: cmake
+BuildRequires: libcap-devel
 BuildRequires: pkgconfig(libsmack)
 BuildRequires: pkgconfig(dlog)
+BuildRequires: pkgconfig(libiri)
 
 %description
 development package of library to control privilege of in-house application
@@ -20,6 +22,7 @@ development package of library to control privilege of in-house application
 Summary:    Control privilege of application (devel)
 Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
+Requires:   pkgconfig(libsmack)
 
 %description devel
 Library to control privilege of application (devel)

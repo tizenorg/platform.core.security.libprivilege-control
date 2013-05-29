@@ -13,7 +13,7 @@ SET(VERSION "${VERSION_MAJOR}.0.2")
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
 
 INCLUDE(FindPkgConfig)
-pkg_check_modules(pkgs REQUIRED libsmack dlog)
+pkg_check_modules(pkgs REQUIRED libsmack libiri dlog)
 
 FOREACH(flag ${pkgs_CFLAGS})
 	SET(EXTRA_CFLAGS "${EXTRA_CFLAGS} ${flag}")
@@ -44,10 +44,10 @@ SET(libprivilege-control_SOURCES
 	)
 SET(libprivilege-control_LDFLAGS " -module -avoid-version ")
 SET(libprivilege-control_CFLAGS  " ${CFLAGS} -fPIC -I${include_dir}")
-#SET(libprivilege-control_LIBADD " ")
+SET(libprivilege-control_LIBADD  "${pkgs_LDFLAGS} -lcap -lcrypt")
 
 ADD_LIBRARY(privilege-control SHARED ${libprivilege-control_SOURCES})
-TARGET_LINK_LIBRARIES(privilege-control ${pkgs_LDFLAGS} ${pkgs_LIBRARIES})
+TARGET_LINK_LIBRARIES(privilege-control ${libprivilege-control_LIBADD} ${pkgs_LIBRARIES})
 SET_TARGET_PROPERTIES(privilege-control PROPERTIES COMPILE_FLAGS "${libprivilege-control_CFLAGS}")
 SET_TARGET_PROPERTIES(privilege-control PROPERTIES SOVERSION ${VERSION_MAJOR})
 SET_TARGET_PROPERTIES(privilege-control PROPERTIES VERSION ${VERSION})
@@ -83,5 +83,6 @@ INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/dev_group_list DESTINATION ${SHAREDIR}
 INSTALL(FILES .privilege_control_all_apps_id.db DESTINATION /opt/dbspace)
 INSTALL(FILES .privilege_control_all_avs_id.db DESTINATION /opt/dbspace)
 INSTALL(FILES .privilege_control_app_gids.db DESTINATION /opt/dbspace)
+INSTALL(FILES .privilege_control_public_dirs.db DESTINATION /opt/dbspace)
 #INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/udev/ DESTINATION lib/udev)
 INSTALL(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/slp-su DESTINATION bin)
