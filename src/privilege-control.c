@@ -1207,9 +1207,9 @@ app_register_appsetting(const char *app_id, struct smack_accesses *smack)
 	/*Add smack rules to rx access each app*/
 	for (i = 0; i < app_list_len; ++i) {
 		C_LOGD("Appsetting: applying rx rule for %s", label_app_list[i]);
-		if (smack_accesses_add(smack, app_id,
-				label_app_list[i], "rx") == -1) {
-			C_LOGE("smack_accesses_add failed");
+		if (smack_accesses_add_modify(smack, app_id,
+				label_app_list[i], "rx", "") == -1) {
+			C_LOGE("smack_accesses_add_modify failed");
 			ret = PC_ERR_INVALID_OPERATION;
 			goto out;
 		}
@@ -1225,13 +1225,13 @@ app_register_appsetting(const char *app_id, struct smack_accesses *smack)
 	/*Add smack rules to rwx access each app*/
 	for (i = 0; i < dir_list_len; ++i) {
 		C_LOGD("Appsetting: applying rwx rule for %s", label_dir_list[i]);
-		if (smack_accesses_add(smack, app_id,
-				label_dir_list[i], "rwx") == -1) {
-			C_LOGE("smack_accesses_add failed");
+		if (smack_accesses_add_modify(smack, app_id,
+				label_dir_list[i], "rwx", "") == -1) {
+			C_LOGE("smack_accesses_add_modify failed");
 			ret = PC_ERR_INVALID_OPERATION;
 			goto out;
 			/* Should we abort adding rules if once
-			 * smack_accesses_add will fail?*/
+			 * smack_accesses_add_modify will fail?*/
 		}
 	}
 
