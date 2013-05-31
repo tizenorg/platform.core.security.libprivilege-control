@@ -1002,9 +1002,9 @@ static int app_add_rule(const char *app_id, const char *object, const char *perm
 		return ret;
 	}
 
-	ret = smack_accesses_add(smack, app_id, object, perm);
+	ret = smack_accesses_add_modify(smack, app_id, object, perm, "");
 	if (ret == -1) {
-		C_LOGE("smack_accesses_add failed");
+		C_LOGE("smack_accesses_add_modify failed");
 		return PC_ERR_INVALID_OPERATION;
 	}
 
@@ -1046,11 +1046,11 @@ static int app_register_av_internal(const char *app_av_id, struct smack_accesses
 	}
 	for (i = 0; i < smack_label_app_list_len; ++i) {
 		C_LOGD("Applying rwx rule for %s", smack_label_app_list[i]);
-		if (smack_accesses_add(smack, app_av_id, smack_label_app_list[i], "wrx") == -1) {
-			C_LOGE("smack_accesses_add failed");
+		if (smack_accesses_add_modify(smack, app_av_id, smack_label_app_list[i], "wrx", "") == -1) {
+			C_LOGE("smack_accesses_add_modify failed");
 			ret = PC_ERR_INVALID_OPERATION;
 			goto out;
-			// Should we abort adding rules if once smack_accesses_add will fail?
+			// Should we abort adding rules if once smack_accesses_add_modify will fail?
 		}
 	}
 
@@ -1123,8 +1123,8 @@ static int register_app_for_public_dirs(const char *app_id, struct smack_accesse
 
 	for (i = 0; i < public_dirs_cnt; ++i) {
 		C_LOGD("Allowing app %s to access public path %s", app_id, public_dirs[i]);
-		if (smack_accesses_add(smack, app_id, public_dirs[i], "rx")) {
-			C_LOGE("app_add_rule failed");
+		if (smack_accesses_add_modify(smack, app_id, public_dirs[i], "rx", "")) {
+			C_LOGE("app_add_rule_modify failed");
 			while (i < public_dirs_cnt)
 				free(public_dirs[i++]);
 			return PC_ERR_INVALID_OPERATION;
@@ -1356,7 +1356,6 @@ API int app_give_access(const char* subject, const char* object, const char* per
 	C_LOGD("Enter function: %s", __func__);
 	int ret = PC_OPERATION_SUCCESS;
 	struct smack_accesses *smack AUTO_SMACK_FREE;
-	static const char * const revoke = "-----";
 	char *current_permissions AUTO_FREE;
 
 	if (!have_smack())
@@ -1371,7 +1370,7 @@ API int app_give_access(const char* subject, const char* object, const char* per
 	if (smack_accesses_new(&smack))
 		return PC_ERR_MEM_OPERATION;
 
-	if (smack_accesses_add_modify(smack, subject, object, permissions, revoke))
+	if (smack_accesses_add_modify(smack, subject, object, permissions, ""))
 		return PC_ERR_MEM_OPERATION;
 
 	if (smack_accesses_apply(smack))
@@ -1727,8 +1726,8 @@ static int validate_and_add_rule(char* rule, struct smack_accesses* accesses) {
 		return PC_ERR_INVALID_PARAM;
 	}
 
-	if (smack_accesses_add(accesses, subject, object, access)) {
-		C_LOGE("smack_accesses_add failed");
+	if (smack_accesses_add_modify(accesses, subject, object, access, "")) {
+		C_LOGE("smack_accesses_add_modify failed");
 		return PC_ERR_INVALID_OPERATION;
 	}
 	return PC_OPERATION_SUCCESS ;
