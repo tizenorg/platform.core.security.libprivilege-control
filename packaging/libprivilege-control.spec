@@ -45,6 +45,11 @@ make %{?jobs:-j%jobs}
 
 %install
 %make_install
+
+
+mkdir -p %{buildroot}/etc/rc.d/sdrc.d
+ln -sf /etc/init.d/load_rules.sh %{buildroot}/etc/rc.d/sdrc.d/S99load_rules
+
 mkdir -p %{buildroot}/usr/lib/systemd/system/basic.target.wants
 install -m 644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/
 ln -s ../smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/
@@ -70,6 +75,11 @@ fi
 %files conf
 %manifest %{name}.manifest
 
+/etc/init.d/load_rules.sh
+/usr/bin/rule_loader
+/etc/rc.d/sdrc.d/S99load_rules
+
+#/usr/share/smack-default-labeling.service
 /usr/lib/systemd/system/smack-default-labeling.service
 /usr/lib/systemd/system/basic.target.wants/smack-default-labeling.service
 /opt/dbspace/.privilege_control*.db
