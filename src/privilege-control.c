@@ -60,9 +60,6 @@
 #define APP_GROUP_PATH	TOSTRING(SHAREDIR) "/app_group_list"
 #define DEV_GROUP_PATH	TOSTRING(SHAREDIR) "/dev_group_list"
 
-#define SMACK_RULES_DIR		"/opt/etc/smack/accesses.d/"
-#define SMACK_LOADED_APP_RULES	"/var/run/smack-app/"
-
 #define SMACK_APP_LABEL_TEMPLATE "~APP~"
 #define SMACK_SRC_FILE_SUFFIX   "_src_file"
 #define SMACK_SRC_DIR_SUFFIX    "_src_dir"
@@ -72,7 +69,6 @@
 #define ACC_LEN                 5
 #define TIZEN_PRIVILEGE_ANTIVIRUS "http://tizen.org/privilege/antivirus"
 #define TIZEN_PRIVILEGE_APPSETTING "http://tizen.org/privilege/appsetting"
-
 
 
 typedef struct {
@@ -100,9 +96,6 @@ enum {
 	DECISION_SKIP = 0,
 	DECISION_LABEL = 1
 };
-
-static int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int *fd, char** path);
-static bool file_exists(const char* path);
 
 int state_tree_cmp(const void *first, const void *second)
 {
@@ -208,23 +201,6 @@ int state_restore(const char* subject, const char* object)
 	return PC_OPERATION_SUCCESS;
 }
 
-static inline int have_smack(void)
-{
-	static int have_smack = -1;
-
-	if (-1 == have_smack) {
-		if (NULL == smack_smackfs_path()) {
-			C_LOGD("Libprivilage-control: no smack found on phone");
-			have_smack = 0;
-		} else {
-			C_LOGD("Libprivilege-control: found smack on phone");
-			have_smack = 1;
-		}
-	}
-
-	return have_smack;
-}
-
 API int control_privilege(void)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -235,17 +211,6 @@ API int control_privilege(void)
 		return PC_OPERATION_SUCCESS;
 	else
 		return PC_ERR_NOT_PERMITTED;
-}
-
-static int smack_mark_file_name(const char *app_id, char **path)
-{
-	if (asprintf(path, SMACK_LOADED_APP_RULES "/%s", app_id) == -1) {
-		C_LOGE("asprintf failed");
-		*path = NULL;
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	return PC_OPERATION_SUCCESS;
 }
 
 /**
@@ -660,77 +625,6 @@ static app_type_t verify_app_type(const char* type, const char* path)
 	exit(EXIT_FAILURE);
 }
 
-static int add_app_first_run_rules(const char *app_id)
-{
-	C_LOGD("Enter function: %s", __func__);
-	int ret;
-	int fd AUTO_CLOSE;
-	char *smack_path AUTO_FREE;
-	struct smack_accesses* smack AUTO_SMACK_FREE;
-
-	ret = load_smack_from_file(app_id, &smack, &fd, &smack_path);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("Error while load_smack_from_file");
-		return ret;
-	}
-	if (have_smack() && smack_accesses_apply(smack)) {
-		C_LOGE("smack_accesses_apply failed");
-		return PC_ERR_INVALID_OPERATION;
-	}
-
-	return PC_OPERATION_SUCCESS;
-}
-
-/**
- * This function check if application SMACK rules was already loaded
- * by checking if specific file exist. This Function desn't create such file.
- * It returns:
- *  0 if rules weren't yet loaded,
- *  1 if rules were loaded
- * -1 if error occurs while checking
- */
-static int check_if_rules_were_loaded(const char *app_id)
-{
-	C_LOGD("Enter function: %s", __func__);
-	int ret;
-	char *path AUTO_FREE;
-
-	ret = smack_mark_file_name(app_id, &path);
-	if(PC_OPERATION_SUCCESS != ret) {
-		return -1;
-	}
-
-	return file_exists(path);
-}
-
-/**
- * This function creates a (empty) file for app if rules for this app
- * were loaded.
- */
-static void mark_rules_as_loaded(const char *app_id)
-{
-	struct stat s;
-	char *path AUTO_FREE;
-	FILE *file = NULL;
-
-	if(smack_mark_file_name(app_id, &path)) {
-		C_LOGW("Warning: smack_mark_file_name failed");
-		return;
-	}
-
-	if (-1 == stat(SMACK_LOADED_APP_RULES, &s)) {
-		if (ENOENT == errno) {
-			C_LOGD("Creating dir %s", SMACK_LOADED_APP_RULES);
-			if(-1 == mkdir(SMACK_LOADED_APP_RULES, S_IRWXU | S_IRWXG | S_IRWXO)) {
-				C_LOGD("mkdir failed. Errno: %d", errno);
-			}
-		}
-	}
-
-	file = fopen(path, "w");
-	fclose(file);
-}
-
 API int set_app_privilege(const char* name, const char* type, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -888,15 +782,6 @@ static int perm_file_path(char** path, app_type_t app_type, const char* perm, co
 	C_LOGD("Path : %s", *path);
 
 	return PC_OPERATION_SUCCESS;
-}
-
-static bool file_exists(const char* path) {
-	FILE* file = fopen(path, "r");
-	if (file) {
-		fclose(file);
-		return true;
-	}
-	return false;
 }
 
 static int perm_to_smack(struct smack_accesses* smack, const char* app_label, app_type_t app_type, const char* perm)
@@ -1091,56 +976,6 @@ API char* app_id_from_socket(int sockfd)
 	C_LOGD("app_id: %s", app_id);
 
 	return app_id;
-}
-
-static int smack_file_name(const char* app_id, char** path)
-{
-	if (asprintf(path, SMACK_RULES_DIR "/%s", app_id) == -1) {
-		C_LOGE("asprintf failed");
-		*path = NULL;
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	return PC_OPERATION_SUCCESS;
-}
-
-static int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int *fd, char** path)
-{
-	C_LOGD("Enter function: %s", __func__);
-	int ret;
-
-	ret = smack_file_name(app_id, path);
-	if (ret != PC_OPERATION_SUCCESS)
-		return ret;
-
-	if (smack_accesses_new(smack)) {
-		C_LOGE("smack_accesses_new failed");
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	*fd = open(*path, O_CREAT|O_RDWR, 0644);
-	if (*fd == -1) {
-		C_LOGE("file open failed: %s", strerror(errno));
-		return PC_ERR_FILE_OPERATION;
-	}
-
-	if (flock(*fd, LOCK_EX)) {
-		C_LOGE("flock failed");
-		return PC_ERR_INVALID_OPERATION;
-	}
-
-	if (smack_accesses_add_from_file(*smack, *fd)) {
-		C_LOGE("smack_accesses_add_from_file failed");
-		return PC_ERR_INVALID_OPERATION;
-	}
-
-	/* Rewind the file */
-	if (lseek(*fd, 0, SEEK_SET) == -1) {
-		C_LOGE("lseek failed");
-		return PC_ERR_FILE_OPERATION;
-	}
-
-	return PC_OPERATION_SUCCESS;
 }
 
 static int app_add_rule(const char *app_id, const char *object, const char *perm)

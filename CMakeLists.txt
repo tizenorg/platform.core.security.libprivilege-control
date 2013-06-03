@@ -65,6 +65,9 @@ TARGET_LINK_LIBRARIES(slp-su ${pkgs_LDFLAGS} ${pkgs_LIBRARIES} privilege-control
 SET_TARGET_PROPERTIES(slp-su PROPERTIES COMPILE_FLAGS "${slp-su_CFLAGS}")
 ###################################################################################################
 
+#for rule_loader binary, which loads rules after home screen shows up
+ADD_SUBDIRECTORY(rule_loader)
+
 CONFIGURE_FILE(libprivilege-control.pc.in libprivilege-control.pc @ONLY)
 
 INSTALL(TARGETS privilege-control DESTINATION  ${LIB_INSTALL_DIR} COMPONENT RuntimeLibraries)
