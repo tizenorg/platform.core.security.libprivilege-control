@@ -66,6 +66,11 @@ install -m 644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/
 ln -s ../smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/
 
 %post
+getent group 5000 >/dev/null || %{_sbindir}/groupadd -g 5000 app
+getent passwd 5000 >/dev/null || %{_sbindir}/useradd -u 5000 -g 5000 -d /home/app -s /sbin/nologin -c "In-house application" app
+getent group 5100 >/dev/null || %{_sbindir}/groupadd -g 5100 developer
+getent passwd 5100 >/dev/null || %{_sbindir}/useradd -u 5100 -g 5100 -d /home/developer -s /sbin/nologin -c "developer with SDK" developer
+
 if [ ! -e "/home/app" ]
 then
         mkdir -p /home/app
@@ -86,6 +91,13 @@ then
         mkdir -p /usr/share/privilege-control/
 fi
 
+%postun
+userdel -r app
+userdel -r developer
+groupdel app
+groupdel developer
+rm -rf /home/app
+rm -rf /home/developer
 
 %files
 %{_libdir}/*.so.*
@@ -96,8 +108,8 @@ fi
 %{_datadir}/license/%{name}
 
 %files conf
-/etc/group
-/etc/passwd
+%config(noreplace) /etc/group
+%config(noreplace) /etc/passwd
 /opt/etc/smack/*
 %attr(755,root,root) /etc/rc.d/*
 /usr/lib/systemd/system/smack-default-labeling.service
