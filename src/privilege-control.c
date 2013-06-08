@@ -60,7 +60,7 @@
 #define APP_GROUP_PATH	TOSTRING(SHAREDIR) "/app_group_list"
 #define DEV_GROUP_PATH	TOSTRING(SHAREDIR) "/dev_group_list"
 
-#define SMACK_RULES_DIR		"/opt/etc/smack-app/accesses.d/"
+#define SMACK_RULES_DIR		"/opt/etc/smack/accesses.d/"
 #define SMACK_LOADED_APP_RULES	"/var/run/smack-app/"
 
 #define SMACK_APP_LABEL_TEMPLATE "~APP~"
