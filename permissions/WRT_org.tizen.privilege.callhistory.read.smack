@@ -1,2 +1,4 @@
-~APP~ contacts-service::phonelog-read r
+~APP~ contacts-service rwx
+contacts-service ~APP~ rw---
+~APP~ contacts-service::svc r
 ~APP~ contacts-service::phonelog r

@@ -1,2 +1,1 @@
-~APP~ org.tizen.browser::db_external rw
-~APP~ org.tizen.browser rwx
+~APP~ com.samsung.browser::db_external rw

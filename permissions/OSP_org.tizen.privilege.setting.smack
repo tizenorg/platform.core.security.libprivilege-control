@@ -1,2 +1,2 @@
-org.tizen.data-provider-slave ~APP~ r
-~APP~ org.tizen.setting rwx
+~APP~ osp-security-service w
+com.samsung.data-provider-slave ~APP~ r

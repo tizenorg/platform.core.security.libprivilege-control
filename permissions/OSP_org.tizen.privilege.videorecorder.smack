@@ -1,1 +1,3 @@
-org.tizen.volume ~APP~ r
+~APP~ device::camera rw
+~APP~ device::video rw
+~APP~ mdm-server w

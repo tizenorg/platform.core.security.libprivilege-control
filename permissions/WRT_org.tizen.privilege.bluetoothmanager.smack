@@ -1,1 +1,2 @@
-~APP~ bt-service::admin w
+~APP~ mdm-server w
+~APP~ bt-service::manager w

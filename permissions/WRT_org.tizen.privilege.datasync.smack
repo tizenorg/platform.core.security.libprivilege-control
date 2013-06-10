@@ -1,0 +1,4 @@
+~APP~ oma-ds-agent rwx
+~APP~ oma-ds-agent::cfg r
+~APP~ oma-ds-agent::svc rw
+~APP~ sync_agent_frwk::oma-ds rw

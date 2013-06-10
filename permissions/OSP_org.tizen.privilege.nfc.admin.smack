@@ -1,1 +1,3 @@
+~APP~ mdm-server w
+~APP~ nfc-manager rw
 ~APP~ nfc-manager::admin w

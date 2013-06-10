@@ -1,0 +1,2 @@
+~APP~ system::use_internet w
+system::use_internet ~APP~ w

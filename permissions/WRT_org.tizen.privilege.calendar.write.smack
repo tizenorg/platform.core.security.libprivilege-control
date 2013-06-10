@@ -1,3 +1,2 @@
-~APP~ calendar-service::read r
-~APP~ calendar-service::write w
+~APP~ calendar-service wx
 ~APP~ calendar-service::svc rw

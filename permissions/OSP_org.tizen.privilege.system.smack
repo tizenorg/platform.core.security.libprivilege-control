@@ -1,5 +1,8 @@
-~APP~ org.tizen.easy-home rx
-~APP~ org.tizen.gallery-service rx
-~APP~ org.tizen.message rwx
-~APP~ org.tizen.smemo rx
-~APP~ org.tizen.svoice r
+~APP~ com.samsung.easy-home r
+~APP~ com.samsung.gallery-service r
+~APP~ com.samsung.indicator x
+~APP~ com.samsung.message r
+~APP~ com.samsung.smemo r
+~APP~ com.samsung.svoice r
+~APP~ device::bklight r
+~APP~ system::share rw

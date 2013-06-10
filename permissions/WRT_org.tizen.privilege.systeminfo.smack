@@ -1,2 +1,4 @@
+~APP~ deviced rwx
+~APP~ sound_server rw
 ~APP~ telephony_framework::api_modem r
 ~APP~ telephony_framework::api_sim r
