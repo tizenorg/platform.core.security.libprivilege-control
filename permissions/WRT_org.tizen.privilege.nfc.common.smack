@@ -1,1 +1,3 @@
+~APP~ nfc-manager rw
 ~APP~ nfc-manager::common w
+~APP~ nfc-manager::tag w

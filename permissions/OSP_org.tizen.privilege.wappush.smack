@@ -1,2 +1,4 @@
+~APP~ msg-service rwa
+~APP~ msg-service::db rw
 ~APP~ msg-service::wappush rw
 ~APP~ msg-service::write rw

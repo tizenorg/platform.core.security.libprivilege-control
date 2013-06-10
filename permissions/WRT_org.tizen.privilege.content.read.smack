@@ -1,0 +1,4 @@
+~APP~ media-data::db rw
+~APP~ media-server rwx
+media-server ~APP~ w
+

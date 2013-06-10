@@ -1,5 +1,1 @@
-~APP~ org.tizen.easy-home rx
-~APP~ org.tizen.gallery-service rx
-~APP~ org.tizen.message rwx
-~APP~ org.tizen.smemo rx
-~APP~ org.tizen.svoice r
+~APP~ device::bklight r
