@@ -1,5 +1,1 @@
-display_wd ~APP~ rw
 ~APP~ device::bklight rw
-~APP~ deviced rwx
-~APP~ display_wd rx
-~APP~ power_manager w

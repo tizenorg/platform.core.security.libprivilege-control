@@ -1,2 +1,4 @@
 ~APP~ mdm-server w
 ~APP~ bt-service::opp w
+~APP~ obexd rwx--
+obexd ~APP~ r----

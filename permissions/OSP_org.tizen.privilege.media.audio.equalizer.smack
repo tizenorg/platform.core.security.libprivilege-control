@@ -1,6 +1,0 @@
-~APP~ dbus r
-~APP~ pulseaudio rwx
-~APP~ resman::db rw
-~APP~ sound_server rw
-~APP~ system::share rwx
-pulseaudio ~APP~ w

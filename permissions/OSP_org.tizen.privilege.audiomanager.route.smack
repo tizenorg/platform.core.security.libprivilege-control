@@ -1,7 +1,1 @@
 ~APP~ data-provider-master r
-~APP~ dbus r
-~APP~ pulseaudio rwx
-~APP~ resman r
-~APP~ sound_server rwt
-~APP~ system::share rw
-pulseaudio ~APP~ w

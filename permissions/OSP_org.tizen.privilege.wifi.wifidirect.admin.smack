@@ -1,4 +1,1 @@
-~APP~ dbus rwx
-~APP~ osp-connectivity-service w
-~APP~ osp-security-service w
 ~APP~ wifi_direct_manager rw
