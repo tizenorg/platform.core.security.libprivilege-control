@@ -2,7 +2,7 @@
 
 Name:       libprivilege-control
 Summary:    Library to control privilege of application
-Version:    0.0.28.TIZEN
+Version:    0.0.29.TIZEN
 Release:    1
 Group:      System/Security
 License:    Apache 2.0
@@ -89,6 +89,11 @@ then
         mkdir -p /usr/share/privilege-control/
 fi
 
+
+if [ ! -e "/opt/etc/smack-app/accesses.d" ]
+then
+	mkdir -p /opt/etc/smack-app/accesses.d
+fi
 
 %files
 %{_libdir}/*.so.*
