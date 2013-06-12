@@ -161,14 +161,28 @@ int add_app_first_run_rules(const char *app_id)
 	return PC_OPERATION_SUCCESS;
 }
 
-int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int *fd, char** path)
+
+static int load_smack_from_file_generic(const char* app_id, struct smack_accesses** smack, int *fd, char** path, bool is_early)
 {
+	/* Notice that app_id is ignored when flag is_early is set.
+	 * It's because the all "early rules" (for all apps) should
+	 * be in one common file: SMACK_STARTUP_RULES_FILE
+	 */
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
 
-	ret = smack_file_name(app_id, path);
-	if (ret != PC_OPERATION_SUCCESS)
-		return ret;
+	if (is_early) {
+		if (0 > asprintf(path, "%s", SMACK_STARTUP_RULES_FILE)) {
+			*path = NULL;
+			C_LOGE("asprintf failed");
+			return PC_ERR_MEM_OPERATION;
+		}
+	}
+	else {
+		ret = smack_file_name(app_id, path);
+		if (ret != PC_OPERATION_SUCCESS)
+			return ret;
+	}
 
 	if (smack_accesses_new(smack)) {
 		C_LOGE("smack_accesses_new failed");
@@ -198,6 +212,16 @@ int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int 
 	}
 
 	return PC_OPERATION_SUCCESS;
+}
+
+int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int *fd, char** path)
+{
+	return load_smack_from_file_generic(app_id, smack, fd, path, 0);
+}
+
+int load_smack_from_file_early(const char* app_id, struct smack_accesses** smack, int *fd, char** path)
+{
+	return load_smack_from_file_generic(app_id, smack, fd, path, 1);
 }
 
 int smack_mark_file_name(const char *app_id, char **path)
