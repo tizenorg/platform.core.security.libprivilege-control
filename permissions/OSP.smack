@@ -108,3 +108,4 @@ system::use_internet ~APP~ rw
 ~APP~ email-service rwx
 email-service ~APP~ rw
 ~APP~ drmfw rw
+~APP~ app-package::db rw
