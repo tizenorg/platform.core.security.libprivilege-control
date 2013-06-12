@@ -65,6 +65,11 @@ then
 	mkdir -p /opt/etc/smack-app/accesses.d
 fi
 
+if [ ! -e "/opt/etc/smack-app-early/accesses.d" ]
+then
+	mkdir -p /opt/etc/smack-app-early/accesses.d
+fi
+
 %files
 %manifest %{name}.manifest
 %license LICENSE
