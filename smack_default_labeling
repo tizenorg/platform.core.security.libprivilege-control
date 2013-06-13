@@ -49,7 +49,7 @@ echo "system::use_internet" > /smack/ambient
 
 # Set label to database files
 chsmack -a 'libaccounts-svc::db' $DBSPACE/.account.db*
-chsmack -a 'wrt-security::db_ace' $DBSPACE/.ace.db*
+#chsmack -a 'wrt-security::db_ace' $DBSPACE/.ace.db*
 chsmack -a 'libslp-alarm::db' $DBSPACE/.alarm.db*
 chsmack -a 'alarm-server::db' $DBSPACE/.alarmmgr.db*
 chsmack -a 'ail::db' $DBSPACE/.app_info.db*
