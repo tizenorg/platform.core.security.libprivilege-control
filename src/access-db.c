@@ -132,7 +132,7 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 
 	file_db = fopen(db_file_name, "r");
 	if (NULL == file_db) {
-		SECURE_LOGE("Error while opening antivirus_ids database file: %s", db_file_name);
+		SECURE_LOGE("Error while opening database file: %s", db_file_name);
 		ret = PC_ERR_FILE_OPERATION;
 		goto out;
 	}
@@ -157,7 +157,7 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 			C_LOGD("Found entry in database, but it's not correct SMACK label: \"%s\"", smack_label);
 			continue;
 		}
-		C_LOGD("Found installed anti virus label: \"%s\"", smack_label);
+		C_LOGD("Found installed label: \"%s\"", smack_label);
 		++(*len);
 		current = add_element(current, smack_label);
 		if (NULL == current) {
