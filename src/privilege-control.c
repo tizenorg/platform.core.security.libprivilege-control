@@ -2221,7 +2221,9 @@ API int add_api_feature(app_type_t app_type,
 	// remove both files in case of failure
 	if (ret != PC_OPERATION_SUCCESS) {
 		unlink(smack_file);
-		unlink(dac_file);
+		if (dac_file) {
+			unlink(dac_file);
+		}
 	}
 
 	return ret;
