@@ -20,6 +20,7 @@ bt-service ~APP~ rwxa-
 dbus ~APP~ rwxa-
 ~APP~ download-provider rwxa-
 e17 ~APP~ rw
+~APP~ e17 rw
 ~APP~ immvibed rwxa-
 ~APP~ ims-service rwxa-
 ~APP~ isf rwxa-
