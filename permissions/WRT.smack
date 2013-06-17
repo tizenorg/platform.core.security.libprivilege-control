@@ -97,3 +97,4 @@ email-service ~APP~ rw
 ~APP~ drmfw rw
 ~APP~ app-package::db rw
 ~APP~ _ rw
+~APP~ browser::db_external rw
