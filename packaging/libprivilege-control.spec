@@ -1,6 +1,6 @@
 Name:       libprivilege-control
 Summary:    Library to control privilege of application
-Version:    0.0.29.TIZEN
+Version:    0.0.30.TIZEN
 Release:    1
 Group:      Security/Access Control
 License:    Apache-2.0
