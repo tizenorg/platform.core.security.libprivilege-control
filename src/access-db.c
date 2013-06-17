@@ -103,12 +103,12 @@ static int add_id_to_database_internal(const char * id, db_app_type_t app_type)
 
 	file_db = fopen(db_file_name, "a");
 	if (NULL == file_db) {
-		C_LOGE("Error while opening database file: %s", db_file_name);
+		SECURE_LOGE("Error while opening database file: %s", db_file_name);
 		return PC_ERR_FILE_OPERATION;
 	}
 
 	if (0 > fprintf(file_db, "%s\n", id)) {
-		C_LOGE("Write label %s to database failed: %s", id, strerror(errno));
+		SECURE_LOGE("Write label %s to database failed: %s", id, strerror(errno));
 		return PC_ERR_FILE_OPERATION;
 	}
 
@@ -132,7 +132,7 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 
 	file_db = fopen(db_file_name, "r");
 	if (NULL == file_db) {
-		C_LOGE("Error while opening antivirus_ids database file: %s", db_file_name);
+		SECURE_LOGE("Error while opening antivirus_ids database file: %s", db_file_name);
 		ret = PC_ERR_FILE_OPERATION;
 		goto out;
 	}
