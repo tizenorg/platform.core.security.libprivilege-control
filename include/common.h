@@ -47,6 +47,26 @@
 #define C_LOGE(...) do { } while(0)
 #endif //DLOG_ERROR_ENABLED
 
+/* for SECURE_LOG* purpose */
+#undef _SECURE_
+#ifndef _SECURE_LOG
+#define _SECURE_ (0)
+#else
+#define _SECURE_ (1)
+#endif
+#undef LOG_
+#define LOG_(id, prio, tag, fmt, arg...) \
+    ( __dlog_print(id, prio, tag, "%s: %s(%d) > " fmt, __MODULE__, __func__, __LINE__, ##arg))
+#undef SECURE_LOG_
+#define SECURE_LOG_(id, prio, tag, fmt, arg...) \
+    (_SECURE_ ? ( __dlog_print(id, prio, tag, "%s: %s(%d) > [SECURE_LOG] " fmt, __MODULE__, __func__, __LINE__, ##arg)) : (0))
+
+#define SECURE_LOGD(format, arg...) SECURE_LOG_(LOG_ID_MAIN, DLOG_DEBUG, LOG_TAG, format, ##arg)
+#define SECURE_LOGI(format, arg...) SECURE_LOG_(LOG_ID_MAIN, DLOG_INFO, LOG_TAG, format, ##arg)
+#define SECURE_LOGW(format, arg...) SECURE_LOG_(LOG_ID_MAIN, DLOG_WARN, LOG_TAG, format, ##arg)
+#define SECURE_LOGE(format, arg...) SECURE_LOG_(LOG_ID_MAIN, DLOG_ERROR, LOG_TAG, format, ##arg)
+/****************************/
+
 void freep(void *p);
 void closep(int *fd);
 void fclosep(FILE **f);
