@@ -98,3 +98,6 @@ email-service ~APP~ rw
 ~APP~ app-package::db rw
 ~APP~ _ rw
 ~APP~ browser::db_external rw
+webkit2-efl ~APP~ rwxa
+~APP~ webkit2-extension rwxa
+webkit2-extension ~APP~ rwxa
