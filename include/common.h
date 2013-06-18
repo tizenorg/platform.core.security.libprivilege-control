@@ -40,6 +40,13 @@
 #define C_LOGD(...) do { } while(0)
 #endif //DDLOG_DEBUG_ENABLED
 
+// conditional log macro for dlogutil (warning)
+#ifdef DLOG_WARN_ENABLED
+#define C_LOGW(...) LOGW(__VA_ARGS__)
+#else
+#define C_LOGW(...) do { } while(0)
+#endif //DLOG_WARN_ENABLED
+
 // conditional log macro for dlogutil (error)
 #ifdef DLOG_ERROR_ENABLED
 #define C_LOGE(...) LOGE(__VA_ARGS__)

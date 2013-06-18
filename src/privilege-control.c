@@ -410,7 +410,7 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 		C_LOGD("get group information");
 		if(!(fp_group = fopen(usr.group_list, "r")))
 		{
-			C_LOGE("[ERR] file open error: [%s]\n", usr.group_list);
+			C_LOGE("File open error: %s", usr.group_list);
 			result = PC_ERR_FILE_OPERATION;	// return -1
 			goto error;
 		}
@@ -421,7 +421,7 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 			temp_gid = strtoul(buf, 0, 10);
 			if(errno != 0)	// error occured during strtoul()
 			{
-				C_LOGE("[ERR] cannot change string to integer: [%s]", buf);
+				C_LOGE("Cannot change string to integer: %s", buf);
 				result = PC_ERR_INVALID_OPERATION;
 				goto error;
 			}
@@ -472,7 +472,7 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 		C_LOGD("setgroups()");
 		if(setgroups(glist_cnt, glist) != 0)
 		{
-			C_LOGE("[ERR] setgrouops fail\n");
+			C_LOGE("setgrouops fail");
 			result = PC_ERR_NOT_PERMITTED;	// return -3
 			goto error;
 		}
@@ -488,13 +488,13 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 		C_LOGD("setgid( %d ) & setuid( %d )", usr.gid, usr.uid);
 		if(setgid(usr.gid) != 0)	// fail
 		{
-			C_LOGE("[ERR] fail to execute setgid().");
+			C_LOGE("Fail to execute setgid().");
 			result = PC_ERR_INVALID_OPERATION;
 			goto error;
 		}
 		if(setuid(usr.uid) != 0)	// fail
 		{
-			C_LOGE("[ERR] fail to execute setuid().");
+			C_LOGE("Fail to execute setuid().");
 			result = PC_ERR_INVALID_OPERATION;
 			goto error;
 		}
@@ -502,20 +502,20 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 		SECURE_LOGD("setenv(): USER = %s, HOME = %s", usr.user_name, usr.home_dir);
 		if(setenv("USER", usr.user_name, 1) != 0)	//fail
 		{
-			C_LOGE("[ERR] fail to execute setenv() [USER].");
+			C_LOGE("Fail to execute setenv() [USER].");
 			result = PC_ERR_INVALID_OPERATION;
 			goto error;
 		}
 		if(setenv("HOME", usr.home_dir, 1) != 0)	// fail
 		{
-			C_LOGE("[ERR] fail to execute setenv() [HOME].");
+			C_LOGE("Fail to execute setenv() [HOME].");
 			result = PC_ERR_INVALID_OPERATION;
 			goto error;
 		}
 	}
 	else	// current user is not only 'root' but 'app'
 	{
-		C_LOGE("[ERR] current user is NOT root\n");
+		C_LOGE("Current user is NOT root");
 		result = PC_ERR_NOT_PERMITTED;	// return -3
 		goto error;
 	}
@@ -714,7 +714,7 @@ static void mark_rules_as_loaded(const char *app_id)
 	FILE *file = NULL;
 
 	if(smack_mark_file_name(app_id, &path)) {
-		C_LOGE("Error in smack_mark_file_name");
+		C_LOGW("Warning: smack_mark_file_name failed");
 		return;
 	}
 
@@ -751,7 +751,7 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 			C_LOGD("This is first run of this application. Adding SMACK rules");
 			ret = add_app_first_run_rules(smack_label);
 			if (ret != PC_OPERATION_SUCCESS ) {
-				C_LOGE("Error while add_app_first_run_rules");
+				C_LOGW("Warning: add_app_first_run_rules failed");
 				// should we return here with error code?
 			}
 			mark_rules_as_loaded(smack_label);
@@ -924,7 +924,7 @@ static int perm_to_smack(struct smack_accesses* smack, const char* app_label, ap
 	file = fopen(path, "r");
 	C_LOGD("path = %s", path);
 	if (file == NULL) {
-		C_LOGE("fopen failed");
+		C_LOGW("fopen failed");
 		return PC_OPERATION_SUCCESS;
 	}
 
@@ -962,7 +962,7 @@ static int perm_to_dac(const char* app_label, app_type_t app_type, const char* p
 	file = fopen(path, "r");
 	C_LOGD("path = %s", path);
 	if (file == NULL) {
-		C_LOGE("fopen failed");
+		C_LOGW("fopen failed");
 		return PC_OPERATION_SUCCESS;
 	}
 
@@ -1530,7 +1530,7 @@ static int app_revoke_permissions_internal(const char* app_id, bool persistent)
 	}
 
 	if (persistent && ftruncate(fd, 0) == -1)
-		C_LOGE("file truncate failed");
+		C_LOGW("file truncate failed");
 
 	return PC_OPERATION_SUCCESS;
 }
