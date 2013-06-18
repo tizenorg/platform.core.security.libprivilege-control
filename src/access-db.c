@@ -317,7 +317,7 @@ int get_app_gids(const char *app_id, unsigned **gids, int *len)
 			if (isdigit(*field)) {
 				gid = gid * 10 + *field - '0';
 			} else {
-				C_LOGE("Invalid line read: %s", fields[i]);
+				C_LOGE("Invalid line read in groups database: %s", fields[i]);
 				ret = PC_ERR_FILE_OPERATION;
 				goto out;
 			}
