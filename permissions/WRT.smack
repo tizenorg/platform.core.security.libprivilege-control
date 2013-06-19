@@ -78,6 +78,7 @@ wrt_launchpad_daemon ~APP~ rwxa
 ~APP~ system::vconf_network arwx
 ~APP~ system::vconf_misc arwx
 ~APP~ sdbd rwx
+sdbd ~APP~ rwx
 ~APP~ sdbd::home rx
 ~APP~ * t
 ~APP~ org.tizen.indicator rwx
@@ -101,3 +102,4 @@ email-service ~APP~ rw
 webkit2-efl ~APP~ rwxa
 ~APP~ webkit2-extension rwxa
 webkit2-extension ~APP~ rwxa
+~APP~ wrt::wrt-launcher w
