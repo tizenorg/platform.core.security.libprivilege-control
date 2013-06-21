@@ -47,13 +47,17 @@ make %{?jobs:-j%jobs}
 %make_install
 
 
-mkdir -p %{buildroot}/etc/rc.d/sdrc.d
-ln -sf /etc/init.d/load_rules.sh %{buildroot}/etc/rc.d/sdrc.d/S99load_rules
-
 mkdir -p %{buildroot}/usr/lib/systemd/system/basic.target.wants
 install -m 644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/
 ln -s ../smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/
 
+
+mkdir -p %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
+ln -sf /usr/lib/systemd/system/smack-late-rules.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-late-rules.service
+ln -sf /usr/lib/systemd/system/smack-early-rules.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-early-rules.service
+
+mkdir -p %{buildroot}/usr/lib/systemd/system/tizen-runtime.target.wants
+ln -s /usr/lib/systemd/system/smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-default-labeling.service
 
 %post -p /sbin/ldconfig
 
@@ -80,13 +84,18 @@ fi
 %files conf
 %manifest %{name}.manifest
 
-/etc/init.d/load_rules.sh
+/usr/lib/systemd/system/smack-late-rules.service
+/usr/lib/systemd/system/smack-early-rules.service
+
 /usr/bin/rule_loader
-/etc/rc.d/sdrc.d/S99load_rules
+#link to activate systemd service
+/usr/lib/systemd/system/multi-user.target.wants/smack-late-rules.service
+/usr/lib/systemd/system/multi-user.target.wants/smack-early-rules.service
 
 #/usr/share/smack-default-labeling.service
 /usr/lib/systemd/system/smack-default-labeling.service
 /usr/lib/systemd/system/basic.target.wants/smack-default-labeling.service
+/usr/lib/systemd/system/multi-user.target.wants/smack-default-labeling.service
 /opt/dbspace/.privilege_control*.db
 
 %files devel
