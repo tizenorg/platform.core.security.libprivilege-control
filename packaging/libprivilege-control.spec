@@ -60,20 +60,16 @@ mv %{buildroot}/opt/etc/group %{buildroot}/etc/group
 cp -a %{SOURCE1} %{buildroot}%{_datadir}/
 cp -a %{SOURCE2} %{buildroot}%{_datadir}/
 
-install -D -d %{buildroot}/etc/rc.d/rc3.d/
-install -D -d %{buildroot}/etc/rc.d/rc4.d/
-
-ln -sf ../init.d/smack_default_labeling %{buildroot}/etc/rc.d/rc3.d/S45smack_default_labeling
-ln -sf ../init.d/smack_default_labeling %{buildroot}/etc/rc.d/rc4.d/S45smack_default_labeling
-ln -sf ../init.d/smack_rules %{buildroot}/etc/rc.d/rc3.d/S02smack_rules
-ln -sf ../init.d/smack_rules %{buildroot}/etc/rc.d/rc4.d/S02smack_rules
-
-mkdir -p %{buildroot}/etc/rc.d/sdrc.d
-ln -sf /etc/init.d/load_rules.sh %{buildroot}/etc/rc.d/sdrc.d/S99load_rules
-
 mkdir -p %{buildroot}/usr/lib/systemd/system/basic.target.wants
 install -m 644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/
 ln -s ../smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/
+
+mkdir -p %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
+ln -sf /usr/lib/systemd/system/smack-late-rules.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-late-rules.service
+ln -sf /usr/lib/systemd/system/smack-early-rules.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-early-rules.service
+
+mkdir -p %{buildroot}/usr/lib/systemd/system/tizen-runtime.target.wants
+ln -s /usr/lib/systemd/system/smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-default-labeling.service
 
 %post
 if [ ! -e "/home/app" ]
@@ -108,9 +104,13 @@ fi
 #%{udev_libdir}/rules.d/*
 #%attr(755,root,root) %{udev_libdir}/uname_env
 %{_datadir}/license/%{name}
-/etc/init.d/load_rules.sh
+#systemd service
+/usr/lib/systemd/system/smack-late-rules.service
+/usr/lib/systemd/system/smack-early-rules.service
 /usr/bin/rule_loader
-/etc/rc.d/sdrc.d/S99load_rules
+#link to activate systemd service
+/usr/lib/systemd/system/multi-user.target.wants/smack-late-rules.service
+/usr/lib/systemd/system/multi-user.target.wants/smack-early-rules.service
 
 %files conf
 /etc/group
@@ -119,6 +119,7 @@ fi
 /usr/share/smack-default-labeling.service
 /usr/lib/systemd/system/smack-default-labeling.service
 /usr/lib/systemd/system/basic.target.wants/smack-default-labeling.service
+/usr/lib/systemd/system/multi-user.target.wants/smack-default-labeling.service
 %manifest %{_datadir}/%{name}-conf.manifest
 /opt/dbspace/.privilege_control*.db
 

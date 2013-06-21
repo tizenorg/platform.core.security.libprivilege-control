@@ -61,10 +61,19 @@ INSTALL(TARGETS ${TARGET}
     OWNER_EXECUTE
     )
 
-#place for additional script
+#place for additional systemd service
 INSTALL(FILES
-    ${PROJECT_SOURCE_DIR}/rule_loader/load_rules.sh
-    DESTINATION /etc/init.d
+    ${PROJECT_SOURCE_DIR}/rule_loader/smack-late-rules.service
+    DESTINATION /usr/lib/systemd/system
+    PERMISSIONS
+    OWNER_READ
+    OWNER_WRITE
+    OWNER_EXECUTE
+    )
+
+INSTALL(FILES
+    ${PROJECT_SOURCE_DIR}/rule_loader/smack-early-rules.service
+    DESTINATION /usr/lib/systemd/system
     PERMISSIONS
     OWNER_READ
     OWNER_WRITE
