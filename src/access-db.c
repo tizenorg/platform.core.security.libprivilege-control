@@ -90,6 +90,8 @@ static int remove_list(element_t* first_elem)
 	while (NULL != first_elem) {
 		current = first_elem;
 		first_elem = first_elem->next;
+		if (current->value)
+			free(current->value);
 		free(current);
 	}
 	return 0;
@@ -161,6 +163,7 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 		++(*len);
 		current = add_element(current, smack_label);
 		if (NULL == current) {
+			*len = 0;
 			C_LOGE("Error while adding smack label to the list");
 			ret = PC_ERR_MEM_OPERATION;
 			goto out;
@@ -171,6 +174,7 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 		C_LOGD("Allocating memory for list of %d labels", *len);
 		*ids = malloc((*len) * sizeof(char*));
 		if (NULL == *ids) {
+			*len = 0;
 			C_LOGE("Error while allocating memory for list of labels");
 			ret = PC_ERR_MEM_OPERATION;
 			goto out;
@@ -182,6 +186,12 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 			(*ids)[i] = malloc((SMACK_LABEL_LEN + 1) * sizeof(char));
 			if (NULL == (*ids)[i]) {
 				ret = PC_ERR_MEM_OPERATION;
+				int j;
+				for (j = 0; j < i; ++j)
+					free((*ids)[j]);
+				free(*ids);
+				*ids = NULL;
+				*len = 0;
 				C_LOGE("Error while allocating memory for \"%s\" label", current->value);
 				goto out;
 			}

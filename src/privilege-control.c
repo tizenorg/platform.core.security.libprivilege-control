@@ -736,7 +736,9 @@ static void mark_rules_as_loaded(const char *app_id)
 	if (-1 == stat(SMACK_LOADED_APP_RULES, &s)) {
 		if (ENOENT == errno) {
 			C_LOGD("Creating dir %s", SMACK_LOADED_APP_RULES);
-			mkdir(SMACK_LOADED_APP_RULES, S_IRWXU | S_IRWXG | S_IRWXO);
+			if(-1 == mkdir(SMACK_LOADED_APP_RULES, S_IRWXU | S_IRWXG | S_IRWXO)) {
+				C_LOGD("mkdir failed. Errno: %d", errno);
+			}
 		}
 	}
 
