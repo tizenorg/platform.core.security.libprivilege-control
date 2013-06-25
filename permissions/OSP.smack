@@ -103,6 +103,7 @@ org.tizen.quickpanel ~APP~ rwx
 ~APP~ system::use_internet rw
 system::use_internet ~APP~ rw
 ~APP~ org.tizen.setting::default-resources r-x--
+~APP~ org.tizen.setting r-x--
 ~APP~ system::ext_storage rwxat
 ~APP~ org.tizen.browser::vconf_public rw
 ~APP~ webkit2-efl::vconf r
