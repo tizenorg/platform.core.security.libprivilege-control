@@ -51,7 +51,7 @@ int smack_label_is_valid(const char* smack_label)
 
 	return 1;
 err:
-	C_LOGE("Invalid Smack label: %s", smack_label);
+	C_LOGD("Invalid Smack label: %s", smack_label);
 	return 0;
 }
 

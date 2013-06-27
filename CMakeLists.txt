@@ -32,6 +32,7 @@ ADD_DEFINITIONS("-DHOMEDIR=${HOMEDIR}")
 ADD_DEFINITIONS("-Wall -Werror")
 
 #ADD_DEFINITIONS("-DDLOG_DEBUG_ENABLED")    #enables dlogutil logs
+ADD_DEFINITIONS("-DDLOG_WARN_ENABLED")
 ADD_DEFINITIONS("-DDLOG_ERROR_ENABLED")
 
 ###################################################################################################
