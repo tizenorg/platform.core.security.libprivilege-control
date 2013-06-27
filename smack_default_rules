@@ -94,6 +94,7 @@ _ e17 rwx
 _ isf rwx
 _ starter rwx
 _ oma-ds-agent rwx
+_ msg-service rwx
 
 pulseaudio system::share rwx
 pulseaudio _ w
@@ -181,3 +182,7 @@ _ system::share rwx
 _ pulseaudio x
 org.tizen.taskmgr e17 rw
 e17 org.tizen.taskmgr rw
+cbhm xorg w
+starter xorg w
+starter sys-assert::core rwx
+download-provider _ rwx

@@ -1,3 +1,4 @@
 ~APP~ device::camera rw
 ~APP~ device::video rw
+~APP~ pulseaudio::record r----
 ~APP~ mdm-server w

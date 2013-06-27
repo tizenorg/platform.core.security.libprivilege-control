@@ -33,6 +33,7 @@ notification ~APP~ rwxa-
 ~APP~ notification::db rwxa-
 notification::db ~APP~ rwxa-
 ~APP~ pulseaudio rwxat
+~APP~ pulseaudio::record r----
 ~APP~ push-service rwxa-
 ~APP~ resman rwxa-
 ~APP~ samsung-account-front rwxa-

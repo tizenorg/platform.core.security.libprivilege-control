@@ -1,2 +1,4 @@
 ~APP~ badge::db rw---
 ~APP~ data-provider-master::notification rw---
+~APP~ data-provider-master::notification.client -w---
+~APP~ data-provider-master::badge.client -w---
