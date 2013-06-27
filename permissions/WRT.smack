@@ -106,3 +106,4 @@ webkit2-efl ~APP~ rwxa
 ~APP~ webkit2-extension rwxa
 webkit2-extension ~APP~ rwxa
 ~APP~ wrt::wrt-launcher w
+~APP~ system::clipboard arwxt
