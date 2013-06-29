@@ -1,4 +1,5 @@
 ~APP~ email-service::db rw
+~APP~ email-service::write rw
 ~APP~ contacts-service rwx
 contacts-service ~APP~ rw---
 ~APP~ system::media rwaxt

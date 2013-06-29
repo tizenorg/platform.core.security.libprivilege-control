@@ -9,6 +9,8 @@ bt-service ~APP~ rwxa-
 ~APP~ calendar-service w
 ~APP~ cbhm rwxa-
 ~APP~ data-provider-master rwxa-
+~APP~ data-provider-master::badge rw---
+~APP~ data-provider-master::shortcut rw---
 ~APP~ connman rwxa-
 ~APP~ contacts-service w
 ~APP~ crash-worker rwxa-
@@ -107,3 +109,7 @@ webkit2-efl ~APP~ rwxa
 webkit2-extension ~APP~ rwxa
 ~APP~ wrt::wrt-launcher w
 ~APP~ system::clipboard arwxt
+~APP~ org.tizen.data-provider-slave rwx--
+org.tizen.data-provider-slave ~APP~ rwx--
+~APP~ org.tizen.data-provider-master::utility rw---
+~APP~ app-svc::db rw---

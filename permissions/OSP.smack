@@ -113,3 +113,7 @@ email-service ~APP~ rw
 ~APP~ app-package::db rw
 ~APP~ _ rw
 ~APP~ system::clipboard arwxt
+~APP~ org.tizen.data-provider-slave rwx--
+org.tizen.data-provider-slave ~APP~ rwx--
+~APP~ org.tizen.data-provider-master::utility rw---
+~APP~ app-svc::db rw---
