@@ -178,6 +178,7 @@
 42KriKjov3 syspopup arwxt
 42KriKjov3 syspopup::db arwxt
 42KriKjov3 system::clipboard arwxt
+42KriKjov3 system::ext_storage arwxt
 42KriKjov3 system::homedir arwxt
 42KriKjov3 system::media arwxt
 42KriKjov3 system::privilege_control::db arwxt
@@ -399,6 +400,7 @@
 57r43275q7 syspopup arwxt
 57r43275q7 syspopup::db arwxt
 57r43275q7 system::clipboard arwxt
+57r43275q7 system::ext_storage arwxt
 57r43275q7 system::homedir arwxt
 57r43275q7 system::media arwxt
 57r43275q7 system::privilege_control::db arwxt
@@ -620,6 +622,7 @@ D7eOJquGtL syslogd arwxt
 D7eOJquGtL syspopup arwxt
 D7eOJquGtL syspopup::db arwxt
 D7eOJquGtL system::clipboard arwxt
+D7eOJquGtL system::ext_storage arwxt
 D7eOJquGtL system::homedir arwxt
 D7eOJquGtL system::media arwxt
 D7eOJquGtL system::privilege_control::db arwxt
@@ -841,6 +844,7 @@ _ syslogd arwxt
 _ syspopup arwxt
 _ syspopup::db arwxt
 _ system::clipboard arwxt
+_ system::ext_storage arwxt
 _ system::homedir arwxt
 _ system::media arwxt
 _ system::privilege_control::db arwxt
@@ -1062,6 +1066,7 @@ alarm-server syslogd arwxt
 alarm-server syspopup arwxt
 alarm-server syspopup::db arwxt
 alarm-server system::clipboard arwxt
+alarm-server system::ext_storage arwxt
 alarm-server system::homedir arwxt
 alarm-server system::media arwxt
 alarm-server system::privilege_control::db arwxt
@@ -1283,6 +1288,7 @@ aospd00043 syslogd arwxt
 aospd00043 syspopup arwxt
 aospd00043 syspopup::db arwxt
 aospd00043 system::clipboard arwxt
+aospd00043 system::ext_storage arwxt
 aospd00043 system::homedir arwxt
 aospd00043 system::media arwxt
 aospd00043 system::privilege_control::db arwxt
@@ -1504,6 +1510,7 @@ app-svc syslogd arwxt
 app-svc syspopup arwxt
 app-svc syspopup::db arwxt
 app-svc system::clipboard arwxt
+app-svc system::ext_storage arwxt
 app-svc system::homedir arwxt
 app-svc system::media arwxt
 app-svc system::privilege_control::db arwxt
@@ -1725,6 +1732,7 @@ aul syslogd arwxt
 aul syspopup arwxt
 aul syspopup::db arwxt
 aul system::clipboard arwxt
+aul system::ext_storage arwxt
 aul system::homedir arwxt
 aul system::media arwxt
 aul system::privilege_control::db arwxt
@@ -1946,6 +1954,7 @@ badge syslogd arwxt
 badge syspopup arwxt
 badge syspopup::db arwxt
 badge system::clipboard arwxt
+badge system::ext_storage arwxt
 badge system::homedir arwxt
 badge system::media arwxt
 badge system::privilege_control::db arwxt
@@ -2167,6 +2176,7 @@ bluetooth-tools syslogd arwxt
 bluetooth-tools syspopup arwxt
 bluetooth-tools syspopup::db arwxt
 bluetooth-tools system::clipboard arwxt
+bluetooth-tools system::ext_storage arwxt
 bluetooth-tools system::homedir arwxt
 bluetooth-tools system::media arwxt
 bluetooth-tools system::privilege_control::db arwxt
@@ -2388,6 +2398,7 @@ bluez syslogd arwxt
 bluez syspopup arwxt
 bluez syspopup::db arwxt
 bluez system::clipboard arwxt
+bluez system::ext_storage arwxt
 bluez system::homedir arwxt
 bluez system::media arwxt
 bluez system::privilege_control::db arwxt
@@ -2609,6 +2620,7 @@ bt-service syslogd arwxt
 bt-service syspopup arwxt
 bt-service syspopup::db arwxt
 bt-service system::clipboard arwxt
+bt-service system::ext_storage arwxt
 bt-service system::homedir arwxt
 bt-service system::media arwxt
 bt-service system::privilege_control::db arwxt
@@ -2830,6 +2842,7 @@ bt_agent syslogd arwxt
 bt_agent syspopup arwxt
 bt_agent syspopup::db arwxt
 bt_agent system::clipboard arwxt
+bt_agent system::ext_storage arwxt
 bt_agent system::homedir arwxt
 bt_agent system::media arwxt
 bt_agent system::privilege_control::db arwxt
@@ -3051,6 +3064,7 @@ bt_firmware syslogd arwxt
 bt_firmware syspopup arwxt
 bt_firmware syspopup::db arwxt
 bt_firmware system::clipboard arwxt
+bt_firmware system::ext_storage arwxt
 bt_firmware system::homedir arwxt
 bt_firmware system::media arwxt
 bt_firmware system::privilege_control::db arwxt
@@ -3272,6 +3286,7 @@ bt_share syslogd arwxt
 bt_share syspopup arwxt
 bt_share syspopup::db arwxt
 bt_share system::clipboard arwxt
+bt_share system::ext_storage arwxt
 bt_share system::homedir arwxt
 bt_share system::media arwxt
 bt_share system::privilege_control::db arwxt
@@ -3493,6 +3508,7 @@ calendar-service syslogd arwxt
 calendar-service syspopup arwxt
 calendar-service syspopup::db arwxt
 calendar-service system::clipboard arwxt
+calendar-service system::ext_storage arwxt
 calendar-service system::homedir arwxt
 calendar-service system::media arwxt
 calendar-service system::privilege_control::db arwxt
@@ -3714,6 +3730,7 @@ capi-system-system-settings syslogd arwxt
 capi-system-system-settings syspopup arwxt
 capi-system-system-settings syspopup::db arwxt
 capi-system-system-settings system::clipboard arwxt
+capi-system-system-settings system::ext_storage arwxt
 capi-system-system-settings system::homedir arwxt
 capi-system-system-settings system::media arwxt
 capi-system-system-settings system::privilege_control::db arwxt
@@ -3935,6 +3952,7 @@ cbhm syslogd arwxt
 cbhm syspopup arwxt
 cbhm syspopup::db arwxt
 cbhm system::clipboard arwxt
+cbhm system::ext_storage arwxt
 cbhm system::homedir arwxt
 cbhm system::media arwxt
 cbhm system::privilege_control::db arwxt
@@ -4156,6 +4174,7 @@ cert-svc syslogd arwxt
 cert-svc syspopup arwxt
 cert-svc syspopup::db arwxt
 cert-svc system::clipboard arwxt
+cert-svc system::ext_storage arwxt
 cert-svc system::homedir arwxt
 cert-svc system::media arwxt
 cert-svc system::privilege_control::db arwxt
@@ -4377,6 +4396,7 @@ cert-svc-ui syslogd arwxt
 cert-svc-ui syspopup arwxt
 cert-svc-ui syspopup::db arwxt
 cert-svc-ui system::clipboard arwxt
+cert-svc-ui system::ext_storage arwxt
 cert-svc-ui system::homedir arwxt
 cert-svc-ui system::media arwxt
 cert-svc-ui system::privilege_control::db arwxt
@@ -4598,6 +4618,7 @@ connman syslogd arwxt
 connman syspopup arwxt
 connman syspopup::db arwxt
 connman system::clipboard arwxt
+connman system::ext_storage arwxt
 connman system::homedir arwxt
 connman system::media arwxt
 connman system::privilege_control::db arwxt
@@ -4819,6 +4840,7 @@ contacts-service syslogd arwxt
 contacts-service syspopup arwxt
 contacts-service syspopup::db arwxt
 contacts-service system::clipboard arwxt
+contacts-service system::ext_storage arwxt
 contacts-service system::homedir arwxt
 contacts-service system::media arwxt
 contacts-service system::privilege_control::db arwxt
@@ -5040,6 +5062,7 @@ cp7ipabg4k syslogd arwxt
 cp7ipabg4k syspopup arwxt
 cp7ipabg4k syspopup::db arwxt
 cp7ipabg4k system::clipboard arwxt
+cp7ipabg4k system::ext_storage arwxt
 cp7ipabg4k system::homedir arwxt
 cp7ipabg4k system::media arwxt
 cp7ipabg4k system::privilege_control::db arwxt
@@ -5261,6 +5284,7 @@ crash-worker syslogd arwxt
 crash-worker syspopup arwxt
 crash-worker syspopup::db arwxt
 crash-worker system::clipboard arwxt
+crash-worker system::ext_storage arwxt
 crash-worker system::homedir arwxt
 crash-worker system::media arwxt
 crash-worker system::privilege_control::db arwxt
@@ -5482,6 +5506,7 @@ data-provider-master syslogd arwxt
 data-provider-master syspopup arwxt
 data-provider-master syspopup::db arwxt
 data-provider-master system::clipboard arwxt
+data-provider-master system::ext_storage arwxt
 data-provider-master system::homedir arwxt
 data-provider-master system::media arwxt
 data-provider-master system::privilege_control::db arwxt
@@ -5703,6 +5728,7 @@ dbus syslogd arwxt
 dbus syspopup arwxt
 dbus syspopup::db arwxt
 dbus system::clipboard arwxt
+dbus system::ext_storage arwxt
 dbus system::homedir arwxt
 dbus system::media arwxt
 dbus system::privilege_control::db arwxt
@@ -5924,6 +5950,7 @@ deviced syslogd arwxt
 deviced syspopup arwxt
 deviced syspopup::db arwxt
 deviced system::clipboard arwxt
+deviced system::ext_storage arwxt
 deviced system::homedir arwxt
 deviced system::media arwxt
 deviced system::privilege_control::db arwxt
@@ -6145,6 +6172,7 @@ dlogutil syslogd arwxt
 dlogutil syspopup arwxt
 dlogutil syspopup::db arwxt
 dlogutil system::clipboard arwxt
+dlogutil system::ext_storage arwxt
 dlogutil system::homedir arwxt
 dlogutil system::media arwxt
 dlogutil system::privilege_control::db arwxt
@@ -6366,6 +6394,7 @@ download-provider syslogd arwxt
 download-provider syspopup arwxt
 download-provider syspopup::db arwxt
 download-provider system::clipboard arwxt
+download-provider system::ext_storage arwxt
 download-provider system::homedir arwxt
 download-provider system::media arwxt
 download-provider system::privilege_control::db arwxt
@@ -6587,6 +6616,7 @@ dynamic-analyzer syslogd arwxt
 dynamic-analyzer syspopup arwxt
 dynamic-analyzer syspopup::db arwxt
 dynamic-analyzer system::clipboard arwxt
+dynamic-analyzer system::ext_storage arwxt
 dynamic-analyzer system::homedir arwxt
 dynamic-analyzer system::media arwxt
 dynamic-analyzer system::privilege_control::db arwxt
@@ -6808,6 +6838,7 @@ e17 syslogd arwxt
 e17 syspopup arwxt
 e17 syspopup::db arwxt
 e17 system::clipboard arwxt
+e17 system::ext_storage arwxt
 e17 system::homedir arwxt
 e17 system::media arwxt
 e17 system::privilege_control::db arwxt
@@ -7029,6 +7060,7 @@ efreet syslogd arwxt
 efreet syspopup arwxt
 efreet syspopup::db arwxt
 efreet system::clipboard arwxt
+efreet system::ext_storage arwxt
 efreet system::homedir arwxt
 efreet system::media arwxt
 efreet system::privilege_control::db arwxt
@@ -7250,6 +7282,7 @@ email-service syslogd arwxt
 email-service syspopup arwxt
 email-service syspopup::db arwxt
 email-service system::clipboard arwxt
+email-service system::ext_storage arwxt
 email-service system::homedir arwxt
 email-service system::media arwxt
 email-service system::privilege_control::db arwxt
@@ -7471,6 +7504,7 @@ gi2qxenosh syslogd arwxt
 gi2qxenosh syspopup arwxt
 gi2qxenosh syspopup::db arwxt
 gi2qxenosh system::clipboard arwxt
+gi2qxenosh system::ext_storage arwxt
 gi2qxenosh system::homedir arwxt
 gi2qxenosh system::media arwxt
 gi2qxenosh system::privilege_control::db arwxt
@@ -7692,6 +7726,7 @@ hyCsE05ySM syslogd arwxt
 hyCsE05ySM syspopup arwxt
 hyCsE05ySM syspopup::db arwxt
 hyCsE05ySM system::clipboard arwxt
+hyCsE05ySM system::ext_storage arwxt
 hyCsE05ySM system::homedir arwxt
 hyCsE05ySM system::media arwxt
 hyCsE05ySM system::privilege_control::db arwxt
@@ -7913,6 +7948,7 @@ isf syslogd arwxt
 isf syspopup arwxt
 isf syspopup::db arwxt
 isf system::clipboard arwxt
+isf system::ext_storage arwxt
 isf system::homedir arwxt
 isf system::media arwxt
 isf system::privilege_control::db arwxt
@@ -8134,6 +8170,7 @@ livebox.web-provider syslogd arwxt
 livebox.web-provider syspopup arwxt
 livebox.web-provider syspopup::db arwxt
 livebox.web-provider system::clipboard arwxt
+livebox.web-provider system::ext_storage arwxt
 livebox.web-provider system::homedir arwxt
 livebox.web-provider system::media arwxt
 livebox.web-provider system::privilege_control::db arwxt
@@ -8355,6 +8392,7 @@ location_fw syslogd arwxt
 location_fw syspopup arwxt
 location_fw syspopup::db arwxt
 location_fw system::clipboard arwxt
+location_fw system::ext_storage arwxt
 location_fw system::homedir arwxt
 location_fw system::media arwxt
 location_fw system::privilege_control::db arwxt
@@ -8576,6 +8614,7 @@ location_fw::server syslogd arwxt
 location_fw::server syspopup arwxt
 location_fw::server syspopup::db arwxt
 location_fw::server system::clipboard arwxt
+location_fw::server system::ext_storage arwxt
 location_fw::server system::homedir arwxt
 location_fw::server system::media arwxt
 location_fw::server system::privilege_control::db arwxt
@@ -8797,6 +8836,7 @@ media-server syslogd arwxt
 media-server syspopup arwxt
 media-server syspopup::db arwxt
 media-server system::clipboard arwxt
+media-server system::ext_storage arwxt
 media-server system::homedir arwxt
 media-server system::media arwxt
 media-server system::privilege_control::db arwxt
@@ -9018,6 +9058,7 @@ miracast-server syslogd arwxt
 miracast-server syspopup arwxt
 miracast-server syspopup::db arwxt
 miracast-server system::clipboard arwxt
+miracast-server system::ext_storage arwxt
 miracast-server system::homedir arwxt
 miracast-server system::media arwxt
 miracast-server system::privilege_control::db arwxt
@@ -9239,6 +9280,7 @@ mobileprint syslogd arwxt
 mobileprint syspopup arwxt
 mobileprint syspopup::db arwxt
 mobileprint system::clipboard arwxt
+mobileprint system::ext_storage arwxt
 mobileprint system::homedir arwxt
 mobileprint system::media arwxt
 mobileprint system::privilege_control::db arwxt
@@ -9460,6 +9502,7 @@ msg-service syslogd arwxt
 msg-service syspopup arwxt
 msg-service syspopup::db arwxt
 msg-service system::clipboard arwxt
+msg-service system::ext_storage arwxt
 msg-service system::homedir arwxt
 msg-service system::media arwxt
 msg-service system::privilege_control::db arwxt
@@ -9681,6 +9724,7 @@ net-config syslogd arwxt
 net-config syspopup arwxt
 net-config syspopup::db arwxt
 net-config system::clipboard arwxt
+net-config system::ext_storage arwxt
 net-config system::homedir arwxt
 net-config system::media arwxt
 net-config system::privilege_control::db arwxt
@@ -9902,6 +9946,7 @@ net.wifi-qs syslogd arwxt
 net.wifi-qs syspopup arwxt
 net.wifi-qs syspopup::db arwxt
 net.wifi-qs system::clipboard arwxt
+net.wifi-qs system::ext_storage arwxt
 net.wifi-qs system::homedir arwxt
 net.wifi-qs system::media arwxt
 net.wifi-qs system::privilege_control::db arwxt
@@ -10123,6 +10168,7 @@ nfc-manager syslogd arwxt
 nfc-manager syspopup arwxt
 nfc-manager syspopup::db arwxt
 nfc-manager system::clipboard arwxt
+nfc-manager system::ext_storage arwxt
 nfc-manager system::homedir arwxt
 nfc-manager system::media arwxt
 nfc-manager system::privilege_control::db arwxt
@@ -10344,6 +10390,7 @@ notification syslogd arwxt
 notification syspopup arwxt
 notification syspopup::db arwxt
 notification system::clipboard arwxt
+notification system::ext_storage arwxt
 notification system::homedir arwxt
 notification system::media arwxt
 notification system::privilege_control::db arwxt
@@ -10565,6 +10612,7 @@ obexd syslogd arwxt
 obexd syspopup arwxt
 obexd syspopup::db arwxt
 obexd system::clipboard arwxt
+obexd system::ext_storage arwxt
 obexd system::homedir arwxt
 obexd system::media arwxt
 obexd system::privilege_control::db arwxt
@@ -10786,6 +10834,7 @@ oma-dm-agent syslogd arwxt
 oma-dm-agent syspopup arwxt
 oma-dm-agent syspopup::db arwxt
 oma-dm-agent system::clipboard arwxt
+oma-dm-agent system::ext_storage arwxt
 oma-dm-agent system::homedir arwxt
 oma-dm-agent system::media arwxt
 oma-dm-agent system::privilege_control::db arwxt
@@ -11007,6 +11056,7 @@ oma-ds-agent syslogd arwxt
 oma-ds-agent syspopup arwxt
 oma-ds-agent syspopup::db arwxt
 oma-ds-agent system::clipboard arwxt
+oma-ds-agent system::ext_storage arwxt
 oma-ds-agent system::homedir arwxt
 oma-ds-agent system::media arwxt
 oma-ds-agent system::privilege_control::db arwxt
@@ -11228,6 +11278,7 @@ org.tizen.app-selector syslogd arwxt
 org.tizen.app-selector syspopup arwxt
 org.tizen.app-selector syspopup::db arwxt
 org.tizen.app-selector system::clipboard arwxt
+org.tizen.app-selector system::ext_storage arwxt
 org.tizen.app-selector system::homedir arwxt
 org.tizen.app-selector system::media arwxt
 org.tizen.app-selector system::privilege_control::db arwxt
@@ -11449,6 +11500,7 @@ org.tizen.bluetooth-share-ui syslogd arwxt
 org.tizen.bluetooth-share-ui syspopup arwxt
 org.tizen.bluetooth-share-ui syspopup::db arwxt
 org.tizen.bluetooth-share-ui system::clipboard arwxt
+org.tizen.bluetooth-share-ui system::ext_storage arwxt
 org.tizen.bluetooth-share-ui system::homedir arwxt
 org.tizen.bluetooth-share-ui system::media arwxt
 org.tizen.bluetooth-share-ui system::privilege_control::db arwxt
@@ -11670,6 +11722,7 @@ org.tizen.browser syslogd arwxt
 org.tizen.browser syspopup arwxt
 org.tizen.browser syspopup::db arwxt
 org.tizen.browser system::clipboard arwxt
+org.tizen.browser system::ext_storage arwxt
 org.tizen.browser system::homedir arwxt
 org.tizen.browser system::media arwxt
 org.tizen.browser system::privilege_control::db arwxt
@@ -11891,6 +11944,7 @@ org.tizen.bt-syspopup syslogd arwxt
 org.tizen.bt-syspopup syspopup arwxt
 org.tizen.bt-syspopup syspopup::db arwxt
 org.tizen.bt-syspopup system::clipboard arwxt
+org.tizen.bt-syspopup system::ext_storage arwxt
 org.tizen.bt-syspopup system::homedir arwxt
 org.tizen.bt-syspopup system::media arwxt
 org.tizen.bt-syspopup system::privilege_control::db arwxt
@@ -12112,6 +12166,7 @@ org.tizen.calculator syslogd arwxt
 org.tizen.calculator syspopup arwxt
 org.tizen.calculator syspopup::db arwxt
 org.tizen.calculator system::clipboard arwxt
+org.tizen.calculator system::ext_storage arwxt
 org.tizen.calculator system::homedir arwxt
 org.tizen.calculator system::media arwxt
 org.tizen.calculator system::privilege_control::db arwxt
@@ -12333,6 +12388,7 @@ org.tizen.calendar syslogd arwxt
 org.tizen.calendar syspopup arwxt
 org.tizen.calendar syspopup::db arwxt
 org.tizen.calendar system::clipboard arwxt
+org.tizen.calendar system::ext_storage arwxt
 org.tizen.calendar system::homedir arwxt
 org.tizen.calendar system::media arwxt
 org.tizen.calendar system::privilege_control::db arwxt
@@ -12554,6 +12610,7 @@ org.tizen.call syslogd arwxt
 org.tizen.call syspopup arwxt
 org.tizen.call syspopup::db arwxt
 org.tizen.call system::clipboard arwxt
+org.tizen.call system::ext_storage arwxt
 org.tizen.call system::homedir arwxt
 org.tizen.call system::media arwxt
 org.tizen.call system::privilege_control::db arwxt
@@ -12775,6 +12832,7 @@ org.tizen.camera-app syslogd arwxt
 org.tizen.camera-app syspopup arwxt
 org.tizen.camera-app syspopup::db arwxt
 org.tizen.camera-app system::clipboard arwxt
+org.tizen.camera-app system::ext_storage arwxt
 org.tizen.camera-app system::homedir arwxt
 org.tizen.camera-app system::media arwxt
 org.tizen.camera-app system::privilege_control::db arwxt
@@ -12996,6 +13054,7 @@ org.tizen.clock syslogd arwxt
 org.tizen.clock syspopup arwxt
 org.tizen.clock syspopup::db arwxt
 org.tizen.clock system::clipboard arwxt
+org.tizen.clock system::ext_storage arwxt
 org.tizen.clock system::homedir arwxt
 org.tizen.clock system::media arwxt
 org.tizen.clock system::privilege_control::db arwxt
@@ -13217,6 +13276,7 @@ org.tizen.contacts syslogd arwxt
 org.tizen.contacts syspopup arwxt
 org.tizen.contacts syspopup::db arwxt
 org.tizen.contacts system::clipboard arwxt
+org.tizen.contacts system::ext_storage arwxt
 org.tizen.contacts system::homedir arwxt
 org.tizen.contacts system::media arwxt
 org.tizen.contacts system::privilege_control::db arwxt
@@ -13438,6 +13498,7 @@ org.tizen.contacts-viewer syslogd arwxt
 org.tizen.contacts-viewer syspopup arwxt
 org.tizen.contacts-viewer syspopup::db arwxt
 org.tizen.contacts-viewer system::clipboard arwxt
+org.tizen.contacts-viewer system::ext_storage arwxt
 org.tizen.contacts-viewer system::homedir arwxt
 org.tizen.contacts-viewer system::media arwxt
 org.tizen.contacts-viewer system::privilege_control::db arwxt
@@ -13659,6 +13720,7 @@ org.tizen.crash-popup syslogd arwxt
 org.tizen.crash-popup syspopup arwxt
 org.tizen.crash-popup syspopup::db arwxt
 org.tizen.crash-popup system::clipboard arwxt
+org.tizen.crash-popup system::ext_storage arwxt
 org.tizen.crash-popup system::homedir arwxt
 org.tizen.crash-popup system::media arwxt
 org.tizen.crash-popup system::privilege_control::db arwxt
@@ -13880,6 +13942,7 @@ org.tizen.data-provider-slave syslogd arwxt
 org.tizen.data-provider-slave syspopup arwxt
 org.tizen.data-provider-slave syspopup::db arwxt
 org.tizen.data-provider-slave system::clipboard arwxt
+org.tizen.data-provider-slave system::ext_storage arwxt
 org.tizen.data-provider-slave system::homedir arwxt
 org.tizen.data-provider-slave system::media arwxt
 org.tizen.data-provider-slave system::privilege_control::db arwxt
@@ -14101,6 +14164,7 @@ org.tizen.download-manager syslogd arwxt
 org.tizen.download-manager syspopup arwxt
 org.tizen.download-manager syspopup::db arwxt
 org.tizen.download-manager system::clipboard arwxt
+org.tizen.download-manager system::ext_storage arwxt
 org.tizen.download-manager system::homedir arwxt
 org.tizen.download-manager system::media arwxt
 org.tizen.download-manager system::privilege_control::db arwxt
@@ -14322,6 +14386,7 @@ org.tizen.email syslogd arwxt
 org.tizen.email syspopup arwxt
 org.tizen.email syspopup::db arwxt
 org.tizen.email system::clipboard arwxt
+org.tizen.email system::ext_storage arwxt
 org.tizen.email system::homedir arwxt
 org.tizen.email system::media arwxt
 org.tizen.email system::privilege_control::db arwxt
@@ -14543,6 +14608,7 @@ org.tizen.gallery syslogd arwxt
 org.tizen.gallery syspopup arwxt
 org.tizen.gallery syspopup::db arwxt
 org.tizen.gallery system::clipboard arwxt
+org.tizen.gallery system::ext_storage arwxt
 org.tizen.gallery system::homedir arwxt
 org.tizen.gallery system::media arwxt
 org.tizen.gallery system::privilege_control::db arwxt
@@ -14764,6 +14830,7 @@ org.tizen.image-viewer syslogd arwxt
 org.tizen.image-viewer syspopup arwxt
 org.tizen.image-viewer syspopup::db arwxt
 org.tizen.image-viewer system::clipboard arwxt
+org.tizen.image-viewer system::ext_storage arwxt
 org.tizen.image-viewer system::homedir arwxt
 org.tizen.image-viewer system::media arwxt
 org.tizen.image-viewer system::privilege_control::db arwxt
@@ -14985,6 +15052,7 @@ org.tizen.indicator syslogd arwxt
 org.tizen.indicator syspopup arwxt
 org.tizen.indicator syspopup::db arwxt
 org.tizen.indicator system::clipboard arwxt
+org.tizen.indicator system::ext_storage arwxt
 org.tizen.indicator system::homedir arwxt
 org.tizen.indicator system::media arwxt
 org.tizen.indicator system::privilege_control::db arwxt
@@ -15206,6 +15274,7 @@ org.tizen.lockscreen syslogd arwxt
 org.tizen.lockscreen syspopup arwxt
 org.tizen.lockscreen syspopup::db arwxt
 org.tizen.lockscreen system::clipboard arwxt
+org.tizen.lockscreen system::ext_storage arwxt
 org.tizen.lockscreen system::homedir arwxt
 org.tizen.lockscreen system::media arwxt
 org.tizen.lockscreen system::privilege_control::db arwxt
@@ -15427,6 +15496,7 @@ org.tizen.lowbat-syspopup syslogd arwxt
 org.tizen.lowbat-syspopup syspopup arwxt
 org.tizen.lowbat-syspopup syspopup::db arwxt
 org.tizen.lowbat-syspopup system::clipboard arwxt
+org.tizen.lowbat-syspopup system::ext_storage arwxt
 org.tizen.lowbat-syspopup system::homedir arwxt
 org.tizen.lowbat-syspopup system::media arwxt
 org.tizen.lowbat-syspopup system::privilege_control::db arwxt
@@ -15648,6 +15718,7 @@ org.tizen.lowmem-syspopup syslogd arwxt
 org.tizen.lowmem-syspopup syspopup arwxt
 org.tizen.lowmem-syspopup syspopup::db arwxt
 org.tizen.lowmem-syspopup system::clipboard arwxt
+org.tizen.lowmem-syspopup system::ext_storage arwxt
 org.tizen.lowmem-syspopup system::homedir arwxt
 org.tizen.lowmem-syspopup system::media arwxt
 org.tizen.lowmem-syspopup system::privilege_control::db arwxt
@@ -15869,6 +15940,7 @@ org.tizen.memo syslogd arwxt
 org.tizen.memo syspopup arwxt
 org.tizen.memo syspopup::db arwxt
 org.tizen.memo system::clipboard arwxt
+org.tizen.memo system::ext_storage arwxt
 org.tizen.memo system::homedir arwxt
 org.tizen.memo system::media arwxt
 org.tizen.memo system::privilege_control::db arwxt
@@ -16090,6 +16162,7 @@ org.tizen.menu-screen syslogd arwxt
 org.tizen.menu-screen syspopup arwxt
 org.tizen.menu-screen syspopup::db arwxt
 org.tizen.menu-screen system::clipboard arwxt
+org.tizen.menu-screen system::ext_storage arwxt
 org.tizen.menu-screen system::homedir arwxt
 org.tizen.menu-screen system::media arwxt
 org.tizen.menu-screen system::privilege_control::db arwxt
@@ -16311,6 +16384,7 @@ org.tizen.message syslogd arwxt
 org.tizen.message syspopup arwxt
 org.tizen.message syspopup::db arwxt
 org.tizen.message system::clipboard arwxt
+org.tizen.message system::ext_storage arwxt
 org.tizen.message system::homedir arwxt
 org.tizen.message system::media arwxt
 org.tizen.message system::privilege_control::db arwxt
@@ -16532,6 +16606,7 @@ org.tizen.music-player syslogd arwxt
 org.tizen.music-player syspopup arwxt
 org.tizen.music-player syspopup::db arwxt
 org.tizen.music-player system::clipboard arwxt
+org.tizen.music-player system::ext_storage arwxt
 org.tizen.music-player system::homedir arwxt
 org.tizen.music-player system::media arwxt
 org.tizen.music-player system::privilege_control::db arwxt
@@ -16753,6 +16828,7 @@ org.tizen.myfile syslogd arwxt
 org.tizen.myfile syspopup arwxt
 org.tizen.myfile syspopup::db arwxt
 org.tizen.myfile system::clipboard arwxt
+org.tizen.myfile system::ext_storage arwxt
 org.tizen.myfile system::homedir arwxt
 org.tizen.myfile system::media arwxt
 org.tizen.myfile system::privilege_control::db arwxt
@@ -16974,6 +17050,7 @@ org.tizen.net-popup syslogd arwxt
 org.tizen.net-popup syspopup arwxt
 org.tizen.net-popup syspopup::db arwxt
 org.tizen.net-popup system::clipboard arwxt
+org.tizen.net-popup system::ext_storage arwxt
 org.tizen.net-popup system::homedir arwxt
 org.tizen.net-popup system::media arwxt
 org.tizen.net-popup system::privilege_control::db arwxt
@@ -17195,6 +17272,7 @@ org.tizen.phone syslogd arwxt
 org.tizen.phone syspopup arwxt
 org.tizen.phone syspopup::db arwxt
 org.tizen.phone system::clipboard arwxt
+org.tizen.phone system::ext_storage arwxt
 org.tizen.phone system::homedir arwxt
 org.tizen.phone system::media arwxt
 org.tizen.phone system::privilege_control::db arwxt
@@ -17416,6 +17494,7 @@ org.tizen.poweroff-syspopup syslogd arwxt
 org.tizen.poweroff-syspopup syspopup arwxt
 org.tizen.poweroff-syspopup syspopup::db arwxt
 org.tizen.poweroff-syspopup system::clipboard arwxt
+org.tizen.poweroff-syspopup system::ext_storage arwxt
 org.tizen.poweroff-syspopup system::homedir arwxt
 org.tizen.poweroff-syspopup system::media arwxt
 org.tizen.poweroff-syspopup system::privilege_control::db arwxt
@@ -17637,6 +17716,7 @@ org.tizen.pwlock syslogd arwxt
 org.tizen.pwlock syspopup arwxt
 org.tizen.pwlock syspopup::db arwxt
 org.tizen.pwlock system::clipboard arwxt
+org.tizen.pwlock system::ext_storage arwxt
 org.tizen.pwlock system::homedir arwxt
 org.tizen.pwlock system::media arwxt
 org.tizen.pwlock system::privilege_control::db arwxt
@@ -17858,6 +17938,7 @@ org.tizen.quickpanel syslogd arwxt
 org.tizen.quickpanel syspopup arwxt
 org.tizen.quickpanel syspopup::db arwxt
 org.tizen.quickpanel system::clipboard arwxt
+org.tizen.quickpanel system::ext_storage arwxt
 org.tizen.quickpanel system::homedir arwxt
 org.tizen.quickpanel system::media arwxt
 org.tizen.quickpanel system::privilege_control::db arwxt
@@ -18079,6 +18160,7 @@ org.tizen.setting syslogd arwxt
 org.tizen.setting syspopup arwxt
 org.tizen.setting syspopup::db arwxt
 org.tizen.setting system::clipboard arwxt
+org.tizen.setting system::ext_storage arwxt
 org.tizen.setting system::homedir arwxt
 org.tizen.setting system::media arwxt
 org.tizen.setting system::privilege_control::db arwxt
@@ -18300,6 +18382,7 @@ org.tizen.smartsearch syslogd arwxt
 org.tizen.smartsearch syspopup arwxt
 org.tizen.smartsearch syspopup::db arwxt
 org.tizen.smartsearch system::clipboard arwxt
+org.tizen.smartsearch system::ext_storage arwxt
 org.tizen.smartsearch system::homedir arwxt
 org.tizen.smartsearch system::media arwxt
 org.tizen.smartsearch system::privilege_control::db arwxt
@@ -18521,6 +18604,7 @@ org.tizen.taskmgr syslogd arwxt
 org.tizen.taskmgr syspopup arwxt
 org.tizen.taskmgr syspopup::db arwxt
 org.tizen.taskmgr system::clipboard arwxt
+org.tizen.taskmgr system::ext_storage arwxt
 org.tizen.taskmgr system::homedir arwxt
 org.tizen.taskmgr system::media arwxt
 org.tizen.taskmgr system::privilege_control::db arwxt
@@ -18742,6 +18826,7 @@ org.tizen.usb-syspopup syslogd arwxt
 org.tizen.usb-syspopup syspopup arwxt
 org.tizen.usb-syspopup syspopup::db arwxt
 org.tizen.usb-syspopup system::clipboard arwxt
+org.tizen.usb-syspopup system::ext_storage arwxt
 org.tizen.usb-syspopup system::homedir arwxt
 org.tizen.usb-syspopup system::media arwxt
 org.tizen.usb-syspopup system::privilege_control::db arwxt
@@ -18963,6 +19048,7 @@ org.tizen.video-player syslogd arwxt
 org.tizen.video-player syspopup arwxt
 org.tizen.video-player syspopup::db arwxt
 org.tizen.video-player system::clipboard arwxt
+org.tizen.video-player system::ext_storage arwxt
 org.tizen.video-player system::homedir arwxt
 org.tizen.video-player system::media arwxt
 org.tizen.video-player system::privilege_control::db arwxt
@@ -19184,6 +19270,7 @@ org.tizen.volume syslogd arwxt
 org.tizen.volume syspopup arwxt
 org.tizen.volume syspopup::db arwxt
 org.tizen.volume system::clipboard arwxt
+org.tizen.volume system::ext_storage arwxt
 org.tizen.volume system::homedir arwxt
 org.tizen.volume system::media arwxt
 org.tizen.volume system::privilege_control::db arwxt
@@ -19405,6 +19492,7 @@ osp-installer syslogd arwxt
 osp-installer syspopup arwxt
 osp-installer syspopup::db arwxt
 osp-installer system::clipboard arwxt
+osp-installer system::ext_storage arwxt
 osp-installer system::homedir arwxt
 osp-installer system::media arwxt
 osp-installer system::privilege_control::db arwxt
@@ -19626,6 +19714,7 @@ pkgmgr syslogd arwxt
 pkgmgr syspopup arwxt
 pkgmgr syspopup::db arwxt
 pkgmgr system::clipboard arwxt
+pkgmgr system::ext_storage arwxt
 pkgmgr system::homedir arwxt
 pkgmgr system::media arwxt
 pkgmgr system::privilege_control::db arwxt
@@ -19847,6 +19936,7 @@ pkgmgr-client syslogd arwxt
 pkgmgr-client syspopup arwxt
 pkgmgr-client syspopup::db arwxt
 pkgmgr-client system::clipboard arwxt
+pkgmgr-client system::ext_storage arwxt
 pkgmgr-client system::homedir arwxt
 pkgmgr-client system::media arwxt
 pkgmgr-client system::privilege_control::db arwxt
@@ -20068,6 +20158,7 @@ pkgmgr-parser syslogd arwxt
 pkgmgr-parser syspopup arwxt
 pkgmgr-parser syspopup::db arwxt
 pkgmgr-parser system::clipboard arwxt
+pkgmgr-parser system::ext_storage arwxt
 pkgmgr-parser system::homedir arwxt
 pkgmgr-parser system::media arwxt
 pkgmgr-parser system::privilege_control::db arwxt
@@ -20289,6 +20380,7 @@ pkgmgr-server syslogd arwxt
 pkgmgr-server syspopup arwxt
 pkgmgr-server syspopup::db arwxt
 pkgmgr-server system::clipboard arwxt
+pkgmgr-server system::ext_storage arwxt
 pkgmgr-server system::homedir arwxt
 pkgmgr-server system::media arwxt
 pkgmgr-server system::privilege_control::db arwxt
@@ -20510,6 +20602,7 @@ pulseaudio syslogd arwxt
 pulseaudio syspopup arwxt
 pulseaudio syspopup::db arwxt
 pulseaudio system::clipboard arwxt
+pulseaudio system::ext_storage arwxt
 pulseaudio system::homedir arwxt
 pulseaudio system::media arwxt
 pulseaudio system::privilege_control::db arwxt
@@ -20731,6 +20824,7 @@ push-service syslogd arwxt
 push-service syspopup arwxt
 push-service syspopup::db arwxt
 push-service system::clipboard arwxt
+push-service system::ext_storage arwxt
 push-service system::homedir arwxt
 push-service system::media arwxt
 push-service system::privilege_control::db arwxt
@@ -20952,6 +21046,7 @@ q7097a278m syslogd arwxt
 q7097a278m syspopup arwxt
 q7097a278m syspopup::db arwxt
 q7097a278m system::clipboard arwxt
+q7097a278m system::ext_storage arwxt
 q7097a278m system::homedir arwxt
 q7097a278m system::media arwxt
 q7097a278m system::privilege_control::db arwxt
@@ -21173,6 +21268,7 @@ sdbd syslogd arwxt
 sdbd syspopup arwxt
 sdbd syspopup::db arwxt
 sdbd system::clipboard arwxt
+sdbd system::ext_storage arwxt
 sdbd system::homedir arwxt
 sdbd system::media arwxt
 sdbd system::privilege_control::db arwxt
@@ -21394,6 +21490,7 @@ secure-storage syslogd arwxt
 secure-storage syspopup arwxt
 secure-storage syspopup::db arwxt
 secure-storage system::clipboard arwxt
+secure-storage system::ext_storage arwxt
 secure-storage system::homedir arwxt
 secure-storage system::media arwxt
 secure-storage system::privilege_control::db arwxt
@@ -21615,6 +21712,7 @@ sensor-framework syslogd arwxt
 sensor-framework syspopup arwxt
 sensor-framework syspopup::db arwxt
 sensor-framework system::clipboard arwxt
+sensor-framework system::ext_storage arwxt
 sensor-framework system::homedir arwxt
 sensor-framework system::media arwxt
 sensor-framework system::privilege_control::db arwxt
@@ -21836,6 +21934,7 @@ sjjevolsjk syslogd arwxt
 sjjevolsjk syspopup arwxt
 sjjevolsjk syspopup::db arwxt
 sjjevolsjk system::clipboard arwxt
+sjjevolsjk system::ext_storage arwxt
 sjjevolsjk system::homedir arwxt
 sjjevolsjk system::media arwxt
 sjjevolsjk system::privilege_control::db arwxt
@@ -22057,6 +22156,7 @@ smartcard-service syslogd arwxt
 smartcard-service syspopup arwxt
 smartcard-service syspopup::db arwxt
 smartcard-service system::clipboard arwxt
+smartcard-service system::ext_storage arwxt
 smartcard-service system::homedir arwxt
 smartcard-service system::media arwxt
 smartcard-service system::privilege_control::db arwxt
@@ -22278,6 +22378,7 @@ sound_server syslogd arwxt
 sound_server syspopup arwxt
 sound_server syspopup::db arwxt
 sound_server system::clipboard arwxt
+sound_server system::ext_storage arwxt
 sound_server system::homedir arwxt
 sound_server system::media arwxt
 sound_server system::privilege_control::db arwxt
@@ -22499,6 +22600,7 @@ sqlfs syslogd arwxt
 sqlfs syspopup arwxt
 sqlfs syspopup::db arwxt
 sqlfs system::clipboard arwxt
+sqlfs system::ext_storage arwxt
 sqlfs system::homedir arwxt
 sqlfs system::media arwxt
 sqlfs system::privilege_control::db arwxt
@@ -22720,6 +22822,7 @@ starter syslogd arwxt
 starter syspopup arwxt
 starter syspopup::db arwxt
 starter system::clipboard arwxt
+starter system::ext_storage arwxt
 starter system::homedir arwxt
 starter system::media arwxt
 starter system::privilege_control::db arwxt
@@ -22941,6 +23044,7 @@ stt-server syslogd arwxt
 stt-server syspopup arwxt
 stt-server syspopup::db arwxt
 stt-server system::clipboard arwxt
+stt-server system::ext_storage arwxt
 stt-server system::homedir arwxt
 stt-server system::media arwxt
 stt-server system::privilege_control::db arwxt
@@ -23162,6 +23266,7 @@ svi-data syslogd arwxt
 svi-data syspopup arwxt
 svi-data syspopup::db arwxt
 svi-data system::clipboard arwxt
+svi-data system::ext_storage arwxt
 svi-data system::homedir arwxt
 svi-data system::media arwxt
 svi-data system::privilege_control::db arwxt
@@ -23383,6 +23488,7 @@ sys-assert syslogd arwxt
 sys-assert syspopup arwxt
 sys-assert syspopup::db arwxt
 sys-assert system::clipboard arwxt
+sys-assert system::ext_storage arwxt
 sys-assert system::homedir arwxt
 sys-assert system::media arwxt
 sys-assert system::privilege_control::db arwxt
@@ -23604,6 +23710,7 @@ syslogd sys-assert::core arwxt
 syslogd syspopup arwxt
 syslogd syspopup::db arwxt
 syslogd system::clipboard arwxt
+syslogd system::ext_storage arwxt
 syslogd system::homedir arwxt
 syslogd system::media arwxt
 syslogd system::privilege_control::db arwxt
@@ -23825,6 +23932,7 @@ syspopup sys-assert::core arwxt
 syspopup syslogd arwxt
 syspopup syspopup::db arwxt
 syspopup system::clipboard arwxt
+syspopup system::ext_storage arwxt
 syspopup system::homedir arwxt
 syspopup system::media arwxt
 syspopup system::privilege_control::db arwxt
@@ -24047,6 +24155,7 @@ system::use_internet syslogd arwxt
 system::use_internet syspopup arwxt
 system::use_internet syspopup::db arwxt
 system::use_internet system::clipboard arwxt
+system::use_internet system::ext_storage arwxt
 system::use_internet system::homedir arwxt
 system::use_internet system::media arwxt
 system::use_internet system::privilege_control::db arwxt
@@ -24268,6 +24377,7 @@ telephony_framework syslogd arwxt
 telephony_framework syspopup arwxt
 telephony_framework syspopup::db arwxt
 telephony_framework system::clipboard arwxt
+telephony_framework system::ext_storage arwxt
 telephony_framework system::homedir arwxt
 telephony_framework system::media arwxt
 telephony_framework system::privilege_control::db arwxt
@@ -24489,6 +24599,7 @@ tizenprv00.privacy-popup syslogd arwxt
 tizenprv00.privacy-popup syspopup arwxt
 tizenprv00.privacy-popup syspopup::db arwxt
 tizenprv00.privacy-popup system::clipboard arwxt
+tizenprv00.privacy-popup system::ext_storage arwxt
 tizenprv00.privacy-popup system::homedir arwxt
 tizenprv00.privacy-popup system::media arwxt
 tizenprv00.privacy-popup system::privilege_control::db arwxt
@@ -24710,6 +24821,7 @@ tts-server syslogd arwxt
 tts-server syspopup arwxt
 tts-server syspopup::db arwxt
 tts-server system::clipboard arwxt
+tts-server system::ext_storage arwxt
 tts-server system::homedir arwxt
 tts-server system::media arwxt
 tts-server system::privilege_control::db arwxt
@@ -24931,6 +25043,7 @@ ug-camera-efl syslogd arwxt
 ug-camera-efl syspopup arwxt
 ug-camera-efl syspopup::db arwxt
 ug-camera-efl system::clipboard arwxt
+ug-camera-efl system::ext_storage arwxt
 ug-camera-efl system::homedir arwxt
 ug-camera-efl system::media arwxt
 ug-camera-efl system::privilege_control::db arwxt
@@ -25152,6 +25265,7 @@ ug-image-viewer-efl syslogd arwxt
 ug-image-viewer-efl syspopup arwxt
 ug-image-viewer-efl syspopup::db arwxt
 ug-image-viewer-efl system::clipboard arwxt
+ug-image-viewer-efl system::ext_storage arwxt
 ug-image-viewer-efl system::homedir arwxt
 ug-image-viewer-efl system::media arwxt
 ug-image-viewer-efl system::privilege_control::db arwxt
@@ -25373,6 +25487,7 @@ ug-worldclock-efl syslogd arwxt
 ug-worldclock-efl syspopup arwxt
 ug-worldclock-efl syspopup::db arwxt
 ug-worldclock-efl system::clipboard arwxt
+ug-worldclock-efl system::ext_storage arwxt
 ug-worldclock-efl system::homedir arwxt
 ug-worldclock-efl system::media arwxt
 ug-worldclock-efl system::privilege_control::db arwxt
@@ -25594,6 +25709,7 @@ ug_bluetooth syslogd arwxt
 ug_bluetooth syspopup arwxt
 ug_bluetooth syspopup::db arwxt
 ug_bluetooth system::clipboard arwxt
+ug_bluetooth system::ext_storage arwxt
 ug_bluetooth system::homedir arwxt
 ug_bluetooth system::media arwxt
 ug_bluetooth system::privilege_control::db arwxt
@@ -25815,6 +25931,7 @@ usb-server syslogd arwxt
 usb-server syspopup arwxt
 usb-server syspopup::db arwxt
 usb-server system::clipboard arwxt
+usb-server system::ext_storage arwxt
 usb-server system::homedir arwxt
 usb-server system::media arwxt
 usb-server system::privilege_control::db arwxt
@@ -26036,6 +26153,7 @@ webkit2-efl syslogd arwxt
 webkit2-efl syspopup arwxt
 webkit2-efl syspopup::db arwxt
 webkit2-efl system::clipboard arwxt
+webkit2-efl system::ext_storage arwxt
 webkit2-efl system::homedir arwxt
 webkit2-efl system::media arwxt
 webkit2-efl system::privilege_control::db arwxt
@@ -26257,6 +26375,7 @@ wifi_direct_manager syslogd arwxt
 wifi_direct_manager syspopup arwxt
 wifi_direct_manager syspopup::db arwxt
 wifi_direct_manager system::clipboard arwxt
+wifi_direct_manager system::ext_storage arwxt
 wifi_direct_manager system::homedir arwxt
 wifi_direct_manager system::media arwxt
 wifi_direct_manager system::privilege_control::db arwxt
@@ -26478,6 +26597,7 @@ wpasupplicant syslogd arwxt
 wpasupplicant syspopup arwxt
 wpasupplicant syspopup::db arwxt
 wpasupplicant system::clipboard arwxt
+wpasupplicant system::ext_storage arwxt
 wpasupplicant system::homedir arwxt
 wpasupplicant system::media arwxt
 wpasupplicant system::privilege_control::db arwxt
@@ -26699,6 +26819,7 @@ wrt-popup-ace-runtime syslogd arwxt
 wrt-popup-ace-runtime syspopup arwxt
 wrt-popup-ace-runtime syspopup::db arwxt
 wrt-popup-ace-runtime system::clipboard arwxt
+wrt-popup-ace-runtime system::ext_storage arwxt
 wrt-popup-ace-runtime system::homedir arwxt
 wrt-popup-ace-runtime system::media arwxt
 wrt-popup-ace-runtime system::privilege_control::db arwxt
@@ -26920,6 +27041,7 @@ wrt-popup-wrt-runtime syslogd arwxt
 wrt-popup-wrt-runtime syspopup arwxt
 wrt-popup-wrt-runtime syspopup::db arwxt
 wrt-popup-wrt-runtime system::clipboard arwxt
+wrt-popup-wrt-runtime system::ext_storage arwxt
 wrt-popup-wrt-runtime system::homedir arwxt
 wrt-popup-wrt-runtime system::media arwxt
 wrt-popup-wrt-runtime system::privilege_control::db arwxt
@@ -27141,6 +27263,7 @@ wrt-security-daemon syslogd arwxt
 wrt-security-daemon syspopup arwxt
 wrt-security-daemon syspopup::db arwxt
 wrt-security-daemon system::clipboard arwxt
+wrt-security-daemon system::ext_storage arwxt
 wrt-security-daemon system::homedir arwxt
 wrt-security-daemon system::media arwxt
 wrt-security-daemon system::privilege_control::db arwxt
@@ -27362,6 +27485,7 @@ wrt::wrt-launcher syslogd arwxt
 wrt::wrt-launcher syspopup arwxt
 wrt::wrt-launcher syspopup::db arwxt
 wrt::wrt-launcher system::clipboard arwxt
+wrt::wrt-launcher system::ext_storage arwxt
 wrt::wrt-launcher system::homedir arwxt
 wrt::wrt-launcher system::media arwxt
 wrt::wrt-launcher system::privilege_control::db arwxt
@@ -27583,6 +27707,7 @@ wrt_launchpad_daemon syslogd arwxt
 wrt_launchpad_daemon syspopup arwxt
 wrt_launchpad_daemon syspopup::db arwxt
 wrt_launchpad_daemon system::clipboard arwxt
+wrt_launchpad_daemon system::ext_storage arwxt
 wrt_launchpad_daemon system::homedir arwxt
 wrt_launchpad_daemon system::media arwxt
 wrt_launchpad_daemon system::privilege_control::db arwxt
@@ -27804,6 +27929,7 @@ xorg syslogd arwxt
 xorg syspopup arwxt
 xorg syspopup::db arwxt
 xorg system::clipboard arwxt
+xorg system::ext_storage arwxt
 xorg system::homedir arwxt
 xorg system::media arwxt
 xorg system::privilege_control::db arwxt
