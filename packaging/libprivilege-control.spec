@@ -87,6 +87,7 @@ fi
 
 
 %files
+%manifest %{name}.manifest
 %{_libdir}/*.so.*
 %{_bindir}/slp-su
 %{_datarootdir}/privilege-control/*
@@ -95,6 +96,7 @@ fi
 %{_datadir}/license/%{name}
 
 %files conf
+%manifest %{name}.manifest
 /etc/group
 /etc/passwd
 /opt/etc/smack/*
@@ -105,6 +107,7 @@ fi
 /opt/dbspace/.privilege_control*.db
 
 %files devel
+%manifest %{name}.manifest
 %{_includedir}/*.h
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
