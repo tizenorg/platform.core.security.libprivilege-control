@@ -1635,7 +1635,9 @@ static int app_uninstall_remove_early_rules(const char *app_id)
 
 out:
 
-	sem_post(sem);
+	if (sem)
+		sem_post(sem);
+	// Should we check unlink?
 	sem_unlink(PRIVILEGE_CONTROL_UNINSTALL_SEM);
 	return ret;
 }
