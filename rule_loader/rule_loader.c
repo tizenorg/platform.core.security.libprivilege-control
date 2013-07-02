@@ -64,6 +64,7 @@ error:
         free(installed_app_list);
     }
 
-    fclose(log_file);
+    if (log_file)
+        fclose(log_file);
     return ret;
 }
