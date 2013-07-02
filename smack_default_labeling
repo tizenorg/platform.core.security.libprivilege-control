@@ -41,11 +41,11 @@ chown 5000:5000 /home/app
 #chsmack -a '*' /sys/class/camera/flash/rear_flash
 #chsmack -a '*' /sys/class/camera/flash/max_brightness
 
-echo "0.0.0.0/1 system::use_internet" >> /smack/netlabel
-echo "128.0.0.0/1 system::use_internet" >> /smack/netlabel
-echo "127.0.0.1 -CIPSO" >> /smack/netlabel
-echo "192.168.129.1 @" >> /smack/netlabel
-echo "system::use_internet" > /smack/ambient
+#echo "0.0.0.0/1 system::use_internet" >> /smack/netlabel
+#echo "128.0.0.0/1 system::use_internet" >> /smack/netlabel
+#echo "127.0.0.1 -CIPSO" >> /smack/netlabel
+#echo "192.168.129.1 @" >> /smack/netlabel
+#echo "system::use_internet" > /smack/ambient
 
 # Set label to database files
 #chsmack -a 'libaccounts-svc::db' $DBSPACE/.account.db*

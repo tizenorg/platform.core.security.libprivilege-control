@@ -104,7 +104,7 @@ fi
 %attr(755,root,root) /etc/rc.d/*
 /usr/lib/systemd/system/smack-default-labeling.service
 /usr/lib/systemd/system/basic.target.wants/smack-default-labeling.service
-%manifest %{_datadir}/%{name}-conf.manifest
+#%manifest %{_datadir}/%{name}-conf.manifest
 /opt/dbspace/.privilege_control*.db
 
 %files devel
