@@ -7,8 +7,9 @@ Release:    1
 Group:      System/Security
 License:    Apache 2.0
 Source0:    %{name}-%{version}.tar.gz
-Source1:    %{name}-conf.manifest
+#Source1:    %{name}-conf.manifest
 Source2:    smack-default-labeling.service
+Source1001: %{name}.manifest
 BuildRequires: cmake
 BuildRequires: pkgconfig(libsmack)
 BuildRequires: pkgconfig(dlog)
@@ -36,6 +37,7 @@ Library to control privilege of application files
 
 %prep
 %setup -q
+cp %{SOURCE1001} .
 
 %build
 export CFLAGS="${CFLAGS} -Wno-implicit-function-declaration"
@@ -53,7 +55,6 @@ mkdir -p %{buildroot}/etc
 mv %{buildroot}/opt/etc/passwd %{buildroot}/etc/passwd
 mv %{buildroot}/opt/etc/group %{buildroot}/etc/group
 
-cp -a %{SOURCE1} %{buildroot}%{_datadir}/
 install -D -d %{buildroot}/etc/rc.d/rc3.d/
 install -D -d %{buildroot}/etc/rc.d/rc4.d/
 ln -sf ../init.d/smack_default_labeling %{buildroot}/etc/rc.d/rc3.d/S45smack_default_labeling
