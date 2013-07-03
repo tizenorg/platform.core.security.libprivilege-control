@@ -28,7 +28,6 @@ Library to control privilege of application (devel)
 Summary:    Control privilege of application files
 Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
-Requires:   /usr/bin/chsmack
 
 %description conf
 Library to control privilege of application files
