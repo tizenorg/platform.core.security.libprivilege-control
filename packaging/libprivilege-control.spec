@@ -12,6 +12,7 @@ BuildRequires: libcap-devel
 BuildRequires: pkgconfig(libsmack)
 BuildRequires: pkgconfig(dlog)
 BuildRequires: pkgconfig(libiri)
+Requires: smack-privilege-config
 
 %description
 development package of library to control privilege of in-house application
@@ -47,7 +48,7 @@ make %{?jobs:-j%jobs}
 mkdir -p %{buildroot}/usr/lib/systemd/system/basic.target.wants
 install -m 644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/
 ln -s ../smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/
-mkdir -p %{buildroot}/usr/share/privilege-control/
+
 
 %post -p /sbin/ldconfig
 
@@ -64,12 +65,11 @@ fi
 %license LICENSE
 %{_libdir}/*.so.*
 %{_bindir}/slp-su
-%dir %{_datarootdir}/privilege-control
-%{_datarootdir}/privilege-control/*
+
 
 %files conf
 %manifest %{name}.manifest
-/opt/etc/smack/*
+
 /usr/lib/systemd/system/smack-default-labeling.service
 /usr/lib/systemd/system/basic.target.wants/smack-default-labeling.service
 /opt/dbspace/.privilege_control*.db
