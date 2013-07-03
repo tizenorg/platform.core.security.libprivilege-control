@@ -1,3 +1,0 @@
-~APP~ browser-provider::bookmark r
-~APP~ browser::db_external rw
-~APP~ org.tizen.browser::db_external rw

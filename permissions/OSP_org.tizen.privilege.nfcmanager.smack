@@ -1,5 +1,0 @@
-~APP~ nfc-manager rw
-~APP~ nfc-manager::admin w
-~APP~ nfc-manager::common w
-~APP~ nfc-manager::p2p rw
-~APP~ nfc-manager::tag w

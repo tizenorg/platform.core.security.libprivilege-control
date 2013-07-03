@@ -1,3 +1,0 @@
-~APP~ smartcard-service rwx
-~APP~ nfc-manager rwx
-nfc-manager ~APP~ rw
