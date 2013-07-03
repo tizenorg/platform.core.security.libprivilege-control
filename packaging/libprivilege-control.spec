@@ -14,6 +14,7 @@ BuildRequires: libcap-devel
 BuildRequires: pkgconfig(libsmack)
 BuildRequires: pkgconfig(dlog)
 BuildRequires: pkgconfig(libiri)
+Requires: smack-privilege-config
 
 %description
 development package of library to control privilege of in-house application
@@ -84,11 +85,6 @@ chmod 755 /home/app
 chown 5100:5100 /home/developer
 chmod 755 /home/developer
 
-if [ ! -e "/usr/share/privilege-control" ]
-then
-        mkdir -p /usr/share/privilege-control/
-fi
-
 
 if [ ! -e "/opt/etc/smack-app/accesses.d" ]
 then
@@ -98,7 +94,6 @@ fi
 %files
 %{_libdir}/*.so.*
 %{_bindir}/slp-su
-%{_datarootdir}/privilege-control/*
 #%{udev_libdir}/rules.d/*
 #%attr(755,root,root) %{udev_libdir}/uname_env
 %{_datadir}/license/%{name}
@@ -106,7 +101,6 @@ fi
 %files conf
 /etc/group
 /etc/passwd
-/opt/etc/smack/*
 %attr(755,root,root) /etc/rc.d/*
 /usr/lib/systemd/system/smack-default-labeling.service
 /usr/lib/systemd/system/basic.target.wants/smack-default-labeling.service

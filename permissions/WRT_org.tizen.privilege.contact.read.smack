@@ -1,3 +1,0 @@
-~APP~ contacts-service rwx
-contacts-service ~APP~ rw---
-~APP~ contacts-service::svc r

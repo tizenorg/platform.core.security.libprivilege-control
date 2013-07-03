@@ -1,5 +1,0 @@
-~APP~ email-service::db rw
-~APP~ system::media rwaxt
-~APP~ msg-service rwx
-~APP~ msg-service::write rw
-~APP~ msg-service::read rw

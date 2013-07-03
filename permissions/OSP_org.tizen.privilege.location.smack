@@ -1,3 +1,0 @@
-~APP~ mdm-server w
-~APP~ location_fw::dbus rw
-~APP~ location_fw::client rw
