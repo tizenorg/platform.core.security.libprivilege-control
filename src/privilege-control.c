@@ -376,7 +376,7 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 			goto error;
 		}
 
-		SECURE_LOGD("setenv(): USER = %s, HOME = %s", usr.user_name, usr.home_dir);
+		SECURE_SLOGD("setenv(): USER = %s, HOME = %s", usr.user_name, usr.home_dir);
 		if(setenv("USER", usr.user_name, 1) != 0)	//fail
 		{
 			C_LOGE("Failed to execute setenv() [USER].");
@@ -557,7 +557,7 @@ API int set_app_privilege(const char* name, const char* type, const char* path)/
 API int perm_app_set_privilege(const char* name, const char* type, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
-	SECURE_LOGD("Function params: name = %s, type = %s, path = %s", name, type, path);
+	SECURE_SLOGD("Function params: name = %s, type = %s, path = %s", name, type, path);
 	int ret = PC_OPERATION_SUCCESS;
 	int were_rules_loaded = 0;
 	char *smack_label AUTO_FREE;
@@ -836,7 +836,7 @@ static int perm_to_dac(const char* app_label, app_type_t app_type, const char* p
 	}
 
 	while (fscanf(file, "%d\n", &gid) == 1) {
-		SECURE_LOGD("Adding app_id %s to group %d", app_label, gid);
+		SECURE_SLOGD("Adding app_id %s to group %d", app_label, gid);
 		ret = add_app_gid(app_label, gid);
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("sadd_app_gid failed");
@@ -960,7 +960,7 @@ API char* perm_app_id_from_socket(int sockfd)
 		return NULL;
 	}
 
-	C_LOGD("app_id: %s", app_id);
+	SECURE_SLOGD("app_id: %s", app_id);
 
 	return app_id;
 }
@@ -1131,9 +1131,9 @@ static int register_app_for_av(const char * app_id)
 
 	// for each anti-virus label put rule: "anti_virus_label app_id rwx"
 	for (i = 0; i < smack_label_av_list_len; ++i) {
-		SECURE_LOGD("Antivirus: app_add_rule (%s, %s rx)", smack_label_av_list[i], app_id);
+		SECURE_SLOGD("Antivirus: app_add_rule (%s, %s rx)", smack_label_av_list[i], app_id);
 		if (strcmp(app_id, smack_label_av_list[i])==0) {
-			SECURE_LOGW("Trying to add antivirus rule for self. Skipping");
+			SECURE_SLOGW("Trying to add antivirus rule for self. Skipping");
 			continue;
 		}
 		ret = app_add_rule(smack_label_av_list[i], app_id, "wrx");
@@ -1178,12 +1178,12 @@ static int register_app_for_appsetting(const char *app_id)
 
 	/* for each appsetting put rule: "appsetting_id app_id rx"*/
 	for (i = 0; i < smack_label_list_len; ++i) {
-		SECURE_LOGD("Appsetting: app_add_rule (%s, %s rx)", smack_label_list[i], app_id);
+
+		SECURE_SLOGD("Appsetting: app_add_rule (%s, %s rx)", smack_label_list[i], app_id);
 		if (strcmp(app_id, smack_label_list[i])==0) {
-			SECURE_LOGW("Trying to add setting rule for self. Skipping");
+			SECURE_SLOGW("Trying to add setting rule for self. Skipping");
 			continue;
 		}
-
 		ret = app_add_rule(smack_label_list[i], app_id, "rx");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("app_add_rule failed");
@@ -1225,7 +1225,7 @@ static int register_app_for_public_dirs(const char *app_id, struct smack_accesse
 	}
 
 	for (i = 0; i < public_dirs_cnt; ++i) {
-		SECURE_LOGD("Allowing app %s to access public path %s", app_id, public_dirs[i]);
+		SECURE_SLOGD("Allowing app %s to access public path %s", app_id, public_dirs[i]);
 		if (smack_accesses_add_modify(smack, app_id, public_dirs[i], "rx", "")) {
 			C_LOGE("app_add_rule_modify failed");
 			while (i < public_dirs_cnt)
@@ -1273,7 +1273,7 @@ static int app_add_permissions_internal(const char* app_id, app_type_t app_type,
 	/* Implicitly enable base permission for an app_type */
 	base_perm = app_type_name(app_type);
 	if (base_perm) {
-		SECURE_LOGD("perm_to_smack params: app_id: %s, %s", app_id, base_perm);
+		SECURE_SLOGD("perm_to_smack params: app_id: %s, %s", app_id, base_perm);
 		ret = perm_to_smack(smack, app_id, APP_TYPE_OTHER, base_perm);
 		if (ret != PC_OPERATION_SUCCESS){
 			C_LOGE("perm_to_smack failed");
@@ -1281,7 +1281,7 @@ static int app_add_permissions_internal(const char* app_id, app_type_t app_type,
 		}
 
 		// Add early permission - such permissions should be enabled right after system boot
-		SECURE_LOGD("perm_to_smack params: app_id: %s, %s", app_id, base_perm);
+		SECURE_SLOGD("perm_to_smack params: app_id: %s, %s", app_id, base_perm);
 		ret = perm_to_smack_early(smack_early, app_id, APP_TYPE_OTHER, base_perm);
 		if (ret != PC_OPERATION_SUCCESS){
 			C_LOGE("perm_to_smack failed");
@@ -1290,7 +1290,7 @@ static int app_add_permissions_internal(const char* app_id, app_type_t app_type,
 
 	}
 	for (i = 0; perm_list[i] != NULL; ++i) {
-		SECURE_LOGD("perm_to_smack params: app_id: %s, perm_list[%d]: %s", app_id, i, perm_list[i]);
+		SECURE_SLOGD("perm_to_smack params: app_id: %s, perm_list[%d]: %s", app_id, i, perm_list[i]);
 		if (strcmp(perm_list[i], TIZEN_PRIVILEGE_ANTIVIRUS) == 0) {
 			ret = app_register_av_internal(app_id, smack);
 			if (ret != PC_OPERATION_SUCCESS) {
@@ -1790,7 +1790,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 	}
 
 	if (!smack_label_is_valid(pkg_id)) {
-		C_LOGE("Invalid app_id %s", pkg_id);
+		SECURE_SLOGE("Invalid app_id %s", pkg_id);
 		return PC_ERR_INVALID_PARAM;
 	}
 
@@ -1849,7 +1849,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 			return ret;
 
 		for (i = 0; i < app_ids_cnt; ++i) {
-			SECURE_LOGD("Allowing app %s to access public path %s", app_ids[i], path);
+			SECURE_SLOGD("Allowing app %s to access public path %s", app_ids[i], path);
 			ret = app_add_rule(app_ids[i], label, "rx");
 			if (ret != PC_OPERATION_SUCCESS) {
 				C_LOGE("smack_accesses_new failed");
@@ -2012,25 +2012,25 @@ API int perm_app_install(const char* pkg_id)
 
 	ret = add_app_id_to_databse(pkg_id);
 	if (ret != PC_OPERATION_SUCCESS ) {
-		SECURE_LOGE("Error while adding app %s to database: %s ", pkg_id, strerror(errno));
+		SECURE_SLOGE("Error while adding app %s to database: %s ", pkg_id, strerror(errno));
 		return ret;
 	}
 
 	ret = register_app_for_av(pkg_id);
 	if (ret != PC_OPERATION_SUCCESS) {
-		SECURE_LOGE("Error while adding rules for anti viruses to app %s: %s ", pkg_id, strerror(errno));
+		SECURE_SLOGE("Error while adding rules for anti viruses to app %s: %s ", pkg_id, strerror(errno));
 		return ret;
 	}
 
 	ret = register_app_for_appsetting(pkg_id);
 	if (ret != PC_OPERATION_SUCCESS) {
-		SECURE_LOGE("Error while adding rules for setting managers to app %s: %s ", pkg_id, strerror(errno));
+		SECURE_SLOGE("Error while adding rules for setting managers to app %s: %s ", pkg_id, strerror(errno));
 		return ret;
 	}
 
 	ret = register_app_for_public_dirs(pkg_id, smack);
 	if (ret != PC_OPERATION_SUCCESS) {
-		SECURE_LOGE("Error while adding rules for access to public dirs for app %s: %s ", pkg_id, strerror(errno));
+		SECURE_SLOGE("Error while adding rules for access to public dirs for app %s: %s ", pkg_id, strerror(errno));
 		return ret;
 	}
 
