@@ -9,6 +9,11 @@ chown 5000:5000 /home/app
 
 
 
+if [ ! -e /opt/etc/.pkg_smack ]; then
+	/usr/bin/pkg_smack
+	touch /opt/etc/.pkg_smack
+fi
+
 # set vconf label when first boot
 #if [ ! -e /opt/etc/.vconf_labeling ]; then
 #	touch /opt/etc/.vconf_labeling
