@@ -1,0 +1,8 @@
+Change-Id: I30828e454246be586360fe3cb8767c1099e52a9b
+Code-Review+2: Ryan Ware <ware@linux.intel.com>
+Verified+1: Ryan Ware <ware@linux.intel.com>
+Submitted-by: Ryan Ware <ware@linux.intel.com>
+Submitted-at: Mon, 08 Jul 2013 09:52:34 -0700
+Reviewed-on: https://review.tizen.org/gerrit/5140
+Project: platform/core/security/libprivilege-control
+Branch: refs/heads/tizen
