@@ -25,6 +25,8 @@
 #include <stdio.h>
 #include <dlog.h>
 #include <fts.h>
+#include <stdbool.h>
+#include <semaphore.h>
 
 #ifdef LOG_TAG
     #undef LOG_TAG
@@ -85,6 +87,28 @@ void fts_closep(FTS **f);
 #define AUTO_SMACK_FREE __attribute__ ((cleanup(smack_freep))) = NULL
 #define AUTO_FTS_CLOSE  __attribute__ ((cleanup(fts_closep)))   = NULL
 
+#define SMACK_RULES_DIR          "/opt/etc/smack-app/accesses.d/"
+
+/*
+ * TODO It should be a directory (/opt/etc/smack-app-early/accesses.d/) containing
+ * rules to be loaded for each privilege. In the beginning there will be only
+ * one file for all WRT apps.
+ */
+#define SMACK_STARTUP_RULES_FILE "/opt/etc/smack-app-early/accesses.d/WRT"
+#define SMACK_LOADED_APP_RULES   "/var/run/smack-app/"
+
+#define PRIVILEGE_CONTROL_UNINSTALL_SEM "privilege-control-app-uninstall-semaphore"
+
 int smack_label_is_valid(const char* smack_label);
+
+int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int *fd, char** path);
+int load_smack_from_file_early(const char* app_id, struct smack_accesses** smack, int *fd, char** path);
+int check_if_rules_were_loaded(const char *app_id);
+int add_app_first_run_rules(const char *app_id);
+void mark_rules_as_loaded(const char *app_id);
+int smack_mark_file_name(const char *app_id, char **path);
+bool file_exists(const char* path);
+int smack_file_name(const char* app_id, char** path);
+inline int have_smack(void);
 
 #endif /* COMMON_H_ */

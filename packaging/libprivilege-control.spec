@@ -2,7 +2,7 @@
 
 Name:       libprivilege-control
 Summary:    Library to control privilege of application
-Version:    0.0.35.TIZEN
+Version:    0.0.36.TIZEN
 Release:    1
 Group:      System/Security
 License:    Apache 2.0
@@ -58,16 +58,18 @@ mv %{buildroot}/opt/etc/passwd %{buildroot}/etc/passwd
 mv %{buildroot}/opt/etc/group %{buildroot}/etc/group
 
 cp -a %{SOURCE1} %{buildroot}%{_datadir}/
-install -D -d %{buildroot}/etc/rc.d/rc3.d/
-install -D -d %{buildroot}/etc/rc.d/rc4.d/
-ln -sf ../init.d/smack_default_labeling %{buildroot}/etc/rc.d/rc3.d/S45smack_default_labeling
-ln -sf ../init.d/smack_default_labeling %{buildroot}/etc/rc.d/rc4.d/S45smack_default_labeling
-ln -sf ../init.d/smack_rules %{buildroot}/etc/rc.d/rc3.d/S02smack_rules
-ln -sf ../init.d/smack_rules %{buildroot}/etc/rc.d/rc4.d/S02smack_rules
+cp -a %{SOURCE2} %{buildroot}%{_datadir}/
 
 mkdir -p %{buildroot}/usr/lib/systemd/system/basic.target.wants
 install -m 644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/
 ln -s ../smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/
+
+mkdir -p %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
+ln -sf /usr/lib/systemd/system/smack-late-rules.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-late-rules.service
+ln -sf /usr/lib/systemd/system/smack-early-rules.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-early-rules.service
+
+mkdir -p %{buildroot}/usr/lib/systemd/system/tizen-runtime.target.wants
+ln -s /usr/lib/systemd/system/smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-default-labeling.service
 
 %post
 if [ ! -e "/home/app" ]
@@ -91,19 +93,33 @@ then
 	mkdir -p /opt/etc/smack-app/accesses.d
 fi
 
+if [ ! -e "/opt/etc/smack-app-early/accesses.d" ]
+then
+	mkdir -p /opt/etc/smack-app-early/accesses.d
+fi
+
 %files
 %{_libdir}/*.so.*
 %{_bindir}/slp-su
 #%{udev_libdir}/rules.d/*
 #%attr(755,root,root) %{udev_libdir}/uname_env
 %{_datadir}/license/%{name}
+#systemd service
+/usr/lib/systemd/system/smack-late-rules.service
+/usr/lib/systemd/system/smack-early-rules.service
+/usr/bin/rule_loader
+#link to activate systemd service
+/usr/lib/systemd/system/multi-user.target.wants/smack-late-rules.service
+/usr/lib/systemd/system/multi-user.target.wants/smack-early-rules.service
 
 %files conf
 /etc/group
 /etc/passwd
 %attr(755,root,root) /etc/rc.d/*
+/usr/share/smack-default-labeling.service
 /usr/lib/systemd/system/smack-default-labeling.service
 /usr/lib/systemd/system/basic.target.wants/smack-default-labeling.service
+/usr/lib/systemd/system/multi-user.target.wants/smack-default-labeling.service
 %manifest %{_datadir}/%{name}-conf.manifest
 /opt/dbspace/.privilege_control*.db
 

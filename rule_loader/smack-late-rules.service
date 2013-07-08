@@ -1,0 +1,10 @@
+[Unit]
+Description=Late SMACK rules loading
+After=starter.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/rule_loader
+
+[Install]
+WantedBy=multi-user.target
