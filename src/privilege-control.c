@@ -1871,6 +1871,18 @@ API int app_setup_path(const char* pkg_id, const char* path, app_path_type_t app
 			free(app_ids[i]);
 		}
 
+		// TODO: This is only a quick fix. Should be re-write to use rule-config file.
+		ret = app_add_rule("contacts-service", label, "rx");
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("smack_accesses_new failed");
+			return ret;
+		}
+		ret = app_add_rule("email-service", label, "rx");
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("smack_accesses_new failed");
+			return ret;
+		}
+
 		return PC_OPERATION_SUCCESS;
 	}
 
