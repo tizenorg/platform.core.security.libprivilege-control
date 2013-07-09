@@ -648,6 +648,11 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 	int were_rules_loaded = 0;
 	char *smack_label AUTO_FREE;
 
+	if (NULL == name) {
+		C_LOGE("Error invalid param");
+		return PC_ERR_INVALID_PARAM;
+	}
+
 	if (path != NULL && have_smack()) {
 		ret = get_smack_from_binary(&smack_label, path, verify_app_type(type, path));
 		if (ret != PC_OPERATION_SUCCESS)
@@ -669,6 +674,12 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 		}
 
 		ret = set_smack_for_self(smack_label);
+		if (ret != PC_OPERATION_SUCCESS)
+			return ret;
+	}
+
+	if (path != NULL && !have_smack()) {
+		ret = get_smack_from_binary(&smack_label, path, verify_app_type(type, path));
 		if (ret != PC_OPERATION_SUCCESS)
 			return ret;
 	}
