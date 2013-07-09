@@ -60,15 +60,19 @@
 #define APP_GROUP_PATH	TOSTRING(SHAREDIR) "/app_group_list"
 #define DEV_GROUP_PATH	TOSTRING(SHAREDIR) "/dev_group_list"
 
-#define SMACK_APP_LABEL_TEMPLATE "~APP~"
+#define SMACK_APP_LABEL_TEMPLATE        "~APP~"
+#define SMACK_SHARED_DIR_LABEL_TEMPLATE "~APP_SHARED_DIR~"
+
 #define SMACK_SRC_FILE_SUFFIX   "_src_file"
 #define SMACK_SRC_DIR_SUFFIX    "_src_dir"
 #define SMACK_DATA_SUFFIX       "_data"
 #define WRT_BASE_DEVCAP         "WRT"
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
 #define ACC_LEN                 5
-#define TIZEN_PRIVILEGE_ANTIVIRUS "http://tizen.org/privilege/antivirus"
+#define TIZEN_PRIVILEGE_ANTIVIRUS  "http://tizen.org/privilege/antivirus"
 #define TIZEN_PRIVILEGE_APPSETTING "http://tizen.org/privilege/appsetting"
+#define PATH_RULES_PUBLIC_RO       "PATH_RULES_PUBLIC_RO.smack"
+#define PATH_RULES_GROUP_RW        "PATH_RULES_GROUP_RW.smack"
 
 typedef struct {
 	char user_name[10];
@@ -822,17 +826,55 @@ static int perm_file_path(char** path, app_type_t app_type, const char* perm, co
 	return PC_OPERATION_SUCCESS;
 }
 
+static int perm_to_smack_from_file(struct smack_accesses* smack,
+		                           const char* app_label,
+		                           const char* app_label_template,
+		                           const char* rules_file_path)
+{
+	C_LOGD("Enter function: %s", __func__);
+
+	char* format_string AUTO_FREE;
+	char smack_subject[SMACK_LABEL_LEN + 1];
+	char smack_object[SMACK_LABEL_LEN + 1];
+	char smack_accesses[10];
+	FILE* file AUTO_FCLOSE;
+
+	if (asprintf(&format_string,"%%%ds %%%ds %%%lus\n",
+			SMACK_LABEL_LEN, SMACK_LABEL_LEN, (unsigned long)sizeof(smack_accesses)) == -1) {
+		C_LOGE("asprintf failed");
+		return PC_ERR_MEM_OPERATION;
+	}
+
+	file = fopen(rules_file_path, "r");
+	C_LOGD("path = %s", rules_file_path);
+	if (file == NULL) {
+		C_LOGW("fopen failed [%s] %s", rules_file_path, strerror(errno));
+		return PC_OPERATION_SUCCESS;
+	}
+
+	while (fscanf(file, format_string, smack_subject, smack_object, smack_accesses) == 3) {
+		if (!strcmp(smack_subject, app_label_template))
+			strcpy(smack_subject, app_label);
+
+		if (!strcmp(smack_object, app_label_template))
+			strcpy(smack_object, app_label);
+
+		C_LOGD("smack_accesses_add_modify (subject: %s, object: %s, access: %s)", smack_subject, smack_object, smack_accesses);
+		if (smack_accesses_add_modify(smack, smack_subject, smack_object, smack_accesses, "") != 0) {
+			C_LOGE("smack_accesses_add_modify failed");
+			return PC_ERR_INVALID_OPERATION;
+		}
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
 static int perm_to_smack_generic(struct smack_accesses* smack, const char* app_label, app_type_t app_type, const char* perm, bool is_early)
 {
 	C_LOGD("Enter function: %s", __func__);
 
 	int ret;
 	char* path AUTO_FREE;
-	char* format_string AUTO_FREE;
-	FILE* file AUTO_FCLOSE;
-	char smack_subject[SMACK_LABEL_LEN + 1];
-	char smack_object[SMACK_LABEL_LEN + 1];
-	char smack_accesses[10];
 
 	// get file name for permission (devcap)
 	ret = perm_file_path(&path, app_type, perm, ".smack", is_early);
@@ -841,31 +883,9 @@ static int perm_to_smack_generic(struct smack_accesses* smack, const char* app_l
 		return ret;
 	}
 
-	if (asprintf(&format_string,"%%%ds %%%ds %%%lus\n",
-			SMACK_LABEL_LEN, SMACK_LABEL_LEN, (unsigned long)sizeof(smack_accesses)) == -1) {
-		C_LOGE("asprintf failed");
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	file = fopen(path, "r");
-	C_LOGD("path = %s", path);
-	if (file == NULL) {
-		C_LOGW("fopen failed");
-		return PC_OPERATION_SUCCESS;
-	}
-
-	while (fscanf(file, format_string, smack_subject, smack_object, smack_accesses) == 3) {
-		if (!strcmp(smack_subject, SMACK_APP_LABEL_TEMPLATE))
-			strcpy(smack_subject, app_label);
-
-		if (!strcmp(smack_object, SMACK_APP_LABEL_TEMPLATE))
-			strcpy(smack_object, app_label);
-
-		C_LOGD("smack_accesses_add_modify (subject: %s, object: %s, access: %s)", smack_subject, smack_object, smack_accesses);
-		if (smack_accesses_add_modify(smack, smack_subject, smack_object, smack_accesses, "") != 0) {
-			C_LOGE("smack_accesses_add_modify failed");
-			return PC_ERR_INVALID_OPERATION;
-		}
+	ret = perm_to_smack_from_file(smack, app_label, SMACK_APP_LABEL_TEMPLATE, path);
+	if (ret != PC_OPERATION_SUCCESS) {
+		return ret;
 	}
 
 	return PC_OPERATION_SUCCESS;
@@ -1847,6 +1867,51 @@ static char* smack_label_for_path(const char *app_id, const char *path)
 
 	return label;
 }
+/*
+ * This function should be called in perm_app_setup_path_internal().
+ * After installation of new application (pkg_id) and labeling its shared directory (RW or RO),
+ * all others apps installed in system should get rules to this shared directory.
+ * This function will add and store those rules in rule-file of new installed app (pkg_id)
+ */
+static int add_other_apps_rules_for_shared_dir(const char *pkg_id, const char *type_of_shared_dir, const char *shared_dir_label)
+{
+	C_LOGD("Enter function: %s", __func__);
+
+	int ret;
+	int fd AUTO_CLOSE;
+	char *smack_path AUTO_FREE;
+	char *smack_rules_file_path AUTO_FREE;
+	struct smack_accesses* smack AUTO_SMACK_FREE;
+
+	ret = load_smack_from_file(pkg_id, &smack, &fd, &smack_path);
+	if (ret != PC_OPERATION_SUCCESS ) {
+		C_LOGE("load_smack_from_file failed: %d", ret);
+		return ret;
+	}
+
+	ret = asprintf(&smack_rules_file_path, TOSTRING(SHAREDIR)"/%s", type_of_shared_dir);
+	if (ret < 0) {
+		C_LOGE("asprintf failed");
+		return PC_ERR_MEM_OPERATION;
+	}
+
+	ret = perm_to_smack_from_file(smack, shared_dir_label, SMACK_SHARED_DIR_LABEL_TEMPLATE, smack_rules_file_path);
+	if (ret != PC_OPERATION_SUCCESS ) {
+		C_LOGE("perm_to_smack_from_file failed: %d", ret);
+	}
+
+	if (have_smack() && smack_accesses_apply(smack)) {
+		C_LOGE("smack_accesses_apply failed");
+		return PC_ERR_INVALID_OPERATION;
+	}
+
+	if (smack_accesses_save(smack, fd)) {
+		C_LOGE("smack_accesses_save failed");
+		return PC_ERR_INVALID_OPERATION;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
 
 /* FIXME: remove this pragma once deprecated API is deleted */
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
@@ -1879,19 +1944,13 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 			return PC_ERR_INVALID_PARAM;
 		}
 
-		// TODO: This is only a quick fix. Should be re-write to use rule-config file.
-		ret = app_add_rule("contacts-service", shared_label, "rx");
+		ret = app_label_shared_dir(pkg_id, shared_label, path);
 		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("smack_accesses_new failed");
-			return ret;
-		}
-		ret = app_add_rule("email-service", shared_label, "rwx");
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("smack_accesses_new failed");
+			C_LOGE("app_label_shared_dir failed: %d", ret);
 			return ret;
 		}
 
-		return app_label_shared_dir(pkg_id, shared_label, path);
+		return add_other_apps_rules_for_shared_dir(pkg_id, PATH_RULES_GROUP_RW, shared_label);
 	}
 
 	case APP_PATH_PUBLIC_RO: {
@@ -1931,25 +1990,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 			free(app_ids[i]);
 		}
 
-		// TODO: This is only a quick fix. Should be re-write to use rule-config file.
-		ret = app_add_rule("contacts-service", label, "rx");
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("smack_accesses_new failed");
-			return ret;
-		}
-		ret = app_add_rule("email-service", label, "rwx");
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("smack_accesses_new failed");
-			return ret;
-		}
-
-		ret = app_add_rule("obexd", label, "rx");
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("smack_accesses_new failed");
-			return ret;
-		}
-
-		return PC_OPERATION_SUCCESS;
+		return add_other_apps_rules_for_shared_dir(pkg_id, PATH_RULES_PUBLIC_RO, label);
 	}
 
 	case APP_PATH_SETTINGS_RW:
