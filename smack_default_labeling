@@ -15,6 +15,11 @@ find /opt/usr/media -type d -print0 | xargs -0 chsmack -t
 chsmack -a 'system::share' /dev/shm
 chsmack -t /dev/shm
 
+if [ ! -e /opt/etc/.pkg_smack ]; then
+	/usr/bin/pkg_smack
+	touch /opt/etc/.pkg_smack
+fi
+
 # set vconf label when first boot
 #if [ ! -e /opt/etc/.vconf_labeling ]; then
 #	chsmack -a 'system::vconf' /opt/var/kdb/db
