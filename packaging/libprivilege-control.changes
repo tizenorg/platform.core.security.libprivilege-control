@@ -1,3 +1,6 @@
+* Thu Jul 11 2013 Rusty Lynch <rusty.lynch@intel.com> accepted/tizen/20130711.163636@43b59bc
+- Before applied a label on the process context, check if the label is previously set.
+
 * Thu Jul 11 2013 Anas Nashif <anas.nashif@intel.com> submit/tizen/20130711.003907@5533929
 - cleanup spec
 - - remove init.d scripts

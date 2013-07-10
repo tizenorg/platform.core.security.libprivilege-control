@@ -34,6 +34,7 @@ ADD_DEFINITIONS("-Wall -Werror")
 #ADD_DEFINITIONS("-DSMACK_ENABLED")
 #ADD_DEFINITIONS("-DDLOG_DEBUG_ENABLED")    #enables dlogutil logs
 ADD_DEFINITIONS("-DDLOG_ERROR_ENABLED")
+ADD_DEFINITIONS("-Wno-unused-function")
 
 ###################################################################################################
 ## for libprivilege-control.so (library)
