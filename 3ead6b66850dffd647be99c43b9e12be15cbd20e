@@ -1,0 +1,10 @@
+Change-Id: I3ead6b66850dffd647be99c43b9e12be15cbd20e
+Code-Review+2: Casey Schaufler <casey.schaufler@intel.com>
+Verified+1: Casey Schaufler <casey.schaufler@intel.com>
+Code-Review+2: Michael Demeter <michael.demeter@intel.com>
+Code-Review+1: Elena Reshetova <elena.reshetova@intel.com>
+Submitted-by: Michael Demeter <michael.demeter@intel.com>
+Submitted-at: Wed, 10 Jul 2013 09:07:14 -0700
+Reviewed-on: https://review.tizen.org/gerrit/5600
+Project: platform/core/security/libprivilege-control
+Branch: refs/heads/tizen
