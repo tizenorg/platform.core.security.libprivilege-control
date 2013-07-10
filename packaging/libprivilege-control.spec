@@ -7,8 +7,8 @@ Release:    1
 Group:      System/Security
 License:    Apache 2.0
 Source0:    %{name}-%{version}.tar.gz
-Source1:    %{name}-conf.manifest
 Source2:    smack-default-labeling.service
+Source1001:    %{name}.manifest
 BuildRequires: cmake
 BuildRequires: pkgconfig(libsmack)
 BuildRequires: pkgconfig(dlog)
@@ -35,6 +35,7 @@ Library to control privilege of application files
 
 %prep
 %setup -q
+cp %{SOURCE1001} .
 
 %build
 export CFLAGS="${CFLAGS} -Wno-implicit-function-declaration"
@@ -103,7 +104,6 @@ fi
 %attr(755,root,root) /etc/rc.d/*
 /usr/lib/systemd/system/smack-default-labeling.service
 /usr/lib/systemd/system/basic.target.wants/smack-default-labeling.service
-%manifest %{_datadir}/%{name}-conf.manifest
 /opt/dbspace/.privilege_control*.db
 
 %files devel
