@@ -508,7 +508,10 @@ API int set_app_privilege(const char* name, const char* type, const char* path)
 			ret = PC_ERR_INVALID_PARAM;
 		}
 		else
-			ret = set_smack_for_wrt(&smack_label, widget_id);
+		{
+			smack_label = strdup(widget_id);
+			ret = set_smack_from_binary(&smack_label, path);
+		}
 		break;
 	default:
 		if (path != NULL)
@@ -727,7 +730,6 @@ static int set_smack_for_wrt(char **smack_label, const char* widget_id)
 		C_LOGE("smack_set_label_for_self failed");
 		return PC_ERR_INVALID_OPERATION;
 	}
-
 	return PC_OPERATION_SUCCESS;
 }
 
