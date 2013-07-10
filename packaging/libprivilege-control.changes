@@ -1,3 +1,6 @@
+* Wed Jul 10 2013 Baptiste DURAND <baptiste.durand@eurogiciel.fr> accepted/tizen/20130520.101224@b60f9a2
+- Move database from conf packages to main package.
+
 * Wed Jul 10 2013 Baptiste DURAND <baptiste.durand@eurogiciel.fr> accepted/tizen/20130520.101224@602b561
 - Before applied a label on the process context, check if the label is previously set.
 
