@@ -1,3 +1,6 @@
+* Wed Jul 10 2013 Baptiste DURAND <baptiste.durand@eurogiciel.fr> accepted/tizen/20130520.101224@602b561
+- Before applied a label on the process context, check if the label is previously set.
+
 * Thu Feb 14 2013 Tomasz Swierczek - 0.0.24.TIZEN
 - Refactoring: adjust names of some internal identifiers.
 - Refactoring: removed compilation warnings when SMACK is disabled.
