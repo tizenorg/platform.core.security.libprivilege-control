@@ -94,6 +94,7 @@ fi
 #%{udev_libdir}/rules.d/*
 #%attr(755,root,root) %{udev_libdir}/uname_env
 %{_datadir}/license/%{name}
+/opt/dbspace/.privilege_control*.db
 
 %files conf
 %manifest %{name}.manifest
@@ -104,7 +105,6 @@ fi
 /usr/lib/systemd/system/smack-default-labeling.service
 /usr/lib/systemd/system/basic.target.wants/smack-default-labeling.service
 %manifest %{_datadir}/%{name}-conf.manifest
-/opt/dbspace/.privilege_control*.db
 
 %files devel
 %manifest %{name}.manifest
