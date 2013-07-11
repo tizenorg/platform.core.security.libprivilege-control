@@ -12,6 +12,8 @@ Source1001:    %{name}.manifest
 BuildRequires: cmake
 BuildRequires: pkgconfig(libsmack)
 BuildRequires: pkgconfig(dlog)
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
 
 %description
 development package of library to control privilege of in-house application
@@ -53,7 +55,6 @@ mkdir -p %{buildroot}/etc
 mv %{buildroot}/opt/etc/passwd %{buildroot}/etc/passwd
 mv %{buildroot}/opt/etc/group %{buildroot}/etc/group
 
-cp -a %{SOURCE1} %{buildroot}%{_datadir}/
 install -D -d %{buildroot}/etc/rc.d/rc3.d/
 install -D -d %{buildroot}/etc/rc.d/rc4.d/
 ln -sf ../init.d/smack_default_labeling %{buildroot}/etc/rc.d/rc3.d/S45smack_default_labeling
@@ -66,6 +67,7 @@ install -m 644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/
 ln -s ../smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/
 
 %post
+/sbin/ldconfig
 if [ ! -e "/home/app" ]
 then
         mkdir -p /home/app
@@ -85,6 +87,8 @@ if [ ! -e "/usr/share/privilege-control" ]
 then
         mkdir -p /usr/share/privilege-control/
 fi
+
+%postun -p /sbin/ldconfig
 
 
 %files
