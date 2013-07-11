@@ -1,0 +1,9 @@
+Change-Id: I2d222e4ca3d0f7e4cafee3620b372583862e4719
+Code-Review+2: Rusty Lynch <rusty.lynch@intel.com>
+Verified+1: Rusty Lynch <rusty.lynch@intel.com>
+Code-Review+1: Michael Demeter <michael.demeter@intel.com>
+Submitted-by: Rusty Lynch <rusty.lynch@intel.com>
+Submitted-at: Thu, 11 Jul 2013 11:42:36 -0700
+Reviewed-on: https://review.tizen.org/gerrit/5649
+Project: platform/core/security/libprivilege-control
+Branch: refs/heads/tizen
