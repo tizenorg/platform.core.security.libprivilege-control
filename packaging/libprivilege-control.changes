@@ -1,3 +1,11 @@
+* Thu Jul 11 2013 Anas Nashif <anas.nashif@intel.com> submit/tizen/20130711.003907@5533929
+- cleanup spec
+- - remove init.d scripts
+- - remove passwd, group file and do not install them, we use the setup
+-   package for those
+- - meta-data cleanup
+- Signed-off-by: Anas Nashif <anas.nashif@intel.com>
+
 * Thu Feb 14 2013 Tomasz Swierczek - 0.0.24.TIZEN
 - Refactoring: adjust names of some internal identifiers.
 - Refactoring: removed compilation warnings when SMACK is disabled.
