@@ -1177,6 +1177,11 @@ static int register_app_for_av(const char * app_id)
 
 	// for each anti-virus put rule: "anti_virus_id app_id rwx"
 	for (i = 0; i < smack_label_av_list_len; ++i) {
+		SECURE_LOGD("Antivirus: app_add_rule (%s, %s rx)", smack_label_av_list[i], app_id);
+		if (strcmp(app_id, smack_label_av_list[i])==0) {
+			SECURE_LOGW("Trying to add antivirus rule for self. Skipping");
+			continue;
+		}
 		ret = app_add_rule(smack_label_av_list[i], app_id, "wrx");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("app_add_rule failed");
@@ -1220,6 +1225,11 @@ static int register_app_for_appsetting(const char *app_id)
 	/* for each appsetting put rule: "appsetting_id app_id rx"*/
 	for (i = 0; i < smack_label_list_len; ++i) {
 		SECURE_LOGD("Appsetting: app_add_rule (%s, %s rx)", smack_label_list[i], app_id);
+		if (strcmp(app_id, smack_label_list[i])==0) {
+			SECURE_LOGW("Trying to add setting rule for self. Skipping");
+			continue;
+		}
+
 		ret = app_add_rule(smack_label_list[i], app_id, "rx");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("app_add_rule failed");
@@ -1999,15 +2009,10 @@ API int app_install(const char* pkg_id)
 	if (ret != PC_OPERATION_SUCCESS)
 		return ret;
 
-	fd = open(smack_path, O_RDWR|O_CREAT, 0644);
-	if (fd == -1) {
-		C_LOGE("file open failed: %s", strerror(errno));
-		return PC_ERR_FILE_OPERATION;
-	}
-
-	if (smack_accesses_new(&smack)) {
-		C_LOGE("smack_accesses_new failed");
-		return PC_ERR_MEM_OPERATION;
+	ret = load_smack_from_file(pkg_id, &smack, &fd, &smack_path);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("load_smack_from_file failed");
+		return ret;
 	}
 
 	ret = add_app_id_to_databse(pkg_id);
