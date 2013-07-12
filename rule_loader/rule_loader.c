@@ -56,6 +56,20 @@ int main(int argc, char * argv[])
         fprintf(log_file, "DONE\n");
     }
 
+   ret = add_app_first_run_rules("email-service");
+   if (ret < 0)
+       fprintf(log_file,"Error in add_app_first_run_rules()\n");
+   else
+       //mark rules as loaded
+       mark_rules_as_loaded("email-service"); 
+
+   ret = add_app_first_run_rules("contacts-service");
+   if (ret < 0)
+       fprintf(log_file,"Error in add_app_first_run_rules()\n");
+   else
+       //mark rules as loaded
+       mark_rules_as_loaded("contacts-service"); 
+
 error:
     //cleaning up
     if (installed_app_list != NULL) {
