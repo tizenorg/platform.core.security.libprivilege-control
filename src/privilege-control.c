@@ -1729,7 +1729,7 @@ API int app_label_shared_dir(const char* app_label, const char* shared_label, co
 	//setting label on everything in given directory and below
 	ret = dir_set_smack_r(path, shared_label, SMACK_LABEL_ACCESS, label_all);
 	if(ret != PC_OPERATION_SUCCESS){
-		C_LOGE("dir_set_smakc_r failed");
+		C_LOGE("dir_set_smack_r failed");
 		return ret;
 	}
 
@@ -1821,6 +1821,7 @@ API int app_setup_path(const char* pkg_id, const char* path, app_path_type_t app
 
 	case APP_PATH_GROUP_RW: {
 		const char *shared_label;
+		int ret;
 
 		va_start(ap, app_path_type);
 		shared_label = va_arg(ap, const char *);
@@ -1834,6 +1835,18 @@ API int app_setup_path(const char* pkg_id, const char* path, app_path_type_t app
 		if (strcmp(pkg_id, shared_label) == 0) {
 			C_LOGE("app_id equals shared_label");
 			return PC_ERR_INVALID_PARAM;
+		}
+
+		// TODO: This is only a quick fix. Should be re-write to use rule-config file.
+		ret = app_add_rule("contacts-service", shared_label, "rx");
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("smack_accesses_new failed");
+			return ret;
+		}
+		ret = app_add_rule("email-service", shared_label, "rwx");
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("smack_accesses_new failed");
+			return ret;
 		}
 
 		return app_label_shared_dir(pkg_id, shared_label, path);
@@ -1885,7 +1898,7 @@ API int app_setup_path(const char* pkg_id, const char* path, app_path_type_t app
 			C_LOGE("smack_accesses_new failed");
 			return ret;
 		}
-		ret = app_add_rule("email-service", label, "rx");
+		ret = app_add_rule("email-service", label, "rwx");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("smack_accesses_new failed");
 			return ret;
