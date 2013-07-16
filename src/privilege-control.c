@@ -232,6 +232,12 @@ API int get_smack_label_from_process(pid_t pid, char smack_label[SMACK_LABEL_LEN
 		goto out;
 	}
 
+	if(smack_label == NULL) {
+		C_LOGE("Invalid param smack_label (NULL).");
+		ret = PC_ERR_INVALID_PARAM;
+		goto out;
+	}
+
 	bzero(smack_label, SMACK_LABEL_LEN + 1);
 	if (!have_smack()) { // If no smack just return success with empty label
 		C_LOGD("No SMACK. Return empty label");
@@ -276,9 +282,18 @@ API int smack_pid_have_access(pid_t pid,
 		return 1;
 	}
 
-	if (pid < 0 || object == NULL || strlen(object) == 0 ||
-			access_type == NULL || strlen(access_type) == 0) {
-		C_LOGE("Invalid param");
+	if (pid < 0) {
+		C_LOGE("Invalid pid.");
+		return -1;
+	}
+
+	if(object == NULL) {
+		C_LOGE("Invalid object param.");
+		return -1;
+	}
+
+	if(access_type == NULL) {
+		C_LOGE("Invalid access_type param");
 		return -1;
 	}
 
@@ -642,8 +657,8 @@ API int perm_app_set_privilege(const char* name, const char* type, const char* p
 	int were_rules_loaded = 0;
 	char *smack_label AUTO_FREE;
 
-	if (NULL == name) {
-		C_LOGE("Error invalid param");
+	if (name == NULL) {
+		C_LOGE("Invalid name param.");
 		return PC_ERR_INVALID_PARAM;
 	}
 
@@ -1329,6 +1344,11 @@ static int app_add_permissions_internal(const char* app_id, app_type_t app_type,
 	if (!smack_label_is_valid(app_id))
 		return PC_ERR_INVALID_PARAM;
 
+	if(perm_list == NULL) {
+		C_LOGE("Invalid perm_list (NULL).");
+		return PC_ERR_INVALID_PARAM;
+	}
+
 	ret = load_smack_from_file(app_id, &smack, &fd, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("load_smack_from_file failed");
@@ -1541,6 +1561,11 @@ API int app_label_dir(const char* label, const char* path)//deprecated
 
 	int ret = PC_OPERATION_SUCCESS;
 
+	if(path == NULL) {
+		C_LOGE("Invalid argument path (NULL).");
+		return PC_ERR_INVALID_PARAM;
+	}
+
 	if (!smack_label_is_valid(label))
 		return PC_ERR_INVALID_PARAM;
 
@@ -1716,9 +1741,19 @@ API int app_give_access(const char* subject, const char* object, const char* per
 	if (!have_smack())
 		return PC_OPERATION_SUCCESS;
 
-	if (!smack_label_is_valid(subject) || !smack_label_is_valid(object)) {
-		C_LOGE("Error in %s: invalid param.", __func__);
+	if(permissions == NULL) {
+		C_LOGE("Invalid permissions param.");
 		return PC_ERR_INVALID_PARAM;
+	}
+
+	if(!smack_label_is_valid(subject)) {
+		C_LOGE("Invalid param subject.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if(!smack_label_is_valid(object)) {
+	    C_LOGE("Invalid param object");
+	    return PC_ERR_INVALID_PARAM;
 	}
 
 	if (PC_OPERATION_SUCCESS != (ret = smack_get_access_new(subject, object, &current_permissions))) {
@@ -1769,6 +1804,12 @@ API int app_label_shared_dir(const char* app_label, const char* shared_label, co
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
 
+	if(path == NULL)
+	{
+		C_LOGE("Invalid param path.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
 	if (!smack_label_is_valid(app_label) || !smack_label_is_valid(shared_label))
 		return PC_ERR_INVALID_PARAM;
 
@@ -1805,6 +1846,11 @@ API int add_shared_dir_readers(const char* shared_label, const char** app_list)/
 	C_LOGD("Enter function: %s", __func__);
 	int ret;
 	int i;
+
+	if(app_list == NULL) {
+		C_LOGE("Invalid param app_list.");
+		return PC_ERR_INVALID_PARAM;
+	}
 
 	if (!smack_label_is_valid(shared_label))
 				return PC_ERR_INVALID_PARAM;
@@ -1903,6 +1949,11 @@ static int add_other_apps_rules_for_shared_dir(const char *pkg_id, const char *t
 static int perm_app_setup_path_internal(const char* pkg_id, const char* path, app_path_type_t app_path_type, va_list ap)
 {
 	C_LOGD("Enter function: %s", __func__);
+
+	if(path == NULL) {
+		C_LOGE("Invalid argument path.");
+		return PC_ERR_INVALID_PARAM;
+	}
 
 	if (!smack_label_is_valid(pkg_id)) {
 		C_LOGE("Invalid app_id %s", pkg_id);
@@ -2385,6 +2436,11 @@ API int app_register_av(const char* app_av_id)//deprecated
 	int fd AUTO_CLOSE;
 	char* smack_path AUTO_FREE;
 	struct smack_accesses* smack AUTO_SMACK_FREE;
+
+	if(app_av_id == NULL) {
+		C_LOGE("Invalid param app_av_id.");
+		return PC_ERR_INVALID_PARAM;
+	}
 
 	ret = load_smack_from_file(app_av_id, &smack, &fd, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS ) {
