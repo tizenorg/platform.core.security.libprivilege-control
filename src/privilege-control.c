@@ -1904,6 +1904,12 @@ API int app_setup_path(const char* pkg_id, const char* path, app_path_type_t app
 			return ret;
 		}
 
+		ret = app_add_rule("obexd", label, "rx");
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("smack_accesses_new failed");
+			return ret;
+		}
+
 		return PC_OPERATION_SUCCESS;
 	}
 
