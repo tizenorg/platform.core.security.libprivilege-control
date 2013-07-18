@@ -34,7 +34,9 @@
 /* TODO: implement such function in libsmack instead */
 int smack_label_is_valid(const char* smack_label)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: smack_label=%s",
+				__func__, smack_label);
+
 	int i;
 
 	if (!smack_label || smack_label[0] == '\0' || smack_label[0] == '-')
@@ -42,7 +44,7 @@ int smack_label_is_valid(const char* smack_label)
 
 	for (i = 0; smack_label[i]; ++i) {
 		if (i >= SMACK_LABEL_LEN)
-			return 0;
+			goto err;
 		switch (smack_label[i]) {
 		case '~':
 		case ' ':
@@ -58,7 +60,7 @@ int smack_label_is_valid(const char* smack_label)
 
 	return 1;
 err:
-	C_LOGD("Invalid Smack label: %s", smack_label);
+	SECURE_C_LOGE("Invalid SMACK label %s", smack_label);
 	return 0;
 }
 
@@ -102,7 +104,8 @@ void fts_closep(FTS **f)
  */
 int check_if_rules_were_loaded(const char *app_id)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
+				__func__, app_id);
 	int ret;
 	char *path AUTO_FREE;
 
@@ -120,29 +123,35 @@ int check_if_rules_were_loaded(const char *app_id)
  */
 void mark_rules_as_loaded(const char *app_id)
 {
+	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
+				__func__, app_id);
+
 	struct stat s;
 	char *path AUTO_FREE;
 	FILE *file = NULL;
 
 	if(smack_mark_file_name(app_id, &path)) {
-		C_LOGE("Error in smack_mark_file_name");
+		C_LOGE("smack_mark_file_name failed.");
 		return;
 	}
 
 	if (-1 == stat(SMACK_LOADED_APP_RULES, &s)) {
 		if (ENOENT == errno) {
-			C_LOGD("Creating dir %s", SMACK_LOADED_APP_RULES);
+			C_LOGD("Creating dir %s.", SMACK_LOADED_APP_RULES);
 			mkdir(SMACK_LOADED_APP_RULES, S_IRWXU | S_IRWXG | S_IRWXO);
 		}
 	}
 
+	SECURE_C_LOGD("Creating file %s.", path);
 	file = fopen(path, "w");
 	fclose(file);
 }
 
 int add_app_first_run_rules(const char *app_id)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
+				__func__, app_id);
+
 	int ret;
 	int fd AUTO_CLOSE;
 	char *smack_path AUTO_FREE;
@@ -154,7 +163,7 @@ int add_app_first_run_rules(const char *app_id)
 		return ret;
 	}
 	if (have_smack() && smack_accesses_apply(smack)) {
-		C_LOGE("smack_accesses_apply failed");
+		C_LOGE("smack_accesses_apply failed.");
 		return PC_ERR_INVALID_OPERATION;
 	}
 
@@ -168,13 +177,15 @@ static int load_smack_from_file_generic(const char* app_id, struct smack_accesse
 	 * It's because all of the "early rules" (for all apps) should
 	 * be in one common file: SMACK_STARTUP_RULES_FILE
 	 */
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
+				__func__, app_id);
+
 	int ret;
 
 	if (is_early) {
 		if (0 > asprintf(path, "%s", SMACK_STARTUP_RULES_FILE)) {
 			*path = NULL;
-			C_LOGE("asprintf failed");
+			C_LOGE("asprintf failed.");
 			return PC_ERR_MEM_OPERATION;
 		}
 	}
@@ -185,13 +196,13 @@ static int load_smack_from_file_generic(const char* app_id, struct smack_accesse
 	}
 
 	if (smack_accesses_new(smack)) {
-		C_LOGE("smack_accesses_new failed");
+		C_LOGE("smack_accesses_new failed.");
 		return PC_ERR_MEM_OPERATION;
 	}
 
 	*fd = open(*path, O_CREAT|O_RDWR, 0644);
 	if (*fd == -1) {
-		C_LOGE("file open failed: %s", strerror(errno));
+		C_LOGE("file open failed (error: %s)", strerror(errno));
 		return PC_ERR_FILE_OPERATION;
 	}
 
@@ -201,13 +212,13 @@ static int load_smack_from_file_generic(const char* app_id, struct smack_accesse
 	}
 
 	if (smack_accesses_add_from_file(*smack, *fd)) {
-		C_LOGE("smack_accesses_add_from_file failed");
+		C_LOGE("smack_accesses_add_from_file failed.");
 		return PC_ERR_INVALID_OPERATION;
 	}
 
 	/* Rewind the file */
 	if (lseek(*fd, 0, SEEK_SET) == -1) {
-		C_LOGE("lseek failed");
+		C_LOGE("lseek failed.");
 		return PC_ERR_FILE_OPERATION;
 	}
 
@@ -216,18 +227,27 @@ static int load_smack_from_file_generic(const char* app_id, struct smack_accesse
 
 int load_smack_from_file(const char* app_id, struct smack_accesses** smack, int *fd, char** path)
 {
+	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
+				__func__, app_id);
+
 	return load_smack_from_file_generic(app_id, smack, fd, path, 0);
 }
 
 int load_smack_from_file_early(const char* app_id, struct smack_accesses** smack, int *fd, char** path)
 {
+	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
+				__func__, app_id);
+
 	return load_smack_from_file_generic(app_id, smack, fd, path, 1);
 }
 
 int smack_mark_file_name(const char *app_id, char **path)
 {
+	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
+				__func__, app_id);
+
 	if (asprintf(path, SMACK_LOADED_APP_RULES "/%s", app_id) == -1) {
-		C_LOGE("asprintf failed");
+		C_LOGE("asprintf failed.");
 		*path = NULL;
 		return PC_ERR_MEM_OPERATION;
 	}
@@ -236,6 +256,10 @@ int smack_mark_file_name(const char *app_id, char **path)
 }
 
 bool file_exists(const char* path) {
+	SECURE_C_LOGD("Entering function: %s. Params: path=%s",
+				__func__, path);
+
+	SECURE_C_LOGD("Opening file %s.", path);
 	FILE* file = fopen(path, "r");
 	if (file) {
 		fclose(file);
@@ -246,8 +270,11 @@ bool file_exists(const char* path) {
 
 int smack_file_name(const char* app_id, char** path)
 {
+	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
+				__func__, app_id);
+
 	if (asprintf(path, SMACK_RULES_DIR "/%s", app_id) == -1) {
-		C_LOGE("asprintf failed");
+		C_LOGE("asprintf failed.");
 		*path = NULL;
 		return PC_ERR_MEM_OPERATION;
 	}
@@ -257,11 +284,13 @@ int smack_file_name(const char* app_id, char** path)
 
 inline int have_smack(void)
 {
+	SECURE_C_LOGD("Entering function: %s.", __func__);
+
 	static int have_smack = -1;
 
 	if (-1 == have_smack) {
 		if (NULL == smack_smackfs_path()) {
-			C_LOGD("Libprivilage-control: no smack found on phone");
+			C_LOGD("Libprivilege-control: no smack found on phone");
 			have_smack = 0;
 		} else {
 			C_LOGD("Libprivilege-control: found smack on phone");

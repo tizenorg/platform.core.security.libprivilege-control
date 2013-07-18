@@ -37,22 +37,28 @@
 // conditional log macro for dlogutil (debug)
 #ifdef DLOG_DEBUG_ENABLED
 #define C_LOGD(...) SLOGD(__VA_ARGS__)
+#define SECURE_C_LOGD(...) SECURE_SLOGD(__VA_ARGS__)
 #else
 #define C_LOGD(...) do { } while(0)
+#define SECURE_C_LOGD(...) do { } while(0)
 #endif //DDLOG_DEBUG_ENABLED
 
 // conditional log macro for dlogutil (warning)
 #ifdef DLOG_WARN_ENABLED
 #define C_LOGW(...) SLOGW(__VA_ARGS__)
+#define SECURE_C_LOGW(...) SECURE_SLOGW(__VA_ARGS__)
 #else
 #define C_LOGW(...) do { } while(0)
+#define SECURE_C_LOGW(...) do { } while(0)
 #endif //DLOG_WARN_ENABLED
 
 // conditional log macro for dlogutil (error)
 #ifdef DLOG_ERROR_ENABLED
 #define C_LOGE(...) SLOGE(__VA_ARGS__)
+#define SECURE_C_LOGE(...) SECURE_SLOGE(__VA_ARGS__)
 #else
 #define C_LOGE(...) do { } while(0)
+#define SECURE_C_LOGE(...) do { } while(0)
 #endif //DLOG_ERROR_ENABLED
 
 /* for SECURE_LOG* purpose */
