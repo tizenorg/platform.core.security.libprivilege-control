@@ -196,7 +196,7 @@ static inline int have_smack(void)
 API int control_privilege(void)
 {
 	C_LOGD("Enter function: %s", __func__);
-	if(getuid() == APP_UID)	// current user is 'app'
+	if(getuid() == APP_GID)	// current user is 'app'
 		return PC_OPERATION_SUCCESS;
 
 	if(set_app_privilege("org.tizen.", NULL, NULL) == PC_OPERATION_SUCCESS)
@@ -205,14 +205,39 @@ API int control_privilege(void)
 		return PC_ERR_NOT_PERMITTED;
 }
 
+
+
+static int get_app_group(int *nbgroup, gid_t **groups_list)
+{
+	gid_t *groups = NULL;
+    if ((!groups_list) || (!nbgroup))
+		return PC_ERR_INVALID_OPERATION;
+	*nbgroup = 0;
+	//First call to get the group size lists, it should fails
+	C_LOGD("Enter function: %s", __func__);
+	C_LOGD("getgrouplist function for  %s %d", APP_USER_NAME, APP_GID);
+	
+	if (getgrouplist(APP_USER_NAME, APP_GID, groups, nbgroup) != -1)
+		return PC_ERR_INVALID_OPERATION;
+
+	C_LOGD("getgrouplist function for  %d",*nbgroup);
+	groups = malloc(*nbgroup * sizeof (gid_t));
+	if (!groups)
+		return PC_ERR_INVALID_OPERATION;
+	if (getgrouplist(APP_USER_NAME, APP_GID, groups, nbgroup) == -1) {
+		free(groups);
+		C_LOGD("getgrouplistfaild %d",nbgroup);
+		return PC_ERR_INVALID_OPERATION;
+	}
+	*groups_list = groups;
+	return  PC_OPERATION_SUCCESS;
+}
+
 static int set_dac(const char *smack_label, const char *pkg_name)
 {
 	C_LOGD("Enter function: %s", __func__);
-	FILE* fp_group = NULL;	// /etc/group
 	uid_t t_uid = -1;		// uid of current process
 	gid_t *glist = NULL;	// group list
-	gid_t temp_gid = -1;	// for group list
-	char buf[10] = {0, };		// contents in group_list file
 	int glist_cnt = 0;		// for group list
 	int result;
 	int i;
@@ -248,44 +273,18 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 			usr.uid = APP_UID;
 			usr.gid = APP_GID;
 			strncpy(usr.home_dir, APP_HOME_DIR, sizeof(usr.home_dir));
-			strncpy(usr.group_list, APP_GROUP_PATH, sizeof(usr.group_list));
 		}
 
 		/*
 		 * get group information
 		 */
 		C_LOGD("get group information");
-		if(!(fp_group = fopen(usr.group_list, "r")))
-		{
-			C_LOGE("[ERR] file open error: [%s]\n", usr.group_list);
+		
+		
+		if (get_app_group(&glist_cnt, &glist)) {
 			result = PC_ERR_FILE_OPERATION;	// return -1
 			goto error;
 		}
-
-		while(fgets(buf, 10, fp_group) != NULL)
-		{
-			errno = 0;
-			temp_gid = strtoul(buf, 0, 10);
-			if(errno != 0)	// error occured during strtoul()
-			{
-				C_LOGE("[ERR] cannot change string to integer: [%s]", buf);
-				result = PC_ERR_INVALID_OPERATION;
-				goto error;
-			}
-
-			glist = (gid_t*)realloc(glist, sizeof(gid_t) * (glist_cnt + 1));
-			if(!glist)
-			{
-				result = PC_ERR_MEM_OPERATION;	// return -2
-				C_LOGE("Cannot allocate memory");
-				goto error;
-			}
-			glist[glist_cnt] = temp_gid;
-			glist_cnt++;
-		}
-		fclose(fp_group);
-		fp_group = NULL;
-
 		{
 			gid_t *glist_new;
 			int i, cnt;
@@ -370,8 +369,6 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 	result = PC_OPERATION_SUCCESS;
 
 error:
-	if(fp_group != NULL)
-		fclose(fp_group);
 	if(glist != NULL)
 		free(glist);
 	free(additional_gids);
