@@ -337,28 +337,6 @@ int perm_app_add_friend(const char* pkg_id1, const char* pkg_id2);
 int app_add_friend(const char* pkg_id1, const char* pkg_id2) DEPRECATED;
 
 /**
- * Modify SMACK rules to give access from (subject)customer_label to (object)
- * provider_label.
- * Note: This function will do nothing if subject has already rwxat access to
- * object. You can revoke this modification by calling app_rovoke_access.
- *
- * @param subject - label of client application
- * @param object  - label of provider application
- * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
- */
-int app_give_access(const char* subject, const char* object, const char* permission) __attribute__ ((deprecated));
-
-/**
- * Revoke access granted by app_give_access. This function will not remove
- * accesses that were granted before app_give_access call.
- *
- * @param subject - label of client application
- * @param object  - label of provider application
- * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
- */
-int app_revoke_access(const char* subject, const char* object) __attribute__ ((deprecated));
-
-/**
  * Adds new api feature by installing new *.smack file.
  * It must be called by privileged user.
  *
