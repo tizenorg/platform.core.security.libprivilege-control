@@ -82,12 +82,6 @@ typedef struct {
 	char group_list[64];
 } new_user;
 
-typedef struct state_node_t {
-	char *key, *value;
-} state_node;
-
-static void *state_tree = NULL;
-
 /**
  * Return values
  * <0 - error
@@ -99,110 +93,6 @@ enum {
 	DECISION_SKIP = 0,
 	DECISION_LABEL = 1
 };
-
-int state_tree_cmp(const void *first, const void *second)
-{
-	return strcmp(((state_node*)first)->key,
-			((state_node*)second)->key);
-}
-
-int state_tree_push(const char* key_param, const char* value_param)
-{
-	state_node *node = malloc(sizeof(state_node));
-	char *key = strdup(key_param);
-	char *value = strdup(value_param);
-
-	if (!node || !key || !value) {
-		free(node);
-		free(key);
-		free(value);
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	node->key = key;
-	node->value = value;
-
-	if (NULL != tfind(node, &state_tree, state_tree_cmp)){
-		free(node);
-		free(key);
-		free(value);
-		return PC_OPERATION_SUCCESS; // 04.2013 Temporary fix. Allow multiple calls of app_give_access
-	}
-
-	tsearch(node, &state_tree, state_tree_cmp);
-	return PC_OPERATION_SUCCESS;
-}
-
-char* state_tree_pop_new(char *key)
-{
-	state_node search, *node;
-	void *wtf;
-	char *value;
-	search.key = key;
-	search.value = NULL;
-
-	wtf = tfind(&search, &state_tree, state_tree_cmp);
-	if (!wtf)
-		return NULL;
-
-	node = *(state_node**)wtf;
-	if (!node)
-		return NULL;
-
-	tdelete(node, &state_tree, state_tree_cmp);
-
-	value = node->value;
-	free(node->key);
-	free(node);
-	return value;
-}
-
-int state_save(const char *subject, const char *object, const char *perm)
-{
-	char *key = NULL;
-	if (-1 == asprintf(&key, "%s|%s", subject, object)) {
-		C_LOGE("Error in %s: asprintf failed.", __func__);
-		return PC_ERR_INVALID_OPERATION;
-	}
-	int ret = state_tree_push(key, perm);
-	free(key);
-	return ret;
-}
-
-int state_restore(const char* subject, const char* object)
-{
-	char *key AUTO_FREE;
-	char *perm AUTO_FREE;
-	struct smack_accesses *smack AUTO_SMACK_FREE;
-
-	if (-1 == asprintf(&key, "%s|%s", subject, object)) {
-		C_LOGE("Error in %s: asprintf failed.", __func__);
-		return PC_ERR_INVALID_OPERATION;
-	}
-
-	perm = state_tree_pop_new(key);
-	if (!perm) {
-		C_LOGE("Error in %s: state_tree_pop_new failed - no data for subject=%s object=%s.", __func__, subject, object);
-		return PC_ERR_INVALID_OPERATION;
-	}
-
-	if (smack_accesses_new(&smack)) {
-		C_LOGE("Error in %s: smack_accesses_new failed - memory error.", __func__);
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	if (smack_accesses_add(smack, subject, object, perm)) {
-		C_LOGE("Error in %s: smack_accesses_add failed.", __func__);
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	if (smack_accesses_apply(smack)) {
-		C_LOGE("Error in %s: smack_accesses_apply failed - operation not permitted.", __func__);
-		return PC_ERR_NOT_PERMITTED;
-	}
-
-	return PC_OPERATION_SUCCESS;
-}
 
 API int control_privilege(void)//deprecated
 {
@@ -1722,81 +1612,6 @@ out:
 	// Should we check unlink?
 	sem_unlink(PRIVILEGE_CONTROL_UNINSTALL_SEM);
 	return ret;
-}
-
-/*
- * This function will be used to allow direct communication between 2 OSP application.
- * This function requires to store "state" for list of added labels.
- *
- * Full implementation requires some kind of database. This implementation works without
- * database, so you won't be able to revoke permissions added by different process.
- */
-API int app_give_access(const char* subject, const char* object, const char* permissions)//deprecated
-{
-	C_LOGD("Enter function: %s", __func__);
-	int ret = PC_OPERATION_SUCCESS;
-	struct smack_accesses *smack AUTO_SMACK_FREE;
-	char *current_permissions AUTO_FREE;
-
-	if (!have_smack())
-		return PC_OPERATION_SUCCESS;
-
-	if(permissions == NULL) {
-		C_LOGE("Invalid permissions param.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if(!smack_label_is_valid(subject)) {
-		C_LOGE("Invalid param subject.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if(!smack_label_is_valid(object)) {
-	    C_LOGE("Invalid param object");
-	    return PC_ERR_INVALID_PARAM;
-	}
-
-	if (PC_OPERATION_SUCCESS != (ret = smack_get_access_new(subject, object, &current_permissions))) {
-		C_LOGE("Error in %s: smack_get_access_new failed.", __func__);
-		return ret;
-	}
-
-	if (smack_accesses_new(&smack)) {
-		C_LOGE("Error in %s: smack_accesses_new failed.", __func__);
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	if (smack_accesses_add_modify(smack, subject, object, permissions, "")) {
-		C_LOGE("Error in %s: smack_accesses_add_modify failed.", __func__);
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	if (smack_accesses_apply(smack)) {
-		C_LOGE("Error in %s: smack_accesses_apply failed.", __func__);
-		return PC_ERR_NOT_PERMITTED;
-	}
-
-	return state_save(subject, object, current_permissions);
-}
-
-/*
- * This function will be used to revoke direct communication between 2 OSP application.
- *
- * Full implementation requires some kind of database. This implemetation works without
- * database, so you won't be able to revoke permissions added by different process.
- */
-API int app_revoke_access(const char* subject, const char* object)//deprecated
-{
-	C_LOGD("Enter function: %s", __func__);
-	if (!have_smack())
-		return PC_OPERATION_SUCCESS;
-
-	if (!smack_label_is_valid(subject) || !smack_label_is_valid(object)) {
-		C_LOGE("Error in %s: invalid parameter", __func__);
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	return state_restore(subject, object);
 }
 
 API int app_label_shared_dir(const char* app_label, const char* shared_label, const char* path)//deprecated
