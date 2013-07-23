@@ -1,3 +1,6 @@
+* Tue Jul 23 2013 Baptiste DURAND <baptiste.durand@eurogiciel.fr> accepted/tizen/20130711.205247@88318d6
+- Call setguid function with the APP group ID retreives from /etc/group through getgrouplists function call.
+
 * Thu Jul 11 2013 Rusty Lynch <rusty.lynch@intel.com> accepted/tizen/20130711.163636@43b59bc
 - Before applied a label on the process context, check if the label is previously set.
 
