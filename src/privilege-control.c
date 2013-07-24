@@ -38,6 +38,7 @@
 #include <sys/smack.h>
 #include <linux/capability.h>
 #include <sys/capability.h>
+#include <sys/mman.h>
 #include <stdbool.h>
 #include <search.h>
 #include <iri.h>
@@ -1507,115 +1508,85 @@ int smack_get_access_new(const char* subject, const char* object, char** label)
 
 static int app_uninstall_remove_early_rules(const char *app_id)
 {
-	C_LOGD("Enter function: %s", __func__);
+	C_LOGD("Enter function: %s(%s)", __func__, app_id);
 
-	int ret = PC_OPERATION_SUCCESS;
-	FILE *file AUTO_FCLOSE;
-	FILE *file_new AUTO_FCLOSE;
-	char *tmp_filename AUTO_FREE;
-	char *single_line_format AUTO_FREE;
+	int ret;
+	int fd AUTO_CLOSE;
+	int size;
+	char tmp;
+	char *data, *data_end;
+	char *line_begin, *line_end, *write_pos;
 	char subject[SMACK_LABEL_LEN + 1];
 	char object[SMACK_LABEL_LEN + 1];
-	char rule_add[6];    // "rwxat" + '\0'
-	char rule_remove[6]; // "rwxat" + '\0'
-	sem_t *sem = NULL;
 
-	subject[SMACK_LABEL_LEN] = '\0';
-	object[SMACK_LABEL_LEN] = '\0';
-	rule_add[5] = '\0';
-	rule_remove[5] = '\0';
-
-	// Creating (opening) and waiting for semaphore
-	sem = sem_open(PRIVILEGE_CONTROL_UNINSTALL_SEM, O_CREAT, S_IRWXU | S_IRWXU | S_IRWXO, 1);
-	if (sem == SEM_FAILED) {
-		C_LOGE("sem_open failed, error: %s", strerror(errno));
-		ret = PC_ERR_INVALID_OPERATION;
-		goto out;
-	}
-	C_LOGD("Waiting for semaphore");
-	ret = sem_wait(sem);
-	if (ret < 0) {
-		C_LOGE("sem_wait failed, error: %s", strerror(errno));
-		ret = PC_ERR_INVALID_OPERATION;
-		goto out;
+	fd = open(SMACK_STARTUP_RULES_FILE, O_RDWR);
+	if (fd < 0) {
+		C_LOGE("Unable to open file %s: %s", SMACK_STARTUP_RULES_FILE, strerror(errno));
+		return PC_ERR_FILE_OPERATION;
 	}
 
-	ret = asprintf(&single_line_format, "%%%ds %%%ds %%5s %%5s\\n", SMACK_LABEL_LEN, SMACK_LABEL_LEN);
-	if (ret < 0) {
-		C_LOGE("asprintf failed");
-		ret = PC_ERR_MEM_OPERATION;
-		goto out;
+	if (flock(fd, LOCK_EX)) {
+		C_LOGE("flock failed, error %s", strerror(errno));
+		return PC_ERR_FILE_OPERATION;
 	}
 
-	ret = asprintf(&tmp_filename, "%s.tmp", SMACK_STARTUP_RULES_FILE);
-	if (ret < 0) {
-		C_LOGE("asprintf failed");
-		ret = PC_ERR_MEM_OPERATION;
-		goto out;
+	size = lseek(fd, 0, SEEK_END);
+	if (size < 0) {
+		C_LOGE("Unable to read file %s: %s", SMACK_STARTUP_RULES_FILE, strerror(errno));
+		return PC_ERR_FILE_OPERATION;
 	}
 
-	file = fopen(SMACK_STARTUP_RULES_FILE, "r");
-	if (NULL == file) {
-		C_LOGE("fopen failed on %s", SMACK_STARTUP_RULES_FILE);
-		ret = PC_ERR_FILE_OPERATION;
-		goto out;
+	if (size == 0)
+		return PC_OPERATION_SUCCESS;
+
+	data = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+	if (data == MAP_FAILED) {
+		C_LOGE("Unable to read file %s: %s", SMACK_STARTUP_RULES_FILE, strerror(errno));
+		return PC_ERR_FILE_OPERATION;
 	}
+	data_end = data + size;
 
-	file_new = fopen(tmp_filename, "w");
-	if (NULL == file) {
-		C_LOGE("fopen failed on %s", tmp_filename);
-		ret = PC_ERR_FILE_OPERATION;
-		goto out;
-	}
+	line_begin = write_pos = data;
+	while (line_begin < data_end) {
+		line_end = memchr(line_begin, '\n', data_end - line_begin);
+		if (line_end == NULL)
+			line_end = data_end - 1;
 
-	while (fscanf(file, single_line_format, subject, object, rule_add, rule_remove) == 4) {
-		C_LOGD("Checking line \"%s %s %s %s\"", subject, object, rule_add, rule_remove);
+		tmp = *line_end;
+		*line_end = '\0';
+		C_LOGD("Considering early rule: %s", line_begin);
 
-		if ((strncmp(subject, app_id, SMACK_LABEL_LEN) == 0) || (strncmp(object, app_id, SMACK_LABEL_LEN) == 0)) {
-			C_LOGD("app_id found - rule will be ignored");
-			continue; // do not re-write this rule for new file
+		ret = sscanf(line_begin, "%" TOSTRING(SMACK_LABEL_LEN) "s %" TOSTRING(SMACK_LABEL_LEN) "s", subject, object);
+		if (ret != 2) {
+			C_LOGD("Rule format is invalid, skipping it.");
+			goto loop_next;
 		}
 
-		if (0 > fprintf(file_new, "%s %s %s %s\n", subject, object, rule_add, rule_remove)) { // re-writing rule to new file
-			C_LOGE("Write rule \"%s %s %s %s\" to file failed. %s", subject, object, rule_add, rule_remove, strerror(errno));
-			// Should we return with error here?
-			ret = PC_ERR_FILE_OPERATION;
-			goto out;
+		if (!strcmp(subject, app_id) || !strcmp(object, app_id)) {
+			C_LOGD("Rule belongs to an app being removed, skipping it.");
+			goto loop_next;
 		}
+
+		C_LOGD("Rule still needed, keeping it.");
+		*line_end = tmp;
+		if (write_pos != line_begin)
+			memcpy(write_pos, line_begin, line_end - line_begin + 1);
+		write_pos += (line_end - line_begin + 1);
+
+	loop_next:
+		*line_end = tmp;
+		line_begin = line_end + 1;
 	}
 
-	fclose(file);
-	file = NULL;
-	fclose(file_new);
-	file_new = NULL;
+	munmap(data, size);
+	ret = ftruncate(fd, write_pos - data);
+	if (ret < 0) {
+		C_LOGE("Unable to truncate file %s to %d bytes: %s", SMACK_STARTUP_RULES_FILE, write_pos, strerror(errno));
 
-	if (unlink(SMACK_STARTUP_RULES_FILE)) {
-		C_LOGE("unlink failed %s", strerror(errno));
-		ret = PC_ERR_FILE_OPERATION;
-		goto out;
+		return PC_ERR_FILE_OPERATION;
 	}
 
-	if (rename(tmp_filename, SMACK_STARTUP_RULES_FILE)) {
-		C_LOGE("rename failed. %s", strerror(errno));
-		ret = PC_ERR_FILE_OPERATION;
-		goto out;
-	}
-
-	if (chmod(SMACK_STARTUP_RULES_FILE, 644)) {
-		C_LOGE("chmod failed on %s file. Error: %s", tmp_filename, strerror(errno));
-		ret = PC_ERR_FILE_OPERATION;
-		goto out;
-	}
-
-	ret = PC_OPERATION_SUCCESS;
-
-out:
-
-	if (sem)
-		sem_post(sem);
-	// Should we check unlink?
-	sem_unlink(PRIVILEGE_CONTROL_UNINSTALL_SEM);
-	return ret;
+	return PC_OPERATION_SUCCESS;
 }
 
 API int app_label_shared_dir(const char* app_label, const char* shared_label, const char* path)//deprecated
