@@ -93,9 +93,9 @@ void fts_closep(FTS **f)
 }
 
 /**
- * This function check if application SMACK rules was already loaded
- * by checking if specific file exist. This Function desn't create such file.
- * It returns:
+ * This function checks if SMACK rules of application were already loaded
+ * by checking if specific file exist. This function doesn't create such file.
+ * Return values:
  *  0 if rules weren't yet loaded,
  *  1 if rules were loaded
  * -1 if error occurs while checking
@@ -115,8 +115,8 @@ int check_if_rules_were_loaded(const char *app_id)
 }
 
 /**
- * This function creates a (empty) file for app if rules for this app
- * were loaded.
+ * This function marks that rules for app were already loaded by creating
+ * specific for this app (empty) file.
  */
 void mark_rules_as_loaded(const char *app_id)
 {
@@ -150,7 +150,7 @@ int add_app_first_run_rules(const char *app_id)
 
 	ret = load_smack_from_file(app_id, &smack, &fd, &smack_path);
 	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("Error while load_smack_from_file");
+		C_LOGE("Error in load_smack_from_file");
 		return ret;
 	}
 	if (have_smack() && smack_accesses_apply(smack)) {
@@ -165,7 +165,7 @@ int add_app_first_run_rules(const char *app_id)
 static int load_smack_from_file_generic(const char* app_id, struct smack_accesses** smack, int *fd, char** path, bool is_early)
 {
 	/* Notice that app_id is ignored when flag is_early is set.
-	 * It's because the all "early rules" (for all apps) should
+	 * It's because all of the "early rules" (for all apps) should
 	 * be in one common file: SMACK_STARTUP_RULES_FILE
 	 */
 	C_LOGD("Enter function: %s", __func__);

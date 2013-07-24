@@ -73,7 +73,7 @@ int control_privilege(void) DEPRECATED;
 int set_privilege(const char* pkg_name) DEPRECATED;
 
 /**
- * Function get process smack label base on pid.
+ * Function getting process smack label based on pid.
  * @param in:  pid of process
  * @param out: label of process
  * @return PC_OPERATION_SUCCESS on success PC_ERR_* on error.
@@ -81,11 +81,11 @@ int set_privilege(const char* pkg_name) DEPRECATED;
 int get_smack_label_from_process(pid_t pid, char smack_label[SMACK_LABEL_LEN + 1]);
 
 /**
- * Check if process with pid have access to object.
- * This function check if subject have access to object via smack_have_access() function.
- * If YES then returned access granted. In NO then function check if process with pid have
- * CAP_MAC_OVERRIDE capability. If YES then return access granted.
- * If NO then return access denied.
+ * Check if process with pid has access to object.
+ * This function checks if subject has access to object via smack_have_access() function.
+ * If YES then returns access granted. In NO then function checks if process with pid has
+ * CAP_MAC_OVERRIDE capability. If YES then returns access granted.
+ * If NO then returns access denied.
  *
  * @param pid of process
  * @param label of object to access
@@ -98,7 +98,7 @@ int smack_pid_have_access(pid_t pid,
 
 /**
  * Set DAC and SMACK privileges for application.
- * This function is meant to be call by the application launcher just before
+ * This function is meant to be called by the application launcher just before
  * it launches an application. It will setup DAC and SMACK privileges based
  * on app type and accesses.
  * It must be called with root privileges, which will be dropped in the function.
@@ -264,7 +264,7 @@ int app_label_dir(const char* app_label, const char* path) DEPRECATED;
 
 /**
  * Recursively set SMACK access and transmute labels for an application
- * directory and adds SMACK rule for application.
+ * directory and add SMACK rule for application.
  * This function should be called once during app installation.
  * Results will be persistent on the file system.
  * It must be called by privileged user.
@@ -341,7 +341,7 @@ int app_add_friend(const char* pkg_id1, const char* pkg_id2) DEPRECATED;
  * Modify SMACK rules to give access from (subject)customer_label to (object)
  * provider_label.
  * Note: This function will do nothing if subject has already rwxat access to
- * object. You can revoke this modyfication by calling app_rovoke_access.
+ * object. You can revoke this modification by calling app_rovoke_access.
  *
  * @param subject - label of client application
  * @param object  - label of provider application
