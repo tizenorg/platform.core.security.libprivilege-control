@@ -44,7 +44,7 @@ int main(int argc, char * argv[])
         ret = check_if_rules_were_loaded(file->d_name);
         if (ret < 0) {
             fprintf(log_file,"Error in check_if_rules_were_loaded()\n");
-            //we skipping to the next app_id
+            //we're skipping to the next app_id
         } else if (ret == 0) {
             //if not load rules
             ret = add_app_first_run_rules(file->d_name);

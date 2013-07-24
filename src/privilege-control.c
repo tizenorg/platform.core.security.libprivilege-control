@@ -126,7 +126,7 @@ int state_tree_push(const char* key_param, const char* value_param)
 		free(node);
 		free(key);
 		free(value);
-		return PC_OPERATION_SUCCESS; // 04.2013 Temporary fix. Allow for multiple call of app_give_access
+		return PC_OPERATION_SUCCESS; // 04.2013 Temporary fix. Allow multiple calls of app_give_access
 	}
 
 	tsearch(node, &state_tree, state_tree_cmp);
@@ -274,7 +274,7 @@ API int get_smack_label_from_process(pid_t pid, char smack_label[SMACK_LABEL_LEN
 	}
 
 	bzero(smack_label, SMACK_LABEL_LEN + 1);
-	if (!have_smack()) { // If no smack just return success with empty label
+	if (!have_smack()) { // If no smack found just return success and empty label
 		C_LOGD("No SMACK. Return empty label");
 		ret = PC_OPERATION_SUCCESS;
 		goto out;
@@ -340,7 +340,7 @@ API int smack_pid_have_access(pid_t pid,
 	}
 	C_LOGD("pid %d have label: %s", pid, pid_subject_label);
 
-	// if read empty label then do not call smack_have_access()
+	// do not call smack_have_access() if label is empty
 	if (pid_subject_label[0] != '\0') {
 		ret = smack_have_access(pid_subject_label, object, access_type);
 		if ( -1 == ret) {
@@ -348,13 +348,13 @@ API int smack_pid_have_access(pid_t pid,
 			return -1;
 		}
 		if ( 1 == ret ) { // smack_have_access return 1 (access granted)
-			C_LOGD("smack_have_access return 1 (access granted)");
+			C_LOGD("smack_have_access returned 1 (access granted)");
 			return 1;
 		}
 	}
 
-	// smack_have_access return 0 (access denied). Now CAP_MAC_OVERRIDE should be checked
-	C_LOGD("smack_have_access return 0 (access denied)");
+	// smack_have_access returned 0 (access denied). Now CAP_MAC_OVERRIDE should be checked
+	C_LOGD("smack_have_access returned 0 (access denied)");
 	cap = cap_get_pid(pid);
 	if (cap == NULL) {
 		C_LOGE("cap_get_pid failed");
@@ -367,11 +367,11 @@ API int smack_pid_have_access(pid_t pid,
 	}
 
 	if (cap_v == CAP_SET) {
-		C_LOGD("pid %d have CAP_MAC_OVERRIDE", pid);
+		C_LOGD("pid %d has CAP_MAC_OVERRIDE", pid);
 		return 1;
 
 	} else {
-		C_LOGD("pid %d have no CAP_MAC_OVERRIDE", pid);
+		C_LOGD("pid %d doesn't have CAP_MAC_OVERRIDE", pid);
 		return 0;
 	}
 }
@@ -438,7 +438,7 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 				glist_new = (gid_t*)realloc(glist, sizeof(gid_t) * (glist_cnt + cnt));
 				if (glist_new == NULL) {
 					result = PC_ERR_MEM_OPERATION;	// return -2
-					C_LOGE("Cannot allocate memory");
+					C_LOGE("Memory allocation failed");
 					goto error;
 				}
 				glist = glist_new;
@@ -459,7 +459,7 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 		C_LOGD("setgroups()");
 		if(setgroups(glist_cnt, glist) != 0)
 		{
-			C_LOGE("setgrouops fail");
+			C_LOGE("setgroups failed");
 			result = PC_ERR_NOT_PERMITTED;	// return -3
 			goto error;
 		}
@@ -475,13 +475,13 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 		C_LOGD("setgid( %d ) & setuid( %d )", usr.gid, usr.uid);
 		if(setgid(usr.gid) != 0)	// fail
 		{
-			C_LOGE("Fail to execute setgid().");
+			C_LOGE("Failed to execute setgid().");
 			result = PC_ERR_INVALID_OPERATION;
 			goto error;
 		}
 		if(setuid(usr.uid) != 0)	// fail
 		{
-			C_LOGE("Fail to execute setuid().");
+			C_LOGE("Failed to execute setuid().");
 			result = PC_ERR_INVALID_OPERATION;
 			goto error;
 		}
@@ -489,13 +489,13 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 		SECURE_LOGD("setenv(): USER = %s, HOME = %s", usr.user_name, usr.home_dir);
 		if(setenv("USER", usr.user_name, 1) != 0)	//fail
 		{
-			C_LOGE("Fail to execute setenv() [USER].");
+			C_LOGE("Failed to execute setenv() [USER].");
 			result = PC_ERR_INVALID_OPERATION;
 			goto error;
 		}
 		if(setenv("HOME", usr.home_dir, 1) != 0)	// fail
 		{
-			C_LOGE("Fail to execute setenv() [HOME].");
+			C_LOGE("Failed to execute setenv() [HOME].");
 			result = PC_ERR_INVALID_OPERATION;
 			goto error;
 		}
@@ -519,7 +519,7 @@ error:
 
 /**
  * Get SMACK label from EXEC label of a file.
- * SMACK label should be free by caller
+ * SMACK label should be freed by caller
  *
  * @param path file path to take label from
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
@@ -549,7 +549,7 @@ static int get_smack_from_binary(char **smack_label, const char* path, app_type_
 
 /**
  * Set process SMACK label.
- * This function is emulating EXEC label behaviour of SMACK for programs
+ * This function is emulating EXEC label behavior of SMACK for programs
  * run by dlopen/dlsym instead of execv.
  *
  * @param smack label
@@ -673,7 +673,7 @@ API int perm_app_set_privilege(const char* name, const char* type, const char* p
 	char *smack_label AUTO_FREE;
 
 	if (name == NULL) {
-		C_LOGE("Invalid name param.");
+		C_LOGE("Error invalid parameter");
 		return PC_ERR_INVALID_PARAM;
 	}
 
@@ -995,7 +995,7 @@ static int label_links_to_execs(const FTSENT* ftsent)
 	}
 	// skip if link target is not a regular executable file
 	if (buf.st_mode != (buf.st_mode | S_IXUSR | S_IFREG)) {
-		C_LOGD("%s Is not a regular executable file. Skipping.", target);
+		C_LOGD("%s is not a regular executable file. Skipping.", target);
 		return DECISION_SKIP;
 	}
 
@@ -1130,11 +1130,11 @@ app_register_appsetting(const char *app_id, struct smack_accesses *smack)
 	/* Reading labels of all installed apps from "database"*/
 	ret = get_all_apps_ids(&label_app_list, &app_list_len);
 	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("Error while geting data from database");
+		C_LOGE("Error while getting data from database");
 		goto out;
 	}
 
-	/*Add smack rules to rx access each app*/
+	/*Add smack rules with rx access to each app*/
 	for (i = 0; i < app_list_len; ++i) {
 		C_LOGD("Appsetting: applying rx rule for %s", label_app_list[i]);
 		if (smack_accesses_add_modify(smack, app_id,
@@ -1149,10 +1149,10 @@ app_register_appsetting(const char *app_id, struct smack_accesses *smack)
 	ret = get_all_settings_dir_ids(
 			&label_dir_list, &dir_list_len);
 	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("Error while geting data from database");
+		C_LOGE("Error while getting data from database");
 		goto out;
 	}
-	/*Add smack rules to rwx access each app*/
+	/*Add smack rules with rwx access to each app*/
 	for (i = 0; i < dir_list_len; ++i) {
 		C_LOGD("Appsetting: applying rwx rule for %s", label_dir_list[i]);
 		if (smack_accesses_add_modify(smack, app_id,
@@ -1160,8 +1160,8 @@ app_register_appsetting(const char *app_id, struct smack_accesses *smack)
 			C_LOGE("smack_accesses_add_modify failed");
 			ret = PC_ERR_INVALID_OPERATION;
 			goto out;
-			/* Should we abort adding rules if once
-			 * smack_accesses_add_modify will fail?*/
+			/* Should we abort adding rules if
+			 * smack_accesses_add_modify fails once?*/
 		}
 	}
 
@@ -1205,7 +1205,7 @@ static int app_register_av_internal(const char *app_av_id, struct smack_accesses
 			C_LOGE("smack_accesses_add_modify failed");
 			ret = PC_ERR_INVALID_OPERATION;
 			goto out;
-			// Should we abort adding rules if once smack_accesses_add_modify will fail?
+			// Should we abort adding rules once smack_accesses_add_modify will fail?
 		}
 	}
 
@@ -1218,9 +1218,9 @@ out:
 }
 
 /**
- *  This function will check in database labels of all anti viruses
- *  and for all anti viruses will add a rule "anti_virus_label app_id rwx".
- *  This should be call in app_install function.
+ *  This function will find labels of all anti viruses in database
+ *  and for all of them will add a rule "anti_virus_label app_id rwx".
+ *  This should be called in app_install function.
  */
 static int register_app_for_av(const char * app_id)
 {
@@ -1235,7 +1235,7 @@ static int register_app_for_av(const char * app_id)
 		return ret;
 	}
 
-	// for each anti-virus put rule: "anti_virus_id app_id rwx"
+	// for each anti-virus label put rule: "anti_virus_label app_id rwx"
 	for (i = 0; i < smack_label_av_list_len; ++i) {
 		SECURE_LOGD("Antivirus: app_add_rule (%s, %s rx)", smack_label_av_list[i], app_id);
 		if (strcmp(app_id, smack_label_av_list[i])==0) {
@@ -1254,8 +1254,8 @@ static int register_app_for_av(const char * app_id)
 	ret = PC_OPERATION_SUCCESS;
 
 out:
-	// If something failed, then no all char* smack_label_av_list[i]
-	// are deallocated. They must be freed
+	// If something failed, then no entry of smack_label_av_list[i]
+	// was deallocated. They all must be freed.
 	for(; i<smack_label_av_list_len; ++i) {
 		free(smack_label_av_list[i]);
 	}
@@ -1264,9 +1264,9 @@ out:
 }
 
 /**
- *  This function will check in database labels of all setting applications
+ *  This function will find labels of all setting applications in database
  *  and for all of them will add a rule "appsetting_id app_id rwx".
- *  This should be call in app_install function.
+ *  This should be called in app_install function.
  */
 static int register_app_for_appsetting(const char *app_id)
 {
@@ -1302,8 +1302,8 @@ static int register_app_for_appsetting(const char *app_id)
 	ret = PC_OPERATION_SUCCESS;
 
 out:
-	/* If something failed, then no all char* smack_label_list[i]
-	 are deallocated. They must be freed*/
+	/* If something failed, then no entry of smack_label_list[i]
+	 was deallocated. They all must be freed.*/
 	for (; i < smack_label_list_len; ++i) {
 		free(smack_label_list[i]);
 	}
@@ -1313,9 +1313,9 @@ out:
 
 
 /**
- *  This function will grant app_id RX access to all public directories and
- *  files, previously designated by app_setup_path(APP_PATH_PUBLIC_RO)
- *  This should be call in app_install function.
+ *  This function will grant app_id rx access to all public directories and
+ *  files previously designated by app_setup_path(APP_PATH_PUBLIC_RO)
+ *  This should be called in app_install function.
  */
 static int register_app_for_public_dirs(const char *app_id, struct smack_accesses *smack)
 {
@@ -1326,7 +1326,7 @@ static int register_app_for_public_dirs(const char *app_id, struct smack_accesse
 
 	ret = db_get_public_dirs(&public_dirs, &public_dirs_cnt);
 	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("Error while geting data from database");
+		C_LOGE("Error while getting data from database");
 		return ret;
 	}
 
@@ -1520,7 +1520,7 @@ static int app_revoke_permissions_internal(const char* app_id, bool persistent)
 	}
 
 	if (persistent && ftruncate(fd, 0) == -1)
-		C_LOGW("file truncate failed");
+		C_LOGW("file truncation failed");
 
 	return PC_OPERATION_SUCCESS;
 }
@@ -1741,10 +1741,10 @@ out:
 
 /*
  * This function will be used to allow direct communication between 2 OSP application.
- * This function requires to store "state" with list of added label.
+ * This function requires to store "state" for list of added labels.
  *
  * Full implementation requires some kind of database. This implementation works without
- * database so you wont be able to revoke permissions added by different process.
+ * database, so you won't be able to revoke permissions added by different process.
  */
 API int app_give_access(const char* subject, const char* object, const char* permissions)//deprecated
 {
@@ -1798,7 +1798,7 @@ API int app_give_access(const char* subject, const char* object, const char* per
  * This function will be used to revoke direct communication between 2 OSP application.
  *
  * Full implementation requires some kind of database. This implemetation works without
- * database so you wont be able to revoke permissions added by different process.
+ * database, so you won't be able to revoke permissions added by different process.
  */
 API int app_revoke_access(const char* subject, const char* object)//deprecated
 {
@@ -1807,7 +1807,7 @@ API int app_revoke_access(const char* subject, const char* object)//deprecated
 		return PC_OPERATION_SUCCESS;
 
 	if (!smack_label_is_valid(subject) || !smack_label_is_valid(object)) {
-		C_LOGE("Error in %s: invalid param.", __func__);
+		C_LOGE("Error in %s: invalid parameter", __func__);
 		return PC_ERR_INVALID_PARAM;
 	}
 
@@ -2065,7 +2065,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 			return ret;
 		}
 
-		/*add path to database*/
+		/* add path to database */
 		/* FIXME: This should be in some kind of transaction/lock */
 		ret = add_setting_dir_id_to_databse(label);
 		if (ret != PC_OPERATION_SUCCESS) {
@@ -2079,7 +2079,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 			C_LOGE("Appsetting: get_all_appsetting_ids failed");
 			return ret;
 		}
-		C_LOGD("Appsetting: %d appsetting privileged apps registeres",
+		C_LOGD("Appsetting: %d appsetting privileged apps registered",
 				app_ids_cnt);
 
 		/*give RWX rights to all apps that have appsetting privilege*/
@@ -2237,7 +2237,7 @@ API int perm_app_uninstall(const char* pkg_id)
 {
 	// TODO: When real database will be used, then this function should remove app_id
 	//       from database.
-	//       It also should remove rules looks like: "anti_virus_label app_id rwx".
+	//       It also should remove rules like: "anti_virus_label app_id rwx".
 	C_LOGD("Enter function: %s", __func__);
 	char* smack_path AUTO_FREE;
 	int ret;
@@ -2470,7 +2470,7 @@ API int app_register_av(const char* app_av_id)//deprecated
 		return ret;
 	}
 
-	// Add permisions from OSP_antivirus.samck file
+	// Add permisions from OSP_antivirus.smack file
 	ret = perm_to_smack(smack, app_av_id, APP_TYPE_OSP, TIZEN_PRIVILEGE_ANTIVIRUS);
 	if (PC_OPERATION_SUCCESS != ret) {
 		C_LOGE("perm_to_smack failed");
