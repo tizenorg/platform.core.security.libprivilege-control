@@ -120,17 +120,10 @@ static int add_id_to_database_internal(const char * id, db_app_type_t app_type)
 static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type)
 {
 	int ret;
-	char* scanf_label_format AUTO_FREE;
 	FILE* file_db AUTO_FCLOSE;
 	const char* db_file_name = db_file_names[app_type];
 	char smack_label[SMACK_LABEL_LEN + 1];
 	element_t* begin_of_list = NULL;
-
-	if (asprintf(&scanf_label_format, "%%%ds\\n", SMACK_LABEL_LEN) < 0) {
-		C_LOGE("Error while creating scanf input label format");
-		ret = PC_ERR_MEM_OPERATION;
-		goto out;
-	}
 
 	file_db = fopen(db_file_name, "r");
 	if (NULL == file_db) {
@@ -153,7 +146,7 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 
 	// reading from file ("database")
 	// notice that first element always stays with empty "value"
-	while (fscanf(file_db, scanf_label_format, smack_label) == 1) {
+	while (fscanf(file_db, "%" TOSTRING(SMACK_LABEL_LEN) "s\n", smack_label) == 1) {
 		smack_label[SMACK_LABEL_LEN] = '\0';
 		if (!smack_label_is_valid(smack_label)) {
 			C_LOGD("Found entry in database, but it's not correct SMACK label: \"%s\"", smack_label);

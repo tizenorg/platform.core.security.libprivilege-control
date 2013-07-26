@@ -743,17 +743,10 @@ static int perm_to_smack_from_file(struct smack_accesses* smack,
 {
 	C_LOGD("Enter function: %s", __func__);
 
-	char* format_string AUTO_FREE;
 	char smack_subject[SMACK_LABEL_LEN + 1];
 	char smack_object[SMACK_LABEL_LEN + 1];
-	char smack_accesses[10];
+	char smack_accesses[ACC_LEN + 1];
 	FILE* file AUTO_FCLOSE;
-
-	if (asprintf(&format_string,"%%%ds %%%ds %%%lus\n",
-			SMACK_LABEL_LEN, SMACK_LABEL_LEN, (unsigned long)sizeof(smack_accesses)) == -1) {
-		C_LOGE("asprintf failed");
-		return PC_ERR_MEM_OPERATION;
-	}
 
 	file = fopen(rules_file_path, "r");
 	C_LOGD("path = %s", rules_file_path);
@@ -762,7 +755,11 @@ static int perm_to_smack_from_file(struct smack_accesses* smack,
 		return PC_OPERATION_SUCCESS;
 	}
 
-	while (fscanf(file, format_string, smack_subject, smack_object, smack_accesses) == 3) {
+	while (fscanf(file,
+			"%" TOSTRING(SMACK_LABEL_LEN) "s "
+			"%" TOSTRING(SMACK_LABEL_LEN) "s "
+			"%" TOSTRING(ACC_LEN) "s\n",
+			smack_subject, smack_object, smack_accesses) == 3) {
 		if (!strcmp(smack_subject, app_label_template))
 			strcpy(smack_subject, app_label);
 
