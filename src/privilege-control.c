@@ -69,7 +69,7 @@
 #define SMACK_DATA_SUFFIX       "_data"
 #define WRT_BASE_DEVCAP         "WRT"
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
-#define ACC_LEN                 5
+#define ACC_LEN                 6
 #define TIZEN_PRIVILEGE_ANTIVIRUS  "http://tizen.org/privilege/antivirus"
 #define TIZEN_PRIVILEGE_APPSETTING "http://tizen.org/privilege/appsetting"
 #define PATH_RULES_PUBLIC_RO       "PATH_RULES_PUBLIC_RO.smack"
@@ -1493,7 +1493,7 @@ API int app_label_dir(const char* label, const char* path)//deprecated
 
 int smack_get_access_new(const char* subject, const char* object, char** label)
 {
-	char buff[ACC_LEN] = {'r', 'w', 'x', 'a', 't'};
+	char buff[ACC_LEN] = {'r', 'w', 'x', 'a', 't', 'l'};
 	char perm[2] = {'-'};
 	int i;
 
