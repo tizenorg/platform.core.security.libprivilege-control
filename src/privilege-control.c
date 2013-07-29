@@ -955,7 +955,7 @@ API char* perm_app_id_from_socket(int sockfd)
 	int ret;
 
 	ret = smack_new_label_from_socket(sockfd, &app_id);
-	if (ret != 0) {
+	if (ret < 0) {
 		C_LOGE("smack_new_label_from_socket failed");
 		return NULL;
 	}
