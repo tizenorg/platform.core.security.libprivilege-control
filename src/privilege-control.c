@@ -607,6 +607,8 @@ static inline const char* app_type_name(app_type_t app_type)
 		return "OSP_partner";
 	case APP_TYPE_OSP_PLATFORM:
 		return "OSP_platform";
+	case APP_TYPE_EFL:
+		return "EFL";
 	default:
 		return NULL;
 	}
@@ -623,6 +625,8 @@ static inline const char* app_type_group_name(app_type_t app_type)
 	case APP_TYPE_OSP_PARTNER:
 	case APP_TYPE_OSP_PLATFORM:
 		return "OSP";
+	case APP_TYPE_EFL:
+		return "EFL";
 	default:
 		return NULL;
 	}

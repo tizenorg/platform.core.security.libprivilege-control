@@ -57,6 +57,7 @@ typedef enum {
        APP_TYPE_WGT_PLATFORM,
        APP_TYPE_OSP_PARTNER,
        APP_TYPE_OSP_PLATFORM,
+       APP_TYPE_EFL,
 } app_type_t;
 
 typedef enum {
