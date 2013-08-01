@@ -39,7 +39,7 @@ cp %{SOURCE1001} .
 
 %build
 export CFLAGS="${CFLAGS} -Wno-implicit-function-declaration"
-%cmake . -DCMAKE_BUILD_TYPE=%{?build_type:%build_type}
+%cmake . -DCMAKE_BUILD_TYPE=%{?build_type:%build_type}%{!?build_type:RELEASE}
 
 make %{?jobs:-j%jobs}
 
