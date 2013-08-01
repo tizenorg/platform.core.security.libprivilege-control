@@ -19,8 +19,13 @@ FOREACH(flag ${pkgs_CFLAGS})
 	SET(EXTRA_CFLAGS "${EXTRA_CFLAGS} ${flag}")
 ENDFOREACH(flag)
 
-SET(CMAKE_C_FLAGS_CCOV "--coverage")
-SET(CMAKE_CXX_FLAGS_CCOV "--coverage")
+# TIZEN_ENGINEER_MODE is used in  dlog.h file.
+# Without this flag all logs defined with SLOGD macro
+# will be expanded to empty instruction.
+
+SET(CMAKE_C_FLAGS_CCOV    "--coverage")
+SET(CMAKE_C_FLAGS_DEBUG   "-O0 -g -ggdb -DDLOG_DEBUG_ENABLED -DTIZEN_ENGINEER_MODE")
+SET(CMAKE_C_FLAGS_RELEASE "-O2 -g")
 
 SET(src_dir "./src")
 SET(include_dir "./include")
