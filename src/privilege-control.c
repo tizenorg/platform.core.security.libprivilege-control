@@ -1662,7 +1662,7 @@ API int app_label_shared_dir(const char* app_label, const char* shared_label, co
 	//setting transmute on dir
 	ret = dir_set_smack_r(path, "1", SMACK_LABEL_TRANSMUTE, label_dirs);
 	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("dir_set_smakc_r failed");
+		C_LOGE("dir_set_smack_r failed");
 		return ret;
 	}
 
