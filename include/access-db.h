@@ -23,26 +23,26 @@
 #define _ACCESS_DB_H_
 
 /**
- * This function add app_id to database.
- * Needs to be call by privileged user.
+ * This function adds app_id to database.
+ * Needs to be called by privileged user.
  */
 int add_app_id_to_databse(const char * app_id);
 
 /**
- * This function add anti_virus_id to database.
- * Needs to be call by privileged user.
+ * This function adds anti_virus_id to database.
+ * Needs to be called by privileged user.
  */
 int add_av_id_to_databse(const char * av_id);
 
 /**
- * This function add appsetting_id to database.
- * Needs to be call by privileged user.
+ * This function adds appsetting_id to database.
+ * Needs to be called by privileged user.
  */
 int add_appsetting_id_to_databse(const char *appsetting_id);
 
 /**
- * This function add setting_dir_id to database.
- * Needs to be call by privileged user.
+ * This function adds setting_dir_id to database.
+ * Needs to be called by privileged user.
  */
 int add_setting_dir_id_to_databse(const char *setting_dir_id);
 
@@ -77,12 +77,12 @@ int get_all_appsetting_ids(char ***apps_ids, int *len);
 int get_all_avs_ids(char *** av_ids, int * len);
 
 /**
- * This function adds an app to a suplementary group identified by gid
+ * This function adds an app to a supplementary group identified by gid
  */
 int add_app_gid(const char *app_id, unsigned gid);
 
 /**
- * This function returns (in params) suplementary group ids that an app
+ * This function returns (in params) supplementary group ids that an app
  * has been assigned to.
  * gids should be freed by caller.
  */

@@ -75,23 +75,23 @@ int main(int argc, char* argv[])
 	{
 		case 0:		// child
 			{
-				if(set_app_privilege(argv[1], NULL, NULL) == 0)	// success
+				if(perm_app_set_privilege(argv[1], NULL, NULL) == 0)	// success
 				{
-					fprintf(stderr, "%s", "[LOG] Success to execute set_privilege()\n");
-					C_LOGD("[LOG] Success to execute set_privilege()");
+					fprintf(stderr, "%s", "[LOG] Successfully executed set_privilege()\n");
+					C_LOGD("[LOG] Successfully executed set_privilege()");
 				}
 				else
 				{
-					fprintf(stderr, "%s", "[ERR] Fail to execute set_privilege()\n");
-					C_LOGE("[ERR] Fail to execute set_privilege()");
+					fprintf(stderr, "%s", "[ERR] Failed to execute set_privilege()\n");
+					C_LOGE("[ERR] Failed to execute set_privilege()");
 					exit(1);
 				}
 
 				buf = getenv("HOME");
 				if(buf == NULL)	// fail
 				{
-					fprintf(stderr, "%s", "[ERR] Fail to execute getenv()\n");
-					C_LOGE("[ERR] Fail to execute getenv()");
+					fprintf(stderr, "%s", "[ERR] Failed to execute getenv()\n");
+					C_LOGE("[ERR] Failed to execute getenv()");
 					exit(0);
 				}
 				else
@@ -102,13 +102,13 @@ int main(int argc, char* argv[])
 				
 				if(chdir(buf) == 0)	// success
 				{
-					fprintf(stderr, "%s", "[LOG] Success to change working directory\n");
-					C_LOGD("[LOG] Success to change working directory");
+					fprintf(stderr, "%s", "[LOG] Successfully changed working directory\n");
+					C_LOGD("[LOG] Successfully changed working directory");
 				}
 				else
 				{
-					fprintf(stderr, "%s", "[ERR] Fail to execute chdir()\n");
-					C_LOGE("[ERR] Fail to execute chdir()");
+					fprintf(stderr, "%s", "[ERR] Failed to execute chdir()\n");
+					C_LOGE("[ERR] Failed to execute chdir()");
 					exit(0);
 				}
 				
@@ -118,8 +118,8 @@ int main(int argc, char* argv[])
 			}
 		case -1:	// error
 			{
-				fprintf(stderr, "%s", "[ERR] Fail to execute fork()\n");
-				C_LOGE("[ERR] Fail to execute fork()");
+				fprintf(stderr, "%s", "[ERR] Failed to execute fork()\n");
+				C_LOGE("[ERR] Failed to execute fork()");
 				exit(1);
 				break;
 			}

@@ -201,7 +201,7 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 		}
 	}
 	else {
-		C_LOGD("Not found any labels!");
+		C_LOGD("No labels found!");
 		*ids = NULL;
 	}
 
@@ -327,7 +327,7 @@ int get_app_gids(const char *app_id, unsigned **gids, int *len)
 			if (isdigit(*field)) {
 				gid = gid * 10 + *field - '0';
 			} else {
-				C_LOGE("Invalid line read in groups database: %s", fields[i]);
+				C_LOGE("Invalid format of group id read from groups database: %s", fields[i]);
 				ret = PC_ERR_FILE_OPERATION;
 				goto out;
 			}
