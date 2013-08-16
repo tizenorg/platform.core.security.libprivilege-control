@@ -61,9 +61,6 @@
 #define APP_GROUP_PATH	TOSTRING(SHAREDIR) "/app_group_list"
 #define DEV_GROUP_PATH	TOSTRING(SHAREDIR) "/dev_group_list"
 
-#define SMACK_APP_LABEL_TEMPLATE        "~APP~"
-#define SMACK_SHARED_DIR_LABEL_TEMPLATE "~APP_SHARED_DIR~"
-
 #define SMACK_SRC_FILE_SUFFIX   "_src_file"
 #define SMACK_SRC_DIR_SUFFIX    "_src_dir"
 #define SMACK_DATA_SUFFIX       "_data"
@@ -2268,6 +2265,17 @@ static int save_rules(int fd, struct smack_accesses* accesses) {
 	return PC_OPERATION_SUCCESS ;
 }
 
+static int label_valid(const char *label) {
+	if (label == NULL)
+		return 0;
+
+	// allow ~APP~ template when adding new feature
+	if (strcmp(label, SMACK_APP_LABEL_TEMPLATE) == 0)
+		return 1;
+
+	return smack_label_is_valid(label);
+}
+
 static int validate_and_add_rule(char* rule, struct smack_accesses* accesses) {
 	SECURE_C_LOGD("Entering function: %s. Params: rule=%s",
 				__func__, rule);
@@ -2282,19 +2290,17 @@ static int validate_and_add_rule(char* rule, struct smack_accesses* accesses) {
 	access = strtok_r(NULL, " \t\n", &saveptr);
 
 	// check rule validity
-	if (subject == NULL ||
-		object == NULL ||
-		access == NULL ||
+	if (access == NULL ||
 		strtok_r(NULL, " \t\n", &saveptr) != NULL ||
-		!smack_label_is_valid(subject) ||
-		!smack_label_is_valid(object))
+		!label_valid(subject) ||
+		!label_valid(object))
 	{
 		C_LOGE("Incorrect rule format: %s", rule);
 		return PC_ERR_INVALID_PARAM;
 	}
 
-	if (smack_accesses_add_modify(accesses, subject, object, access, "")) {
-		C_LOGE("smack_accesses_add_modify failed");
+	if (smack_accesses_add(accesses, subject, object, access)) {
+		C_LOGE("smack_accesses_add failed");
 		return PC_ERR_INVALID_OPERATION;
 	}
 	return PC_OPERATION_SUCCESS ;

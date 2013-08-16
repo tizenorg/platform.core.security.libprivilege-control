@@ -41,7 +41,7 @@
 #else
 #define C_LOGD(...) do { } while(0)
 #define SECURE_C_LOGD(...) do { } while(0)
-#endif //DDLOG_DEBUG_ENABLED
+#endif //DLOG_DEBUG_ENABLED
 
 // conditional log macro for dlogutil (warning)
 #ifdef DLOG_WARN_ENABLED
@@ -95,6 +95,9 @@ void fts_closep(FTS **f);
 #define SMACK_RULES_DIR          "/opt/etc/smack-app/accesses.d/"
 #define SMACK_STARTUP_RULES_FILE "/opt/etc/smack-app-early/accesses.d/rules"
 #define SMACK_LOADED_APP_RULES   "/var/run/smack-app/"
+
+#define SMACK_APP_LABEL_TEMPLATE        "~APP~"
+#define SMACK_SHARED_DIR_LABEL_TEMPLATE "~APP_SHARED_DIR~"
 
 int smack_label_is_valid(const char* smack_label);
 
