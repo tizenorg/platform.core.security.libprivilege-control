@@ -1,3 +1,200 @@
+* Tue Aug 20 2013 Rafal Krypa <r.krypa@samsung.com> - 0.0.42.TIZEN
+- Changed dlog logging buffer.
+- Adapt code for new libsmack API
+- Rewrite internal function app_uninstall_remove_early_rules()
+- Create format strings for scanf statically.
+- Add support for new access mode for setting locks ("l")
+- Fix unwanted differences between SLP and RSA repositories.
+- Add better debug logs to libprivilege-control
+
+* Mon Aug 12 2013 Krzysztof Jackiewicz - 0.0.41.TIZEN
+- No source code changes.
+
+* Thu Aug 08 2013 Krzysztof Jackiewicz - 0.0.40.TIZEN
+- Adding W rules to allow email-service move draft email to draft box
+- Adding Smack rule for obexd to allow to RX to all app's shared directory
+- Loading all smack-app rules during boot
+- Revert "Work around for rule loading to allow email-service and
+    contacts-servce access to shared directory of everybody."
+- Change API function naming sheme
+- Add support for EFL apps
+- Add generic solution for adding rules to shared dirs (RO & RW)
+- Fix libprivilege-control not checking input parameters
+- Fixing language errors
+- Remove deprected code.
+
+* Fri Jul 12 2013 Krzysztof Jackiewicz - 0.0.39.TIZEN
+- Work around for rule loading to allow email-service and contacts-servce
+    access to shared directory of everybody.
+- File locking added
+
+* Tue Jul 09 2013 Krzysztof Jackiewicz - 0.0.38.TIZEN
+- Fixing prevent defects in libprivilege-control: * 63125
+- Fixing segfault in libprivilege-control
+
+* Tue Jul 09 2013 Krzysztof Jackiewicz - 0.0.37.TIZEN
+- Add contact-service and email-service rule to read shared dirs.
+
+* Mon Jul 08 2013 Krzysztof Jackiewicz - 0.0.36.TIZEN
+- execute pkg_smack at first boot(temporary)
+- Implementation of background rule loading
+- Early rule loading - livebox issue.
+- Adding script for early rules loading
+
+* Fri Jul 05 2013 Tomasz Swierczek - 0.0.35.TIZEN
+- Fixing segfault in get_app_gids when app_id = NULL
+
+* Wed Jul 03 2013 Krzysztof Jackiewicz - 0.0.34.TIZEN
+- add new smack rules for user-space access control
+- add smack rules for sdcard
+- add new smack rules for OSP se/secureelement privilege
+- Keeping *.smack files in separate repository.
+
+* Thu Jun 27 2013 Tomasz Swierczek - 0.0.33.TIZEN
+- Reducing error logs number.
+- Fixing prevent bugs on libprivilege-control: * 58766
+- add new smack rule for WRT
+- add smack rules
+- add smack rules to synchronize with private
+- add smack rules for OSP/WEB app to access clipboard
+
+* Thu Jun 20 2013 Bartlomiej Grzelewski - 0.0.32.TIZEN
+- add smack rule of OSP apps for e17
+- add smack rules for WRT app
+- add smack default rules
+- Added SECURE_LOG* macro
+- Log messages refactoring
+- Fixing prevent critical defects in libprivilege-control and some log messages.
+
+* Mon Jun 17 2013 Krzysztof Jackiewicz - 0.0.31.TIZEN
+- No source changes.
+
+* Mon Jun 17 2013 Krzysztof Jackiewicz - 0.0.30.TIZEN
+- add smack rules for app-package::db
+- fix rules and labeling on db
+- add smack rules
+- add new rules for OSP app
+- Added missing part of fix for rule overwriting issue
+
+* Mon Jun 10 2013 Krzysztof Jackiewicz - 0.0.29.TIZEN
+- Fixed creation of rule sets with missing ----- (change-rule interface)
+- privilege-control.c and privilege-control.h extended by new app_type_t values.
+- Comment to app_revoke_permissions() changed.
+- Add error logs in app_give_access.
+- Add implementation for appsetting privilege
+- Change parameter names app_id to pkg_id in API functions
+- Fast boot optimization
+- Add value APP_PATH_ANY_LABEL to enum app_path_type_t.
+- synchronize OSP/WRT rules with private repository
+- Fixing Rule Loading fail for livebox apps on next reboot
+
+* Wed May 29 2013 Krzysztof Jackiewicz - 0.0.28.TIZEN
+- Add API functions smack_pid_have_access and get_smack_label_from_process.
+- Implement special handling for http://tizen.org/privilege/antivirus
+- Code refactoring, new internal function for adding single rule for an application.
+- New API for labeling directories and files.
+- Changing way of mapping feature to file name
+
+* Wed May 29 2013 Krzysztof Jackiewicz - 0.0.27.TIZEN
+- Bugfix: Ensure that SMACK labelling finishes before we start launching middleware services
+- Fix for 64 bit compatibility.
+- Fix app_install function.
+- Fix error handling in perm_to_smack() internal function.
+- Fix ifdef for debug logging.
+- Fix logging in app_add_permissions_internal()
+- Add debug logging into app_install() and app_uninstall()
+- Check validity of Smack labels in API function arguments.
+- Revert "Temporary fix for web app launching."
+- Imlement app_disable_permissions() API function stub.
+- Fix logging ifdefs in slp-su.c.
+- Unify code indentation.
+- Change implementation of have_smack()
+- Truncate Smack file for app in app_revoke_permissions().
+- Implement adding apps to additional groups based on enabled permissions.
+- Full set of SMACK rules support for OSP and WRT
+- Re-enable Smack setting for native apps.
+- Temporary workaround for complimentary groups not working on non-SMACK system.
+- Don't delete SMACK rules file for app in function app_reset_permissions()
+- Create separate source file for internal, common code.
+- Simplify cleanup code by using GCC extension for variable scoping.
+- Remove SMACK_ENABLED ifdefs.
+- Fix for complimentary groups setting.
+- Add DAC config files for DB access control.
+- Merge missing code pieces from private repository.
+- permissions: unify smack config files with private repository
+- Implemet data control solution for OSP apps.
+- Reduce complexity from O(n) to O(log(n)) druing state search.
+- Allow multiple call of app_give_access.
+- Added add_api_feature API
+- Added support for gids in add_new_feature API
+- Klocwork bugfixes
+- Clean up libprivilege-control code
+- WRT binary link handling updated.
+- Add API for install antivirus (app_register_av API function).
+- Add AV custom rule set support
+- Add implementation of API function add_shared_dir_readers.
+- Add check if app_label and shared_label are different in app_label_shared_dir
+- app_shared_dir_add_readers() accepts NULL in 'app_list' not ""
+- Setting WebAPP label to pkgId again.
+- Added rules for OSP/WRT apps for app_give_access API usage in security-server
+- add new labels for vconf
+- add new rules for system::share
+- add smack rules for osp/web app
+- add smack rules for sdcard
+- add rule for wrt_launchpad_daemon
+- add new smack rule
+- Update .smack files 2
+- Adjusting Rules for boolmark
+- Marking app_give_access & app_revoke_access as deprecated
+
+* Mon May 13 2013 Krzysztof Jackiewicz - 0.0.26.TIZEN
+- integrate default smack rules
+- add new rules for bt-service
+- add missing smack rules
+- add smack rules regarding data-provider-master
+- add smack rules regarding secure-storage
+- add new smack labels
+- add new rules and remove vconf labels
+- add smack rules for privacy-manager
+- add smack rules for wifi and osp
+- add smack rules for oma-ds-agent::cfg
+- add new smack rules for tizenprv00.privacy-popup
+- add new smack labels for vconf and support IPv6
+- add default rules
+- add new label and rules - system::share
+- Fix for 64 bit compatibility.
+- adding missing rules
+- Update .smack files
+- Modifying Smack rules for Apps
+- Modifying Smack rules for Apps
+- Removing Label for so files
+- Adjusting overwrapped Rule
+- Adding x rules for osp-*-services
+- Added rules for OSP/WRT apps for app_give_access API usage in security-server
+
+* Wed Mar 27 2013 Krzysztof Jackiewicz - 0.0.25.TIZEN
+- Disable libprivilege-control logs for performance increase
+- Temporary fix for web app launching.
+- Added stub for add_shared_dir_readers function.
+- Added proper #ifdef SMACK_ENABLED to new APIs static functions.
+- add new rules
+- apply smack default rules
+- Revising running Smack default rules for all combinations
+- Adding missing rules
+- Adding missing rule for crash popup
+- Modifying device node labels
+- Modifying rules for changed osp-*-service labels
+- remove udev rules file
+- Fix for compatibility of GCC 4.7.
+- Enable libprivilege-control for target without smack module in kernel.
+- Cosmetic: fix space indentation.
+- Rework Smack-less mode.
+- New API function app_add_friend(app_id1, app_id2).
+- Add new API functions app_install() and app_uninstall().
+- Add new API function app_enable_permissions() to replace app_add_permissions() and app_add_volatile_permissions().
+- Don't fail when trying to enable app permissions that doesn't exist.
+- Implicitly include base permission in app_enable_permissions().
+
 * Tue Jul 23 2013 Baptiste DURAND <baptiste.durand@eurogiciel.fr> accepted/tizen/20130711.205247@88318d6
 - Call setguid function with the APP group ID retreives from /etc/group through getgrouplists function call.
 
