@@ -26,7 +26,6 @@
 #include <dlog.h>
 #include <fts.h>
 #include <stdbool.h>
-#include <semaphore.h>
 
 #ifdef LOG_TAG
     #undef LOG_TAG
@@ -37,23 +36,29 @@
 
 // conditional log macro for dlogutil (debug)
 #ifdef DLOG_DEBUG_ENABLED
-#define C_LOGD(...) LOGD(__VA_ARGS__)
+#define C_LOGD(...) SLOGD(__VA_ARGS__)
+#define SECURE_C_LOGD(...) SECURE_SLOGD(__VA_ARGS__)
 #else
 #define C_LOGD(...) do { } while(0)
+#define SECURE_C_LOGD(...) do { } while(0)
 #endif //DDLOG_DEBUG_ENABLED
 
 // conditional log macro for dlogutil (warning)
 #ifdef DLOG_WARN_ENABLED
-#define C_LOGW(...) LOGW(__VA_ARGS__)
+#define C_LOGW(...) SLOGW(__VA_ARGS__)
+#define SECURE_C_LOGW(...) SECURE_SLOGW(__VA_ARGS__)
 #else
 #define C_LOGW(...) do { } while(0)
+#define SECURE_C_LOGW(...) do { } while(0)
 #endif //DLOG_WARN_ENABLED
 
 // conditional log macro for dlogutil (error)
 #ifdef DLOG_ERROR_ENABLED
-#define C_LOGE(...) LOGE(__VA_ARGS__)
+#define C_LOGE(...) SLOGE(__VA_ARGS__)
+#define SECURE_C_LOGE(...) SECURE_SLOGE(__VA_ARGS__)
 #else
 #define C_LOGE(...) do { } while(0)
+#define SECURE_C_LOGE(...) do { } while(0)
 #endif //DLOG_ERROR_ENABLED
 
 /* for SECURE_LOG* purpose */
@@ -88,16 +93,8 @@ void fts_closep(FTS **f);
 #define AUTO_FTS_CLOSE  __attribute__ ((cleanup(fts_closep)))   = NULL
 
 #define SMACK_RULES_DIR          "/opt/etc/smack-app/accesses.d/"
-
-/*
- * TODO It should be a directory (/opt/etc/smack-app-early/accesses.d/) containing
- * rules to be loaded for each privilege. In the beginning there will be only
- * one file for all WRT apps.
- */
-#define SMACK_STARTUP_RULES_FILE "/opt/etc/smack-app-early/accesses.d/WRT"
+#define SMACK_STARTUP_RULES_FILE "/opt/etc/smack-app-early/accesses.d/rules"
 #define SMACK_LOADED_APP_RULES   "/var/run/smack-app/"
-
-#define PRIVILEGE_CONTROL_UNINSTALL_SEM "privilege-control-app-uninstall-semaphore"
 
 int smack_label_is_valid(const char* smack_label);
 

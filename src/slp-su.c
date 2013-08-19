@@ -37,28 +37,32 @@
 
 // conditional log macro for dlogutil (debug)
 #ifdef DLOG_DEBUG_ENABLED
-#define C_LOGD(...) LOGD(__VA_ARGS__)
+#define C_LOGD(...) SLOGD(__VA_ARGS__)
+#define SECURE_C_LOGD(...) SECURE_SLOGD(__VA_ARGS__)
 #else
 #define C_LOGD(...) do { } while(0)
+#define SECURE_C_LOGD(...) do { } while(0)
 #endif //DLOG_DEBUG_ENABLED
 
 // conditional log macro for dlogutil (error)
 #ifdef DLOG_ERROR_ENABLED
-#define C_LOGE(...) LOGE(__VA_ARGS__)
+#define C_LOGE(...) SLOGE(__VA_ARGS__)
+#define SECURE_C_LOGE(...) SECURE_SLOGE(__VA_ARGS__)
 #else
 #define C_LOGE(...) do { } while(0)
+#define SECURE_C_LOGE(...) do { } while(0)
 #endif //DLOG_ERROR_ENABLED
 
 void print_usage(void)
 {
-    C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s.", __func__);
 	printf("%s", "Usage: slp-su [PKG_NAME]\n\n");
 	printf("%s", "Execute new shell which be belonged to user related with PKG_NAME\n\n");
 }
 
 int main(int argc, char* argv[])
 {
-    C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s.", __func__);
 	pid_t pid = -1;
 	char* buf = NULL;
 

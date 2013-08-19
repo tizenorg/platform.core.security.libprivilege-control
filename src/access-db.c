@@ -58,7 +58,8 @@ typedef struct element_s {
 
 static element_t* add_element (element_t* elem, const char* value)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: value=%s",
+				__func__, value);
 
 	if (NULL == elem)
 		return NULL;
@@ -83,7 +84,7 @@ static element_t* add_element (element_t* elem, const char* value)
 
 static int remove_list(element_t* first_elem)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s.", __func__);
 
 	element_t* current = NULL;
 
@@ -99,18 +100,21 @@ static int remove_list(element_t* first_elem)
 
 static int add_id_to_database_internal(const char * id, db_app_type_t app_type)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: id=%s",
+				__func__, id);
+
 	FILE* file_db AUTO_FCLOSE;
 	const char* db_file_name = db_file_names[app_type];
 
+	SECURE_C_LOGD("Opening database file %s.", db_file_name);
 	file_db = fopen(db_file_name, "a");
 	if (NULL == file_db) {
-		SECURE_LOGE("Error while opening database file: %s", db_file_name);
+		SECURE_C_LOGE("Error while opening database file: %s", db_file_name);
 		return PC_ERR_FILE_OPERATION;
 	}
 
 	if (0 > fprintf(file_db, "%s\n", id)) {
-		SECURE_LOGE("Write label %s to database failed: %s", id, strerror(errno));
+		SECURE_C_LOGE("Write label %s to database failed (error: %s)", id, strerror(errno));
 		return PC_ERR_FILE_OPERATION;
 	}
 
@@ -119,22 +123,18 @@ static int add_id_to_database_internal(const char * id, db_app_type_t app_type)
 
 static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type)
 {
+	SECURE_C_LOGD("Entering function: %s.", __func__);
+
 	int ret;
-	char* scanf_label_format AUTO_FREE;
 	FILE* file_db AUTO_FCLOSE;
 	const char* db_file_name = db_file_names[app_type];
 	char smack_label[SMACK_LABEL_LEN + 1];
 	element_t* begin_of_list = NULL;
 
-	if (asprintf(&scanf_label_format, "%%%ds\\n", SMACK_LABEL_LEN) < 0) {
-		C_LOGE("Error while creating scanf input label format");
-		ret = PC_ERR_MEM_OPERATION;
-		goto out;
-	}
-
+	SECURE_C_LOGD("Opening database file %s.", db_file_name);
 	file_db = fopen(db_file_name, "r");
 	if (NULL == file_db) {
-		SECURE_LOGE("Error while opening database file: %s", db_file_name);
+		SECURE_C_LOGE("Error while opening database file: %s", db_file_name);
 		ret = PC_ERR_FILE_OPERATION;
 		goto out;
 	}
@@ -153,18 +153,18 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 
 	// reading from file ("database")
 	// notice that first element always stays with empty "value"
-	while (fscanf(file_db, scanf_label_format, smack_label) == 1) {
+	while (fscanf(file_db, "%" TOSTRING(SMACK_LABEL_LEN) "s\n", smack_label) == 1) {
 		smack_label[SMACK_LABEL_LEN] = '\0';
 		if (!smack_label_is_valid(smack_label)) {
-			C_LOGD("Found entry in database, but it's not correct SMACK label: \"%s\"", smack_label);
+			SECURE_C_LOGD("Found entry in database, but it's not correct SMACK label: \"%s\"", smack_label);
 			continue;
 		}
-		C_LOGD("Found installed label: \"%s\"", smack_label);
+		SECURE_C_LOGD("Found installed label: \"%s\"", smack_label);
 		++(*len);
 		current = add_element(current, smack_label);
 		if (NULL == current) {
 			*len = 0;
-			C_LOGE("Error while adding smack label to the list");
+			C_LOGE("Error while adding smack label to the list.");
 			ret = PC_ERR_MEM_OPERATION;
 			goto out;
 		}
@@ -175,7 +175,7 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 		*ids = malloc((*len) * sizeof(char*));
 		if (NULL == *ids) {
 			*len = 0;
-			C_LOGE("Error while allocating memory for list of labels");
+			C_LOGE("Error while allocating memory for list of labels.");
 			ret = PC_ERR_MEM_OPERATION;
 			goto out;
 		}
@@ -216,6 +216,8 @@ out:
 
 int get_all_apps_ids (char *** apps_ids, int * len)
 {
+	SECURE_C_LOGD("Entering function: %s.", __func__);
+
 	if (get_all_ids_internal(apps_ids, len, DB_APP_TYPE_APPLICATION))
 		return PC_ERR_DB_OPERATION;
 
@@ -224,6 +226,8 @@ int get_all_apps_ids (char *** apps_ids, int * len)
 
 int get_all_settings_dir_ids(char ***apps_ids, int *len)
 {
+	SECURE_C_LOGD("Entering function: %s.", __func__);
+
 	if (get_all_ids_internal(apps_ids, len, DB_APP_TYPE_SETTING_DIR))
 		return PC_ERR_DB_OPERATION;
 
@@ -232,6 +236,8 @@ int get_all_settings_dir_ids(char ***apps_ids, int *len)
 
 int get_all_appsetting_ids(char ***apps_ids, int *len)
 {
+	SECURE_C_LOGD("Entering function: %s.", __func__);
+
 	if (get_all_ids_internal(apps_ids, len, DB_APP_TYPE_APPSETTING))
 		return PC_ERR_DB_OPERATION;
 
@@ -240,6 +246,8 @@ int get_all_appsetting_ids(char ***apps_ids, int *len)
 
 int get_all_avs_ids (char *** av_ids, int * len)
 {
+	SECURE_C_LOGD("Entering function: %s.", __func__);
+
 	if (get_all_ids_internal(av_ids, len, DB_APP_TYPE_ANTIVIRUS))
 		return PC_ERR_DB_OPERATION;
 
@@ -248,7 +256,8 @@ int get_all_avs_ids (char *** av_ids, int * len)
 
 int add_app_id_to_databse(const char * app_id)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
+				__func__, app_id);
 
 	if (add_id_to_database_internal(app_id, DB_APP_TYPE_APPLICATION))
 		return PC_ERR_DB_OPERATION;
@@ -258,7 +267,8 @@ int add_app_id_to_databse(const char * app_id)
 
 int add_av_id_to_databse (const char * av_id)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: av_id=%s",
+				__func__, av_id);
 
 	if (add_id_to_database_internal(av_id, DB_APP_TYPE_ANTIVIRUS))
 		return PC_ERR_DB_OPERATION;
@@ -268,7 +278,8 @@ int add_av_id_to_databse (const char * av_id)
 
 int add_appsetting_id_to_databse(const char *appsetting_id)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: appsetting_id=%s",
+				__func__, appsetting_id);
 
 	if (add_id_to_database_internal(appsetting_id, DB_APP_TYPE_APPSETTING))
 		return PC_ERR_DB_OPERATION;
@@ -278,7 +289,8 @@ int add_appsetting_id_to_databse(const char *appsetting_id)
 
 int add_setting_dir_id_to_databse(const char *setting_dir_id)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: setting_dir_id=%s",
+				__func__, setting_dir_id);
 
 	if (add_id_to_database_internal(
 			setting_dir_id, DB_APP_TYPE_SETTING_DIR))
@@ -289,13 +301,18 @@ int add_setting_dir_id_to_databse(const char *setting_dir_id)
 
 int add_app_gid(const char *app_id, unsigned gid)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s, gid=%u",
+				__func__, app_id, gid);
+
 	char *field = NULL;
 	int ret;
 
 	ret = asprintf(&field, "%u:%s", gid, app_id);
 	if (ret == -1)
+	{
+		C_LOGE("asprintf failed.");
 		return PC_ERR_MEM_OPERATION;
+	}
 
 	ret = add_id_to_database_internal(field, DB_APP_TYPE_GROUPS);
 	free(field);
@@ -305,12 +322,18 @@ int add_app_gid(const char *app_id, unsigned gid)
 
 int get_app_gids(const char *app_id, unsigned **gids, int *len)
 {
+	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
+				__func__, app_id);
+
 	char** fields AUTO_FREE;
 	int len_tmp, ret, i;
 
 	ret = get_all_ids_internal(&fields, &len_tmp, DB_APP_TYPE_GROUPS);
 	if (ret != PC_OPERATION_SUCCESS)
+	{
+		C_LOGE("get_all_ids_internal failed.");
 		return ret;
+	}
 
 	*len = 0;
 	*gids = NULL;
@@ -334,20 +357,20 @@ int get_app_gids(const char *app_id, unsigned **gids, int *len)
 		}
 
 		if (!app_id_tmp) {
-			C_LOGE("No group id found");
+			C_LOGE("No group id found.");
 			ret = PC_ERR_FILE_OPERATION;
 			goto out;
 		}
 
-        if (NULL == app_id) {
-            *len = 0;
-            return PC_OPERATION_SUCCESS;
-        }
+		if (NULL == app_id) {
+			*len = 0;
+			return PC_OPERATION_SUCCESS;
+		}
 
 		if (!strcmp(app_id, app_id_tmp)) {
 			unsigned *gids_realloc = realloc(*gids, sizeof(unsigned) * (*len + 1));
 			if (gids_realloc == NULL) {
-				C_LOGE("Memory allocation failed");
+				C_LOGE("Memory allocation failed.");
 				ret = PC_ERR_MEM_OPERATION;
 				goto out;
 			}
@@ -371,20 +394,27 @@ out:
 
 int db_add_public_dir(const char *dir_label)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: dir_label=%s",
+				__func__, dir_label);
 
 	if (add_id_to_database_internal(dir_label, DB_APP_TYPE_PUBLIC_DIRS))
+	{
+		C_LOGE("add_id_to_database_internal failed.");
 		return PC_ERR_DB_OPERATION;
+	}
 
 	return PC_OPERATION_SUCCESS;
 }
 
 int db_get_public_dirs(char ***dir_labels, int *len)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s.", __func__);
 
 	if (get_all_ids_internal(dir_labels, len, DB_APP_TYPE_PUBLIC_DIRS))
+	{
+		C_LOGE("get_all_ids_internal failed.");
 		return PC_ERR_DB_OPERATION;
+	}
 
 	return PC_OPERATION_SUCCESS;
 }
