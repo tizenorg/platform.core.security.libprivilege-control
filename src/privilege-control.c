@@ -592,7 +592,6 @@ API int perm_app_set_privilege(const char* name, const char* type, const char* p
 		ret = get_smack_from_binary(&smack_label, path, verify_app_type(type, path));
 		if (ret != PC_OPERATION_SUCCESS)
 			return ret;
-
 		were_rules_loaded = check_if_rules_were_loaded(smack_label);
 		if (were_rules_loaded < 0) {
 			C_LOGE("check_if_rules_was_loaded failed.");
@@ -1262,12 +1261,12 @@ static int register_app_for_appsetting(const char *app_id)
 
 	/* for each appsetting put rule: "appsetting_id app_id rx"*/
 	for (i = 0; i < smack_label_list_len; ++i) {
-
 		SECURE_C_LOGD("Appsetting: app_add_rule (%s, %s rx)", smack_label_list[i], app_id);
 		if (strcmp(app_id, smack_label_list[i])==0) {
 			SECURE_C_LOGW("Trying to add setting rule for self. Skipping");
 			continue;
 		}
+
 		ret = app_add_rule(smack_label_list[i], app_id, "rx");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("app_add_rule failed");
@@ -1862,7 +1861,7 @@ static char* smack_label_for_path(const char *app_id, const char *path)
 /*
  * This function should be called in perm_app_setup_path_internal().
  * After installation of new application (pkg_id) and labeling its shared directory (RW or RO),
- * all others apps installed in system should get rules to this shared directory.
+ * all others apps installed on system should get rules to this shared directory.
  * This function will add and store those rules in rule-file of new installed app (pkg_id)
  */
 static int add_other_apps_rules_for_shared_dir(const char *pkg_id, const char *type_of_shared_dir, const char *shared_dir_label)

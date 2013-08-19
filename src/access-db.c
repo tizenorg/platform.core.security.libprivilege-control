@@ -362,10 +362,10 @@ int get_app_gids(const char *app_id, unsigned **gids, int *len)
 			goto out;
 		}
 
-        if (NULL == app_id) {
-            *len = 0;
-            return PC_OPERATION_SUCCESS;
-        }
+		if (NULL == app_id) {
+			*len = 0;
+			return PC_OPERATION_SUCCESS;
+		}
 
 		if (!strcmp(app_id, app_id_tmp)) {
 			unsigned *gids_realloc = realloc(*gids, sizeof(unsigned) * (*len + 1));
