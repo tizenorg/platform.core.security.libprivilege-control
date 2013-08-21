@@ -1136,6 +1136,50 @@ app_register_appsetting(const char *app_id, struct smack_accesses *smack)
 	return ret;
 }
 
+static int give_anti_virus_access_to_all_folders(const char *app_av_id, struct smack_accesses* smack, int folder_type)
+{
+	int ret;
+	int i;
+
+	char** smack_label_list AUTO_FREE;
+	int smack_label_list_len = 0;
+
+	switch (folder_type) {
+		case APP_PATH_PUBLIC_RO:
+			ret = db_get_public_dirs(&smack_label_list, &smack_label_list_len);
+			break;
+		case APP_PATH_GROUP_RW:
+			ret = db_get_groups_dirs(&smack_label_list, &smack_label_list_len);
+			break;
+		case APP_PATH_SETTINGS_RW:
+			ret = get_all_settings_dir_ids(&smack_label_list, &smack_label_list_len);
+			break;
+		default:
+			return PC_OPERATION_SUCCESS;
+	}
+	if (ret != PC_OPERATION_SUCCESS ) {
+		C_LOGE("Error while getting public RO folders from database.");
+		goto out;
+	}
+
+	for (i = 0; i < smack_label_list_len; ++i) {
+		SECURE_C_LOGD("Applying rwx rule for %s", smack_label_list[i]);
+		if (smack_accesses_add_modify(smack, app_av_id, smack_label_list[i], "wrx", "") == -1) {
+			C_LOGE("smack_accesses_add_modify failed.");
+			ret = PC_ERR_INVALID_OPERATION;
+			goto out;
+		}
+	}
+
+out:
+
+	for (i = 0; i < smack_label_list_len; ++i) {
+		free(smack_label_list[i]);
+	}
+
+	return ret;
+}
+
 static int app_register_av_internal(const char *app_av_id, struct smack_accesses* smack)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: app_av_id=%s.",
@@ -1165,7 +1209,7 @@ static int app_register_av_internal(const char *app_av_id, struct smack_accesses
 	// Reading labels of all installed apps from "database"
 	ret = get_all_apps_ids(&smack_label_app_list, &smack_label_app_list_len);
 	if (ret != PC_OPERATION_SUCCESS ) {
-		C_LOGE("Error while geting data from database.");
+		C_LOGE("Error while getting installed apps from database.");
 		goto out;
 	}
 	for (i = 0; i < smack_label_app_list_len; ++i) {
@@ -1176,6 +1220,27 @@ static int app_register_av_internal(const char *app_av_id, struct smack_accesses
 			goto out;
 			// Should we abort adding rules once smack_accesses_add_modify will fail?
 		}
+	}
+
+	// Giving anti virus RWX access to public RO folders
+	ret = give_anti_virus_access_to_all_folders(app_av_id, smack, APP_PATH_PUBLIC_RO);
+	if (ret != PC_OPERATION_SUCCESS ) {
+		C_LOGE("Error while getting public RO folders from database.");
+		goto out;
+	}
+
+	// Giving anti virus RWX access to groups RW folders
+	ret = give_anti_virus_access_to_all_folders(app_av_id, smack, APP_PATH_GROUP_RW);
+	if (ret != PC_OPERATION_SUCCESS ) {
+		C_LOGE("Error while getting groups RW folders from database.");
+		goto out;
+	}
+
+	// Giving anti virus RWX access to settings RW folders
+	ret = give_anti_virus_access_to_all_folders(app_av_id, smack, APP_PATH_SETTINGS_RW);
+	if (ret != PC_OPERATION_SUCCESS ) {
+		C_LOGE("Error while getting settings RW folders from database.");
+		goto out;
 	}
 
 out:
@@ -1901,6 +1966,39 @@ static int add_other_apps_rules_for_shared_dir(const char *pkg_id, const char *t
 	return PC_OPERATION_SUCCESS;
 }
 
+/* Add all anti-viruses RWX access to specific label.
+ * This function should be used grant anti-viruses access to
+ * public RO/group RW shared folder
+ * const char *path param is used only for logs.
+ */
+static int add_all_anti_viruses_access_to_label(const char *label, const char *path)
+{
+	int i;
+	int ret;
+	int avs_ids_cnt = 0;
+	char **avs_ids AUTO_FREE;
+
+	/* Add all anti-viruses RWX access to public RO shared folder */
+	ret = get_all_avs_ids(&avs_ids, &avs_ids_cnt);
+	if (ret != PC_OPERATION_SUCCESS ) {
+		C_LOGE("get_all_avs_ids failed.");
+		return ret;
+	}
+	for (i = 0; i < avs_ids_cnt; ++i) {
+		SECURE_C_LOGD("Allowing anti-virus %s to RWX access public path %s", avs_ids[i], path);
+		ret = app_add_rule(avs_ids[i], label, "rwx");
+		if (ret != PC_OPERATION_SUCCESS ) {
+			C_LOGE("app_add_rule failed");
+			while (i < avs_ids_cnt)
+				free(avs_ids[i++]);
+			return ret;
+		}
+		free(avs_ids[i]);
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
 /* FIXME: remove this pragma once deprecated API is deleted */
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 static int perm_app_setup_path_internal(const char* pkg_id, const char* path, app_path_type_t app_path_type, va_list ap)
@@ -1947,6 +2045,20 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 			return ret;
 		}
 
+		/* FIXME: This should be in some kind of transaction/lock */
+		ret = db_add_groups_dir(shared_label);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("db_add_groups_dir failed.");
+			return ret;
+		}
+
+		/* Add all anti-viruses RWX access to groups RW shared folder */
+		ret = add_all_anti_viruses_access_to_label(shared_label, path);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("add_all_anti_viruses_access_to_label failed");
+			return ret;
+		}
+
 		return add_other_apps_rules_for_shared_dir(pkg_id, PATH_RULES_GROUP_RW, shared_label);
 	}
 
@@ -1988,12 +2100,19 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 			SECURE_C_LOGD("Allowing app %s to access public path %s", app_ids[i], path);
 			ret = app_add_rule(app_ids[i], label, "rx");
 			if (ret != PC_OPERATION_SUCCESS) {
-				C_LOGE("smack_accesses_new failed");
+				C_LOGE("app_add_rule failed");
 				while (i < app_ids_cnt)
 					free(app_ids[i++]);
 				return ret;
 			}
 			free(app_ids[i]);
+		}
+
+		/* Add all anti-viruses RWX access to public RO shared folder */
+		ret = add_all_anti_viruses_access_to_label(label, path);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("add_all_anti_viruses_access_to_label failed");
+			return ret;
 		}
 
 		return add_other_apps_rules_for_shared_dir(pkg_id, PATH_RULES_PUBLIC_RO, label);
@@ -2052,6 +2171,13 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 				return ret;
 			}
 			free(app_ids[i]);
+		}
+
+		/* Add all anti-viruses RWX access to settings RW shared folder */
+		ret = add_all_anti_viruses_access_to_label(label, path);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("add_all_anti_viruses_access_to_label failed");
+			return ret;
 		}
 
 		return PC_OPERATION_SUCCESS;

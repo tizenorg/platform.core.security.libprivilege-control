@@ -37,6 +37,7 @@ typedef enum {
 	DB_APP_TYPE_ANTIVIRUS,
 	DB_APP_TYPE_GROUPS,
 	DB_APP_TYPE_PUBLIC_DIRS,
+	DB_APP_TYPE_GROUPS_DIRS,
 	DB_APP_TYPE_APPSETTING,
 	DB_APP_TYPE_SETTING_DIR,
 	DB_APP_TYPE_COUNT /* Dummy enum element to get number of elements */
@@ -47,6 +48,7 @@ const char* db_file_names[DB_APP_TYPE_COUNT] = {
 		"/opt/dbspace/.privilege_control_all_avs_id.db",
 		"/opt/dbspace/.privilege_control_app_gids.db",
 		"/opt/dbspace/.privilege_control_public_dirs.db",
+		"/opt/dbspace/.privilege_control_groups_dirs.db",
 		"/opt/dbspace/.privilege_control_app_setting.db",
 		"/opt/dbspace/.privilege_control_setting_dir.db",
 };
@@ -411,6 +413,33 @@ int db_get_public_dirs(char ***dir_labels, int *len)
 	SECURE_C_LOGD("Entering function: %s.", __func__);
 
 	if (get_all_ids_internal(dir_labels, len, DB_APP_TYPE_PUBLIC_DIRS))
+	{
+		C_LOGE("get_all_ids_internal failed.");
+		return PC_ERR_DB_OPERATION;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
+int db_add_groups_dir(const char *dir_label)
+{
+	SECURE_C_LOGD("Entering function: %s. Params: dir_label=%s",
+				__func__, dir_label);
+
+	if (add_id_to_database_internal(dir_label, DB_APP_TYPE_GROUPS_DIRS))
+	{
+		C_LOGE("add_id_to_database_internal failed.");
+		return PC_ERR_DB_OPERATION;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
+int db_get_groups_dirs(char ***dir_labels, int *len)
+{
+	SECURE_C_LOGD("Entering function: %s.", __func__);
+
+	if (get_all_ids_internal(dir_labels, len, DB_APP_TYPE_GROUPS_DIRS))
 	{
 		C_LOGE("get_all_ids_internal failed.");
 		return PC_ERR_DB_OPERATION;
