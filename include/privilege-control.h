@@ -310,6 +310,10 @@ int add_shared_dir_readers(const char* shared_label, const char** app_list) DEPR
  * 	  everything and enable transmute on directories. Give full access to the label to
  * 	  pkg_id and RWX access to all appsetting apps.
  *
+ * 	- APP_PATH_ANY_LABEL: label with given shared_label. Set access label on
+ * 	  everything and execute label on executable files and symlinks to
+ * 	  executable files.
+ *
  * This function should be called during app installation.
  * Results will be persistent on the file system.
  * It must be called by privileged user.
@@ -317,7 +321,8 @@ int add_shared_dir_readers(const char* shared_label, const char** app_list) DEPR
  * @param pkg_id
  * @param path
  * @param app_path_type
- * @param shared_label (optional argument for APP_PATH_GROUP_RW path type)
+ * @param shared_label (optional argument for APP_PATH_GROUP_RW and
+ *        APP_PATH_ANY_LABEL path type; type is const char*)
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
 int perm_app_setup_path(const char* pkg_id, const char* path, app_path_type_t app_path_type, ...);
