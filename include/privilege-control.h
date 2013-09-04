@@ -21,7 +21,6 @@
 
 #include <stdbool.h>
 #include <sys/types.h>
-#include <sys/smack.h>
 
 #ifndef _PRIVILEGE_CONTROL_H_
 #define _PRIVILEGE_CONTROL_H_
@@ -79,7 +78,7 @@ int set_privilege(const char* pkg_name) DEPRECATED;
  * @param out: label of process
  * @return PC_OPERATION_SUCCESS on success PC_ERR_* on error.
  */
-int get_smack_label_from_process(pid_t pid, char smack_label[SMACK_LABEL_LEN + 1]);
+int get_smack_label_from_process(pid_t pid, char *smack_label);
 
 /**
  * Check if process with pid has access to object.
