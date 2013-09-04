@@ -26,6 +26,7 @@
 #include <dlog.h>
 #include <fts.h>
 #include <stdbool.h>
+#include <sys/smack.h>
 
 #ifdef LOG_TAG
     #undef LOG_TAG

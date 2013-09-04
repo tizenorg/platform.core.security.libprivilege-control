@@ -110,7 +110,7 @@ API int control_privilege(void)//deprecated
 /**
  * TODO: this function should be moved to libsmack in open-source.
  */
-API int get_smack_label_from_process(pid_t pid, char smack_label[SMACK_LABEL_LEN + 1])
+API int get_smack_label_from_process(pid_t pid, char *smack_label)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pid=%i", __func__, pid);
 
