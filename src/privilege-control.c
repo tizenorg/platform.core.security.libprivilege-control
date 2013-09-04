@@ -1679,50 +1679,6 @@ API int app_label_dir(const char* label, const char* path)//deprecated
 	return ret;
 }
 
-int smack_get_access_new(const char* subject, const char* object, char** label)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: subject=%s, object=%s",
-				__func__, subject, object);
-	
-	char buff[ACC_LEN] = {'r', 'w', 'x', 'a', 't', 'l'};
-	char perm[2] = {'-'};
-	int i;
-
-	if(!smack_label_is_valid(subject)) {
-		C_LOGE("Invalid param subject.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if(!smack_label_is_valid(object)) {
-		C_LOGE("Invalid param object.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if(!label) {
-		C_LOGE("Invalid param label (NULL).");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	for (i=0; i<ACC_LEN; ++i) {
-		perm[0] = buff[i];
-		int ret = smack_have_access(subject, object, perm);
-		if (-1 == ret) {
-			C_LOGE("smack_have_access failed during %c check.", perm[0]);
-			return PC_ERR_INVALID_OPERATION;
-		}
-		if (0 == ret)
-			buff[i] = '-';
-	}
-
-	*label = malloc(ACC_LEN+1);
-	if (NULL == *label)
-		return PC_ERR_MEM_OPERATION;
-
-	memcpy(*label, buff, ACC_LEN);
-	(*label)[ACC_LEN] = 0;
-	return PC_OPERATION_SUCCESS;
-}
-
 static int app_uninstall_remove_early_rules(const char *app_id)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
