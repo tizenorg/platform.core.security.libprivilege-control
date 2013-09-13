@@ -285,16 +285,17 @@ int get_app_id_internal(sqlite3 *p_db,
  *
  * @ingroup RDB internal functions
  *
- * @param  s_rule    the string that we parse
- * @param  s_subject buffer for the subject
- * @param  s_object  buffer for the object
- * @param  s_access  buffer for the access
- * @return           PC_OPERATION_SUCCESS on success, error code otherwise
+ * @param  s_rule         the string that we parse
+ * @param  s_label        buffer for the label
+ * @param  s_access       buffer for the access
+ * @param  pi_is_reverse  buffer for the is_reversed
+ * @return                PC_OPERATION_SUCCESS on success,
+ *                        error code otherwise
  */
 int parse_rule(const char *const s_rule,
-	       char s_subject[],
-	       char s_object[],
-	       char s_access[]);
+	       char s_label[],
+	       char s_access[],
+	       int *pi_is_reverse);
 
 
 /**

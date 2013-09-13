@@ -219,7 +219,10 @@ BEGIN
     -- Adding api features adds a label it it's not present.
     INSERT OR IGNORE INTO label(name) VALUES (NEW.label_name);
 
-    INSERT INTO permission_label_rule(permission_id, label_id, access, is_reverse)
+    INSERT OR REPLACE INTO permission_label_rule(permission_id,
+                                                 label_id,
+                                                 access,
+                                                 is_reverse)
     SELECT      NEW.permission_id,
                 label.label_id,
                 str_to_access(NEW.access),
@@ -262,6 +265,7 @@ DROP TRIGGER IF EXISTS permission_app_path_type_rule_view_insert_trigger;
 CREATE TRIGGER permission_app_path_type_rule_view_insert_trigger
 INSTEAD OF INSERT
 ON permission_app_path_type_rule_view
+WHEN NEW.permission_id IS NULL
 BEGIN
     INSERT INTO permission_app_path_type_rule(permission_id,
                                               app_path_type_id,
@@ -292,6 +296,24 @@ BEGIN
 END;
 
 
+CREATE TRIGGER permission_app_path_type_id_rule_view_insert_trigger
+INSTEAD OF INSERT
+ON permission_app_path_type_rule_view
+WHEN NEW.permission_id IS NOT NULL
+BEGIN
+    INSERT OR REPLACE INTO permission_app_path_type_rule(permission_id,
+                                                         app_path_type_id,
+                                                         access,
+                                                         is_reverse)
+    SELECT      NEW.permission_id,
+                app_path_type.app_path_type_id,
+                str_to_access(NEW.access),
+                NEW.is_reverse
+    FROM        app_path_type
+    WHERE       app_path_type.name = NEW.app_path_type_name;
+END;
+
+
 -- PERMISSION TO PERMISSION RULE VIEW ------------------------------------------
 DROP VIEW IF EXISTS permission_permission_rule_view;
 CREATE VIEW permission_permission_rule_view AS
@@ -315,10 +337,10 @@ CREATE TRIGGER  permission_permission_rule_view_insert_trigger
 INSTEAD OF INSERT ON  permission_permission_rule_view
 BEGIN
 
-    INSERT INTO permission_permission_rule(permission_id,
-                                           target_permission_id,
-                                           access,
-                                           is_reverse)
+    INSERT OR REPLACE INTO permission_permission_rule(permission_id,
+                                                      target_permission_id,
+                                                      access,
+                                                      is_reverse)
     SELECT  tmp_permission_view.permission_id,
             tmp_target_permission_view.permission_id,
             str_to_access(NEW.access),

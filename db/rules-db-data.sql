@@ -18,11 +18,9 @@ INSERT OR IGNORE INTO permission_type(type_name) VALUES("OSP_partner");
 INSERT OR IGNORE INTO permission_type(type_name) VALUES("OSP_platform");
 
 -- APP PATH TYPES ----------------------------------------------------------------------------------
-INSERT OR IGNORE INTO app_path_type(name) VALUES("PRIVATE");
-INSERT OR IGNORE INTO app_path_type(name) VALUES("GROUP_RW");
-INSERT OR IGNORE INTO app_path_type(name) VALUES("PUBLIC_RO");
-INSERT OR IGNORE INTO app_path_type(name) VALUES("SETTINGS_RW");
-INSERT OR IGNORE INTO app_path_type(name) VALUES("ANY_LABEL");
+INSERT OR IGNORE INTO app_path_type(name) VALUES("GROUP_PATH");
+INSERT OR IGNORE INTO app_path_type(name) VALUES("PUBLIC_PATH");
+INSERT OR IGNORE INTO app_path_type(name) VALUES("SETTINGS_PATH");
 
 INSERT OR IGNORE INTO permission_view(name, type_name) VALUES
 		("ALL_APPS", 	"ALL_APPS"),
@@ -35,31 +33,31 @@ INSERT OR IGNORE INTO permission_view(name, type_name) VALUES
 		("EFL", 	"EFL");
 
 -- PUBLIC FOLDERS ----------------------------------------------------------------------------------
--- PUBLIC_RO
+-- PUBLIC_PATH
 INSERT OR IGNORE INTO permission_app_path_type_rule_view(permission_name,
-							 permission_type_name,
-							 app_path_type_name,
-							 access,
-							 is_reverse) VALUES
-	("ALL_APPS",	"ALL_APPS", 	"PUBLIC_RO", "rx", 0);
+						permission_type_name,
+						app_path_type_name,
+						access,
+						is_reverse) VALUES
+	("ALL_APPS", "ALL_APPS", "PUBLIC_PATH", "rx", 0);
 
 
 -- SETTINGS ----------------------------------------------------------------------------------------
 -- Permission name == TIZEN_PRIVILEGE_APPSETTING
--- SETTINGS_RW
+-- SETTINGS_PATH
 INSERT OR IGNORE INTO permission_view(name, type_name) VALUES
 		("org.tizen.privilege.appsetting", "WRT"),
 		("org.tizen.privilege.appsetting", "OSP"),
 		("org.tizen.privilege.appsetting", "EFL");
 
 INSERT OR IGNORE INTO permission_app_path_type_rule_view(permission_name,
-							 permission_type_name,
-							 app_path_type_name,
-							 access,
-							 is_reverse) VALUES
-	("org.tizen.privilege.appsetting","WRT", "SETTINGS_RW", "rwx", 0),
-	("org.tizen.privilege.appsetting","OSP", "SETTINGS_RW", "rwx", 0),
-	("org.tizen.privilege.appsetting","EFL", "SETTINGS_RW", "rwx", 0);
+						permission_type_name,
+						app_path_type_name,
+						access,
+						is_reverse) VALUES
+	("org.tizen.privilege.appsetting","WRT", "SETTINGS_PATH", "rwx", 0),
+	("org.tizen.privilege.appsetting","OSP", "SETTINGS_PATH", "rwx", 0),
+	("org.tizen.privilege.appsetting","EFL", "SETTINGS_PATH", "rwx", 0);
 
 INSERT OR IGNORE INTO permission_permission_rule_view(permission_name,
 						      permission_type_name,
@@ -90,22 +88,19 @@ INSERT OR IGNORE INTO permission_permission_rule_view(permission_name,
 	("org.tizen.privilege.antivirus","EFL", "ALL_APPS", "ALL_APPS", "rwx", 0);
 
 INSERT OR IGNORE INTO permission_app_path_type_rule_view(permission_name,
-							 permission_type_name,
-							 app_path_type_name,
-							 access,
-							 is_reverse) VALUES
-	("org.tizen.privilege.antivirus","WRT", "GROUP_RW",    "rwx", 0),
-	("org.tizen.privilege.antivirus","OSP", "GROUP_RW",    "rwx", 0),
-	("org.tizen.privilege.antivirus","EFL", "GROUP_RW",    "rwx", 0),
-	("org.tizen.privilege.antivirus","WRT", "SETTINGS_RW", "rwx", 0),
-	("org.tizen.privilege.antivirus","OSP", "SETTINGS_RW", "rwx", 0),
-	("org.tizen.privilege.antivirus","EFL", "SETTINGS_RW", "rwx", 0),
-	("org.tizen.privilege.antivirus","WRT", "PUBLIC_RO",   "rwx", 0),
-	("org.tizen.privilege.antivirus","OSP", "PUBLIC_RO",   "rwx", 0),
-	("org.tizen.privilege.antivirus","EFL", "PUBLIC_RO",   "rwx", 0),
-	("org.tizen.privilege.antivirus","WRT", "ANY_LABEL",   "rwx", 0),
-	("org.tizen.privilege.antivirus","OSP", "ANY_LABEL",   "rwx", 0),
-	("org.tizen.privilege.antivirus","EFL", "ANY_LABEL",   "rwx", 0);
+						permission_type_name,
+						app_path_type_name,
+						access,
+						is_reverse) VALUES
+	("org.tizen.privilege.antivirus","WRT", "GROUP_PATH",    "rwx", 0),
+	("org.tizen.privilege.antivirus","OSP", "GROUP_PATH",    "rwx", 0),
+	("org.tizen.privilege.antivirus","EFL", "GROUP_PATH",    "rwx", 0),
+	("org.tizen.privilege.antivirus","WRT", "SETTINGS_PATH", "rwx", 0),
+	("org.tizen.privilege.antivirus","OSP", "SETTINGS_PATH", "rwx", 0),
+	("org.tizen.privilege.antivirus","EFL", "SETTINGS_PATH", "rwx", 0),
+	("org.tizen.privilege.antivirus","WRT", "PUBLIC_PATH",   "rwx", 0),
+	("org.tizen.privilege.antivirus","OSP", "PUBLIC_PATH",   "rwx", 0),
+	("org.tizen.privilege.antivirus","EFL", "PUBLIC_PATH",   "rwx", 0);
 
 COMMIT TRANSACTION;
 

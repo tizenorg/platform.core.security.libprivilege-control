@@ -411,14 +411,21 @@ finish:
 	return ret;
 }
 
+static bool is_wildcard(const char *const s_label)
+{
+	return 	!strcmp(s_label, "~ALL_APPS~") ||
+		!strcmp(s_label, "~ALL_APPS_WITH_SAME_PERMISSION~") ||
+		!strcmp(s_label, "~PUBLIC_PATH~") ||
+		!strcmp(s_label, "~GROUP_PATH~") ||
+		!strcmp(s_label, "~SETTINGS_PATH~");
+}
 
 int validate_all_rules(const char *const *const pp_permissions_list)
 {
 	RDB_LOG_ENTRY;
 
 	int i;
-	char s_subject[SMACK_LABEL_LEN + 1];
-	char s_object[SMACK_LABEL_LEN + 1];
+	char s_label[SMACK_LABEL_LEN + 1];
 	char s_access[ACC_LEN + 1];
 
 	// Parse and check rules.
@@ -430,32 +437,16 @@ int validate_all_rules(const char *const *const pp_permissions_list)
 		    == strlen(pp_permissions_list[i]))
 			continue;
 
-		if(parse_rule(pp_permissions_list[i], s_subject, s_object, s_access)
+		if(parse_rule(pp_permissions_list[i], s_label, s_access, NULL)
 		    != PC_OPERATION_SUCCESS) {
 			C_LOGE("RDB: Invalid parameter");
 			return PC_ERR_INVALID_PARAM;
 		}
 
-		if(strcmp(s_subject, SMACK_APP_LABEL_TEMPLATE) != 0 &&
-		    strcmp(s_object, SMACK_APP_LABEL_TEMPLATE) != 0) {
-			C_LOGE("RDB: There is no " SMACK_APP_LABEL_TEMPLATE " argument in template rule.");
-			return PC_ERR_INVALID_PARAM;
-		}
-
-		if(strcmp(s_subject, SMACK_APP_LABEL_TEMPLATE) == 0 &&
-		    strcmp(s_object, SMACK_APP_LABEL_TEMPLATE) == 0) {
-			C_LOGE("RDB: Rule with two " SMACK_APP_LABEL_TEMPLATE " has no sense.");
-			return PC_ERR_INVALID_PARAM;
-		}
-
 		// Check the other label
-		if(strcmp(s_subject, SMACK_APP_LABEL_TEMPLATE) == 0 &&
-		    !smack_label_is_valid(s_object)) {
-			C_LOGE("RDB: Incorrect object label: %s", s_object);
-			return PC_ERR_INVALID_PARAM;
-		} else if(strcmp(s_object, SMACK_APP_LABEL_TEMPLATE) == 0 &&
-			  !smack_label_is_valid(s_subject)) {
-			C_LOGE("RDB: Incorrect subject label: %s", s_subject);
+		if(!is_wildcard(s_label) &&
+		    !smack_label_is_valid(s_label)) {
+			C_LOGE("RDB: Incorrect object label: %s", s_label);
 			return PC_ERR_INVALID_PARAM;
 		}
 	}
