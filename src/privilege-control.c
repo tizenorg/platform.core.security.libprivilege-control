@@ -1265,8 +1265,8 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		C_LOGD("app_path_type is APP_PATH_PRIVATE.");
 		return app_label_dir(pkg_id, path);
 
-	case APP_PATH_GROUP_RW: {
-		C_LOGD("app_path_type is APP_PATH_GROUP_RW.");
+	case APP_PATH_GROUP: {
+		C_LOGD("app_path_type is APP_PATH_GROUP.");
 		int ret;
 		const char *shared_label;
 
@@ -1283,7 +1283,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		}
 
 		// Add the path to the database:
-		ret = rdb_add_path(pkg_id, shared_label, path, "rwxatl", "GROUP_RW");
+		ret = rdb_add_path(pkg_id, shared_label, path, "rwxatl", "GROUP_PATH");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("RDB rdb_add_path failed with: %d", ret);
 			return ret;
@@ -1298,8 +1298,8 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		return PC_OPERATION_SUCCESS;
 	}
 
-	case APP_PATH_PUBLIC_RO: {
-		C_LOGD("app_path_type is APP_PATH_PUBLIC_RO.");
+	case APP_PATH_PUBLIC: {
+		C_LOGD("app_path_type is APP_PATH_PUBLIC.");
 		char **app_ids AUTO_FREE;
 		const char *label;
 		int ret;
@@ -1315,7 +1315,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		C_LOGD("Generated label '%s' for public RO path %s", label, path);
 
 		// Add the path to the database:
-		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "PUBLIC_RO");
+		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "PUBLIC_PATH");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("RDB rdb_add_path failed with: %d", ret);
 			return ret;
@@ -1329,8 +1329,8 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		return PC_OPERATION_SUCCESS;
 	}
 
-	case APP_PATH_SETTINGS_RW: {
-		C_LOGD("app_path_type is APP_PATH_SETTINGS_RW.");
+	case APP_PATH_SETTINGS: {
+		C_LOGD("app_path_type is APP_PATH_SETTINGS.");
 		char **app_ids AUTO_FREE;
 		const char *label;
 		int ret;
@@ -1345,7 +1345,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 
 
 		// Add the path to the database:
-		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "SETTINGS_RW");
+		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "SETTINGS_PATH");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("RDB rdb_add_path failed with: %d", ret);
 			return ret;

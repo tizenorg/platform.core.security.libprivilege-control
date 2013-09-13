@@ -39,6 +39,25 @@
 #define RDB_MAX_QUERY_ATTEMPTS    50
 #define RDB_TIME_BETWEEN_ATTEMPTS 1 // sec
 
+/**
+ * Reset and unbind statement. Used in functions that use bindings.
+ * @param  p_stmt SQLite3 statement
+ * @return        PC_OPERATION_SUCCESS on success, error code otherwise
+ */
+static int reset_and_unbind_stmt(sqlite3_stmt *p_stmt)
+{
+	if(sqlite3_reset(p_stmt) != SQLITE_OK) {
+		C_LOGE("RDB: Error reseting statement: %s",
+		       sqlite3_errmsg(sqlite3_db_handle(p_stmt)));
+		return PC_ERR_DB_QUERY_STEP;
+	}
+	if(sqlite3_clear_bindings(p_stmt) != SQLITE_OK) {
+		C_LOGE("RDB: Error unbinding statement: %s",
+		       sqlite3_errmsg(sqlite3_db_handle(p_stmt)));
+		return PC_ERR_DB_QUERY_STEP;
+	}
+	return PC_OPERATION_SUCCESS;
+}
 
 
 
@@ -551,9 +570,9 @@ finish:
 
 
 int parse_rule(const char *const s_rule,
-	       char s_subject[],
-	       char s_object[],
-	       char s_access[])
+	       char s_label[],
+	       char s_access[],
+	       int *pi_is_reverse)
 {
 	int ret = PC_OPERATION_SUCCESS;
 	char *tmp_s_rule = NULL;
@@ -561,6 +580,8 @@ int parse_rule(const char *const s_rule,
 	const char *tmp_s_object = NULL;
 	const char *tmp_s_access = NULL;
 	char *saveptr = NULL;
+	bool b_subject_is_template;
+	bool b_object_is_template;
 
 	// Parse subject, object and access:
 	tmp_s_rule = strdup(s_rule);
@@ -578,43 +599,168 @@ int parse_rule(const char *const s_rule,
 		goto finish;
 	}
 
+	// Check if valid
+	b_subject_is_template = (bool) !strcmp(tmp_s_subject, SMACK_APP_LABEL_TEMPLATE);
+	b_object_is_template = (bool) !strcmp(tmp_s_object, SMACK_APP_LABEL_TEMPLATE);
+	if((b_subject_is_template && b_object_is_template) ||
+	    (!b_subject_is_template && !b_object_is_template)) {
+		C_LOGE("RDB: Incorrect rule format: %s", s_rule);
+		ret = PC_ERR_INVALID_PARAM;
+		goto finish;
+	}
+
 	// Copy rules
-	strcpy(s_subject, tmp_s_subject);
-	strcpy(s_object, tmp_s_object);
+	if(b_subject_is_template) {
+		// Not reversed
+		if(pi_is_reverse != NULL) *pi_is_reverse = 0;
+		strcpy(s_label, tmp_s_object);
+	} else if(b_object_is_template) {
+		// Reversed
+		if(pi_is_reverse != NULL) *pi_is_reverse = 1;
+		strcpy(s_label, tmp_s_subject);
+	}
 	strcpy(s_access, tmp_s_access);
+
 finish:
-	if(tmp_s_rule) free(tmp_s_rule);
+	free(tmp_s_rule);
 	return ret;
 }
 
 
+int prepare_stmts_for_bind(sqlite3 *p_db,
+			   sqlite3_stmt **pp_stmt,
+			   const char *const s_query)
+{
+	if(sqlite3_prepare_v2(p_db,
+			      s_query,
+			      strlen(s_query) + 1,
+			      pp_stmt,
+			      NULL)) {
+		C_LOGE("RDB: Error during preparing statement: %s",
+		       sqlite3_errmsg(p_db));
+		return PC_ERR_DB_QUERY_PREP;
+	}
+	return PC_OPERATION_SUCCESS;
+}
+
+
+int add_permission_label_rule(sqlite3_stmt *p_stmt,
+			      const sqlite3_int64 i_permission_id,
+			      const char *const s_label_name,
+			      const char *const s_access,
+			      const int i_is_reverse)
+{
+	int ret = PC_OPERATION_SUCCESS;
+
+	// Bind values to the statement and run it:
+	// Bind returns SQLITE_OK == 0 on success
+	if(sqlite3_bind_int(p_stmt, 1, i_permission_id) ||
+	    sqlite3_bind_text(p_stmt, 2, s_access, RDB_AUTO_DETERM_SIZE, 0) ||
+	    sqlite3_bind_text(p_stmt, 3, s_label_name, RDB_AUTO_DETERM_SIZE, 0) ||
+	    sqlite3_bind_int(p_stmt, 4, i_is_reverse)) {
+		C_LOGE("RDB: Error during binding to statement: %s",
+		       sqlite3_errmsg(sqlite3_db_handle(p_stmt)));
+		ret = PC_ERR_DB_QUERY_BIND;
+		goto finish;
+	}
+
+	// Perform the insert
+	ret = step_and_convert_returned_value(p_stmt);
+
+finish:
+	reset_and_unbind_stmt(p_stmt);
+	return ret;
+}
+
+
+int add_permission_permission_rule(sqlite3_stmt *p_stmt,
+				   const sqlite3_int64 i_permission_id,
+				   const sqlite3_int64 i_target_permission_id,
+				   const char *const s_access,
+				   const int i_is_reverse)
+{
+	int ret = PC_OPERATION_SUCCESS;
+
+	if(sqlite3_bind_int(p_stmt, 1, i_permission_id) ||
+	    sqlite3_bind_int(p_stmt, 2, i_target_permission_id)  ||
+	    sqlite3_bind_text(p_stmt, 3, s_access, RDB_AUTO_DETERM_SIZE, 0) ||
+	    sqlite3_bind_int(p_stmt, 4, i_is_reverse)) {
+		C_LOGE("RDB: Error during binding to statement: %s",
+		       sqlite3_errmsg(sqlite3_db_handle(p_stmt)));
+		ret = PC_ERR_DB_QUERY_BIND;
+		goto finish;
+	}
+
+	ret = step_and_convert_returned_value(p_stmt);
+
+finish:
+	reset_and_unbind_stmt(p_stmt);
+	return ret;
+}
+
+
+int add_permission_app_path_type_stmt(sqlite3_stmt *p_stmt,
+				      const sqlite3_int64 i_permission_id,
+				      const char *const s_path_type_name,
+				      const char *const s_access,
+				      const int i_is_reverse)
+{
+	int ret = PC_OPERATION_SUCCESS;
+
+	if(sqlite3_bind_int(p_stmt, 1, i_permission_id) ||
+	    sqlite3_bind_text(p_stmt, 2, s_path_type_name, RDB_AUTO_DETERM_SIZE, 0)  ||
+	    sqlite3_bind_text(p_stmt, 3, s_access, RDB_AUTO_DETERM_SIZE, 0) ||
+	    sqlite3_bind_int(p_stmt, 4, i_is_reverse)) {
+		C_LOGE("RDB: Error during binding to statement: %s",
+		       sqlite3_errmsg(sqlite3_db_handle(p_stmt)));
+		ret = PC_ERR_DB_QUERY_BIND;
+		goto finish;
+	}
+
+	ret = step_and_convert_returned_value(p_stmt);
+
+finish:
+	reset_and_unbind_stmt(p_stmt);
+	return ret;
+}
+
 int add_permission_rules_internal(sqlite3 *p_db,
-				  sqlite3_int64 permission_id,
+				  const sqlite3_int64 i_permission_id,
 				  const char *const *const pp_smack_rules)
 {
 	RDB_LOG_ENTRY;
 
-	int i;
 	int ret = PC_OPERATION_SUCCESS;
-	sqlite3_stmt *p_stmt = NULL;
-	char s_subject[SMACK_LABEL_LEN + 1];
-	char s_object[SMACK_LABEL_LEN + 1];
+	char s_label[SMACK_LABEL_LEN + 1];
 	char s_access[ACC_LEN + 1];
+	sqlite3_int64 i_all_apps_permission_id = 1;
+	int i_is_reverse = 0;
+	int i;
+	sqlite3_stmt *p_perm_to_label_stmt = NULL;
+	sqlite3_stmt *p_perm_to_perm_stmt = NULL;
+	sqlite3_stmt *p_perm_to_app_path_type_stmt = NULL;
 
-	// Prepare statement.
-	const char *s_query = "INSERT INTO \
-		permission_label_rule_view(permission_id,access,label_name,is_reverse) \
-		VALUES(?,?,?,?)";
-	if(sqlite3_prepare_v2(p_db,
-			      s_query,
-			      strlen(s_query) + 1,
-			      &p_stmt,
-			      NULL)) {
-		C_LOGE("RDB: Error during preparing statement: %s",
-		       sqlite3_errmsg(p_db));
-		ret = PC_ERR_DB_QUERY_PREP;
-		goto finish;
-	}
+	// Prepare stmts. They are static, so we parse SQL only once per process and reuse it.
+	ret = prepare_stmts_for_bind(p_db, &p_perm_to_label_stmt,
+				     "INSERT INTO permission_label_rule_view(        \
+				      permission_id, access, label_name, is_reverse) \
+				      VALUES(?,?,?,?)");
+	if(ret != PC_OPERATION_SUCCESS) return ret;
+
+	ret = prepare_stmts_for_bind(p_db, &p_perm_to_perm_stmt,
+				     "INSERT OR REPLACE INTO permission_permission_rule( \
+				      permission_id, target_permission_id,               \
+				      access, is_reverse)                                \
+				      VALUES(?,?,str_to_access(?),?)");
+	if(ret != PC_OPERATION_SUCCESS) return ret;
+
+
+	ret = prepare_stmts_for_bind(p_db, &p_perm_to_app_path_type_stmt,
+				     "INSERT INTO permission_app_path_type_rule_view(        \
+				      permission_id, app_path_type_name, access, is_reverse) \
+				      VALUES(?,?,?,?)");
+	if(ret != PC_OPERATION_SUCCESS) return ret;
+
 
 	for(i = 0; pp_smack_rules[i] != NULL ; ++i) {
 		C_LOGD("RDB: Granting permission: %s", pp_smack_rules[i]);
@@ -623,51 +769,68 @@ int add_permission_rules_internal(sqlite3 *p_db,
 		if(strspn(pp_smack_rules[i], " \t\n") == strlen(pp_smack_rules[i]))
 			continue;
 
-		ret = parse_rule(pp_smack_rules[i], s_subject, s_object, s_access);
-		if(ret != PC_OPERATION_SUCCESS) goto finish;
+		ret = parse_rule(pp_smack_rules[i], s_label, s_access, &i_is_reverse);
+		if(ret != PC_OPERATION_SUCCESS) return ret;
 
-		// Bind values to the statement and run it:
-		sqlite3_bind_int(p_stmt, 1, permission_id);
-		sqlite3_bind_text(p_stmt, 2, s_access, RDB_AUTO_DETERM_SIZE, 0);
-		if(!strcmp(s_subject, SMACK_APP_LABEL_TEMPLATE)) {
-			// Not reversed
-			sqlite3_bind_text(p_stmt, 3, s_object, RDB_AUTO_DETERM_SIZE, 0);
-			sqlite3_bind_int(p_stmt, 4, 0);
+		// Interpret wildcards
+		if(s_label[0] != '~' &&
+		    s_label[strlen(s_label) - 1] != '~') {
+			// It's not a wildcard!
+			ret = add_permission_label_rule(p_perm_to_label_stmt,
+							i_permission_id,
+							s_label,
+							s_access,
+							i_is_reverse);
+			if(ret != PC_OPERATION_SUCCESS) return ret;
 
-		} else if(!strcmp(s_object, SMACK_APP_LABEL_TEMPLATE)) {
-			sqlite3_bind_text(p_stmt, 3, s_subject, RDB_AUTO_DETERM_SIZE, 0);
-			sqlite3_bind_int(p_stmt, 4, 1);
+		} else if(!strcmp(s_label, "~ALL_APPS~")) {
+			ret = get_permission_id_internal(p_db,
+							 "ALL_APPS",
+							 "ALL_APPS",
+							 &i_all_apps_permission_id);
+			if(ret != PC_OPERATION_SUCCESS) return ret;
 
-		} else {
-			C_LOGE("RDB: Incorrect rule format: %s", pp_smack_rules[i]);
-			ret = PC_ERR_INVALID_PARAM;
-			goto finish;
-		}
+			ret = add_permission_permission_rule(p_perm_to_perm_stmt,
+							     i_permission_id,
+							     i_all_apps_permission_id,
+							     s_access,
+							     i_is_reverse);
+			if(ret != PC_OPERATION_SUCCESS) return ret;
 
-		// Perform the insert
-		ret = step_and_convert_returned_value(p_stmt);
-		if(ret != PC_OPERATION_SUCCESS) goto finish;
+		} else if(!strcmp(s_label, "~ALL_APPS_WITH_SAME_PERMISSION~")) {
+			ret = add_permission_permission_rule(p_perm_to_perm_stmt,
+							     i_permission_id,
+							     i_permission_id,
+							     s_access,
+							     i_is_reverse);
+			if(ret != PC_OPERATION_SUCCESS) return ret;
 
-		// Reset and unbind statement:
-		if(sqlite3_reset(p_stmt) != SQLITE_OK) {
-			C_LOGE("RDB: Error reseting statement: %s",
-			       sqlite3_errmsg(p_db));
-			ret = PC_ERR_DB_QUERY_STEP;
-			goto finish;
-		}
-		if(sqlite3_clear_bindings(p_stmt) != SQLITE_OK) {
-			C_LOGE("RDB: Error reseting statement: %s",
-			       sqlite3_errmsg(p_db));
-			ret = PC_ERR_DB_QUERY_STEP;
-			goto finish;
+		} else if(!strcmp(s_label, "~PUBLIC_PATH~")) {
+			ret = add_permission_app_path_type_stmt(p_perm_to_app_path_type_stmt,
+								i_permission_id,
+								"PUBLIC_PATH",
+								s_access,
+								i_is_reverse);
+			if(ret != PC_OPERATION_SUCCESS) return ret;
+
+		} else if(!strcmp(s_label, "~GROUP_PATH~")) {
+			ret = add_permission_app_path_type_stmt(p_perm_to_app_path_type_stmt,
+								i_permission_id,
+								"GROUP_PATH",
+								s_access,
+								i_is_reverse);
+			if(ret != PC_OPERATION_SUCCESS) return ret;
+
+		} else if(!strcmp(s_label, "~SETTINGS_PATH~")) {
+			ret = add_permission_app_path_type_stmt(p_perm_to_app_path_type_stmt,
+								i_permission_id,
+								"SETTINGS_PATH",
+								s_access,
+								i_is_reverse);
+			if(ret != PC_OPERATION_SUCCESS) return ret;
 		}
 	}
-
-finish:
-	if(sqlite3_finalize(p_stmt) < 0)
-		C_LOGE("RDB: Error during finalizing statement: %s",
-		       sqlite3_errmsg(p_db));
-	return ret;
+	return PC_OPERATION_SUCCESS;
 }
 
 
