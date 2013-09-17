@@ -35,11 +35,7 @@
 		<domain name="_"/>
 	</request>
 	<assign>
-		<filesystem path="/opt/dbspace/.privilege_control_all_apps_id.db" label="system::privilege_control::db"/>
-		<filesystem path="/opt/dbspace/.privilege_control_all_avs_id.db" label="system::privilege_control::db"/>
 		<filesystem path="/opt/dbspace/.privilege_control_app_gids.db" label="system::privilege_control::db"/>
-		<filesystem path="/opt/dbspace/.privilege_control_public_dirs.db" label="system::privilege_control::db"/>
-		<filesystem path="/opt/dbspace/.privilege_control_setting_dir.db" label="system::privilege_control::db"/>
-		<filesystem path="/opt/dbspace/.privilege_control_app_setting.db" label="system::privilege_control::db"/>
+		<filesystem path="/opt/dbspace/.rules-db.db3" label="system::privilege_control::db"/>
 	</assign>
 </manifest>

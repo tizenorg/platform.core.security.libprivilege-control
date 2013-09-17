@@ -38,6 +38,7 @@ extern "C" {
 #endif // API
 
 #define DEPRECATED __attribute__((deprecated));
+#define UNUSED __attribute__((unused))
 
 /* error codes */
 #define	PC_OPERATION_SUCCESS		((int)0)
@@ -47,6 +48,53 @@ extern "C" {
 #define PC_ERR_INVALID_PARAM		-4
 #define PC_ERR_INVALID_OPERATION	-5
 #define PC_ERR_DB_OPERATION			-6
+
+/// Label is taken by another application
+#define PC_ERR_DB_LABEL_TAKEN           -7
+
+/// Label is forbidden
+#define PC_ERR_DB_LABEL_FORBIDDEN       -8
+
+/// Query fails during preparing a SQL statement
+#define PC_ERR_DB_QUERY_PREP            -9
+
+/// Query fails during binding to a SQL statement
+#define PC_ERR_DB_QUERY_BIND            -10
+
+/// Query fails during stepping a SQL statement
+#define PC_ERR_DB_QUERY_STEP            -11
+
+/// Query is too long
+#define PC_ERR_DB_QUERY_TOO_LONG        -12
+
+/// Returned value is unexpected,
+/// e.g an int that stores bool is not 0 or 1.
+#define PC_ERR_DB_UNEXPECTED_VALUE      -13
+
+/// Constraint violated
+#define PC_ERR_DB_CONSTRAINT            -14
+
+// Unable to establish a connection with the database
+#define PC_ERR_DB_CONNECTION            -15
+
+// Error when creating boot file with rules
+#define PC_ERR_BOOT_FILE                -16
+
+// There is no application with such app_id
+#define PC_ERR_DB_NO_SUCH_APP           -17
+
+// There already exists a permission with this name and type
+#define PC_ERR_DB_PERM_FORBIDDEN        -18
+
+// There is no permission with a this name
+#define PC_ERR_DB_UNKNOWN_PERMISSION    -19
+
+// There is no application with this label
+#define PC_ERR_DB_UNKNOWN_APPLICATION   -20
+
+// This permission already exists
+#define PC_PERMISSION_EXISTS            -21
+
 
 typedef enum {
        APP_TYPE_WGT,
@@ -66,6 +114,7 @@ typedef enum {
 	APP_PATH_SETTINGS_RW,
 	APP_PATH_ANY_LABEL,
 } app_path_type_t;
+
 
 /* APIs - used by applications */
 int control_privilege(void) DEPRECATED;
@@ -364,6 +413,20 @@ int add_api_feature(app_type_t app_type,
                     const char** set_smack_rule_set,
                     const gid_t* list_of_db_gids,
                     size_t list_size) DEPRECATED;
+
+
+/**
+ * Run before any privilege modification.
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int perm_modification_start(void);
+
+/**
+ * Run after any privilege modification.
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int perm_modification_finish(void);
+
 
 #ifdef __cplusplus
 }
