@@ -243,7 +243,7 @@ void load_from_dir(const char  *const s_dir)
 {
 
 	API_FEATURE_LOADER_LOG("Loading rules from directory...\n");
-	if(perm_modification_start()) return;
+	if(perm_begin()) return;
 
 	// Load rules specific to permission's types:
 	load_pemission_type_rules(wrt_filter,         "WRT",          APP_TYPE_WGT,         s_dir);
@@ -259,14 +259,14 @@ void load_from_dir(const char  *const s_dir)
 	load_permission_family(osp_family_filter, "OSP_", APP_TYPE_OSP, s_dir);
 	load_permission_family(efl_family_filter, "EFL_", APP_TYPE_EFL, s_dir);
 
-	perm_modification_finish();
+	perm_end();
 	API_FEATURE_LOADER_LOG("Done.\n");
 }
 
 void load_from_file(const char  *const s_file_path)
 {
 	API_FEATURE_LOADER_LOG("Loading rules from file...\n");
-	if(perm_modification_start()) return;
+	if(perm_begin()) return;
 
 	char *s_permission_name = NULL;
 	char *s_file_name;
@@ -274,6 +274,7 @@ void load_from_file(const char  *const s_file_path)
 
 	if(!has_smack_ext(s_file_path)) {
 		API_FEATURE_LOADER_LOG("File doesn't have smack extension.");
+		perm_end();
 		return;
 	}
 
@@ -299,7 +300,7 @@ void load_from_file(const char  *const s_file_path)
 
 	free(s_permission_name);
 
-	perm_modification_finish();
+	perm_end();
 	API_FEATURE_LOADER_LOG("Done.\n");
 }
 

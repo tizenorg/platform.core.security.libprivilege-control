@@ -93,28 +93,20 @@ enum {
 	DECISION_LABEL = 1
 };
 
-
-// __attribute__ ((constructor))
-// static void libprivilege_constructor()
-// {
-// 	SECURE_C_LOGD("Entering function: %s.", __func__);
-// 	perm_modification_start();
-// }
-
 __attribute__ ((destructor))
 static void libprivilege_destructor()
 {
 	SECURE_C_LOGD("Entering function: %s.", __func__);
-	perm_modification_finish();
+	perm_end();
 }
 
-API int perm_modification_start()
+API int perm_begin(void)
 {
 	SECURE_C_LOGD("Entering function: %s.", __func__);
 	return rdb_modification_start();
 }
 
-API int perm_modification_finish()
+API int perm_end(void)
 {
 	SECURE_C_LOGD("Entering function: %s.", __func__);
 
@@ -1463,9 +1455,9 @@ API int perm_app_install(const char* pkg_id)
 	char* smack_path AUTO_FREE;
 	struct smack_accesses *smack AUTO_SMACK_FREE;
 
-	ret = perm_modification_start();
+	ret = perm_begin();
 	if(ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("RDB perm_modification_start failed with: %d", ret);
+		C_LOGE("RDB perm_begin failed with: %d", ret);
 		return ret;
 	}
 
