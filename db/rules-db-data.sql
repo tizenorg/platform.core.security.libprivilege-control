@@ -2,7 +2,6 @@
 -- Beware of updating!
 -- Remember that you might insert things to a filled database.
 
-
 .load librules-db-sql-udf.so
 PRAGMA foreign_keys = ON;
 
