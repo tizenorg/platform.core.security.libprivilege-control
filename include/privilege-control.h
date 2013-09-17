@@ -419,13 +419,13 @@ int add_api_feature(app_type_t app_type,
  * Run before any privilege modification.
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int perm_modification_start(void);
+int perm_begin(void);
 
 /**
  * Run after any privilege modification.
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int perm_modification_finish(void);
+int perm_end(void);
 
 
 #ifdef __cplusplus
