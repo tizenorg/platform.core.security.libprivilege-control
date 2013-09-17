@@ -79,24 +79,14 @@ finish:
 }
 
 
-/**
- * Adds label names of applications with the permission to modified labels.
- * Used when permission is going to change and we're going to change some
- * accesses granted by this permission.
- *
- *
- * @param  p_db            [description]
- * @param  i_permission_id [description]
- * @return                 [description]
- */
 int add_modified_permission_internal(sqlite3 *p_db, sqlite3_int64 i_permission_id)
 {
 	int ret = PC_OPERATION_SUCCESS;
 	sqlite3_stmt *p_stmt = NULL;
 	ret = prepare_stmt(p_db, &p_stmt,
-			   "INSERT INTO modified_label(name)    \
-			    SELECT app_permission_view.app_name \
-			    FROM   app_permission_view          \
+			   "INSERT OR IGNORE INTO modified_label(name) \
+			    SELECT app_permission_view.app_name        \
+			    FROM   app_permission_view                 \
 			    WHERE  app_permission_view.permission_id = %d",
 			   i_permission_id);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
@@ -109,6 +99,27 @@ finish:
 	return ret;
 }
 
+
+int add_modified_apps_path_internal(sqlite3 *p_db,
+				    const char *const s_app_label_name)
+{
+	int ret = PC_OPERATION_SUCCESS;
+	sqlite3_stmt *p_stmt = NULL;
+	ret = prepare_stmt(p_db, &p_stmt,
+			   "INSERT OR IGNORE INTO modified_label(name) \
+			    SELECT path_view.path_label_name           \
+			    FROM   path_view                           \
+			    WHERE  path_view.owner_app_label_name = %Q",
+			   s_app_label_name);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = step_and_convert_returned_value(p_stmt);
+finish:
+	if(sqlite3_finalize(p_stmt) < 0)
+		C_LOGE("RDB: Error during finalizing statement: %s",
+		       sqlite3_errmsg(p_db));
+	return ret;
+}
 
 /**
  * Function called when the target database is busy.
@@ -180,7 +191,8 @@ int open_rdb_connection(sqlite3 **p_db)
 
 	// Create the temporary tables:
 	if(sqlite3_exec(*p_db,
-		       "CREATE TEMPORARY TABLE history_smack_rule(                 \
+			"PRAGMA foreign_keys = ON;                                 \
+			CREATE TEMPORARY TABLE history_smack_rule(                 \
 			        subject VARCHAR NOT NULL,                          \
 			        object  VARCHAR NOT NULL,                          \
 			        access  INTEGER NOT NULL);                         \
@@ -231,7 +243,6 @@ int open_rdb_connection(sqlite3 **p_db)
 				           s2.object  IS NULL                      \
 				)                                                  \
 			ORDER BY subject, object ASC;                              \
-			PRAGMA foreign_keys = ON;                                  \
 			ANALYZE;",
 			0, 0, 0) != SQLITE_OK) {
 		C_LOGE("RDB: Error during preparing script: %s", sqlite3_errmsg(*p_db));
@@ -937,31 +948,20 @@ int save_smack_rules(sqlite3 *p_db)
 	RDB_LOG_ENTRY;
 
 	if(sqlite3_exec(p_db,
-			"DELETE FROM history_smack_rule",
+			"DELETE FROM history_smack_rule;                     \
+			                                                     \
+			INSERT INTO history_smack_rule 			     \
+			SELECT subject, object, access                       \
+			FROM all_smack_binary_rules;                         \
+			                                                     \
+			CREATE INDEX history_smack_rule_subject_object_index \
+			ON history_smack_rule(subject, object);",
 			0, 0, 0) != SQLITE_OK) {
-		C_LOGE("RDB: Error during clearing history table: %s",
-		       sqlite3_errmsg(p_db));
-		return PC_ERR_DB_OPERATION;
-	}
-	if(sqlite3_exec(p_db,
-			"INSERT INTO history_smack_rule \
-			SELECT subject, object, access  \
-			FROM all_smack_binary_rules",
-			0, 0, 0) != SQLITE_OK) {
-		C_LOGE("RDB: Error during inserting into history_smack_rule table: %s",
+		C_LOGE("RDB: Error during saving history table: %s",
 		       sqlite3_errmsg(p_db));
 		return PC_ERR_DB_OPERATION;
 	}
 
-	// TODO: Maybe don't use index?
-	if(sqlite3_exec(p_db,
-			"CREATE INDEX history_smack_rule_subject_object_index \
-			ON history_smack_rule(subject, object)",
-			0, 0, 0) != SQLITE_OK) {
-		C_LOGE("RDB: Error during indexing history_smack_rule table: %s",
-		       sqlite3_errmsg(p_db));
-		return PC_ERR_DB_OPERATION;
-	}
 	return PC_OPERATION_SUCCESS;
 }
 

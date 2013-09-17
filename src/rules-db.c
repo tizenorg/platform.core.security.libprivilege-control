@@ -160,7 +160,6 @@ int rdb_add_application(const char *const s_label_name)
 		// There is no such label yet.
 		ret = add_app_internal(p_db, s_label_name);
 		if(ret != PC_OPERATION_SUCCESS) goto finish;
-
 	}
 
 	ret = add_modified_label_internal(p_db, s_label_name);
@@ -184,6 +183,9 @@ int rdb_remove_application(const char *const s_label_name)
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = add_modified_label_internal(p_db, s_label_name);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = add_modified_apps_path_internal(p_db, s_label_name);
 finish:
 	if(p_db__) update_ret_code(ret); else rdb_end(p_db, ret);
 	return ret;

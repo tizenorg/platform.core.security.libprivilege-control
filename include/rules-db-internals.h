@@ -67,6 +67,7 @@
  * If label is not in this table, but rule changed
  * Smack will not get the rule in runtime.
  *
+ * @ingroup RDB internal functions
  *
  * @param  p_db         pointer to a SQLite3 database object
  * @param  s_label_name label name
@@ -80,6 +81,7 @@ int add_modified_label_internal(sqlite3 *p_db, const char *const s_label_name);
  * Used when permission is going to change and we're going to change some
  * accesses granted by this permission.
  *
+ * @ingroup RDB internal functions
  *
  * @param  p_db            pointer to a SQLite3 database object
  * @param  i_permission_id id of the permission
@@ -87,7 +89,18 @@ int add_modified_label_internal(sqlite3 *p_db, const char *const s_label_name);
  */
 int add_modified_permission_internal(sqlite3 *p_db, sqlite3_int64 i_permission_id);
 
-
+/**
+ * Adds label names of the application's folders to the modified labels.
+ * Used during removing application.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param  p_db             pointer to a SQLite3 database object
+ * @param  s_app_label_name label of the application
+ * @return                  PC_OPERATION_SUCCESS on success,
+ *                          error code otherwise
+ */
+int add_modified_apps_path_internal(sqlite3 *p_db, const char *const s_app_label_name);
 /**
  * Open a connection with the database and perform an initialization.
  *

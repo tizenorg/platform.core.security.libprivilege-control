@@ -145,7 +145,7 @@ static void bitwise_or_step(sqlite3_context *context,
 }
 
 
-void bitwise_or_final(sqlite3_context *context)
+static void bitwise_or_final(sqlite3_context *context)
 {
 	int *result_buffer = (int *)sqlite3_aggregate_context(context, sizeof(int));
 	sqlite3_result_int(context, *result_buffer );
