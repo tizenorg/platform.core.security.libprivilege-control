@@ -115,3 +115,5 @@ SELECT      subject, object, access, is_volatile
 FROM        all_smack_binary_rules_view;
 
 COMMIT TRANSACTION;
+
+VACUUM;
