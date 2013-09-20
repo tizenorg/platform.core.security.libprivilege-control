@@ -43,7 +43,8 @@ Library to control privilege of application files
 
 %build
 export CFLAGS="${CFLAGS} -Wno-implicit-function-declaration"
-%cmake . -DCMAKE_BUILD_TYPE=%{?build_type:%build_type}%{!?build_type:RELEASE}
+%cmake . -DCMAKE_BUILD_TYPE=%{?build_type:%build_type}%{!?build_type:RELEASE} \
+         -DCMAKE_VERBOSE_MAKEFILE=ON
 
 make %{?jobs:-j%jobs}
 
