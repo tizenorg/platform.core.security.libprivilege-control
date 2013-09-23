@@ -76,22 +76,13 @@ then
 	mkdir -p /opt/etc/smack-app-early/accesses.d
 fi
 
-if [ ! -e "/opt/dbspace/.rules-db.db3" ]
-then
-	# First installation
-	rm -f /opt/dbspace/.rules-db.db3-journal
-	sqlite3 /opt/dbspace/.rules-db.db3 < /opt/dbspace/rules-db.sql
-	sqlite3 /opt/dbspace/.rules-db.db3 < /opt/dbspace/rules-db-data.sql
-
-	api_feature_loader --verbose
-else
-	# There is the rules-db database.
-	sqlite3 /opt/dbspace/.rules-db.db3 < /opt/dbspace/rules-db.sql
-	sqlite3 /opt/dbspace/.rules-db.db3 < /opt/dbspace/rules-db-data.sql
-fi
-
+sqlite3 /opt/dbspace/.rules-db.db3 < /opt/dbspace/rules-db.sql
 rm -f /opt/dbspace/rules-db.sql
+
+sqlite3 /opt/dbspace/.rules-db.db3 < /opt/dbspace/rules-db-data.sql
 rm -f /opt/dbspace/rules-db-data.sql
+
+api_feature_loader --verbose
 
 %files
 %manifest %{name}.manifest
