@@ -242,8 +242,7 @@ int open_rdb_connection(sqlite3 **p_db)
 				WHERE      s2.subject IS NULL AND                  \
 				           s2.object  IS NULL                      \
 				)                                                  \
-			ORDER BY subject, object ASC;                              \
-			ANALYZE;",
+			ORDER BY subject, object ASC;",
 			0, 0, 0) != SQLITE_OK) {
 		C_LOGE("RDB: Error during preparing script: %s", sqlite3_errmsg(*p_db));
 		return PC_ERR_DB_OPERATION;
@@ -814,7 +813,7 @@ int change_app_permission_internal(sqlite3 *p_db,
 				   int i_is_volatile_new,
 				   int i_is_enabled_new)
 {
-	RDB_LOG_ENTRY_PARAM("%d %d %d %d %d", i_app_id,
+	RDB_LOG_ENTRY_PARAM("%d %s %s %d %d", i_app_id,
 			    s_permission_name, s_permission_type_name,
 			    i_is_volatile_new, i_is_enabled_new);
 
@@ -966,7 +965,7 @@ int save_smack_rules(sqlite3 *p_db)
 }
 
 
-static int update_rules_in_db(sqlite3 *p_db)
+int update_rules_in_db(sqlite3 *p_db)
 {
 	RDB_LOG_ENTRY;
 
@@ -1015,9 +1014,6 @@ int update_smack_rules(sqlite3 *p_db)
 	const unsigned char *s_access_add = NULL;
 	const unsigned char *s_access_del = NULL;
 	struct smack_accesses *smack = NULL;
-
-	ret = update_rules_in_db(p_db);
-	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	if(smack_accesses_new(&smack)) {
 		C_LOGE("RDB: Error during updating smack rules: smack_accesses_new failed.");

@@ -680,7 +680,7 @@ static inline const char* app_type_group_name(app_type_t app_type)
  * created basename : org.tizen.privilege.contact.read
  */
 
-static int base_name_from_perm(const char *perm, char **name)
+int base_name_from_perm(const char *perm, char **name)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: perm=%s",
 				__func__, perm);

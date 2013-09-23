@@ -26,6 +26,9 @@
 * @brief       This file contains declaration of the API to rules database.
 */
 
+#include <stdlib.h>
+
+#include "privilege-control.h"
 #include "rules-db-internals.h"
 
 static sqlite3 *p_db__          = NULL;
@@ -60,10 +63,8 @@ static int rdb_begin(sqlite3 **pp_db)
 		return PC_ERR_DB_CONNECTION;
 	}
 
-	if(have_smack()) {
-		ret = save_smack_rules(*pp_db);
-		if(ret != PC_OPERATION_SUCCESS) return ret;
-	}
+	ret = save_smack_rules(*pp_db);
+	if(ret != PC_OPERATION_SUCCESS) return ret;
 
 	return PC_OPERATION_SUCCESS;
 }
@@ -82,11 +83,17 @@ static void rdb_end(sqlite3 *p_db, int ret)
 {
 	RDB_LOG_ENTRY;
 
+	if(ret == PC_OPERATION_SUCCESS &&
+	    (ret = update_rules_in_db(p_db))
+	    != PC_OPERATION_SUCCESS) {
+		C_LOGE("RDB: Error during updating rules in the database: %d", ret);;
+	}
+
 	if(have_smack()) {
 		if(ret == PC_OPERATION_SUCCESS &&
 		    (ret = update_smack_rules(p_db))
 		    != PC_OPERATION_SUCCESS) {
-			C_LOGE("RDB: Error updating smack rules");
+			C_LOGE("RDB: Error updating smack rules: %d", ret);
 		}
 	}
 
@@ -271,6 +278,7 @@ int rdb_enable_app_permissions(const char *const s_app_label_name,
 
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3 *p_db = NULL;
+	char *s_permission_name = NULL;
 	int i;
 	int i_app_id = 0;
 	C_LOGD("RDB: Enabling permissions START");
@@ -297,13 +305,17 @@ int rdb_enable_app_permissions(const char *const s_app_label_name,
 		    == strlen(pp_permissions_list[i]))
 			continue;
 
+		ret = base_name_from_perm(pp_permissions_list[i], &s_permission_name);
+		if(ret != PC_OPERATION_SUCCESS) goto finish;
+
 		ret = change_app_permission_internal(p_db,
 						     i_app_id,
-						     pp_permissions_list[i],
+						     s_permission_name,
 						     s_permission_type_name,
 						     b_is_volatile,
 						     RDB_ENABLE);
 		if(ret != PC_OPERATION_SUCCESS) goto finish;
+		free(s_permission_name);
 	}
 
 	ret = add_modified_label_internal(p_db, s_app_label_name);
@@ -321,6 +333,7 @@ int rdb_disable_app_permissions(const char *const s_app_label_name,
 
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3 *p_db = NULL;
+	char *s_permission_name = NULL;
 	int i, i_app_id;
 
 	ret = rdb_begin(&p_db);
@@ -335,12 +348,17 @@ int rdb_disable_app_permissions(const char *const s_app_label_name,
 		    == strlen(pp_permissions_list[i]))
 			continue;
 
+		ret = base_name_from_perm(pp_permissions_list[i], &s_permission_name);
+		if(ret != PC_OPERATION_SUCCESS) goto finish;
+
 		ret = switch_app_permission_internal(p_db,
 						     i_app_id,
-						     pp_permissions_list[i],
+						     s_permission_name,
 						     s_permission_type_name,
 						     RDB_DISABLE);
 		if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+		free(s_permission_name);
 	}
 
 	ret = add_modified_label_internal(p_db, s_app_label_name);

@@ -427,6 +427,9 @@ int perm_begin(void);
  */
 int perm_end(void);
 
+int base_name_from_perm(const char *perm, char **name);
+
+
 
 #ifdef __cplusplus
 }

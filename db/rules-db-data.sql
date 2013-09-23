@@ -107,13 +107,6 @@ INSERT OR IGNORE INTO permission_app_path_type_rule_view(permission_name,
 	("org.tizen.privilege.antivirus","OSP", "ANY_LABEL",   "rwx", 0),
 	("org.tizen.privilege.antivirus","EFL", "ANY_LABEL",   "rwx", 0);
 
-
--- Initial fill of all_smack_binary_rules table
-DELETE FROM all_smack_binary_rules;
-INSERT INTO all_smack_binary_rules
-SELECT      subject, object, access, is_volatile
-FROM        all_smack_binary_rules_view;
-
 COMMIT TRANSACTION;
 
 VACUUM;

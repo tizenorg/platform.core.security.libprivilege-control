@@ -416,6 +416,17 @@ int save_smack_rules(sqlite3 *p_db);
 
 
 /**
+ * Prepare tables with smack rules.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param  p_db pointer to a SQLite3 database object
+ * @return      PC_OPERATION_SUCCESS on success, error code otherwise
+ */
+int update_rules_in_db(sqlite3 *p_db);
+
+
+/**
  * Updates smack rules. Only rules that change are refreshed.
  *
  * @ingroup RDB internal functions
