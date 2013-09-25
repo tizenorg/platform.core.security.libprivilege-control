@@ -567,6 +567,10 @@ BEGIN
                                                      FROM   permission_view
                                                      WHERE  permission_view.name = "ALL_APPS" AND
                                                             permission_view.type_name = "ALL_APPS");
+    -- Delete paths
+    DELETE FROM path_view
+    WHERE path_view.owner_app_label_name=OLD.app_name;
+
 END;
 
 -- APP PERMISSION VOLATILE VIEW ------------------------------------------------
