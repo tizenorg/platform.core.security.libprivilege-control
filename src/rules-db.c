@@ -382,6 +382,10 @@ int rdb_revoke_app_permissions(const char *const s_app_label_name)
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = add_modified_label_internal(p_db, s_app_label_name);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = add_modified_apps_path_internal(p_db, s_label_name);
+
 finish:
 	if(p_db__) update_ret_code(ret); else rdb_end(p_db, ret);
 	return ret;
