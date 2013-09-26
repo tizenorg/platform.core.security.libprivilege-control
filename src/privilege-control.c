@@ -1617,3 +1617,20 @@ API int app_register_av(const char* app_av_id UNUSED)//deprecated
 	// TODO: This function is not implemented with RDB.
 	return PC_ERR_INVALID_OPERATION;
 }
+
+API int perm_add_additional_rules(const char** smack_rules){
+	SECURE_C_LOGD("Entering function: %s.", __func__);
+	int ret;
+	if (!smack_rules){
+		C_LOGE("smack_rules is NULL");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	ret = rdb_add_additional_rules(smack_rules);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("RDB rdb_add_additional_rules failed with: %d", ret);
+		return ret;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}

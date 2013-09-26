@@ -281,24 +281,6 @@ int get_app_id_internal(sqlite3 *p_db,
 
 
 /**
- * Divides the rule into subject, object and access strings.
- *
- * @ingroup RDB internal functions
- *
- * @param  s_rule         the string that we parse
- * @param  s_label        buffer for the label
- * @param  s_access       buffer for the access
- * @param  pi_is_reverse  buffer for the is_reversed
- * @return                PC_OPERATION_SUCCESS on success,
- *                        error code otherwise
- */
-int parse_rule(const char *const s_rule,
-	       char s_label[],
-	       char s_access[],
-	       int *pi_is_reverse);
-
-
-/**
  * Add a new permission to an application.
  *
  * @ingroup RDB internal functions
@@ -437,5 +419,17 @@ int update_rules_in_db(sqlite3 *p_db);
  */
 int update_smack_rules(sqlite3 *p_db);
 
+
+/**
+ * Add additional rules to the database.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param  p_db           pointer to a SQLite3 database object
+ * @param  pp_smack_rules a list of smack rules
+ * @return                PC_OPERATION_SUCCESS on success, error code otherwise
+ */
+int add_additional_rules_internal(sqlite3 *p_db,
+				  const char  *const *const pp_smack_rules);
 
 #endif // _RULES_DB_INTERNALS_H_

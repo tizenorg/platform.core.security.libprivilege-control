@@ -103,6 +103,17 @@ CREATE TABLE IF NOT EXISTS permission_app_path_type_rule (
     FOREIGN KEY(app_path_type_id) REFERENCES app_path_type(app_path_type_id)
 );
 
+CREATE TABLE IF NOT EXISTS label_app_path_type_rule (
+    label_id INTEGER NOT NULL,
+    app_path_type_id INTEGER NOT NULL,
+    access INTEGER NOT NULL DEFAULT 0,
+    is_reverse INTEGER NOT NULL  DEFAULT 0,
+
+    PRIMARY KEY (label_id, app_path_type_id, is_reverse),
+
+    FOREIGN KEY(label_id) REFERENCES label(label_id),
+    FOREIGN KEY(app_path_type_id) REFERENCES app_path_type(app_path_type_id)
+);
 
 CREATE TABLE IF NOT EXISTS label (
     label_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -314,6 +325,58 @@ BEGIN
 END;
 
 
+-- LABEL TO APP PATH TYPE RULE VIEW --------------------------------------------
+DROP VIEW IF EXISTS label_app_path_type_rule_view;
+CREATE VIEW label_app_path_type_rule_view AS
+SELECT
+        label_app_path_type_rule.label_id   AS label_id,
+        label.name                          AS label_name,
+        app_path_type.name                  AS app_path_type_name,
+        label_app_path_type_rule.access     AS access,
+        label_app_path_type_rule.is_reverse AS is_reverse
+FROM    label_app_path_type_rule
+LEFT JOIN label USING(label_id)
+LEFT JOIN app_path_type USING(app_path_type_id);
+
+
+DROP TRIGGER IF EXISTS label_app_path_type_rule_view_insert_trigger;
+CREATE TRIGGER label_app_path_type_rule_view_insert_trigger
+INSTEAD OF INSERT
+ON label_app_path_type_rule_view
+BEGIN
+    INSERT OR IGNORE INTO label(name) VALUES (NEW.label_name);
+
+    INSERT INTO label_app_path_type_rule(label_id,
+                                         app_path_type_id,
+                                         access,
+                                         is_reverse)
+    SELECT      label.label_id,
+                app_path_type.app_path_type_id,
+                str_to_access(NEW.access),
+                NEW.is_reverse
+    FROM        label, app_path_type
+    WHERE       label.name = NEW.label_name AND
+                app_path_type.name = NEW.app_path_type_name;
+END;
+
+
+DROP TRIGGER IF EXISTS label_app_path_type_rule_view_delete_trigger;
+CREATE TRIGGER label_app_path_type_rule_view_delete_trigger
+INSTEAD OF DELETE
+ON label_app_path_type_rule_view
+BEGIN
+    -- Delete the rules with this label
+    DELETE FROM label_app_path_type_rule
+    WHERE       label_app_path_type_rule.label_id
+                IN (SELECT label.label_id
+                    FROM   label
+                    WHERE  label.name = OLD.label_name);
+
+    -- Delete the label if it's not referenced
+    DELETE FROM label_view
+    WHERE label_view.name = OLD.label_name;
+END;
+
 -- PERMISSION TO PERMISSION RULE VIEW ------------------------------------------
 DROP VIEW IF EXISTS permission_permission_rule_view;
 CREATE VIEW permission_permission_rule_view AS
@@ -379,11 +442,13 @@ DROP TRIGGER IF EXISTS label_view_delete_trigger;
 CREATE TRIGGER label_view_delete_trigger
 INSTEAD OF DELETE ON label_view
 WHEN    OLD.label_id NOT IN (SELECT app.label_id
-                             FROM app) AND
+                             FROM   app) AND
         OLD.label_id NOT IN (SELECT permission_label_rule.label_id
-                             FROM permission_label_rule) AND
+                             FROM   permission_label_rule) AND
         OLD.label_id NOT IN (SELECT app_path.label_id
-                             FROM app_path)
+                             FROM   app_path) AND
+        OLD.label_id NOT IN (SELECT label_app_path_type_rule.label_id
+                             FROM   label_app_path_type_rule)
 BEGIN
         DELETE FROM label WHERE label.name = OLD.name;
 END;
@@ -675,6 +740,21 @@ INNER JOIN  label USING(label_id)
 WHERE       app.name != label.name;
 
 
+-- LABEL TO PATH TYPE RULE VIEW -------------------------------------------
+-- ltl = label to label
+DROP VIEW IF EXISTS ltl_label_app_path_type_rule_view;
+CREATE VIEW ltl_label_app_path_type_rule_view AS
+SELECT      (CASE WHEN is_reverse = 0 THEN label.name ELSE path_label.name END) AS subject,
+            (CASE WHEN is_reverse = 1 THEN label.name ELSE path_label.name END) AS object,
+            l.access AS access,
+            0 AS is_volatile
+FROM        label_app_path_type_rule AS l
+INNER JOIN  label USING(label_id)
+INNER JOIN  app_path USING(app_path_type_id)
+INNER JOIN  label AS path_label ON app_path.label_id = path_label.label_id
+WHERE       path_label.name != label.name;
+
+
 -- PERMISSION TO APPLICATION'S OWN PATHS ---------------------------------------
 -- ltl = label to label
 DROP VIEW IF EXISTS ltl_app_path_view;
@@ -702,6 +782,9 @@ FROM   (SELECT subject, object, access, is_volatile
         UNION ALL
         SELECT subject, object, access, is_volatile
         FROM   ltl_permission_app_path_type_rule_view
+        UNION ALL
+        SELECT subject, object, access, is_volatile
+        FROM   ltl_label_app_path_type_rule_view
         UNION ALL
         SELECT subject, object, access, 0
         FROM   ltl_app_path_view

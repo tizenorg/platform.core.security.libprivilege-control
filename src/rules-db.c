@@ -115,7 +115,7 @@ static void rdb_end(sqlite3 *p_db, int ret)
 	}
 
 	if(sqlite3_close(p_db)) {
-		C_LOGE("RDB: Error during closing the database.");
+		C_LOGE("RDB: Error during closing the database. Error: %s", sqlite3_errmsg(p_db));
 	}
 }
 
@@ -411,45 +411,21 @@ finish:
 	return ret;
 }
 
-static bool is_wildcard(const char *const s_label)
-{
-	return 	!strcmp(s_label, "~ALL_APPS~") ||
-		!strcmp(s_label, "~ALL_APPS_WITH_SAME_PERMISSION~") ||
-		!strcmp(s_label, "~PUBLIC_PATH~") ||
-		!strcmp(s_label, "~GROUP_PATH~") ||
-		!strcmp(s_label, "~SETTINGS_PATH~");
-}
 
-int validate_all_rules(const char *const *const pp_permissions_list)
+int rdb_add_additional_rules(const char *const *const pp_smack_rules)
 {
 	RDB_LOG_ENTRY;
 
-	int i;
-	char s_label[SMACK_LABEL_LEN + 1];
-	char s_access[ACC_LEN + 1];
+	int ret = PC_ERR_DB_OPERATION;
+	sqlite3 *p_db = NULL;
 
-	// Parse and check rules.
-	for(i = 0; pp_permissions_list[i] != NULL; ++i) {
-		// C_LOGE("RDB: Validating rules: %s", pp_permissions_list[i]);
+	ret = rdb_begin(&p_db);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
-		// Ignore empty lines
-		if(strspn(pp_permissions_list[i], " \t\n")
-		    == strlen(pp_permissions_list[i]))
-			continue;
+	ret = add_additional_rules_internal(p_db,
+					    pp_smack_rules);
 
-		if(parse_rule(pp_permissions_list[i], s_label, s_access, NULL)
-		    != PC_OPERATION_SUCCESS) {
-			C_LOGE("RDB: Invalid parameter");
-			return PC_ERR_INVALID_PARAM;
-		}
-
-		// Check the other label
-		if(!is_wildcard(s_label) &&
-		    !smack_label_is_valid(s_label)) {
-			C_LOGE("RDB: Incorrect object label: %s", s_label);
-			return PC_ERR_INVALID_PARAM;
-		}
-	}
-
-	return PC_OPERATION_SUCCESS;
+finish:
+	if(p_db__) update_ret_code(ret); else rdb_end(p_db, ret);
+	return ret;
 }

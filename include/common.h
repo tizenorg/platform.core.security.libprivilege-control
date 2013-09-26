@@ -99,6 +99,7 @@ void fts_closep(FTS **f);
 
 #define SMACK_APP_LABEL_TEMPLATE        "~APP~"
 #define SMACK_SHARED_DIR_LABEL_TEMPLATE "~APP_SHARED_DIR~"
+#define ACC_LEN 6
 
 int smack_label_is_valid(const char* smack_label);
 
@@ -108,5 +109,59 @@ int smack_mark_file_name(const char *app_id, char **path);
 bool file_exists(const char* path);
 int smack_file_name(const char* app_id, char** path);
 inline int have_smack(void);
+
+
+/**
+ * Divide a Smack rule into subject, object and access
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param  s_rule    the rule
+ * @param  s_subject buffer for the subject
+ * @param  s_object  buffer for the object
+ * @param  s_access  buffer for the access
+ * @return           PC_OPERATION_SUCCESS on success,
+ *                   error code otherwise
+ */
+int tokenize_rule(const char *const s_rule,
+		  char s_subject[],
+		  char s_object[],
+		  char s_access[]);
+
+/**
+ * Check if the label is a wildcard.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param  s_label the label
+ * @return         is the label a wildcard?
+ */
+bool is_wildcard(const char *const s_label);
+
+/**
+ * Divides the rule into subject, object and access strings.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param  s_rule         the string that we parse
+ * @param  s_label        buffer for the label
+ * @param  s_access       buffer for the access
+ * @param  pi_is_reverse  buffer for the is_reversed
+ * @return                PC_OPERATION_SUCCESS on success,
+ *                        error code otherwise
+ */
+int parse_rule(const char *const s_rule,
+	       char s_label[],
+	       char s_access[],
+	       int *pi_is_reverse);
+
+/**
+ * Validate if all rules in the array can be parsed.
+ *
+ * @param  pp_permissions_list array of permissions to check
+ * @return                     PC_OPERATION_SUCCESS on success,
+ *                             error code otherwise
+ */
+int validate_all_rules(const char *const *const pp_permissions_list);
 
 #endif /* COMMON_H_ */
