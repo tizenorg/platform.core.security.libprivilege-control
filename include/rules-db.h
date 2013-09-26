@@ -161,16 +161,6 @@ int rdb_disable_app_permissions(const char  *const s_app_label_name,
 
 
 /**
- * Validate if all rules in the array can be parsed.
- *
- * @param  pp_permissions_list array of permissions to check
- * @return                     PC_OPERATION_SUCCESS on success,
- *                             error code otherwise
- */
-int validate_all_rules(const char *const *const pp_permissions_list);
-
-
-/**
  * Revokes all permissions from the application by.
  * deleting all permissions from app_permission table.
  *
@@ -194,5 +184,16 @@ int rdb_revoke_app_permissions(const char *const s_app_label_name);
  *                          error code otherwise
  */
 int rdb_reset_app_permissions(const char *const s_app_label_name);
+
+/**
+ * Add the additional rules to the database. Erase the previous rules.
+ *
+ * @ingroup RDB API functions
+ *
+ * @param  pp_smack_rules NULL terminated table of rules
+ * @return                PC_OPERATION_SUCCESS on success,
+ *                        error code otherwise
+ */
+int rdb_add_additional_rules(const char *const *const pp_smack_rules);
 
 #endif /*_RULES_DB_H_*/

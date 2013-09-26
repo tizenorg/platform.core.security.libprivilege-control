@@ -429,6 +429,16 @@ int perm_begin(void);
  */
 int perm_end(void);
 
+/**
+ * Add additional rules to libprivilege.
+ * The rules can use wild-cards and labels.
+ *
+ * @param  set_smack_rule_set an array of rules, NULL terminated
+ * @return                    PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int perm_add_additional_rules(const char** set_smack_rule_set);
+
+
 int base_name_from_perm(const char *perm, char **name);
 
 

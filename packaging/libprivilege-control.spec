@@ -82,7 +82,8 @@ rm -f /opt/dbspace/rules-db.sql
 sqlite3 /opt/dbspace/.rules-db.db3 < /opt/dbspace/rules-db-data.sql
 rm -f /opt/dbspace/rules-db-data.sql
 
-api_feature_loader --verbose
+api_feature_loader --verbose --dir=/usr/share/privilege-control/
+api_feature_loader --verbose --rules=/usr/share/privilege-control/ADDITIONAL_RULES.smack
 
 %files
 %manifest %{name}.manifest
