@@ -1282,16 +1282,16 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 			return PC_ERR_INVALID_PARAM;
 		}
 
+		ret = app_label_shared_dir(pkg_id, shared_label, path);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("app_label_shared_dir failed: %d", ret);
+			return ret;
+		}
+
 		// Add the path to the database:
 		ret = rdb_add_path(pkg_id, shared_label, path, "rwxatl", "GROUP_PATH");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("RDB rdb_add_path failed with: %d", ret);
-			return ret;
-		}
-
-		ret = app_label_shared_dir(pkg_id, shared_label, path);
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("app_label_shared_dir failed: %d", ret);
 			return ret;
 		}
 
@@ -1314,6 +1314,12 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		}
 		C_LOGD("Generated label '%s' for public RO path %s", label, path);
 
+		ret = app_label_shared_dir(pkg_id, label, path);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("app_label_shared_dir failed.");
+			return ret;
+		}
+
 		// Add the path to the database:
 		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "PUBLIC_PATH");
 		if (ret != PC_OPERATION_SUCCESS) {
@@ -1321,11 +1327,6 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 			return ret;
 		}
 
-		ret = app_label_shared_dir(pkg_id, label, path);
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("app_label_shared_dir failed.");
-			return ret;
-		}
 		return PC_OPERATION_SUCCESS;
 	}
 
@@ -1343,6 +1344,12 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		}
 		C_LOGD("Appsetting: generated label '%s' for setting path %s", label, path);
 
+		/*set id for path and all subfolders*/
+		ret = app_label_shared_dir(pkg_id, label, path);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("Appsetting: app_label_shared_dir failed (%d)", ret);
+			return ret;
+		}
 
 		// Add the path to the database:
 		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "SETTINGS_PATH");
@@ -1351,12 +1358,6 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 			return ret;
 		}
 
-		/*set id for path and all subfolders*/
-		ret = app_label_shared_dir(pkg_id, label, path);
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("Appsetting: app_label_shared_dir failed (%d)", ret);
-			return ret;
-		}
 		return PC_OPERATION_SUCCESS;
 	}
 

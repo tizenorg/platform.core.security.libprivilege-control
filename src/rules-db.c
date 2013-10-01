@@ -274,7 +274,7 @@ int rdb_enable_app_permissions(const char *const s_app_label_name,
 			       const char *const *const pp_permissions_list,
 			       const bool   b_is_volatile)
 {
-	RDB_LOG_ENTRY_PARAM("%s %s %d", s_app_label_name, s_permission_type_name, b_is_volatile);
+	RDB_LOG_ENTRY_PARAM("%s %s %d", s_app_label_name, s_permission_type_name,(int)b_is_volatile);
 
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3 *p_db = NULL;
