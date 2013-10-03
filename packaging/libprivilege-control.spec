@@ -55,7 +55,6 @@ mkdir -p %{buildroot}/usr/share/privilege-control/
 %manifest %{name}.manifest
 %license LICENSE
 %{_libdir}/*.so.*
-%{_bindir}/slp-su
 %dir %{_datarootdir}/privilege-control
 %{_datarootdir}/privilege-control/*
 
@@ -71,3 +70,4 @@ mkdir -p %{buildroot}/usr/share/privilege-control/
 %{_includedir}/*.h
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
+%{_bindir}/slp-su
