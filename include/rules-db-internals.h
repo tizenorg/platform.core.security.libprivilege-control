@@ -129,20 +129,6 @@ int prepare_stmt(sqlite3 *p_db,
 		 const char   *const s_sql,
 		 ...);
 
-
-/**
- * Check if the label is present in the database.
- *
- * @ingroup RDB internal functions
- *
- * @param  p_db         pointer to a SQLite3 database object
- * @param  s_label_name label's name
- * @return              PC_OPERATION_SUCCESS on success, error code otherwise
- */
-int check_label_internal(sqlite3 *p_db,
-			 const char  *const s_label_name);
-
-
 /**
  * Check if the label is available for an application.
  *
@@ -156,21 +142,6 @@ int check_label_internal(sqlite3 *p_db,
  */
 int check_app_label_internal(sqlite3 *p_db,
 			     const char  *const s_label_name);
-
-
-/**
- * Check if permission with a given name and type is available
- *
- * @ingroup RDB internal functions
- *
- * @param  p_db                   pointer to a SQLite3 database object
- * @param  s_permission_name      permission name
- * @param  s_permission_type_name permission type name
- * @return                        PC_OPERATION_SUCCESS on success, error code otherwise
- */
-int check_permission_internal(sqlite3 *p_db,
-			      const char *const s_permission_name,
-			      const char *const s_permission_type_name);
 
 
 /**

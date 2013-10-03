@@ -324,59 +324,24 @@ int check_app_label_internal(sqlite3 *p_db,
 	sqlite3_stmt *p_stmt = NULL;
 
 	ret = prepare_stmt(p_db, &p_stmt,
-			   "SELECT COUNT(application_view.name) \
-			   FROM application_view                \
-			   WHERE application_view.name=%Q       \
-			   LIMIT 1",
+			   "SELECT 1                      \
+			    FROM application_view          \
+			    WHERE application_view.name=%Q \
+			    LIMIT 1",
 			   s_label_name);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = sqlite3_step(p_stmt);
 	if(ret == SQLITE_ROW) {
-		switch(sqlite3_column_int(p_stmt, RDB_FIRST_COLUMN)) {
-		case 0: ret = PC_OPERATION_SUCCESS; break;
-		case 1: ret = PC_ERR_DB_LABEL_TAKEN; break;
-		}
-
+		// There is such application label
+		ret = PC_ERR_DB_LABEL_TAKEN;
+	} if(ret == SQLITE_DONE) {
+		// No such application label
+		ret = PC_OPERATION_SUCCESS;
 	} else {
 		C_LOGE("RDB: Error during stepping: %s", sqlite3_errmsg(p_db));
 		ret = PC_ERR_DB_QUERY_STEP;
 	}
-finish:
-	if(sqlite3_finalize(p_stmt) < 0)
-		C_LOGE("RDB: Error during finalizing statement: %s",
-		       sqlite3_errmsg(p_db));
-	return ret;
-}
-
-
-int check_label_internal(sqlite3 *p_db,
-			 const char *const s_label_name)
-{
-	RDB_LOG_ENTRY_PARAM("%s", s_label_name);
-
-	int ret = PC_ERR_DB_OPERATION;
-	sqlite3_stmt *p_stmt = NULL;
-
-	ret = prepare_stmt(p_db, &p_stmt,
-			   "SELECT COUNT(label.name) \
-			   FROM label WHERE name=%Q LIMIT 1",
-			   s_label_name);
-
-	if(ret != PC_OPERATION_SUCCESS) goto finish;
-
-	ret = sqlite3_step(p_stmt);
-	if(ret == SQLITE_ROW) {
-		switch(sqlite3_column_int(p_stmt, RDB_FIRST_COLUMN)) {
-		case 0: ret = PC_OPERATION_SUCCESS; break;
-		case 1: ret = PC_ERR_DB_LABEL_TAKEN; break;
-		}
-
-	} else {
-		C_LOGE("RDB: Error during stepping: %s", sqlite3_errmsg(p_db));
-		ret = PC_ERR_DB_QUERY_STEP;
-	}
-
 finish:
 	if(sqlite3_finalize(p_stmt) < 0)
 		C_LOGE("RDB: Error during finalizing statement: %s",
@@ -457,45 +422,6 @@ int add_path_internal(sqlite3 *p_db,
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = step_and_convert_returned_value(p_stmt);
-finish:
-	if(sqlite3_finalize(p_stmt) < 0)
-		C_LOGE("RDB: Error during finalizing statement: %s",
-		       sqlite3_errmsg(p_db));
-	return ret;
-}
-
-
-int check_permission_internal(sqlite3 *p_db,
-			      const char *const s_permission_name,
-			      const char *const s_permission_type_name)
-{
-	RDB_LOG_ENTRY_PARAM("%s %s", s_permission_name, s_permission_type_name);
-
-	int ret = PC_ERR_DB_OPERATION;
-	sqlite3_stmt *p_stmt = NULL;
-
-	ret = prepare_stmt(p_db, &p_stmt,
-			   "SELECT COUNT(SELECT permission_view.permission_id \
-			                 FROM   permission_view               \
-			                 WHERE  name=%Q AND                   \
-			                        type_name=%Q                  \
-			                 LIMIT 1)",
-			   s_permission_name, s_permission_type_name);
-
-	if(ret != PC_OPERATION_SUCCESS) goto finish;
-
-	ret = sqlite3_step(p_stmt);
-	if(ret == SQLITE_ROW) {
-		switch(sqlite3_column_int(p_stmt, RDB_FIRST_COLUMN)) {
-		case 0: ret = PC_OPERATION_SUCCESS; break;  // No such permission
-		case 1: ret = PC_PERMISSION_EXISTS; break;  // Permission exists
-		}
-
-	} else {
-		C_LOGE("RDB: Error during stepping: %s", sqlite3_errmsg(p_db));
-		ret = PC_ERR_DB_QUERY_STEP;
-	}
-
 finish:
 	if(sqlite3_finalize(p_stmt) < 0)
 		C_LOGE("RDB: Error during finalizing statement: %s",
