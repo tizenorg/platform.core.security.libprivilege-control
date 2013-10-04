@@ -27,6 +27,7 @@
 #include <fts.h>
 #include <stdbool.h>
 #include <sys/smack.h>
+#include "privilege-control.h"
 
 #ifdef LOG_TAG
     #undef LOG_TAG
@@ -109,7 +110,30 @@ int smack_mark_file_name(const char *app_id, char **path);
 bool file_exists(const char* path);
 int smack_file_name(const char* app_id, char** path);
 inline int have_smack(void);
+int base_name_from_perm(const char *perm, char **name);
 
+
+/**
+ * Get the permission family type name.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param  app_type type of the application
+ * @return          PC_OPERATION_SUCCESS on success,
+ *                  error code otherwise
+ */
+const char* app_type_name(app_type_t app_type);
+
+/**
+ * Get the permission type name
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param  app_type type of the application
+ * @return          PC_OPERATION_SUCCESS on success,
+ *                  error code otherwise
+ */
+const char* app_type_group_name(app_type_t app_type);
 
 /**
  * Divide a Smack rule into subject, object and access
