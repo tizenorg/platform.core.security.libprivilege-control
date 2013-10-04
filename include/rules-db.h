@@ -132,16 +132,16 @@ int rdb_add_permission_rules(const char  *const s_permission_name,
  * @ingroup RDB API functions
  *
  * @param  s_app_label_name       application's label name
- * @param  s_permission_type_name permission's type name
+ * @param  i_permission_type      permission's type id
  * @param  pp_permissions_list    array of permissions to parse
  * @param  b_is_volatile          are the new permissions volatile
  * @return                        PC_OPERATION_SUCCESS on success,
  *                                error code otherwise
  */
 int rdb_enable_app_permissions(const char  *const s_app_label_name,
-			       const char  *const s_permission_type_name,
+			       const app_type_t i_permission_type,
 			       const char *const *const pp_permissions_list,
-			       const bool   b_is_volatile);
+			       const bool b_is_volatile);
 
 
 /**
@@ -150,13 +150,13 @@ int rdb_enable_app_permissions(const char  *const s_app_label_name,
  * @ingroup RDB API functions
  *
  * @param  s_app_label_name       application's label name
- * @param  s_permission_type_name permission's type name
+ * @param  i_permission_type      permission's type id
  * @param  pp_permissions_list    array of permissions to parse
  * @return                        PC_OPERATION_SUCCESS on success,
  *                                error code otherwise
  */
 int rdb_disable_app_permissions(const char  *const s_app_label_name,
-				const char  *const s_permission_type_name,
+				const app_type_t i_permission_type,
 				const char *const *const pp_permissions_list);
 
 

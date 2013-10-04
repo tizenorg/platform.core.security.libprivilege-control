@@ -270,18 +270,20 @@ finish:
 
 
 int rdb_enable_app_permissions(const char *const s_app_label_name,
-			       const char *const s_permission_type_name,
+			       const app_type_t i_permission_type,
 			       const char *const *const pp_permissions_list,
 			       const bool   b_is_volatile)
 {
-	RDB_LOG_ENTRY_PARAM("%s %s %d", s_app_label_name, s_permission_type_name,(int)b_is_volatile);
+	RDB_LOG_ENTRY_PARAM("%s %d %d", s_app_label_name, i_permission_type,(int)b_is_volatile);
 
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3 *p_db = NULL;
 	char *s_permission_name = NULL;
 	int i;
 	int i_app_id = 0;
-	C_LOGD("RDB: Enabling permissions START");
+
+	const char* s_permission_type_name = app_type_name(i_permission_type);
+	const char* s_permission_group_type_name = app_type_group_name(i_permission_type);
 
 	ret = rdb_begin(&p_db);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
@@ -299,7 +301,7 @@ int rdb_enable_app_permissions(const char *const s_app_label_name,
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	// Add permissions from the list:
-	for(i = 0; pp_permissions_list[i] != NULL ; ++i) {
+	for(i = 0; pp_permissions_list[i] != NULL; ++i) {
 		// Ignore empty lines
 		if(strspn(pp_permissions_list[i], " \t\n")
 		    == strlen(pp_permissions_list[i]))
@@ -311,7 +313,7 @@ int rdb_enable_app_permissions(const char *const s_app_label_name,
 		ret = change_app_permission_internal(p_db,
 						     i_app_id,
 						     s_permission_name,
-						     s_permission_type_name,
+						     s_permission_group_type_name,
 						     b_is_volatile,
 						     RDB_ENABLE);
 		if(ret != PC_OPERATION_SUCCESS) goto finish;
@@ -326,15 +328,16 @@ finish:
 
 
 int rdb_disable_app_permissions(const char *const s_app_label_name,
-				const char *const s_permission_type_name,
+				const app_type_t i_permission_type,
 				const char *const *const pp_permissions_list)
 {
-	RDB_LOG_ENTRY_PARAM("%s %s", s_app_label_name, s_permission_type_name);
+	RDB_LOG_ENTRY_PARAM("%s %d", s_app_label_name, i_permission_type);
 
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3 *p_db = NULL;
 	char *s_permission_name = NULL;
 	int i, i_app_id;
+	const char* s_permission_group_type_name = app_type_group_name(i_permission_type);
 
 	ret = rdb_begin(&p_db);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
@@ -354,7 +357,7 @@ int rdb_disable_app_permissions(const char *const s_app_label_name,
 		ret = switch_app_permission_internal(p_db,
 						     i_app_id,
 						     s_permission_name,
-						     s_permission_type_name,
+						     s_permission_group_type_name,
 						     RDB_DISABLE);
 		if(ret != PC_OPERATION_SUCCESS) goto finish;
 

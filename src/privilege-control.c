@@ -41,7 +41,6 @@
 #include <sys/mman.h>
 #include <stdbool.h>
 #include <search.h>
-#include <iri.h>
 
 #include "privilege-control.h"
 #include "access-db.h"
@@ -634,116 +633,6 @@ API int set_privilege(const char* pkg_name)//deprecated
 	return perm_app_set_privilege(pkg_name, NULL, NULL);
 }
 
-static inline const char* app_type_name(app_type_t app_type)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: app_type=%d",
-				__func__, app_type);
-
-	switch (app_type) {
-	case PERM_APP_TYPE_WGT:
-		C_LOGD("App type = WRT");
-		return "WRT";
-	case PERM_APP_TYPE_OSP:
-		C_LOGD("App type = OSP");
-		return "OSP";
-	case PERM_APP_TYPE_WGT_PARTNER:
-		C_LOGD("App type = WRT_partner");
-		return "WRT_partner";
-	case PERM_APP_TYPE_WGT_PLATFORM:
-		C_LOGD("App type = WRT_platform");
-		return "WRT_platform";
-	case PERM_APP_TYPE_OSP_PARTNER:
-		C_LOGD("App type = OSP_partner");
-		return "OSP_partner";
-	case PERM_APP_TYPE_OSP_PLATFORM:
-		C_LOGD("App type = OSP_platform");
-		return "OSP_platform";
-	case PERM_APP_TYPE_EFL:
-		C_LOGD("App type = EFL");
-		return "EFL";
-	default:
-		C_LOGD("App type = other");
-		return NULL;
-	}
-}
-
-static inline const char* app_type_group_name(app_type_t app_type)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: app_type=%d",
-				__func__, app_type);
-
-	switch (app_type) {
-	case PERM_APP_TYPE_WGT:
-	case PERM_APP_TYPE_WGT_PARTNER:
-	case PERM_APP_TYPE_WGT_PLATFORM:
-		C_LOGD("App type group name = WRT");
-		return "WRT";
-	case PERM_APP_TYPE_OSP:
-	case PERM_APP_TYPE_OSP_PARTNER:
-	case PERM_APP_TYPE_OSP_PLATFORM:
-		C_LOGD("App type group name = OST");
-		return "OSP";
-	case PERM_APP_TYPE_EFL:
-		C_LOGD("App type = EFL");
-		return "EFL";
-	default:
-		return NULL;
-	}
-}
-
-/**
- * This function changes permission URI to basename for file name.
- * For e.g. from http://tizen.org/privilege/contact.read will be
- * created basename : org.tizen.privilege.contact.read
- */
-
-int base_name_from_perm(const char *perm, char **name)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: perm=%s",
-				__func__, perm);
-
-	iri_t *ip = NULL;
-	char *host_dot = NULL;
-	char *rest_slash = NULL;
-	int ret;
-
-	ip = iri_parse(perm);
-	if (ip == NULL || ip->host == NULL) {
-		SECURE_C_LOGE("Bad permission format : %s", perm);
-		iri_destroy(ip);
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if (ip->path == NULL) {
-		ip->path = ip->host;
-		ip->host = NULL;
-	}
-
-	if (ip->host) {
-		host_dot = strrchr(ip->host, '.');
-		if (host_dot) {
-			*host_dot = '\0';
-			++host_dot;
-		}
-	}
-
-	while ((rest_slash = strchr(ip->path, '/'))) {
-		*rest_slash = '.';
-	}
-
-	ret = asprintf(name, "%s%s%s%s",
-			host_dot ? host_dot : "", host_dot ? "." : "",
-			ip->host ? ip->host : "", ip->path);
-	if (ret == -1) {
-		C_LOGE("asprintf failed");
-		iri_destroy(ip);
-		return PC_ERR_MEM_OPERATION;
-	}
-
-	iri_destroy(ip);
-	return PC_OPERATION_SUCCESS;
-}
-
 static int perm_file_path(char** path, app_type_t app_type, const char* perm, const char *suffix, bool is_early)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: app_type=%d, perm=%s, suffix=%s, is_early=%d",
@@ -996,7 +885,7 @@ static int app_add_permissions_internal(const char* app_id, app_type_t app_type,
 
 	// Enable the permissions:
 	ret = rdb_enable_app_permissions(app_id,
-					 app_type_group_name(app_type),
+					 app_type,
 					 perm_list,
 					 !((bool)permanent));
 	if (ret != PC_OPERATION_SUCCESS) {
@@ -1073,7 +962,7 @@ API int perm_app_disable_permissions(const char* pkg_id, app_type_t app_type, co
 		return PC_ERR_INVALID_PARAM;
 	}
 
-	ret = rdb_disable_app_permissions(pkg_id, app_type_group_name(app_type), perm_list);
+	ret = rdb_disable_app_permissions(pkg_id, app_type, perm_list);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("RDB rdb_disable_app_permissions failed with: %d", ret);
 		return ret;

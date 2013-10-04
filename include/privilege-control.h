@@ -434,10 +434,6 @@ int perm_end(void);
 int perm_add_additional_rules(const char** set_smack_rule_set);
 
 
-int base_name_from_perm(const char *perm, char **name);
-
-
-
 #ifdef __cplusplus
 }
 #endif // __cplusplus
