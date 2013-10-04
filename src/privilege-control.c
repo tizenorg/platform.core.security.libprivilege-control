@@ -454,9 +454,9 @@ static int get_smack_from_binary(char **smack_label, const char* path, app_type_
 	int ret;
 
 	*smack_label = NULL;
-	if (type == APP_TYPE_WGT
-	|| type == APP_TYPE_WGT_PARTNER
-	|| type == APP_TYPE_WGT_PLATFORM) {
+	if (type == PERM_APP_TYPE_WGT
+	|| type == PERM_APP_TYPE_WGT_PARTNER
+	|| type == PERM_APP_TYPE_WGT_PLATFORM) {
 		ret = smack_lgetlabel(path, smack_label, SMACK_LABEL_EXEC);
 	} else {
 		ret = smack_getlabel(path, smack_label, SMACK_LABEL_EXEC);
@@ -548,13 +548,13 @@ static app_type_t verify_app_type(const char* type, const char* path)
 	if (is_widget(path)) {
 		if (!strcmp(type, "wgt")) {
 			C_LOGD("PKG_TYPE_WGT");
-			return APP_TYPE_WGT; /* good */
+			return PERM_APP_TYPE_WGT; /* good */
 		} else if (!strcmp(type, "wgt_partner")) {
 			C_LOGD("PKG_TYPE_WGT_PARTNER");
-			return APP_TYPE_WGT_PARTNER; /* good */
+			return PERM_APP_TYPE_WGT_PARTNER; /* good */
 		} else if (!strcmp(type, "wgt_platform")) {
 			C_LOGD("PKG_TYPE_WGT_PLATFORM");
-			return APP_TYPE_WGT_PLATFORM; /* good */
+			return PERM_APP_TYPE_WGT_PLATFORM; /* good */
 		}
 
 	} else {
@@ -562,7 +562,7 @@ static app_type_t verify_app_type(const char* type, const char* path)
 				&& strcmp(type, "wgt_partner")
 				&& strcmp(type, "wgt_platform"))){
 			C_LOGD("PKG_TYPE_OTHER");
-			return APP_TYPE_OTHER; /* good */
+			return PERM_APP_TYPE_OTHER; /* good */
 		}
 	}
 
@@ -640,25 +640,26 @@ static inline const char* app_type_name(app_type_t app_type)
 				__func__, app_type);
 
 	switch (app_type) {
-	case APP_TYPE_WGT:
-		C_LOGD("App type = APP_TYPE_WGT");
+	case PERM_APP_TYPE_WGT:
+		C_LOGD("App type = WRT");
 		return "WRT";
-	case APP_TYPE_OSP:
-		C_LOGD("App type = APP_TYPE_OSP");
+	case PERM_APP_TYPE_OSP:
+		C_LOGD("App type = OSP");
 		return "OSP";
-	case APP_TYPE_WGT_PARTNER:
-		C_LOGD("App type = APP_TYPE_WGT_PARTNER");
+	case PERM_APP_TYPE_WGT_PARTNER:
+		C_LOGD("App type = WRT_partner");
 		return "WRT_partner";
-	case APP_TYPE_WGT_PLATFORM:
-		C_LOGD("App type = APP_TYPE_WGT_PLATFORM");
+	case PERM_APP_TYPE_WGT_PLATFORM:
+		C_LOGD("App type = WRT_platform");
 		return "WRT_platform";
-	case APP_TYPE_OSP_PARTNER:
-		C_LOGD("App type = APP_TYPE_OSP_PARTNER");
+	case PERM_APP_TYPE_OSP_PARTNER:
+		C_LOGD("App type = OSP_partner");
 		return "OSP_partner";
-	case APP_TYPE_OSP_PLATFORM:
-		C_LOGD("App type = APP_TYPE_OSP_PLATFORM");
+	case PERM_APP_TYPE_OSP_PLATFORM:
+		C_LOGD("App type = OSP_platform");
 		return "OSP_platform";
-	case APP_TYPE_EFL:
+	case PERM_APP_TYPE_EFL:
+		C_LOGD("App type = EFL");
 		return "EFL";
 	default:
 		C_LOGD("App type = other");
@@ -672,17 +673,18 @@ static inline const char* app_type_group_name(app_type_t app_type)
 				__func__, app_type);
 
 	switch (app_type) {
-	case APP_TYPE_WGT:
-	case APP_TYPE_WGT_PARTNER:
-	case APP_TYPE_WGT_PLATFORM:
+	case PERM_APP_TYPE_WGT:
+	case PERM_APP_TYPE_WGT_PARTNER:
+	case PERM_APP_TYPE_WGT_PLATFORM:
 		C_LOGD("App type group name = WRT");
 		return "WRT";
-	case APP_TYPE_OSP:
-	case APP_TYPE_OSP_PARTNER:
-	case APP_TYPE_OSP_PLATFORM:
+	case PERM_APP_TYPE_OSP:
+	case PERM_APP_TYPE_OSP_PARTNER:
+	case PERM_APP_TYPE_OSP_PLATFORM:
 		C_LOGD("App type group name = OST");
 		return "OSP";
-	case APP_TYPE_EFL:
+	case PERM_APP_TYPE_EFL:
+		C_LOGD("App type = EFL");
 		return "EFL";
 	default:
 		return NULL;

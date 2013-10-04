@@ -47,77 +47,72 @@ extern "C" {
 #define PC_ERR_NOT_PERMITTED		-3
 #define PC_ERR_INVALID_PARAM		-4
 #define PC_ERR_INVALID_OPERATION	-5
-#define PC_ERR_DB_OPERATION			-6
+#define PC_ERR_DB_OPERATION		-6
 
 /// Label is taken by another application
 #define PC_ERR_DB_LABEL_TAKEN           -7
 
-/// Label is forbidden
-#define PC_ERR_DB_LABEL_FORBIDDEN       -8
-
 /// Query fails during preparing a SQL statement
-#define PC_ERR_DB_QUERY_PREP            -9
+#define PC_ERR_DB_QUERY_PREP            -8
 
 /// Query fails during binding to a SQL statement
-#define PC_ERR_DB_QUERY_BIND            -10
+#define PC_ERR_DB_QUERY_BIND            -9
 
 /// Query fails during stepping a SQL statement
-#define PC_ERR_DB_QUERY_STEP            -11
-
-/// Query is too long
-#define PC_ERR_DB_QUERY_TOO_LONG        -12
-
-/// Returned value is unexpected,
-/// e.g an int that stores bool is not 0 or 1.
-#define PC_ERR_DB_UNEXPECTED_VALUE      -13
-
-/// Constraint violated
-#define PC_ERR_DB_CONSTRAINT            -14
+#define PC_ERR_DB_QUERY_STEP            -10
 
 // Unable to establish a connection with the database
-#define PC_ERR_DB_CONNECTION            -15
-
-// Error when creating boot file with rules
-#define PC_ERR_BOOT_FILE                -16
+#define PC_ERR_DB_CONNECTION            -11
 
 // There is no application with such app_id
-#define PC_ERR_DB_NO_SUCH_APP           -17
+#define PC_ERR_DB_NO_SUCH_APP           -12
 
 // There already exists a permission with this name and type
-#define PC_ERR_DB_PERM_FORBIDDEN        -18
-
-// There is no permission with a this name
-#define PC_ERR_DB_UNKNOWN_PERMISSION    -19
-
-// There is no application with this label
-#define PC_ERR_DB_UNKNOWN_APPLICATION   -20
-
-// This permission already exists
-#define PC_PERMISSION_EXISTS            -21
+#define PC_ERR_DB_PERM_FORBIDDEN        -13
 
 
 typedef enum {
-       APP_TYPE_WGT,
-       APP_TYPE_OSP,
-       APP_TYPE_OTHER,
-       APP_TYPE_WGT_PARTNER,
-       APP_TYPE_WGT_PLATFORM,
-       APP_TYPE_OSP_PARTNER,
-       APP_TYPE_OSP_PLATFORM,
-       APP_TYPE_EFL,
+	PERM_APP_TYPE_WGT,
+	PERM_APP_TYPE_OSP,
+	PERM_APP_TYPE_OTHER,
+	PERM_APP_TYPE_WGT_PARTNER,
+	PERM_APP_TYPE_WGT_PLATFORM,
+	PERM_APP_TYPE_OSP_PARTNER,
+	PERM_APP_TYPE_OSP_PLATFORM,
+	PERM_APP_TYPE_EFL,
 } app_type_t;
 
 typedef enum {
-	APP_PATH_PRIVATE,
-	APP_PATH_GROUP,
-	APP_PATH_PUBLIC,
-	APP_PATH_SETTINGS,
-	APP_PATH_ANY_LABEL,
+	PERM_APP_PATH_PRIVATE,
+	PERM_APP_PATH_GROUP,
+	PERM_APP_PATH_PUBLIC,
+	PERM_APP_PATH_SETTINGS,
+	PERM_APP_PATH_ANY_LABEL,
 } app_path_type_t;
 
+
+// TODO: after all projects change their code delete these defines
+// Historical in app_type_t
+#define APP_TYPE_WGT PERM_APP_TYPE_WGT
+#define APP_TYPE_OSP PERM_APP_TYPE_OSP
+#define APP_TYPE_OTHER PERM_APP_TYPE_OTHER
+#define APP_TYPE_WGT_PARTNER PERM_APP_TYPE_WGT_PARTNER
+#define APP_TYPE_WGT_PLATFORM PERM_APP_TYPE_WGT_PLATFORM
+#define APP_TYPE_OSP_PARTNER PERM_APP_TYPE_OSP_PARTNER
+#define APP_TYPE_OSP_PLATFORM PERM_APP_TYPE_OSP_PLATFORM
+#define APP_TYPE_EFL PERM_APP_TYPE_EFL
+
+// Historical names in app_path_type_t
+#define APP_PATH_PRIVATE PERM_APP_PATH_PRIVATE
+#define APP_PATH_GROUP PERM_APP_PATH_GROUP
+#define APP_PATH_PUBLIC PERM_APP_PATH_PUBLIC
+#define APP_PATH_SETTINGS PERM_APP_PATH_SETTINGS
+#define APP_PATH_ANY_LABEL PERM_APP_PATH_ANY_LABEL
 #define APP_PATH_GROUP_RW APP_PATH_GROUP
 #define APP_PATH_PUBLIC_RO APP_PATH_PUBLIC
 #define APP_PATH_SETTINGS_RW APP_PATH_SETTINGS
+
+
 
 /* APIs - used by applications */
 int control_privilege(void) DEPRECATED;

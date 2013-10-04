@@ -250,18 +250,18 @@ void load_from_dir(const char  *const s_dir)
 	if(perm_begin()) return;
 
 	// Load rules specific to permission's types:
-	load_pemission_type_rules(wrt_filter,         "WRT",          APP_TYPE_WGT,         s_dir);
-	load_pemission_type_rules(wrt_partner_filter, "WRT_partner",  APP_TYPE_WGT_PARTNER, s_dir);
-	load_pemission_type_rules(wrt_platform_filter, "WRT_platform", APP_TYPE_WGT_PLATFORM, s_dir);
-	load_pemission_type_rules(osp_filter,         "OSP",          APP_TYPE_OSP,         s_dir);
-	load_pemission_type_rules(osp_partner_filter, "OSP_partner" , APP_TYPE_OSP_PARTNER, s_dir);
-	load_pemission_type_rules(osp_platform_filter, "OSP_platform", APP_TYPE_OSP_PLATFORM, s_dir);
-	load_pemission_type_rules(efl_filter,         "EFL",          APP_TYPE_EFL,         s_dir);
+	load_pemission_type_rules(wrt_filter,          "WRT",          PERM_APP_TYPE_WGT,          s_dir);
+	load_pemission_type_rules(wrt_partner_filter,  "WRT_partner",  PERM_APP_TYPE_WGT_PARTNER,  s_dir);
+	load_pemission_type_rules(wrt_platform_filter, "WRT_platform", PERM_APP_TYPE_WGT_PLATFORM, s_dir);
+	load_pemission_type_rules(osp_filter,          "OSP",          PERM_APP_TYPE_OSP,          s_dir);
+	load_pemission_type_rules(osp_partner_filter,  "OSP_partner" , PERM_APP_TYPE_OSP_PARTNER,  s_dir);
+	load_pemission_type_rules(osp_platform_filter, "OSP_platform", PERM_APP_TYPE_OSP_PLATFORM, s_dir);
+	load_pemission_type_rules(efl_filter,          "EFL",          PERM_APP_TYPE_EFL,          s_dir);
 
 	// Load rules for each permission type:
-	load_permission_family(wrt_family_filter, "WRT_", APP_TYPE_WGT, s_dir);
-	load_permission_family(osp_family_filter, "OSP_", APP_TYPE_OSP, s_dir);
-	load_permission_family(efl_family_filter, "EFL_", APP_TYPE_EFL, s_dir);
+	load_permission_family(wrt_family_filter, "WRT_", PERM_APP_TYPE_WGT, s_dir);
+	load_permission_family(osp_family_filter, "OSP_", PERM_APP_TYPE_OSP, s_dir);
+	load_permission_family(efl_family_filter, "EFL_", PERM_APP_TYPE_EFL, s_dir);
 
 
 	perm_end();
@@ -289,15 +289,15 @@ void load_from_file(const char  *const s_file_path)
 	// Load as the right type of permission
 	if(wrt_family_filter(&file)) {
 		s_permission_name = get_permission_name(s_file_name, "WRT_");
-		load_rules_from_file(s_file_path, s_permission_name, APP_TYPE_WGT);
+		load_rules_from_file(s_file_path, s_permission_name, PERM_APP_TYPE_WGT);
 
 	} else if(osp_family_filter(&file)) {
 		s_permission_name = get_permission_name(s_file_name, "OSP_");
-		load_rules_from_file(s_file_path, s_permission_name, APP_TYPE_OSP);
+		load_rules_from_file(s_file_path, s_permission_name, PERM_APP_TYPE_OSP);
 
 	} else if(efl_family_filter(&file)) {
 		s_permission_name = get_permission_name(s_file_name, "EFL_");
-		load_rules_from_file(s_file_path, s_permission_name, APP_TYPE_EFL);
+		load_rules_from_file(s_file_path, s_permission_name, PERM_APP_TYPE_EFL);
 
 	} else {
 		API_FEATURE_LOADER_LOG("Unknown api-feature type.");
