@@ -237,6 +237,24 @@ int add_permission_rules_internal(sqlite3 *p_db,
 				  const char  *const *const pp_smack_rules);
 
 
+/**
+ * Check if an app has a permission that is specified by the name.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param  p_db                   pointer to a SQLite3 database object
+ * @param  i_app_id               application id
+ * @param  s_permission_name      permission name
+ * @param  s_permission_type_name permission type name
+ * @param  p_is_enabled           buffer for return value
+ * @return                        PC_OPERATION_SUCCESS on success, error code otherwise
+ */
+int check_app_has_permission_internal(sqlite3 *p_db,
+				      const char *const s_app_label_name,
+				      const char *const s_permission_name,
+				      const char *const s_permission_type_name,
+				      bool *const p_is_enabled);
+
 
 /**
  * Gets the internal app id of an application with a given name.

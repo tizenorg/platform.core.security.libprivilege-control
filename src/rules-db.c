@@ -34,17 +34,21 @@
 static sqlite3 *p_db__          = NULL;
 static int i_session_ret_code__ = PC_OPERATION_SUCCESS;
 
+typedef enum {
+	RDB_TRANSACTION_EXCLUSIVE,
+	RDB_TRANSACTION_SHARED_READ
+} rdb_transaction_type_t;
 
 /**
  * Prepare to modify the database.
  *
  * @ingroup RDB internal functions
  *
- * @param  pp_db pointer to a pointer to a SQLite3 database object
- * @return       PC_OPERATION_SUCCESS on success,
- *               error code otherwise
+ * @param   pp_db             pointer to a pointer to a SQLite3 database object
+ * @param   transaction_type  indicates whether the transaction is exclusive or shared
+ * @return                    PC_OPERATION_SUCCESS on success, error code otherwise
  */
-static int rdb_begin(sqlite3 **pp_db)
+static int rdb_begin(sqlite3 **pp_db, rdb_transaction_type_t transaction_type)
 {
 	RDB_LOG_ENTRY;
 
@@ -57,17 +61,26 @@ static int rdb_begin(sqlite3 **pp_db)
 	int ret = open_rdb_connection(pp_db);
 	if(ret != PC_OPERATION_SUCCESS) return ret;
 
-	if(sqlite3_exec(*pp_db, "BEGIN EXCLUSIVE TRANSACTION", 0, 0, 0)
-	    != SQLITE_OK) {
+	if(transaction_type == RDB_TRANSACTION_EXCLUSIVE) {
+		ret = sqlite3_exec(*pp_db, "BEGIN EXCLUSIVE TRANSACTION", 0, 0, 0);
+	}
+	else if(transaction_type == RDB_TRANSACTION_SHARED_READ) {
+		ret = sqlite3_exec(*pp_db, "BEGIN DEFERRED TRANSACTION", 0, 0, 0);
+	}
+	else {
+		C_LOGE("RDB: Bad transaction type specified: %d",
+		       (int)transaction_type);
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if(ret != SQLITE_OK) {
 		C_LOGE("RDB: Error during transaction begin: %s",
 		       sqlite3_errmsg(*pp_db));
 		return PC_ERR_DB_CONNECTION;
 	}
 
 	ret = save_smack_rules(*pp_db);
-	if(ret != PC_OPERATION_SUCCESS) return ret;
-
-	return PC_OPERATION_SUCCESS;
+	return ret;
 }
 
 
@@ -177,7 +190,7 @@ int rdb_modification_start(void)
 		rdb_modification_finish();
 	}
 
-	return rdb_begin(&p_db__);
+	return rdb_begin(&p_db__, RDB_TRANSACTION_EXCLUSIVE);
 }
 
 
@@ -201,7 +214,7 @@ int rdb_add_application(const char *const s_label_name)
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3 *p_db = NULL;
 
-	ret = rdb_begin(&p_db);
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_EXCLUSIVE);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = check_app_label_internal(p_db, s_label_name);
@@ -229,7 +242,7 @@ int rdb_remove_application(const char *const s_label_name)
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3 *p_db = NULL;
 
-	ret = rdb_begin(&p_db);
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_EXCLUSIVE);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = remove_app_internal(p_db, s_label_name);
@@ -259,7 +272,7 @@ int rdb_add_path(const char *const s_owner_label_name,
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3 *p_db = NULL;
 
-	ret = rdb_begin(&p_db);
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_EXCLUSIVE);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = add_path_internal(p_db,
@@ -288,7 +301,7 @@ int rdb_add_permission_rules(const char *const s_permission_name,
 	sqlite3 *p_db = NULL;
 	sqlite3_int64 permission_id = -1;
 
-	ret = rdb_begin(&p_db);
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_EXCLUSIVE);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = add_permission_internal(p_db,
@@ -332,7 +345,7 @@ int rdb_enable_app_permissions(const char *const s_app_label_name,
 	const char *s_permission_type_name = app_type_name(i_permission_type);
 	const char *s_permission_group_type_name = app_type_group_name(i_permission_type);
 
-	ret = rdb_begin(&p_db);
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_EXCLUSIVE);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = get_app_id_internal(p_db, &i_app_id, s_app_label_name);
@@ -386,7 +399,7 @@ int rdb_disable_app_permissions(const char *const s_app_label_name,
 	int i, i_app_id;
 	const char *s_permission_group_type_name = app_type_group_name(i_permission_type);
 
-	ret = rdb_begin(&p_db);
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_EXCLUSIVE);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = get_app_id_internal(p_db, &i_app_id, s_app_label_name);
@@ -425,7 +438,7 @@ int rdb_revoke_app_permissions(const char *const s_app_label_name)
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3 *p_db = NULL;
 
-	ret = rdb_begin(&p_db);
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_EXCLUSIVE);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = revoke_app_permissions_internal(p_db, s_app_label_name);
@@ -448,7 +461,7 @@ int rdb_reset_app_permissions(const char *const s_app_label_name)
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3 *p_db = NULL;
 
-	ret = rdb_begin(&p_db);
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_EXCLUSIVE);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = reset_app_permissions_internal(p_db, s_app_label_name);
@@ -468,11 +481,34 @@ int rdb_add_additional_rules(const char *const *const pp_smack_rules)
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3 *p_db = NULL;
 
-	ret = rdb_begin(&p_db);
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_EXCLUSIVE);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = add_additional_rules_internal(p_db,
 					    pp_smack_rules);
+
+finish:
+	return rdb_finish(p_db, ret);
+}
+
+int rdb_app_has_permission(const char *const s_app_label_name,
+			   const char *const s_permission_type_name,
+			   const char *const s_permission_name,
+			   bool *const p_is_enabled)
+{
+	RDB_LOG_ENTRY_PARAM("%s %s %s", s_app_label_name,
+			    s_permission_type_name, s_permission_name);
+	int ret = PC_ERR_DB_OPERATION;
+	sqlite3 *p_db = NULL;
+
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_SHARED_READ); //shared readonly transaction
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = check_app_has_permission_internal(p_db,
+						s_app_label_name,
+						s_permission_name,
+						s_permission_type_name,
+						p_is_enabled);
 
 finish:
 	return rdb_finish(p_db, ret);
