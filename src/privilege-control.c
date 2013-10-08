@@ -492,6 +492,11 @@ static const char* parse_widget_id(const char* path)
 	return basename;
 }*/
 
+API int perm_app_set_privilege(const char* name, const char* type, const char* path)
+{
+	return PC_ERR_INVALID_OPERATION;
+}
+
 API int set_app_privilege(const char* name, const char* type, const char* path)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -734,6 +739,11 @@ static int set_smack_for_wrt(char **smack_label, const char* widget_id)
 	return PC_OPERATION_SUCCESS;
 }
 
+API char* perm_app_id_from_socket(int sockfd)
+{
+	return PC_ERR_INVALID_OPERATION;
+}
+
 API char* app_id_from_socket(int sockfd)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -948,7 +958,18 @@ API int app_enable_permissions(const char* app_id, app_type_t app_type, const ch
 	return app_add_permissions_internal(app_id, app_type, perm_list, persistent);
 }
 
+API int perm_app_enable_permissions(const char* pkg_id, app_type_t app_type, const char** perm_list, bool persistent)
+{
+	C_LOGD("Enter function: %s", __func__);
+	return PC_ERR_INVALID_OPERATION;
+}
+
 /* FIXME: this function is only a stub */
+API int perm_app_disable_permissions(const char* pkg_id, app_type_t app_type, const char** perm_list)
+{
+	return PC_ERR_INVALID_OPERATION;
+}
+
 API int app_disable_permissions(const char* app_id, app_type_t app_type, const char** perm_list)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -990,6 +1011,11 @@ static int app_revoke_permissions_internal(const char* app_id, bool persistent)
 	return PC_OPERATION_SUCCESS;
 }
 
+API int perm_app_revoke_permissions(const char* pkg_id)
+{
+	return PC_ERR_INVALID_OPERATION;
+}
+
 API int app_revoke_permissions(const char* app_id)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -1005,6 +1031,11 @@ API int app_revoke_permissions(const char* app_id)
 	}
 
 	return PC_OPERATION_SUCCESS;
+}
+
+API int perm_app_reset_permissions(const char* pkg_id)
+{
+	return PC_ERR_INVALID_OPERATION;
 }
 
 API int app_reset_permissions(const char* app_id)
@@ -1229,6 +1260,11 @@ API int add_shared_dir_readers(const char* shared_label, const char** app_list)
 	return PC_OPERATION_SUCCESS;
 }
 
+API int perm_app_add_friend(const char* pkg_id1, const char* pkg_id2)
+{
+	return PC_ERR_INVALID_OPERATION;
+}
+
 API int app_add_friend(const char* app_id1, const char* app_id2)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -1275,6 +1311,11 @@ API int app_add_friend(const char* app_id1, const char* app_id2)
 	return PC_OPERATION_SUCCESS;
 }
 
+API int perm_app_install(const char* pkg_id)
+{
+	return PC_ERR_INVALID_OPERATION;
+}
+
 API int app_install(const char* app_id)
 {
 	C_LOGD("Enter function: %s", __func__);
@@ -1308,6 +1349,11 @@ API int app_install(const char* app_id)
 	}
 
 	return PC_OPERATION_SUCCESS;
+}
+
+API int perm_app_uninstall(const char* pkg_id)
+{
+	return PC_ERR_INVALID_OPERATION;
 }
 
 API int app_uninstall(const char* app_id)
@@ -1432,6 +1478,15 @@ static int save_gids(FILE* file, const gid_t* list_of_db_gids, size_t list_size)
 		}
 	}
 	return ret;
+}
+
+API int perm_add_api_feature(app_type_t app_type,
+                        const char* api_feature_name,
+                        const char** smack_rules,
+                        const gid_t* list_of_db_gids,
+                        size_t list_size)
+{
+    return PC_ERR_INVALID_OPERATION;
 }
 
 API int add_api_feature(app_type_t app_type,
