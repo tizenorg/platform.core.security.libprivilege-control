@@ -1,5 +1,6 @@
 [Unit]
 Description=Late SMACK rules loading
+ConditionSecurity=smack
 Before=starter.service
 
 [Service]
