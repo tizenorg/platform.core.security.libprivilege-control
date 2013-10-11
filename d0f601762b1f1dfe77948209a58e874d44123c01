@@ -1,0 +1,10 @@
+Code-Review+2: Bumjin Im <imbumjin@tizen.org>
+Verified+1: Bumjin Im <imbumjin@tizen.org>
+Code-Review+1: Brad Peters <brad.t.peters@intel.com>
+Verified+1: Brad Peters <brad.t.peters@intel.com>
+Code-Review+1: Michael Demeter <michael.demeter@intel.com>
+Submitted-by: Michael Leibowitz <michael.leibowitz@intel.com>
+Submitted-at: Thu, 10 Oct 2013 20:57:15 -0700
+Reviewed-on: https://review.tizen.org/gerrit/10665
+Project: platform/core/security/libprivilege-control
+Branch: refs/heads/tizen
