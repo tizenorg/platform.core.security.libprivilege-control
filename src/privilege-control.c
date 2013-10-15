@@ -1633,3 +1633,11 @@ out:
 
 	return PC_OPERATION_SUCCESS;
 }
+
+API int perm_app_setup_path(const char* pkg_id, const char* path, app_path_type_t app_path_type, ...) {
+    return PC_ERR_INVALID_OPERATION;
+}
+API int app_setup_path(const char* pkg_id, const char* path, app_path_type_t app_path_type, ...) {
+    return PC_ERR_INVALID_OPERATION;
+}
+
