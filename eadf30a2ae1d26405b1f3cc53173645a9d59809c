@@ -1,0 +1,9 @@
+Code-Review+2: Michael Leibowitz <michael.leibowitz@intel.com>
+Code-Review+1: Lukasz Stelmach <l.stelmach@samsung.com>
+Code-Review+1: Krzysztof Opasiak <k.opasiak@samsung.com>
+Verified+1: Krzysztof Opasiak <k.opasiak@samsung.com>
+Submitted-by: Michael Leibowitz <michael.leibowitz@intel.com>
+Submitted-at: Tue, 15 Oct 2013 07:03:17 -0700
+Reviewed-on: https://review.tizen.org/gerrit/10951
+Project: platform/core/security/libprivilege-control
+Branch: refs/heads/tizen
