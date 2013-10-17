@@ -109,9 +109,7 @@ API int perm_end(void)
 {
 	SECURE_C_LOGD("Entering function: %s.", __func__);
 
-	rdb_modification_finish();
-	sync();
-	return PC_OPERATION_SUCCESS;
+	return rdb_modification_finish();
 }
 
 API int control_privilege(void)//deprecated

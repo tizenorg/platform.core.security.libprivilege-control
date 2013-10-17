@@ -34,6 +34,7 @@
 static sqlite3 *p_db__          = NULL;
 static int i_session_ret_code__ = PC_OPERATION_SUCCESS;
 
+
 /**
  * Prepare to modify the database.
  *
@@ -71,58 +72,100 @@ static int rdb_begin(sqlite3 **pp_db)
 
 
 /**
- * Finish database modification.
+ * Commit database modification.
  * If previous operation returned an error try to rollback changes.
  *
  * @ingroup RDB internal functions
  *
- * @param  p_db pointer to a SQLite3 database object
- * @param  ret  previous return code
+ * @param  p_db           pointer to a SQLite3 database object
+ * @param  i_session_ret  session return code
+ * @return                PC_OPERATION_SUCCESS on success,
+ *                        error code otherwise
  */
-static void rdb_end(sqlite3 *p_db, int ret)
+static int rdb_end(sqlite3 *p_db, int i_session_ret)
 {
 	RDB_LOG_ENTRY;
 
-	if(ret == PC_OPERATION_SUCCESS &&
-	    (ret = update_rules_in_db(p_db))
-	    != PC_OPERATION_SUCCESS) {
-		C_LOGE("RDB: Error during updating rules in the database: %d", ret);;
-	}
+	int ret = PC_OPERATION_SUCCESS;
 
-	if(have_smack()) {
-		if(ret == PC_OPERATION_SUCCESS &&
-		    (ret = update_smack_rules(p_db))
-		    != PC_OPERATION_SUCCESS) {
-			C_LOGE("RDB: Error updating smack rules: %d", ret);
+	// No error during the session, make updates
+	if(i_session_ret == PC_OPERATION_SUCCESS) {
+		ret = update_rules_in_db(p_db);
+		if(ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("RDB: Error during updating rules in the database: %d", ret);
+			goto finish;
+		}
+
+		if(have_smack()) {
+			ret = update_smack_rules(p_db);
+			if(ret != PC_OPERATION_SUCCESS) {
+				C_LOGE("RDB: Error updating smack rules: %d", ret);
+				goto finish;
+			}
 		}
 	}
 
-	// Finish transaction
-	C_LOGD("RDB: Closing connection.");
-	if(ret == PC_OPERATION_SUCCESS) {
+finish:
+	// End transaction in a way
+	// that depends on the ret and i_session_ret code.
+	if(i_session_ret == PC_OPERATION_SUCCESS &&
+	    ret == PC_OPERATION_SUCCESS) {
 		if(sqlite3_exec(p_db, "COMMIT TRANSACTION", 0, 0, 0)
 		    != SQLITE_OK) {
 			C_LOGE("RDB: Error during transaction commit: %s",
 			       sqlite3_errmsg(p_db));
+			ret = PC_ERR_DB_CONNECTION;
 		}
-	} else if(ret == PC_ERR_DB_CONNECTION) {
-		/* Life is pointless. I can't even rollback...*/
+
+	} else if(i_session_ret == PC_ERR_DB_CONNECTION ||
+		  ret == PC_ERR_DB_CONNECTION) {
+		// Life is pointless. I can't even rollback...
 		C_LOGE("RDB: No rollback nor commit.");
-	} else if(sqlite3_exec(p_db, "ROLLBACK TRANSACTION", 0, 0, 0)
-		  != SQLITE_OK) {
-		C_LOGE("RDB: Error during transaction rollback: %s",
-		       sqlite3_errmsg(p_db));
+		ret = PC_ERR_DB_CONNECTION;
+
+	} else {
+		// Some other error code
+		if(sqlite3_exec(p_db, "ROLLBACK TRANSACTION", 0, 0, 0)
+		    != SQLITE_OK) {
+			C_LOGE("RDB: Error during transaction rollback: %s",
+			       sqlite3_errmsg(p_db));
+			if(ret == PC_OPERATION_SUCCESS)
+				ret = PC_ERR_DB_CONNECTION;
+		}
 	}
 
 	if(sqlite3_close(p_db)) {
-		C_LOGE("RDB: Error during closing the database. Error: %s", sqlite3_errmsg(p_db));
+		C_LOGE("RDB: Error during closing the database. Error: %s",
+		       sqlite3_errmsg(p_db));
+		if(ret == PC_OPERATION_SUCCESS)
+			ret = PC_ERR_DB_CONNECTION;
 	}
+
+	return ret;
 }
 
-
-static void update_ret_code(int i_ret)
+/**
+ * Finish database modification.
+ * If global transaction is opened update session return code,
+ * otherwise end the transaction.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param  p_db           pointer to a SQLite3 database object
+ * @param  i_session_ret  session return code
+ * @return                PC_OPERATION_SUCCESS on success,
+ *                        error code otherwise
+ */
+static int rdb_finish(sqlite3 *p_db, int i_session_ret)
 {
-	i_session_ret_code__ = i_session_ret_code__ ? i_session_ret_code__ : i_ret;
+	if(p_db__) {
+		if(i_session_ret_code__ == PC_OPERATION_SUCCESS)
+			i_session_ret_code__ = i_session_ret;
+		return i_session_ret;
+	} else {
+		int ret = rdb_end(p_db, i_session_ret);
+		return i_session_ret != PC_OPERATION_SUCCESS ? i_session_ret : ret;
+	}
 }
 
 
@@ -138,12 +181,15 @@ int rdb_modification_start(void)
 }
 
 
-void rdb_modification_finish(void)
+int rdb_modification_finish(void)
 {
 	if(p_db__) {
-		rdb_end(p_db__, i_session_ret_code__);
+		int ret = rdb_end(p_db__, i_session_ret_code__);
 		p_db__ = NULL;
 		i_session_ret_code__ = PC_OPERATION_SUCCESS;
+		return ret;
+	} else {
+		return PC_OPERATION_SUCCESS;
 	}
 }
 
@@ -170,9 +216,9 @@ int rdb_add_application(const char *const s_label_name)
 	}
 
 	ret = add_modified_label_internal(p_db, s_label_name);
+
 finish:
-	if(p_db__) update_ret_code(ret); else rdb_end(p_db, ret);
-	return ret;
+	return rdb_finish(p_db, ret);
 }
 
 
@@ -193,9 +239,9 @@ int rdb_remove_application(const char *const s_label_name)
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = add_modified_apps_path_internal(p_db, s_label_name);
+
 finish:
-	if(p_db__) update_ret_code(ret); else rdb_end(p_db, ret);
-	return ret;
+	return rdb_finish(p_db, ret);
 }
 
 
@@ -226,9 +272,9 @@ int rdb_add_path(const char *const s_owner_label_name,
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = add_modified_label_internal(p_db, s_path_label_name);
+
 finish:
-	if(p_db__) update_ret_code(ret); else rdb_end(p_db, ret);
-	return ret;
+	return rdb_finish(p_db, ret);
 }
 
 
@@ -266,8 +312,7 @@ int rdb_add_permission_rules(const char *const s_permission_name,
 	}
 
 finish:
-	if(p_db__) update_ret_code(ret); else rdb_end(p_db, ret);
-	return ret;
+	return rdb_finish(p_db, ret);
 }
 
 
@@ -276,7 +321,7 @@ int rdb_enable_app_permissions(const char *const s_app_label_name,
 			       const char *const *const pp_permissions_list,
 			       const bool   b_is_volatile)
 {
-	RDB_LOG_ENTRY_PARAM("%s %d %d", s_app_label_name, i_permission_type,(int)b_is_volatile);
+	RDB_LOG_ENTRY_PARAM("%s %d %d", s_app_label_name, i_permission_type, (int)b_is_volatile);
 
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3 *p_db = NULL;
@@ -284,8 +329,8 @@ int rdb_enable_app_permissions(const char *const s_app_label_name,
 	int i;
 	int i_app_id = 0;
 
-	const char* s_permission_type_name = app_type_name(i_permission_type);
-	const char* s_permission_group_type_name = app_type_group_name(i_permission_type);
+	const char *s_permission_type_name = app_type_name(i_permission_type);
+	const char *s_permission_group_type_name = app_type_group_name(i_permission_type);
 
 	ret = rdb_begin(&p_db);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
@@ -323,9 +368,9 @@ int rdb_enable_app_permissions(const char *const s_app_label_name,
 	}
 
 	ret = add_modified_label_internal(p_db, s_app_label_name);
+
 finish:
-	if(p_db__) update_ret_code(ret); else rdb_end(p_db, ret);
-	return ret;
+	return rdb_finish(p_db, ret);
 }
 
 
@@ -339,7 +384,7 @@ int rdb_disable_app_permissions(const char *const s_app_label_name,
 	sqlite3 *p_db = NULL;
 	char *s_permission_name = NULL;
 	int i, i_app_id;
-	const char* s_permission_group_type_name = app_type_group_name(i_permission_type);
+	const char *s_permission_group_type_name = app_type_group_name(i_permission_type);
 
 	ret = rdb_begin(&p_db);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
@@ -367,9 +412,9 @@ int rdb_disable_app_permissions(const char *const s_app_label_name,
 	}
 
 	ret = add_modified_label_internal(p_db, s_app_label_name);
+
 finish:
-	if(p_db__) update_ret_code(ret); else rdb_end(p_db, ret);
-	return ret;
+	return rdb_finish(p_db, ret);
 }
 
 
@@ -392,8 +437,7 @@ int rdb_revoke_app_permissions(const char *const s_app_label_name)
 	ret = add_modified_apps_path_internal(p_db, s_app_label_name);
 
 finish:
-	if(p_db__) update_ret_code(ret); else rdb_end(p_db, ret);
-	return ret;
+	return rdb_finish(p_db, ret);
 }
 
 
@@ -411,9 +455,9 @@ int rdb_reset_app_permissions(const char *const s_app_label_name)
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = add_modified_label_internal(p_db, s_app_label_name);
+
 finish:
-	if(p_db__) update_ret_code(ret); else rdb_end(p_db, ret);
-	return ret;
+	return rdb_finish(p_db, ret);
 }
 
 
@@ -431,6 +475,5 @@ int rdb_add_additional_rules(const char *const *const pp_smack_rules)
 					    pp_smack_rules);
 
 finish:
-	if(p_db__) update_ret_code(ret); else rdb_end(p_db, ret);
-	return ret;
+	return rdb_finish(p_db, ret);
 }

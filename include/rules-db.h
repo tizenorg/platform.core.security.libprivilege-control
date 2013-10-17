@@ -55,9 +55,10 @@ int rdb_modification_start(void);
  * Commits or rollbacks.
  *
  * @ingroup RDB API functions
- *
+ * @return  PC_OPERATION_SUCCESS on success,
+ *          error code of the session otherwise
  */
-void rdb_modification_finish(void);
+int rdb_modification_finish(void);
 
 
 /**
