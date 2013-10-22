@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS app_path (
     path TEXT NOT NULL,
     label_id INTEGER NOT NULL,
     access INTEGER NOT NULL,
+    access_reverse INTEGER NOT NULL,
     app_path_type_id INTEGER NOT NULL ,
 
     -- TODO:
@@ -525,6 +526,7 @@ SELECT  application_view.name   AS owner_app_label_name,
         app_path.path           AS path,
         label.name              AS path_label_name,
         app_path.access         AS access,
+        app_path.access_reverse AS access_reverse,
         app_path_type.name      AS path_type_name
 
 FROM    app_path
@@ -544,11 +546,12 @@ BEGIN
     INSERT OR IGNORE INTO label(name) VALUES (NEW.path_label_name);
 
     -- Add the path
-    INSERT INTO app_path(app_id, path, label_id, access, app_path_type_id)
+    INSERT INTO app_path(app_id, path, label_id, access, access_reverse, app_path_type_id)
     SELECT  application_view.app_id,
             NEW.path,
             label.label_id,
             str_to_access(NEW.access),
+            str_to_access(NEW.access_reverse),
             app_path_type.app_path_type_id
     FROM    application_view, app_path_type, label
     WHERE   application_view.name = NEW.owner_app_label_name AND
@@ -767,6 +770,19 @@ INNER JOIN  application_view USING(app_id)
 INNER JOIN  label USING(label_id);
 
 
+-- PERMISSION FROM PATHS TO APPLICATIONS ---------------------------------------
+-- ltl = label to label
+DROP VIEW IF EXISTS ltl_app_path_reverse_view;
+CREATE VIEW ltl_app_path_reverse_view AS
+SELECT      label.name                AS subject,
+            application_view.name     AS object,
+            app_path.access_reverse   AS access
+FROM        app_path
+INNER JOIN  application_view USING(app_id)
+INNER JOIN  label USING(label_id)
+WHERE       app_path.access_reverse != 0 ;
+
+
 -- SMACK RULES VIEWS -----------------------------------------------------------
 DROP VIEW IF EXISTS all_smack_binary_rules_view;
 CREATE VIEW all_smack_binary_rules_view AS
@@ -788,6 +804,9 @@ FROM   (SELECT subject, object, access, is_volatile
         UNION ALL
         SELECT subject, object, access, 0
         FROM   ltl_app_path_view
+        UNION ALL
+        SELECT subject, object, access, 0
+        FROM   ltl_app_path_reverse_view
        )
 GROUP BY subject, object
 ORDER BY subject, object ASC;
@@ -866,6 +885,6 @@ ORDER BY subject, object ASC;
 
 
 -- Update here!
-PRAGMA schema_version = 1;
+PRAGMA schema_version = 1.1;
 
 COMMIT TRANSACTION;
