@@ -114,6 +114,17 @@ int base_name_from_perm(const char *perm, char **name);
 
 
 /**
+ * Set EXEC label on executable file or symlink to executable file
+ *
+ * @param label label to be set
+ * @param path  link to exec file or symbolic link to exec file
+ * @return      PC_OPERATION_SUCCESS on success,
+ *              error code otherwise
+ */
+int set_exec_label(const char *label, const char *path);
+
+
+/**
  * Get the permission family type name.
  *
  * @ingroup RDB internal functions

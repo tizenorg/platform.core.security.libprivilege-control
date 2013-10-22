@@ -84,6 +84,9 @@
 <row name="access" null="0" autoincrement="0">
 <datatype>INTEGER(1)</datatype>
 </row>
+<row name="access_reverse" null="0" autoincrement="0">
+<datatype>INTEGER(1)</datatype>
+</row>
 <row name="app_path_type_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 </row>

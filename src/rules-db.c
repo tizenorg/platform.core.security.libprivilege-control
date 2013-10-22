@@ -203,11 +203,12 @@ int rdb_add_path(const char *const s_owner_label_name,
 		 const char *const s_path_label_name,
 		 const char *const s_path,
 		 const char *const s_access,
+		 const char *const s_access_reverse,
 		 const char *const s_type)
 {
-	RDB_LOG_ENTRY_PARAM("%s %s %s %s %s",
+	RDB_LOG_ENTRY_PARAM("%s %s %s %s %s %s",
 			    s_owner_label_name, s_path_label_name,
-			    s_path, s_access, s_type);
+			    s_path, s_access, s_access_reverse, s_type);
 
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3 *p_db = NULL;
@@ -220,6 +221,7 @@ int rdb_add_path(const char *const s_owner_label_name,
 				s_path_label_name,
 				s_path,
 				s_access,
+				s_access_reverse,
 				s_type);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 

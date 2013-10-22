@@ -179,7 +179,8 @@ int remove_app_internal(sqlite3 *p_db,
  * @param  s_owner_label_name label name of the paths owner
  * @param  s_path_label_name  path's label name
  * @param  s_path             the path
- * @param  access             access rights
+ * @param  s_access           owner to path label access rights
+ * @param  s_access_reverse   path label to owner access rights
  * @param  s_type             path's type name
  * @return                    PC_OPERATION_SUCCESS on success, error code otherwise
  */
@@ -188,6 +189,7 @@ int add_path_internal(sqlite3 *p_db,
 		      const char *const s_path_label_name,
 		      const char *const s_path,
 		      const char *const s_access,
+		      const char *const s_access_reverse,
 		      const char *const s_type);
 
 

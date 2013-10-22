@@ -1195,7 +1195,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		}
 
 		// Add the path to the database:
-		ret = rdb_add_path(pkg_id, shared_label, path, "rwxatl", "GROUP_PATH");
+		ret = rdb_add_path(pkg_id, shared_label, path, "rwxatl", "-", "GROUP_PATH");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("RDB rdb_add_path failed with: %d", ret);
 			return ret;
@@ -1227,7 +1227,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		}
 
 		// Add the path to the database:
-		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "PUBLIC_PATH");
+		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "-", "PUBLIC_PATH");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("RDB rdb_add_path failed with: %d", ret);
 			return ret;
@@ -1258,7 +1258,41 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		}
 
 		// Add the path to the database:
-		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "SETTINGS_PATH");
+		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "-", "SETTINGS_PATH");
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("RDB rdb_add_path failed with: %d", ret);
+			return ret;
+		}
+
+		return PC_OPERATION_SUCCESS;
+	}
+
+	case PERM_APP_PATH_NPRUNTIME: {
+		C_LOGD("app_path_type is PERM_APP_PATH_NPRUNTIME.");
+		char label[SMACK_LABEL_LEN + 1];
+		int ret;
+
+		// Create label:
+		if ((strlen(pkg_id) + strlen(".npruntime")) > SMACK_LABEL_LEN) {
+			C_LOGE("cannot create npruntime label, pkg_id is too long.");
+			return PC_ERR_INVALID_PARAM;
+		}
+		ret = sprintf(label, "%s.npruntime", pkg_id);
+		if (ret <= 0) {
+			C_LOGE("creating npruntime label failed.");
+			return PC_ERR_INVALID_OPERATION;
+		}
+		C_LOGD("Generated npruntime label '%s' for path %s", label, path);
+
+		// Label executable/symlink
+		ret = set_exec_label(label, path);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("cannot set executable label '%s' for path %s.", label, path);
+			return ret;
+		}
+
+		// Add the path to the database:
+		ret = rdb_add_path(pkg_id, label, path, "rw", "rxat", "NPRUNTIME_PATH");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("RDB rdb_add_path failed with: %d", ret);
 			return ret;

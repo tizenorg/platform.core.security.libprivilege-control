@@ -401,24 +401,26 @@ int add_path_internal(sqlite3 *p_db,
 		      const char *const s_path_label_name,
 		      const char *const s_path,
 		      const char *const s_access,
+		      const char *const s_access_reverse,
 		      const char *const s_type)
 {
-	RDB_LOG_ENTRY_PARAM("%s %s %s %s %s",
+	RDB_LOG_ENTRY_PARAM("%s %s %s %s %s %s",
 			    s_owner_label_name, s_path_label_name,
-			    s_path, s_access, s_type);
+			    s_path, s_access, s_access_reverse, s_type);
 
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3_stmt *p_stmt = NULL;
 
 	ret = prepare_stmt(p_db, &p_stmt,
 			   "INSERT INTO path_view(owner_app_label_name, \
-			    			  path,                 \
-			    			  path_label_name,      \
-			    			  access,               \
-			    			  path_type_name)       \
-			     VALUES(%Q, %Q, %Q,  %Q, %Q);",
-			   s_owner_label_name, s_path,
-			   s_path_label_name, s_access, s_type);
+						  path,                 \
+						  path_label_name,      \
+						  access,               \
+						  access_reverse,       \
+						  path_type_name)       \
+			     VALUES(%Q, %Q, %Q, %Q, %Q, %Q);",
+			   s_owner_label_name, s_path, s_path_label_name,
+			   s_access, s_access_reverse, s_type);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = step_and_convert_returned_value(p_stmt);
@@ -760,11 +762,13 @@ int add_additional_rules_internal(sqlite3 *p_db, const char *const *const pp_sma
 	sqlite3_stmt *p_label_to_app_path_type_stmt = NULL;
 
 	// Clear the label_app_path_type_rule table
-	if(sqlite3_exec(p_db, "DELETE FROM label_app_path_type_rule_view;", 0, 0, 0) != SQLITE_OK) {
+	// TODO This statement is commented due to temporary workaround, it will be restored
+	//      when new wildcard ~NPRUNTIME_PATH~ will be implemented
+	/*if(sqlite3_exec(p_db, "DELETE FROM label_app_path_type_rule_view;", 0, 0, 0) != SQLITE_OK) {
 		C_LOGE("RDB: Error during clearing additional rules: %s", sqlite3_errmsg(p_db));
 		ret = PC_ERR_DB_OPERATION;
 		goto finish;
-	}
+	}*/
 
 	ret = prepare_stmts_for_bind(p_db, &p_label_to_app_path_type_stmt,
 				     "INSERT INTO label_app_path_type_rule_view(          \

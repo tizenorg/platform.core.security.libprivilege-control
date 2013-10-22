@@ -21,6 +21,7 @@ INSERT OR IGNORE INTO permission_type(type_name) VALUES("OSP_platform");
 INSERT OR IGNORE INTO app_path_type(name) VALUES("GROUP_PATH");
 INSERT OR IGNORE INTO app_path_type(name) VALUES("PUBLIC_PATH");
 INSERT OR IGNORE INTO app_path_type(name) VALUES("SETTINGS_PATH");
+INSERT OR IGNORE INTO app_path_type(name) VALUES("NPRUNTIME_PATH");
 
 INSERT OR IGNORE INTO permission_view(name, type_name) VALUES
 		("ALL_APPS", 	"ALL_APPS"),
@@ -101,6 +102,17 @@ INSERT OR IGNORE INTO permission_app_path_type_rule_view(permission_name,
 	("org.tizen.privilege.antivirus","WRT", "PUBLIC_PATH",   "rwx", 0),
 	("org.tizen.privilege.antivirus","OSP", "PUBLIC_PATH",   "rwx", 0),
 	("org.tizen.privilege.antivirus","EFL", "PUBLIC_PATH",   "rwx", 0);
+
+
+-- NPRuntime binary privileges ---------------------------------------------------------------------
+-- NPRUNTIME_PATH
+-- All have "is_reverse" set to 1.
+INSERT OR IGNORE INTO label_app_path_type_rule_view(label_name,
+						    app_path_type_name,
+						    access,
+						    is_reverse) VALUES
+	("system::homedir", "NPRUNTIME_PATH", "rxat", 1),
+	("xorg",            "NPRUNTIME_PATH", "rw",   1);
 
 COMMIT TRANSACTION;
 

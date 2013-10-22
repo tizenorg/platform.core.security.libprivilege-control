@@ -66,6 +66,50 @@ err:
 }
 
 
+int set_exec_label(const char *label, const char *path)
+{
+	struct stat st;
+
+	if(stat(path, &st) < 0) {
+		SECURE_C_LOGE("stat failed for %s (Error = %s)", path, strerror(errno));
+		return PC_ERR_FILE_OPERATION;
+	}
+
+	// check if it's a link
+	if((st.st_mode & S_IFLNK) != 0) {
+		SECURE_C_LOGD("%s is a symbolic link", path);
+		char* target AUTO_FREE;
+		target = realpath(path, NULL);
+		if(!target) {
+			SECURE_C_LOGE("getting link target for %s failed (Error = %s)",
+				      path, strerror(errno));
+			return PC_ERR_FILE_OPERATION;
+		}
+
+		if(stat(target, &st) < 0) {
+			SECURE_C_LOGE("stat failed for %s (Error = %s)", target, strerror(errno));
+			return PC_ERR_FILE_OPERATION;
+		}
+
+		if((st.st_mode & (S_IXUSR | S_IFREG)) != (S_IXUSR | S_IFREG)) {
+			SECURE_C_LOGE("%s is not a regular executable file.", target);
+			return PC_ERR_FILE_OPERATION;
+		}
+	} else if((st.st_mode & (S_IXUSR | S_IFREG)) != (S_IXUSR | S_IFREG)) {
+		SECURE_C_LOGE("%s is not a regular executable file nor a symbolic link.", path);
+		return PC_ERR_FILE_OPERATION;
+	}
+
+	SECURE_C_LOGD("smack_lsetlabel (label: %s (type: SMACK_LABEL_EXEC), path: %s)",
+	              label, path);
+	if (smack_lsetlabel(path, label, SMACK_LABEL_EXEC) != 0) {
+		SECURE_C_LOGE("smack_lsetlabel failed.");
+		return PC_ERR_FILE_OPERATION;
+	}
+	return PC_OPERATION_SUCCESS;
+}
+
+
 int tokenize_rule(const char *const s_rule,
 		  char s_subject[],
 		  char s_object[],
