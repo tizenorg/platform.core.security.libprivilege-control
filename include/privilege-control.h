@@ -361,6 +361,27 @@ int add_api_feature(app_type_t app_type,
                     const gid_t* list_of_db_gids,
                     size_t list_size) DEPRECATED;
 
+/**
+ * Run before any privilege modification.
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int perm_begin(void);
+
+/**
+ * Run after any privilege modification.
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int perm_end(void);
+
+/**
+ * Add additional rules to libprivilege.
+ * The rules can use wild-cards and labels.
+ *
+ * @param  set_smack_rule_set an array of rules, NULL terminated
+ * @return                    PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int perm_add_additional_rules(const char** set_smack_rule_set);
+
 #ifdef __cplusplus
 }
 #endif // __cplusplus

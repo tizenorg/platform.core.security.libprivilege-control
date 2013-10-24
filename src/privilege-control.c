@@ -95,6 +95,22 @@ enum {
 	DECISION_LABEL = 1
 };
 
+API int perm_begin(void)
+{
+	SECURE_C_LOGD("Entering function: %s.", __func__);
+//	return rdb_modification_start();
+	return PC_OPERATION_SUCCESS;
+}
+
+API int perm_end(void)
+{
+	SECURE_C_LOGD("Entering function: %s.", __func__);
+
+//	rdb_modification_finish();
+//	sync();
+	return PC_OPERATION_SUCCESS;
+}
+
 API int control_privilege(void)//deprecated
 {
 	SECURE_C_LOGD("Entering function: %s.", __func__);
@@ -2491,4 +2507,21 @@ API int app_register_av(const char* app_av_id)//deprecated
 	}
 
 	return ret;
+}
+
+API int perm_add_additional_rules(const char** smack_rules){
+	SECURE_C_LOGD("Entering function: %s.", __func__);
+/*	int ret;
+	if (!smack_rules){
+		C_LOGE("smack_rules is NULL");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	ret = rdb_add_additional_rules(smack_rules);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("RDB rdb_add_additional_rules failed with: %d", ret);
+		return ret;
+	}*/
+
+	return PC_OPERATION_SUCCESS;
 }
