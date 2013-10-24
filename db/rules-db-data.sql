@@ -103,17 +103,6 @@ INSERT OR IGNORE INTO permission_app_path_type_rule_view(permission_name,
 	("org.tizen.privilege.antivirus","OSP", "PUBLIC_PATH",   "rwx", 0),
 	("org.tizen.privilege.antivirus","EFL", "PUBLIC_PATH",   "rwx", 0);
 
-
--- NPRuntime binary privileges ---------------------------------------------------------------------
--- NPRUNTIME_PATH
--- All have "is_reverse" set to 1.
-INSERT OR IGNORE INTO label_app_path_type_rule_view(label_name,
-						    app_path_type_name,
-						    access,
-						    is_reverse) VALUES
-	("system::homedir", "NPRUNTIME_PATH", "rxat", 1),
-	("xorg",            "NPRUNTIME_PATH", "rw",   1);
-
 COMMIT TRANSACTION;
 
 VACUUM;

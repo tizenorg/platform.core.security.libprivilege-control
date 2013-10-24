@@ -129,7 +129,8 @@ bool is_wildcard(const char *const s_label)
 		!strcmp(s_label, "~ALL_APPS_WITH_SAME_PERMISSION~") ||
 		!strcmp(s_label, "~PUBLIC_PATH~") ||
 		!strcmp(s_label, "~GROUP_PATH~") ||
-		!strcmp(s_label, "~SETTINGS_PATH~");
+		!strcmp(s_label, "~SETTINGS_PATH~") ||
+		!strcmp(s_label, "~NPRUNTIME_PATH~");
 }
 
 

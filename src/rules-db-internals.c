@@ -760,15 +760,15 @@ int add_additional_rules_internal(sqlite3 *p_db, const char *const *const pp_sma
 	char s_object[SMACK_LABEL_LEN + 1];
 	char s_access[ACC_LEN + 1];
 	sqlite3_stmt *p_label_to_app_path_type_stmt = NULL;
+	int is_reverse = 0;
+	char *ps_subject, *ps_object;
 
 	// Clear the label_app_path_type_rule table
-	// TODO This statement is commented due to temporary workaround, it will be restored
-	//      when new wildcard ~NPRUNTIME_PATH~ will be implemented
-	/*if(sqlite3_exec(p_db, "DELETE FROM label_app_path_type_rule_view;", 0, 0, 0) != SQLITE_OK) {
+	if(sqlite3_exec(p_db, "DELETE FROM label_app_path_type_rule_view;", 0, 0, 0) != SQLITE_OK) {
 		C_LOGE("RDB: Error during clearing additional rules: %s", sqlite3_errmsg(p_db));
 		ret = PC_ERR_DB_OPERATION;
 		goto finish;
-	}*/
+	}
 
 	ret = prepare_stmts_for_bind(p_db, &p_label_to_app_path_type_stmt,
 				     "INSERT INTO label_app_path_type_rule_view(          \
@@ -787,42 +787,59 @@ int add_additional_rules_internal(sqlite3 *p_db, const char *const *const pp_sma
 		ret = tokenize_rule(pp_smack_rules[i], s_subject , s_object, s_access);
 		if(ret != PC_OPERATION_SUCCESS) goto finish;
 
+		if(is_wildcard(s_subject)) {
+			ps_subject = s_object;
+			ps_object = s_subject;
+			is_reverse = 1;
+		} else {
+			ps_subject = s_subject;
+			ps_object = s_object;
+			is_reverse = 0;
+		}
 
 		// Check validity
-		if(!smack_label_is_valid(s_subject)) {
+		if(!smack_label_is_valid(ps_subject)) {
 			C_LOGE("Subject is not a valid label");
 			ret = PC_ERR_INVALID_PARAM;
 			goto finish;
 		}
 
 		// Add access to paths
-		if(!strcmp(s_object, "~PUBLIC_PATH~")) {
+		if(!strcmp(ps_object, "~PUBLIC_PATH~")) {
 			ret = add_label_app_path_type_rule(p_label_to_app_path_type_stmt,
-							   s_subject,
+							   ps_subject,
 							   "PUBLIC_PATH",
 							   s_access,
-							   0);
+							   is_reverse);
 			if(ret != PC_OPERATION_SUCCESS) goto finish;
 
-		} else if(!strcmp(s_object, "~GROUP_PATH~")) {
+		} else if(!strcmp(ps_object, "~GROUP_PATH~")) {
 			ret = add_label_app_path_type_rule(p_label_to_app_path_type_stmt,
-							   s_subject,
+							   ps_subject,
 							   "GROUP_PATH",
 							   s_access,
-							   0);
+							   is_reverse);
 			if(ret != PC_OPERATION_SUCCESS) goto finish;
 
-		} else if(!strcmp(s_object, "~SETTINGS_PATH~")) {
+		} else if(!strcmp(ps_object, "~SETTINGS_PATH~")) {
 			ret = add_label_app_path_type_rule(p_label_to_app_path_type_stmt,
-							   s_subject,
+							   ps_subject,
 							   "SETTINGS_PATH",
 							   s_access,
-							   0);
+							   is_reverse);
+			if(ret != PC_OPERATION_SUCCESS) goto finish;
+		} else if(!strcmp(ps_object, "~NPRUNTIME_PATH~")) {
+			ret = add_label_app_path_type_rule(p_label_to_app_path_type_stmt,
+							   ps_subject,
+							   "NPRUNTIME_PATH",
+							   s_access,
+							   is_reverse);
 			if(ret != PC_OPERATION_SUCCESS) goto finish;
 		}
 
+
 		// Mark label as modified
-		ret = add_modified_label_internal(p_db, s_subject);
+		ret = add_modified_label_internal(p_db, ps_subject);
 		if(ret != PC_OPERATION_SUCCESS) goto finish;
 	}
 
