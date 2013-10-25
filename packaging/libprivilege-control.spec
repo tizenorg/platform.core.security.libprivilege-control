@@ -2,7 +2,7 @@
 
 Name:       libprivilege-control
 Summary:    Library to control privilege of application
-Version:    0.0.42.TIZEN
+Version:    0.0.43.TIZEN
 Release:    1
 Group:      System/Security
 License:    Apache 2.0
@@ -14,7 +14,9 @@ BuildRequires: libcap-devel
 BuildRequires: pkgconfig(libsmack)
 BuildRequires: pkgconfig(dlog)
 BuildRequires: pkgconfig(libiri)
-Requires: smack-privilege-config
+BuildRequires: pkgconfig(sqlite3)
+Requires:   smack-privilege-config
+Requires:   sqlite
 
 %description
 development package of library to control privilege of in-house application
@@ -43,9 +45,10 @@ Library to control privilege of application files
 
 %build
 export CFLAGS="${CFLAGS} -Wno-implicit-function-declaration"
-%cmake . -DCMAKE_BUILD_TYPE=%{?build_type:%build_type}
+%cmake . -DCMAKE_BUILD_TYPE=%{?build_type:%build_type}%{!?build_type:RELEASE} \
+         -DCMAKE_VERBOSE_MAKEFILE=ON
 
-make %{?jobs:-j%jobs}
+VERBOSE=1 make %{?jobs:-j%jobs}
 
 %install
 rm -rf %{buildroot}
@@ -65,8 +68,7 @@ install -m 644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/
 ln -s ../smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/
 
 mkdir -p %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
-ln -sf /usr/lib/systemd/system/smack-late-rules.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-late-rules.service
-ln -sf /usr/lib/systemd/system/smack-early-rules.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-early-rules.service
+ln -sf /usr/lib/systemd/system/smack-rules.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-rules.service
 
 mkdir -p %{buildroot}/usr/lib/systemd/system/tizen-runtime.target.wants
 ln -s /usr/lib/systemd/system/smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-default-labeling.service
@@ -98,19 +100,30 @@ then
 	mkdir -p /opt/etc/smack-app-early/accesses.d
 fi
 
+sqlite3 /opt/dbspace/.rules-db.db3 < /opt/dbspace/rules-db.sql
+rm -f /opt/dbspace/rules-db.sql
+
+sqlite3 /opt/dbspace/.rules-db.db3 < /opt/dbspace/rules-db-data.sql
+rm -f /opt/dbspace/rules-db-data.sql
+
+api_feature_loader --verbose --dir=/usr/share/privilege-control/
+api_feature_loader --verbose --rules=/usr/share/privilege-control/ADDITIONAL_RULES.smack
+
 %files
 %{_libdir}/*.so.*
+%{_libdir}/librules-db-sql-udf.so
 %{_bindir}/slp-su
 #%{udev_libdir}/rules.d/*
 #%attr(755,root,root) %{udev_libdir}/uname_env
 %{_datadir}/license/%{name}
 #systemd service
-/usr/lib/systemd/system/smack-late-rules.service
-/usr/lib/systemd/system/smack-early-rules.service
-/usr/bin/rule_loader
+/usr/lib/systemd/system/smack-rules.service
+/usr/bin/api_feature_loader
 #link to activate systemd service
-/usr/lib/systemd/system/multi-user.target.wants/smack-late-rules.service
-/usr/lib/systemd/system/multi-user.target.wants/smack-early-rules.service
+/usr/lib/systemd/system/multi-user.target.wants/smack-rules.service
+/opt/dbspace/rules-db.sql
+/opt/dbspace/rules-db-data.sql
+/opt/etc/smack/load-rules-db.sql
 
 %files conf
 /etc/group
@@ -125,5 +138,5 @@ fi
 
 %files devel
 %{_includedir}/*.h
-%{_libdir}/*.so
+%{_libdir}/libprivilege-control.so
 %{_libdir}/pkgconfig/*.pc

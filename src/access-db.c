@@ -33,22 +33,12 @@
 #include "common.h"
 
 typedef enum {
-	DB_APP_TYPE_APPLICATION,
-	DB_APP_TYPE_ANTIVIRUS,
 	DB_APP_TYPE_GROUPS,
-	DB_APP_TYPE_PUBLIC_DIRS,
-	DB_APP_TYPE_APPSETTING,
-	DB_APP_TYPE_SETTING_DIR,
 	DB_APP_TYPE_COUNT /* Dummy enum element to get number of elements */
 } db_app_type_t;
 
 const char* db_file_names[DB_APP_TYPE_COUNT] = {
-		"/opt/dbspace/.privilege_control_all_apps_id.db",
-		"/opt/dbspace/.privilege_control_all_avs_id.db",
-		"/opt/dbspace/.privilege_control_app_gids.db",
-		"/opt/dbspace/.privilege_control_public_dirs.db",
-		"/opt/dbspace/.privilege_control_app_setting.db",
-		"/opt/dbspace/.privilege_control_setting_dir.db",
+		"/opt/dbspace/.privilege_control_app_gids.db"
 };
 
 typedef struct element_s {
@@ -82,6 +72,7 @@ static element_t* add_element (element_t* elem, const char* value)
 	return new_element;
 }
 
+
 static int remove_list(element_t* first_elem)
 {
 	SECURE_C_LOGD("Entering function: %s.", __func__);
@@ -97,6 +88,7 @@ static int remove_list(element_t* first_elem)
 	}
 	return 0;
 }
+
 
 static int add_id_to_database_internal(const char * id, db_app_type_t app_type)
 {
@@ -120,6 +112,7 @@ static int add_id_to_database_internal(const char * id, db_app_type_t app_type)
 
 	return PC_OPERATION_SUCCESS;
 }
+
 
 static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type)
 {
@@ -214,90 +207,6 @@ out:
 	return ret;
 }
 
-int get_all_apps_ids (char *** apps_ids, int * len)
-{
-	SECURE_C_LOGD("Entering function: %s.", __func__);
-
-	if (get_all_ids_internal(apps_ids, len, DB_APP_TYPE_APPLICATION))
-		return PC_ERR_DB_OPERATION;
-
-	return PC_OPERATION_SUCCESS;
-}
-
-int get_all_settings_dir_ids(char ***apps_ids, int *len)
-{
-	SECURE_C_LOGD("Entering function: %s.", __func__);
-
-	if (get_all_ids_internal(apps_ids, len, DB_APP_TYPE_SETTING_DIR))
-		return PC_ERR_DB_OPERATION;
-
-	return PC_OPERATION_SUCCESS;
-}
-
-int get_all_appsetting_ids(char ***apps_ids, int *len)
-{
-	SECURE_C_LOGD("Entering function: %s.", __func__);
-
-	if (get_all_ids_internal(apps_ids, len, DB_APP_TYPE_APPSETTING))
-		return PC_ERR_DB_OPERATION;
-
-	return PC_OPERATION_SUCCESS;
-}
-
-int get_all_avs_ids (char *** av_ids, int * len)
-{
-	SECURE_C_LOGD("Entering function: %s.", __func__);
-
-	if (get_all_ids_internal(av_ids, len, DB_APP_TYPE_ANTIVIRUS))
-		return PC_ERR_DB_OPERATION;
-
-	return PC_OPERATION_SUCCESS;
-}
-
-int add_app_id_to_databse(const char * app_id)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
-				__func__, app_id);
-
-	if (add_id_to_database_internal(app_id, DB_APP_TYPE_APPLICATION))
-		return PC_ERR_DB_OPERATION;
-
-	return PC_OPERATION_SUCCESS;
-}
-
-int add_av_id_to_databse (const char * av_id)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: av_id=%s",
-				__func__, av_id);
-
-	if (add_id_to_database_internal(av_id, DB_APP_TYPE_ANTIVIRUS))
-		return PC_ERR_DB_OPERATION;
-
-	return PC_OPERATION_SUCCESS;
-}
-
-int add_appsetting_id_to_databse(const char *appsetting_id)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: appsetting_id=%s",
-				__func__, appsetting_id);
-
-	if (add_id_to_database_internal(appsetting_id, DB_APP_TYPE_APPSETTING))
-		return PC_ERR_DB_OPERATION;
-
-	return PC_OPERATION_SUCCESS;
-}
-
-int add_setting_dir_id_to_databse(const char *setting_dir_id)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: setting_dir_id=%s",
-				__func__, setting_dir_id);
-
-	if (add_id_to_database_internal(
-			setting_dir_id, DB_APP_TYPE_SETTING_DIR))
-		return PC_ERR_DB_OPERATION;
-
-	return PC_OPERATION_SUCCESS;
-}
 
 int add_app_gid(const char *app_id, unsigned gid)
 {
@@ -319,6 +228,7 @@ int add_app_gid(const char *app_id, unsigned gid)
 
 	return ret;
 }
+
 
 int get_app_gids(const char *app_id, unsigned **gids, int *len)
 {
@@ -390,31 +300,4 @@ out:
 	}
 
 	return ret;
-}
-
-int db_add_public_dir(const char *dir_label)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: dir_label=%s",
-				__func__, dir_label);
-
-	if (add_id_to_database_internal(dir_label, DB_APP_TYPE_PUBLIC_DIRS))
-	{
-		C_LOGE("add_id_to_database_internal failed.");
-		return PC_ERR_DB_OPERATION;
-	}
-
-	return PC_OPERATION_SUCCESS;
-}
-
-int db_get_public_dirs(char ***dir_labels, int *len)
-{
-	SECURE_C_LOGD("Entering function: %s.", __func__);
-
-	if (get_all_ids_internal(dir_labels, len, DB_APP_TYPE_PUBLIC_DIRS))
-	{
-		C_LOGE("get_all_ids_internal failed.");
-		return PC_ERR_DB_OPERATION;
-	}
-
-	return PC_OPERATION_SUCCESS;
 }
