@@ -1,3 +1,61 @@
+* Fri Oct 25 2013 Krzysztof Jackiewicz - 0.0.43.TIZEN
+[Krzysztof Jackiewicz]
+- Revert "add API definition"
+[Marcin Lis]
+- Implement new wildcard ~NPRUNTIME_PATH~ +fix workaround
+[Marcin Lis]
+- Implement adding new WRT rules in libprivilege-control
+[Kidong Kim]
+- add API definition
+[Jan Olszak]
+- Correction in enabling permissions.
+[Jan Olszak]
+- Renamed enums and deleted unused defines
+[Jan Olszak]
+- Modified checking labels and deleted unused checking.
+[Jan Olszak]
+- Change in setup path.
+[Jan Olszak]
+- Change in boot script.
+[Jan Olszak]
+- Adding additional rules.
+[Jan Olszak]
+- Implementation of cross-app rule patterns in *.smack files
+[Jan Olszak]
+- Corrected a mistake in deleting paths.
+[Jan Olszak]
+- Deleting paths on revoking permissions.
+[Jan Olszak]
+- Deleted volatile rules on boot and corrected permission format.
+[Jan Olszak]
+- Modified boot script, added deleting volatile rules.
+[Jan Olszak]
+- Made marking labels as modified beautiful.
+[Jan Olszak]
+- Changed new API names.
+[Jan Olszak]
+- Loading api-features from a file.
+[Jan Olszak]
+- Revert "rollback because of rule database"
+[Kidong Kim]
+- add systemd options
+[Jan Cybulski]
+- Add README file
+[Marcin Lis]
+- Compilation flags 'verbose' mode
+[Krzysztof Jackiewicz]
+- Unused function smack_get_access_new removed
+[Krzysztof Jackiewicz]
+- Libprivilege API cleanup
+[Lukasz Kostyra]
+- Add missing information about APP_PATH_ANY_LABEL in header
+[Bartlomiej Grzelewski]
+- Takes compilation profile from command line.
+[Janusz Kozerski]
+- Add for all anti viruses RWX access to all public-RO and group-RW shared folder
+[Marcin Lis]
+- Simple corrections in api-feature handling. +Fix
+
 * Mon Sep 16 2013 Bartlomiej Grzelewski - 0.0.57.SLP
 [Jan Olszak]
 - Optimalization of the database operation time.
