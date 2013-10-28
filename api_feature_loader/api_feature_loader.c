@@ -235,8 +235,8 @@ void load_pemission_type_rules(int (*filter)(const struct dirent *),
 
 		load_rules_from_file(s_path, s_permission_name, app_type);
 
-		if(file_list[i]) free(file_list[i]);
-		if(s_path) free(s_path);
+		free(file_list[i]);
+		free(s_path);
 		s_path = NULL;
 	}
 	free(file_list);
