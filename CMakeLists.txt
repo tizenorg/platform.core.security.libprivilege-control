@@ -66,7 +66,7 @@ SET_TARGET_PROPERTIES(${TARGET_PRIVILEGE_CONTROL} PROPERTIES VERSION ${VERSION})
 ###################################################################################################
 ## for rules-db-sql-udf.so (library)
 SET(rules-db-sql-udf_SOURCES ./db/rules-db-sql-udf.c)
-SET(rules-db-sql-udf_LDFLAGS " -avoid-version -module ")
+#SET(rules-db-sql-udf_LDFLAGS " -avoid-version -module ")
 SET(rules-db-sql-udf_CFLAGS  " ${CFLAGS} -fPIC")
 
 ADD_LIBRARY(rules-db-sql-udf MODULE ${rules-db-sql-udf_SOURCES})
