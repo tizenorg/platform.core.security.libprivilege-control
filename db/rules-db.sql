@@ -6,15 +6,14 @@
 -- 2. If you change definition of tables
 --    update the schema counter at the bottom!!
 
--- TODO: Use "USING" in joins whenever possible
-
 .load librules-db-sql-udf.so
 PRAGMA foreign_keys = ON;
 PRAGMA auto_vacuum = NONE;
 
 BEGIN EXCLUSIVE TRANSACTION;
 
--- PRAGMA cache_size = 2000;
+-- Update here on every schema_change! Integer value.
+PRAGMA schema_version = 2;
 
 CREATE TABLE IF NOT EXISTS  app (
     app_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -150,7 +149,6 @@ CREATE TABLE IF NOT EXISTS all_smack_binary_rules(
 
 -- TEMPORARY TABLES ------------------------------------------------------------
 -- Definitions are repeated in code.
-
 CREATE TEMPORARY TABLE history_smack_rule(
     subject TEXT NOT NULL,
     object  TEXT NOT NULL,
@@ -882,9 +880,5 @@ FROM    (
                    s2.object  IS NULL
         )
 ORDER BY subject, object ASC;
-
-
--- Update here!
-PRAGMA schema_version = 1.1;
 
 COMMIT TRANSACTION;
