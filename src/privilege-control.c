@@ -828,66 +828,12 @@ API char* perm_app_id_from_socket(int sockfd)
 }
 
 
-static int app_add_permissions_internal(const char* app_id, app_type_t app_type, const char** perm_list, int permanent)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s, app_type=%d, permanent=%d",
-				__func__, app_id, app_type, permanent);
-
-	int i, ret;
-	char* smack_path AUTO_FREE;
-	char* smack_path_early AUTO_FREE;
-	int fd AUTO_CLOSE;
-	int fd_early AUTO_CLOSE;
-	struct smack_accesses *smack AUTO_SMACK_FREE;
-	struct smack_accesses *smack_early AUTO_SMACK_FREE;
-
-	if (!smack_label_is_valid(app_id)) {
-		C_LOGE("Invalid param app_id.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if(perm_list == NULL) {
-		C_LOGE("Invalid perm_list (NULL).");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if (app_type_group_name(app_type) == NULL) {
-		C_LOGE("Unknown app type.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	// Add permission to DAC
-	for (i = 0; perm_list[i] != NULL; ++i) {
-		ret = perm_to_dac(app_id, app_type, perm_list[i]);
-		if (ret != PC_OPERATION_SUCCESS){
-			C_LOGE("perm_to_dac failed");
-			return ret;
-		}
-	}
-
-	// Enable the permissions:
-	ret = rdb_enable_app_permissions(app_id,
-					 app_type,
-					 perm_list,
-					 !((bool)permanent));
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("RDB rdb_enable_app_permissions failed with: %d", ret);
-		return ret;
-	}
-
-
-	SECURE_C_LOGD("Leaving function: %s. Params: app_id=%s, app_type=%d, permanent=%d",
-				__func__, app_id, app_type, permanent);
-
-	return PC_OPERATION_SUCCESS;
-}
-
 API int app_add_permissions(const char* app_id, const char** perm_list)//deprecated
 {
 	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
 				__func__, app_id);
 
-	return app_add_permissions_internal(app_id, APP_TYPE_OTHER, perm_list, 1);
+	return perm_app_enable_permissions(app_id, APP_TYPE_OTHER, perm_list, true);
 }
 
 API int app_add_volatile_permissions(const char* app_id, const char** perm_list)//deprecated
@@ -895,11 +841,11 @@ API int app_add_volatile_permissions(const char* app_id, const char** perm_list)
 	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
 				__func__, app_id);
 
-	return app_add_permissions_internal(app_id, APP_TYPE_OTHER, perm_list, 0);
+	return perm_app_enable_permissions(app_id, APP_TYPE_OTHER, perm_list, false);
 }
 
-API int perm_app_register_permissions(const char *pkg_id, app_type_t app_type,
-        const char **perm_list)
+API int perm_app_setup_permissions(const char* pkg_id, app_type_t app_type,
+				   const char** perm_list)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d",
 				__func__, pkg_id, app_type);
@@ -911,15 +857,50 @@ API int app_enable_permissions(const char* pkg_id, app_type_t app_type, const ch
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d, persistent=%d",
 				__func__, pkg_id, app_type, persistent);
 
-	return app_add_permissions_internal(pkg_id, app_type, perm_list, persistent);
+	return perm_app_enable_permissions(pkg_id, app_type, perm_list, persistent);
 }
 
-API int perm_app_enable_permissions(const char* pkg_id, app_type_t app_type, const char** perm_list, bool persistent)
+API int perm_app_enable_permissions(const char* pkg_id, app_type_t app_type,
+				    const char** perm_list, bool persistent)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d, persistent=%d",
 				__func__, pkg_id, app_type, persistent);
 
-	return app_add_permissions_internal(pkg_id, app_type, perm_list, persistent);
+	int i, ret;
+
+	if (!smack_label_is_valid(pkg_id)) {
+		C_LOGE("Invalid param app_id.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if (perm_list == NULL) {
+		C_LOGE("Invalid perm_list (NULL).");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if (app_type_group_name(app_type) == NULL) {
+		C_LOGE("Unknown app type.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	/* Add permission to DAC */
+	for (i = 0; perm_list[i] != NULL; ++i) {
+		ret = perm_to_dac(pkg_id, app_type, perm_list[i]);
+		if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("perm_to_dac failed");
+			return ret;
+		}
+	}
+
+	/* Enable the permissions: */
+	ret = rdb_enable_app_permissions(pkg_id, app_type, perm_list,
+					 !((bool)persistent));
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("RDB rdb_enable_app_permissions failed with: %d", ret);
+		return ret;
+	}
+
+	return PC_OPERATION_SUCCESS;
 }
 
 API int app_disable_permissions(const char* pkg_id, app_type_t app_type, const char** perm_list)//deprecated

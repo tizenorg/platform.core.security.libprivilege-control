@@ -255,15 +255,17 @@ int app_add_volatile_permissions(const char* app_id, const char** perm_list) DEP
  * @param  perm_list  array of permission names, last element must be NULL
  * @return            PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int perm_app_register_permissions(const char *pkg_id, app_type_t app_type,
-        const char **perm_list);
+int perm_app_setup_permissions(const char* pkg_id, app_type_t app_type,
+			       const char** perm_list);
 
 /**
- * Grants SMACK permissions to an application, based on permissions list. It is
+ * Grants SMACK permissions to an application, based on permissions list. It was
  * intended to be called during that application installation. Permissions
  * granted as volatile will not be present after system boot. It must be called
  * by privileged user and within database transaction started with perm_begin()
  * and finished with perm_end().
+ * In new code please call perm_app_setup_permissions during your application
+ * installation instead of this function.
  *
  * @param  pkg_id      application identifier
  * @param  app_type    application type

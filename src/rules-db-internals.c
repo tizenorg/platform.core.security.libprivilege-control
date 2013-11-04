@@ -923,7 +923,7 @@ int get_app_id_internal(sqlite3 *p_db,
 	ret = prepare_stmt(p_db, &p_stmt,
 			   "SELECT application_view.app_id \
 			     FROM application_view \
-			     WHERE application_view.name = %Q",
+			     WHERE application_view.name = %Q LIMIT 1",
 			   s_app_label_name);
 
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
@@ -1063,10 +1063,10 @@ int change_app_permission_internal(sqlite3 *p_db,
 
 	ret = prepare_stmt(p_db, &p_stmt,
 			   "SELECT is_volatile, is_enabled, permission_id      \
-			     FROM    app_permission_list_view                   \
-			     WHERE   app_id = %d AND                            \
-			     permission_name=%Q AND                             \
-			     permission_type_name=%Q LIMIT 1",
+			    FROM    app_permission_list_view                   \
+			    WHERE   app_id = %d AND                            \
+			    permission_name=%Q AND                             \
+			    permission_type_name=%Q LIMIT 1",
 			   i_app_id, s_permission_name, s_permission_type_name);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 

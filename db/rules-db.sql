@@ -638,7 +638,7 @@ DROP TRIGGER IF EXISTS app_permission_view_insert_trigger;
 CREATE TRIGGER app_permission_view_insert_trigger
 INSTEAD OF INSERT ON app_permission_view
 BEGIN
-    INSERT INTO app_permission(app_id, permission_id, is_volatile, is_enabled)
+    INSERT OR IGNORE INTO app_permission(app_id, permission_id, is_volatile, is_enabled)
     SELECT      NEW.app_id,
                 permission_view.permission_id,
                 NEW.is_volatile,
