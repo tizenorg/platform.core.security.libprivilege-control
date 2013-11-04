@@ -241,6 +241,22 @@ int app_add_permissions(const char* app_id, const char** perm_list) DEPRECATED;
 int app_add_volatile_permissions(const char* app_id, const char** perm_list) DEPRECATED;
 
 /**
+ * Grant persistent SMACK permissions based on permissions list.
+ * It is intended to be called during app installation.
+ * It will add (if required) and enable requested permissions
+ * for an application. The permissions will be persistent.
+ * It must be called by privileged user.
+ *
+ *
+ * @param pkg_id application identifier
+ * @param app_type application type
+ * @param perm_list array of permission names, last element must be NULL
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int perm_app_register_permissions(const char *pkg_id, app_type_t app_type,
+        const char **perm_list);
+
+/**
  * Grant SMACK permissions based on permissions list.
  * It is intended to be called during app installation.
  * It will construct SMACK rules based on permissions list, grant them

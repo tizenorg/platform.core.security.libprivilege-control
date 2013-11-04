@@ -899,6 +899,14 @@ API int app_add_volatile_permissions(const char* app_id, const char** perm_list)
 	return app_add_permissions_internal(app_id, APP_TYPE_OTHER, perm_list, 0);
 }
 
+API int perm_app_register_permissions(const char *pkg_id, app_type_t app_type,
+        const char **perm_list)
+{
+	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d",
+				__func__, pkg_id, app_type);
+	return perm_app_enable_permissions(pkg_id, app_type, perm_list, true);
+}
+
 API int app_enable_permissions(const char* pkg_id, app_type_t app_type, const char** perm_list, bool persistent)//deprecated
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d, persistent=%d",
