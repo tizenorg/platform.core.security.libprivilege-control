@@ -12,8 +12,8 @@ PRAGMA auto_vacuum = NONE;
 
 BEGIN EXCLUSIVE TRANSACTION;
 
--- Update here on every schema_change! Integer value.
-PRAGMA schema_version = 2;
+-- Update here on every schema change! Integer value.
+PRAGMA user_version = 2;
 
 CREATE TABLE IF NOT EXISTS  app (
     app_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
