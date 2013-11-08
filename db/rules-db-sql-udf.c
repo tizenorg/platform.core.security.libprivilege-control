@@ -26,6 +26,17 @@
 * @brief       This file contains implementation of a SQLite module used in rules-db.
 */
 
+/*
+ * WARNING FOR DEVELOPER:
+ * Changing this file has to keep backward compatibility.
+ * While you need to make a change that breaks backward compatibility,
+ * you have to build all older versions of librules-db-sql-udf.so library
+ * and pack them in libprivilege-control package, so that old update
+ * sql scripts could use older versions of this library.
+ * Alternatively if you need changes that are not backward compatible,
+ * you can make a separate library built from a separate .c file.
+ */
+
 #include <sqlite3ext.h>
 
 #define UNUSED __attribute__((unused))

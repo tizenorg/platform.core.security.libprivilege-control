@@ -100,14 +100,13 @@ then
 	mkdir -p /opt/etc/smack-app-early/accesses.d
 fi
 
-sqlite3 /opt/dbspace/.rules-db.db3 < /opt/dbspace/rules-db.sql
-rm -f /opt/dbspace/rules-db.sql
-
-sqlite3 /opt/dbspace/.rules-db.db3 < /opt/dbspace/rules-db-data.sql
-rm -f /opt/dbspace/rules-db-data.sql
+/usr/share/privilege-control/updater.sh
 
 api_feature_loader --verbose --dir=/usr/share/privilege-control/
 api_feature_loader --verbose --rules=/usr/share/privilege-control/ADDITIONAL_RULES.smack
+
+%check
+./db/updater.sh --check-files %{buildroot}
 
 %files
 %{_libdir}/*.so.*
@@ -121,9 +120,11 @@ api_feature_loader --verbose --rules=/usr/share/privilege-control/ADDITIONAL_RUL
 /usr/bin/api_feature_loader
 #link to activate systemd service
 /usr/lib/systemd/system/multi-user.target.wants/smack-rules.service
-/opt/dbspace/rules-db.sql
-/opt/dbspace/rules-db-data.sql
-/opt/etc/smack/load-rules-db.sql
+/usr/share/privilege-control/rules-db.sql
+/usr/share/privilege-control/rules-db-data.sql
+/usr/share/privilege-control/updater.sh
+/usr/share/privilege-control/updates/*
+/usr/share/privilege-control/load-rules-db.sql
 
 %files conf
 /etc/group

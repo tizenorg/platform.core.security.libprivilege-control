@@ -96,9 +96,21 @@ INSTALL(FILES .privilege_control_app_gids.db DESTINATION /opt/dbspace)
 #INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/udev/ DESTINATION lib/udev)
 INSTALL(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/slp-su DESTINATION bin)
 
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/rules-db.sql DESTINATION /opt/dbspace)
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/rules-db-data.sql DESTINATION /opt/dbspace)
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/load-rules-db.sql DESTINATION /opt/etc/smack/)
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/rules-db.sql DESTINATION /usr/share/privilege-control)
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/rules-db-data.sql DESTINATION /usr/share/privilege-control)
+INSTALL(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/db/updates/ DESTINATION /usr/share/privilege-control/updates)
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/updater.sh DESTINATION /usr/share/privilege-control
+     PERMISSIONS OWNER_READ
+                 OWNER_WRITE
+                 OWNER_EXECUTE
+                 GROUP_READ
+                 GROUP_WRITE
+                 GROUP_EXECUTE
+                 WORLD_READ
+                 WORLD_WRITE
+                 WORLD_EXECUTE)
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/load-rules-db.sql DESTINATION /usr/share/privilege-control)
+
 
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/smack-rules.service
 	DESTINATION /usr/lib/systemd/system
