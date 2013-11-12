@@ -376,8 +376,8 @@ int rdb_enable_app_permissions(const char *const s_app_label_name,
 						     s_permission_group_type_name,
 						     b_is_volatile,
 						     RDB_ENABLE);
-		if(ret != PC_OPERATION_SUCCESS) goto finish;
 		free(s_permission_name);
+		if(ret != PC_OPERATION_SUCCESS) goto finish;
 	}
 
 	ret = add_modified_label_internal(p_db, s_app_label_name);
@@ -419,9 +419,8 @@ int rdb_disable_app_permissions(const char *const s_app_label_name,
 						     s_permission_name,
 						     s_permission_group_type_name,
 						     RDB_DISABLE);
-		if(ret != PC_OPERATION_SUCCESS) goto finish;
-
 		free(s_permission_name);
+		if(ret != PC_OPERATION_SUCCESS) goto finish;
 	}
 
 	ret = add_modified_label_internal(p_db, s_app_label_name);
