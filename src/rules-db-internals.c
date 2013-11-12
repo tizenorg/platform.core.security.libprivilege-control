@@ -335,7 +335,7 @@ int check_app_label_internal(sqlite3 *p_db,
 	if(ret == SQLITE_ROW) {
 		// There is such application label
 		ret = PC_ERR_DB_LABEL_TAKEN;
-	} if(ret == SQLITE_DONE) {
+	} else if(ret == SQLITE_DONE) {
 		// No such application label
 		ret = PC_OPERATION_SUCCESS;
 	} else {

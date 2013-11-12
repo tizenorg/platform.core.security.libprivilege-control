@@ -544,7 +544,7 @@ BEGIN
     INSERT OR IGNORE INTO label(name) VALUES (NEW.path_label_name);
 
     -- Add the path
-    INSERT INTO app_path(app_id, path, label_id, access, access_reverse, app_path_type_id)
+    INSERT OR IGNORE INTO app_path(app_id, path, label_id, access, access_reverse, app_path_type_id)
     SELECT  application_view.app_id,
             NEW.path,
             label.label_id,
