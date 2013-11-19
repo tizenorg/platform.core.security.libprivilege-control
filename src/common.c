@@ -442,50 +442,47 @@ inline const char* app_type_group_name(app_type_t app_type)
  * For e.g. from http://tizen.org/privilege/contact.read will be
  * created basename : org.tizen.privilege.contact.read
  */
-
-int base_name_from_perm(const char *perm, char **name)
+int base_name_from_perm(const char *s_perm, char **ps_name)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: perm=%s",
-				__func__, perm);
+				__func__, s_perm);
 
-	iri_t *ip = NULL;
-	char *host_dot = NULL;
-	char *rest_slash = NULL;
-	int ret;
+	iri_t *piri_parsed = NULL;
+	char *pc_rest_slash = NULL;
 
-	ip = iri_parse(perm);
-	if (ip == NULL || ip->host == NULL) {
-		SECURE_C_LOGE("Bad permission format : %s", perm);
-		iri_destroy(ip);
+	piri_parsed = iri_parse(s_perm);
+	if (piri_parsed == NULL || piri_parsed->host == NULL) {
+		SECURE_C_LOGE("Bad permission format : %s", s_perm);
+		iri_destroy(piri_parsed);
 		return PC_ERR_INVALID_PARAM;
 	}
 
-	if (ip->path == NULL) {
-		ip->path = ip->host;
-		ip->host = NULL;
+	ssize_t i_host_size = strlen(piri_parsed->host);
+	ssize_t i_path_start = 0;
+	char * pc_host_dot = NULL;
+
+	if(piri_parsed->path) {
+		pc_host_dot = strrchr(piri_parsed->host, '.');
+		i_path_start = i_host_size;
 	}
 
-	if (ip->host) {
-		host_dot = strrchr(ip->host, '.');
-		if (host_dot) {
-			*host_dot = '\0';
-			++host_dot;
-		}
-	}
-
-	while ((rest_slash = strchr(ip->path, '/'))) {
-		*rest_slash = '.';
-	}
-
-	ret = asprintf(name, "%s%s%s%s",
-			host_dot ? host_dot : "", host_dot ? "." : "",
-			ip->host ? ip->host : "", ip->path);
+	int ret = asprintf(ps_name, "%s%s%.*s%s",
+			   pc_host_dot ? pc_host_dot + 1 : "",
+			   pc_host_dot ? "." : "",
+			   pc_host_dot ? pc_host_dot - piri_parsed->host : i_host_size,
+			   piri_parsed->host,
+			   piri_parsed->path ? piri_parsed->path : "");
 	if (ret == -1) {
 		C_LOGE("asprintf failed");
-		iri_destroy(ip);
+		iri_destroy(piri_parsed);
 		return PC_ERR_MEM_OPERATION;
 	}
 
-	iri_destroy(ip);
+	pc_rest_slash = *ps_name + i_path_start;
+	while ((pc_rest_slash = strchr(pc_rest_slash, '/'))) {
+		*pc_rest_slash = '.';
+	}
+
+	iri_destroy(piri_parsed);
 	return PC_OPERATION_SUCCESS;
 }
