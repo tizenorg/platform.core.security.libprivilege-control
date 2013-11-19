@@ -472,6 +472,13 @@ int perm_end(void);
  */
 int perm_add_additional_rules(const char** set_smack_rule_set);
 
+/**
+ * Get message connected to error code.
+ *
+ * @param errnum error code
+ * @return string describing the error code
+ */
+const char* perm_strerror(int errnum);
 
 #ifdef __cplusplus
 }

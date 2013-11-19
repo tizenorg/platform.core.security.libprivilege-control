@@ -1592,3 +1592,39 @@ API int perm_add_additional_rules(const char** smack_rules){
 
 	return PC_OPERATION_SUCCESS;
 }
+
+API const char* perm_strerror(int errnum)
+{
+	switch (errnum) {
+	case PC_OPERATION_SUCCESS:
+		return "Success";
+	case PC_ERR_FILE_OPERATION:
+		return "File operation error";
+	case PC_ERR_MEM_OPERATION:
+		return "Memory operation error";
+	case PC_ERR_NOT_PERMITTED:
+		return "Operation not permitted";
+	case PC_ERR_INVALID_PARAM:
+		return "Invalid parameter";
+	case PC_ERR_INVALID_OPERATION:
+		return "Invalid operation";
+	case PC_ERR_DB_OPERATION:
+		return "Database operation error";
+	case PC_ERR_DB_LABEL_TAKEN:
+		return "Label taken by another application";
+	case PC_ERR_DB_QUERY_PREP:
+		return "Query failure during preparation";
+	case PC_ERR_DB_QUERY_BIND:
+		return "Query failure during binding";
+	case PC_ERR_DB_QUERY_STEP:
+		return "Query failure during stepping";
+	case PC_ERR_DB_CONNECTION:
+		return "Cannot establish a connection";
+	case PC_ERR_DB_NO_SUCH_APP:
+		return "No such application";
+	case PC_ERR_DB_PERM_FORBIDDEN:
+		return "Duplicate permission";
+	default:
+		return "Unknown error";
+	}
+}
