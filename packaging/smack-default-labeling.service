@@ -2,7 +2,7 @@
 Description=Default SMACK labeling
 DefaultDependencies=no
 Requires=smack.service local-fs.target
-After=smack.service local-fs.target
+After=smack.mount local-fs.target
 Before=basic.target
 
 [Service]
