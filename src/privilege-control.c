@@ -931,7 +931,6 @@ API int app_disable_permissions(const char* pkg_id, app_type_t app_type, const c
 	return perm_app_disable_permissions(pkg_id, app_type, perm_list);
 }
 
-/* FIXME: this function is only a stub */
 API int perm_app_disable_permissions(const char* pkg_id, app_type_t app_type, const char** perm_list)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d",
