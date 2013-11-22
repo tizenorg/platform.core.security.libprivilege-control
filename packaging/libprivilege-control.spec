@@ -100,7 +100,7 @@ then
 	mkdir -p /opt/etc/smack-app-early/accesses.d
 fi
 
-/usr/share/privilege-control/updater.sh
+/usr/share/privilege-control/db/updater.sh
 
 api_feature_loader --verbose --dir=/usr/share/privilege-control/
 api_feature_loader --verbose --rules=/usr/share/privilege-control/ADDITIONAL_RULES.smack
@@ -120,11 +120,11 @@ api_feature_loader --verbose --rules=/usr/share/privilege-control/ADDITIONAL_RUL
 /usr/bin/api_feature_loader
 #link to activate systemd service
 /usr/lib/systemd/system/multi-user.target.wants/smack-rules.service
-/usr/share/privilege-control/rules-db.sql
-/usr/share/privilege-control/rules-db-data.sql
-/usr/share/privilege-control/updater.sh
-/usr/share/privilege-control/updates/*
-/usr/share/privilege-control/load-rules-db.sql
+/usr/share/privilege-control/db/rules-db.sql
+/usr/share/privilege-control/db/rules-db-data.sql
+/usr/share/privilege-control/db/updater.sh
+/usr/share/privilege-control/db/updates/*
+/usr/share/privilege-control/db/load-rules-db.sql
 
 %files conf
 /etc/group

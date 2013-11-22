@@ -20,8 +20,8 @@ fi
 
 
 database="$dir/opt/dbspace/.rules-db.db3"
-scripts_dir="$dir/usr/share/privilege-control"
-updates_dir="$dir/usr/share/privilege-control/updates"
+scripts_dir="$dir/usr/share/privilege-control/db"
+updates_dir="$dir/usr/share/privilege-control/db/updates"
 
 echo $database
 
