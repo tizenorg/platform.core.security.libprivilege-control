@@ -385,16 +385,16 @@ inline const char* app_type_name(app_type_t app_type)
 				__func__, app_type);
 
 	switch (app_type) {
-	case PERM_APP_TYPE_WGT:
+	case PERM_APP_TYPE_WRT:
 		C_LOGD("App type = WRT");
 		return "WRT";
 	case PERM_APP_TYPE_OSP:
 		C_LOGD("App type = OSP");
 		return "OSP";
-	case PERM_APP_TYPE_WGT_PARTNER:
+	case PERM_APP_TYPE_WRT_PARTNER:
 		C_LOGD("App type = WRT_partner");
 		return "WRT_partner";
-	case PERM_APP_TYPE_WGT_PLATFORM:
+	case PERM_APP_TYPE_WRT_PLATFORM:
 		C_LOGD("App type = WRT_platform");
 		return "WRT_platform";
 	case PERM_APP_TYPE_OSP_PARTNER:
@@ -418,9 +418,9 @@ inline const char* app_type_group_name(app_type_t app_type)
 				__func__, app_type);
 
 	switch (app_type) {
-	case PERM_APP_TYPE_WGT:
-	case PERM_APP_TYPE_WGT_PARTNER:
-	case PERM_APP_TYPE_WGT_PLATFORM:
+	case PERM_APP_TYPE_WRT:
+	case PERM_APP_TYPE_WRT_PARTNER:
+	case PERM_APP_TYPE_WRT_PLATFORM:
 		C_LOGD("App type group name = WRT");
 		return "WRT";
 	case PERM_APP_TYPE_OSP:

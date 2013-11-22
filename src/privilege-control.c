@@ -449,9 +449,9 @@ static int get_smack_from_binary(char **smack_label, const char* path, app_type_
 	int ret;
 
 	*smack_label = NULL;
-	if (type == PERM_APP_TYPE_WGT
-	|| type == PERM_APP_TYPE_WGT_PARTNER
-	|| type == PERM_APP_TYPE_WGT_PLATFORM) {
+	if (type == PERM_APP_TYPE_WRT
+	|| type == PERM_APP_TYPE_WRT_PARTNER
+	|| type == PERM_APP_TYPE_WRT_PLATFORM) {
 		ret = smack_lgetlabel(path, smack_label, SMACK_LABEL_EXEC);
 	} else {
 		ret = smack_getlabel(path, smack_label, SMACK_LABEL_EXEC);
@@ -542,14 +542,14 @@ static app_type_t verify_app_type(const char* type, const char* path)
 
 	if (is_widget(path)) {
 		if (!strcmp(type, "wgt")) {
-			C_LOGD("PKG_TYPE_WGT");
-			return PERM_APP_TYPE_WGT; /* good */
+			C_LOGD("PKG_TYPE_WRT");
+			return PERM_APP_TYPE_WRT; /* good */
 		} else if (!strcmp(type, "wgt_partner")) {
-			C_LOGD("PKG_TYPE_WGT_PARTNER");
-			return PERM_APP_TYPE_WGT_PARTNER; /* good */
+			C_LOGD("PKG_TYPE_WRT_PARTNER");
+			return PERM_APP_TYPE_WRT_PARTNER; /* good */
 		} else if (!strcmp(type, "wgt_platform")) {
-			C_LOGD("PKG_TYPE_WGT_PLATFORM");
-			return PERM_APP_TYPE_WGT_PLATFORM; /* good */
+			C_LOGD("PKG_TYPE_WRT_PLATFORM");
+			return PERM_APP_TYPE_WRT_PLATFORM; /* good */
 		}
 
 	} else {
