@@ -231,4 +231,20 @@ int rdb_app_has_permission(const char *const s_app_label_name,
 			   const char *const s_permission_name,
 			   bool *const p_is_enabled);
 
+
+/**
+ * Get permissions for the specified app.
+ *
+ * @ingroup RDB API functions
+ *
+ * @param  s_app_label_name       application label's name
+ * @param  s_permission_type_name permission type's name
+ * @param  ppp_perm_list          buffer for return value
+ * @return                        PC_OPERATION_SUCCESS on success,
+ *                                error code otherwise
+ */
+int rdb_app_get_permissions(const char *const s_app_label_name,
+			    const char *const s_permission_type_name,
+			    char ***ppp_perm_list);
+
 #endif /*_RULES_DB_H_*/

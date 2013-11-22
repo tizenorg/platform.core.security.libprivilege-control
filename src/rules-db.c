@@ -547,3 +547,32 @@ int rdb_app_has_permission(const char *const s_app_label_name,
 finish:
 	return rdb_finish(p_db, ret);
 }
+
+int rdb_app_get_permissions(const char *const s_app_label_name,
+			    const char *const s_permission_type_name,
+			    char ***ppp_perm_list)
+{
+	RDB_LOG_ENTRY_PARAM("%s %s", s_app_label_name, s_permission_type_name);
+
+	int ret = PC_ERR_DB_OPERATION;
+	int i_num_permissions;
+	sqlite3 *p_db = NULL;
+
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_SHARED_READ);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = get_app_permissions_number_internal(p_db,
+						  s_app_label_name,
+						  s_permission_type_name,
+						  &i_num_permissions);
+	if (ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = get_app_permissions_internal(p_db,
+					   s_app_label_name,
+					   s_permission_type_name,
+					   i_num_permissions,
+					   ppp_perm_list);
+
+finish:
+	return rdb_finish(p_db, ret);
+}

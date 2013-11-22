@@ -304,6 +304,37 @@ int check_app_has_permission_internal(sqlite3 *p_db,
 
 
 /**
+ * Get number of permission of a certain type for the specified app.
+ *
+ * @param  p_db                   pointer to a SQLite3 database object
+ * @param  s_app_label_name       application label's name
+ * @param  s_permission_type_name permission type's name
+ * @param  p_num_permissions      buffer for return value
+ * @return                        PC_OPERATION_SUCCESS on success, error code otherwise
+ */
+int get_app_permissions_number_internal(sqlite3  *p_db,
+					const char *const s_app_label_name,
+					const char *const s_permission_type_name,
+					int *const p_num_permissions);
+
+/**
+ * Get permissions for the specified app.
+ *
+ * @param  p_db                   pointer to a SQLite3 database object
+ * @param  s_app_label_name       application label's name
+ * @param  s_permission_type_name permission type's name
+ * @param  i_num_permissions      number of permissions of the specified type
+ * @param  ppp_perm_list          buffer for return value
+ * @return                        PC_OPERATION_SUCCESS on success, error code otherwise
+ */
+int get_app_permissions_internal(sqlite3 *p_db,
+				 const char *const s_app_label_name,
+				 const char *const s_permission_type_name,
+				 const int i_num_permissions,
+				 char ***ppp_perm_list);
+
+
+/**
  * Gets the internal app id of an application with a given name.
  *
  * @ingroup RDB internal functions

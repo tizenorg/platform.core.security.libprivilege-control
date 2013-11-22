@@ -329,6 +329,23 @@ int perm_app_has_permission(const char *pkg_id,
 			    bool *is_enabled);
 
 /**
+ * Get permissions for the specified app.
+ *
+ * In case of success caller is responsible for freeing memory allocated by it.
+ * Each cell in *ppp_perm_list except for the last (NULL) should be freed, followed by freeing
+ * *ppp_perm_list itself.
+ *
+ * In case of error an error code is returned and, provided that ppp_perm_list is not NULL,
+ * *ppp_perm_list is set to NULL.
+ *
+ * @param  pkg_id        application identifier
+ * @param  app_type      application type
+ * @param  ppp_perm_list buffer for return value
+ * @return               PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int perm_app_get_permissions(const char *pkg_id, app_type_t app_type, char ***ppp_perm_list);
+
+/**
  * Recursively set SMACK access labels for an application directory
  * and execute labels for executable files.
  * This function should be called once during app installation.

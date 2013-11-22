@@ -1027,6 +1027,40 @@ API int perm_app_has_permission(const char *pkg_id,
 	return rdb_app_has_permission(pkg_id, app_group, permission_name, is_enabled);
 }
 
+API int perm_app_get_permissions(const char *pkg_id, app_type_t app_type, char ***ppp_perm_list)
+{
+	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d", __func__, pkg_id,
+		      app_type);
+
+	const char *app_group = app_type_group_name(app_type);
+	int ret;
+
+	if (ppp_perm_list == NULL) {
+		C_LOGE("Invalid param ppp_perm_list (NULL).");
+		return PC_ERR_INVALID_PARAM;
+	}
+	// Set the given pointer to NULL in case of future failure.
+	*ppp_perm_list = NULL;
+
+	if (app_group == NULL) {
+		C_LOGE("Unknown param app type.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if (!smack_label_is_valid(pkg_id)) {
+		C_LOGE("Invalid param app_id.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	ret = rdb_app_get_permissions(pkg_id, app_group, ppp_perm_list);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("RDB rdb_app_get_permissions failed with: %d", ret);
+		return ret;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
 API int app_label_dir(const char* label, const char* path)//deprecated
 {
 	SECURE_C_LOGD("Entering function: %s. Params: label=%s, path=%s",
