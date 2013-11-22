@@ -5,7 +5,6 @@ Release:    1
 Group:      Security/Access Control
 License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
-Source2:    smack-default-labeling.service
 Source1001:    %{name}.manifest
 BuildRequires: cmake
 BuildRequires: pkgconfig(libsmack)
@@ -41,9 +40,6 @@ make %{?jobs:-j%jobs}
 
 %install
 %make_install
-mkdir -p %{buildroot}/usr/lib/systemd/system/basic.target.wants
-install -m 644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/
-ln -s ../smack-default-labeling.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/
 mkdir -p %{buildroot}/usr/share/privilege-control/
 
 %post -p /sbin/ldconfig
@@ -62,8 +58,6 @@ mkdir -p %{buildroot}/usr/share/privilege-control/
 %files conf
 %manifest %{name}.manifest
 /opt/etc/smack/*
-/usr/lib/systemd/system/smack-default-labeling.service
-/usr/lib/systemd/system/basic.target.wants/smack-default-labeling.service
 /opt/dbspace/.privilege_control*.db
 
 %files devel
