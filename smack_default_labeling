@@ -1,5 +1,5 @@
 #!/bin/sh
-
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DBSPACE=/opt/dbspace
 DBSPACE_RW=/opt/usr/dbspace
 APPS_DIR=/opt/apps
