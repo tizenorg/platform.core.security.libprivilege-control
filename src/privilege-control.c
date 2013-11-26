@@ -1348,6 +1348,40 @@ API int perm_app_setup_path(const char* pkg_id, const char* path, app_path_type_
 	return ret;
 }
 
+API int perm_app_get_paths(const char* pkg_id, app_path_type_t app_path_type, char*** ppp_paths)
+{
+	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_path_type=%d", __func__,
+		      pkg_id, app_path_type);
+
+	const char *path_type_name = app_path_type_name(app_path_type);
+	int ret;
+
+	if (ppp_paths == NULL) {
+		C_LOGE("Invalid param ppp_paths (NULL).");
+		return PC_ERR_INVALID_PARAM;
+	}
+	// Set the given pointer to NULL in case of future failure.
+	*ppp_paths = NULL;
+
+	if (path_type_name == NULL) {
+		C_LOGE("Unknown or invalid param app_path_type.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if (!smack_label_is_valid(pkg_id)) {
+		C_LOGE("Invalid param app_id.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	ret = rdb_get_app_paths(pkg_id, path_type_name, ppp_paths);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("RDB rdb_app_get_paths failed with: %d", ret);
+		return ret;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
 API int app_add_friend(const char* pkg_id1, const char* pkg_id2)//deprecated
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id1=%s, pkg_id2=%s",

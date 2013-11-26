@@ -436,6 +436,26 @@ inline const char* app_type_group_name(app_type_t app_type)
 	}
 }
 
+const char* app_path_type_name(app_path_type_t app_path_type)
+{
+	SECURE_C_LOGD("Entering function %s. Params: app_path_type=%d", __func__, app_path_type);
+
+	switch(app_path_type) {
+	case PERM_APP_PATH_GROUP:
+		return "GROUP_PATH";
+	case PERM_APP_PATH_PUBLIC:
+		return "PUBLIC_PATH";
+	case PERM_APP_PATH_SETTINGS:
+		return "SETTINGS_PATH";
+	case PERM_APP_PATH_NPRUNTIME:
+		return "NPRUNTIME_PATH";
+	case PERM_APP_PATH_PRIVATE:
+	case PERM_APP_PATH_ANY_LABEL:
+	default:
+		// App path type not stored in the database, return NULL;
+		return NULL;
+	}
+}
 
 /**
  * This function changes permission URI to basename for file name.

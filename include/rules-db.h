@@ -110,6 +110,20 @@ int rdb_add_path(const char *const s_owner_label_name,
 
 
 /**
+ * Get paths of the specified type for the given application.
+ *
+ * @ingroup RDB API functions
+ *
+ * @param s_app_label_name     application's label name
+ * @param s_app_path_type_name name of the path type to get
+ * @param ppp_paths            buffer for return value
+ * @return                     PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int rdb_get_app_paths(const char *const s_app_label_name,
+		      const char *const s_app_path_type_name,
+		      char ***ppp_paths);
+
+/**
  * Add permission with the given name and type and add smack rules.
  *
  * @ingroup RDB API functions

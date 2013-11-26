@@ -412,6 +412,25 @@ int add_shared_dir_readers(const char* shared_label, const char** app_list) DEPR
 int perm_app_setup_path(const char* pkg_id, const char* path, app_path_type_t app_path_type, ...);
 int app_setup_path(const char* pkg_id, const char* path, app_path_type_t app_path_type, ...) DEPRECATED;
 
+/**
+ * Get paths of the specified type for the given application.
+ *
+ * Provided type must be one of PERM_APP_PATH_GROUP, PERM_APP_PATH_PUBLIC, PERM_APP_PATH_SETTINGS,
+ * PERM_APP_PATH_NPRUNTIME, as other types are not stored in the database.
+ *
+ * In case of success caller is responsible for freeing memory allocated by it.
+ * Each cell in *ppp_paths except for the last (NULL) should be freed, followed by freeing
+ * *ppp_paths itself.
+ *
+ * In case of error an error code is returned and, provided that ppp_paths is not NULL,
+ * *ppp_paths is set to NULL.
+ *
+ * @param  pkg_id        application identifier
+ * @param  app_path_type type of path
+ * @param  ppp_paths     buffer for return value
+ * @return               PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int perm_app_get_paths(const char* pkg_id, app_path_type_t app_path_type, char*** ppp_paths);
 
 /**
  * Make two applications "friends", by giving them both full permissions on

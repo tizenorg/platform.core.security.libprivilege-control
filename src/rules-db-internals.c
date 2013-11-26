@@ -447,6 +447,119 @@ finish:
 	return ret;
 }
 
+int get_app_paths_count_internal(sqlite3 *p_db,
+				 const char *const s_app_label_name,
+				 const char *const s_app_path_type_name,
+				 int *const p_num_paths)
+{
+	RDB_LOG_ENTRY_PARAM("%s %s", s_app_label_name, s_app_path_type_name);
+
+	int ret;
+	int sql_ret;
+	sqlite3_stmt *p_stmt = NULL;
+
+	ret = prepare_stmt(p_db, &p_stmt,
+			   "SELECT COUNT(path)                   \
+			    FROM   path_view                     \
+			    WHERE  owner_app_label_name = %Q AND \
+	                           path_type_name = %Q",
+	                   s_app_label_name, s_app_path_type_name);
+	if (ret != PC_OPERATION_SUCCESS) goto finish;
+
+	sql_ret = sqlite3_step(p_stmt);
+	if (sql_ret == SQLITE_ROW) {
+		ret = PC_OPERATION_SUCCESS;
+		*p_num_paths = sqlite3_column_int(p_stmt, RDB_FIRST_COLUMN);
+	} else if(sql_ret == SQLITE_BUSY) {
+		//base locked in exclusive mode for too long
+		C_LOGE("RDB: Database is busy. RDB Connection Error returned.");
+		ret = PC_ERR_DB_CONNECTION;
+	} else {
+		C_LOGE("RDB: Error during stepping: %s", sqlite3_errmsg(p_db));
+		ret = PC_ERR_DB_QUERY_STEP;
+	}
+
+finish:
+	if (sqlite3_finalize(p_stmt) < 0) {
+		C_LOGE("RDB: Error during finalizing statement: %s", sqlite3_errmsg(p_db));
+	}
+
+	return ret;
+}
+
+int get_app_paths_internal(sqlite3 *p_db,
+			   const char *const s_app_label_name,
+			   const char *const s_app_path_type_name,
+			   const int i_num_paths,
+			   char ***ppp_paths)
+{
+	RDB_LOG_ENTRY_PARAM("%s %s %d", s_app_label_name, s_app_path_type_name, i_num_paths);
+
+	int ret;
+	int sql_ret = SQLITE_DONE;
+	int allocated_paths = 0;
+	int i;
+	sqlite3_stmt *p_stmt = NULL;
+
+	// Allocate an array for paths (+1 for NULL pointer terminating *ppp_paths).
+	*ppp_paths = (char **) malloc(sizeof **ppp_paths * (i_num_paths + 1));
+
+	if (*ppp_paths == NULL) {
+		C_LOGE("Cannot allocate memory");
+		return PC_ERR_MEM_OPERATION;
+	}
+
+	ret = prepare_stmt(p_db, &p_stmt,
+			   "SELECT path                          \
+			    FROM   path_view                     \
+			    WHERE  owner_app_label_name = %Q AND \
+		                   path_type_name = %Q",
+		                   s_app_label_name, s_app_path_type_name);
+	if (ret != PC_OPERATION_SUCCESS) goto finish;
+
+	for (i = 0; i < i_num_paths; ++i) {
+		if ((sql_ret = sqlite3_step(p_stmt)) != SQLITE_ROW) break;
+
+		(*ppp_paths)[i] = strdup((const char *) sqlite3_column_text(p_stmt,
+					RDB_FIRST_COLUMN));
+
+		if ((*ppp_paths)[i] == NULL) {
+			ret = PC_ERR_MEM_OPERATION;
+			goto finish;
+		}
+
+		++allocated_paths;
+	}
+	(*ppp_paths)[allocated_paths] = NULL;
+
+	if (allocated_paths == i_num_paths) {
+		ret = PC_OPERATION_SUCCESS;
+	} else if (sql_ret == SQLITE_BUSY) {
+		//base locked in exclusive mode for too long
+		C_LOGE("RDB: Database is busy. RDB Connection Error returned.");
+		ret = PC_ERR_DB_CONNECTION;
+	} else {
+		C_LOGE("RDB: Error during stepping: %s", sqlite3_errmsg(p_db));
+		ret = PC_ERR_DB_QUERY_STEP;
+	}
+
+finish:
+	if (ret != PC_OPERATION_SUCCESS) {
+		for(i = 0; i < allocated_paths; ++i) {
+			free((*ppp_paths)[i]);
+		}
+
+		free(*ppp_paths);
+		*ppp_paths = NULL;
+	}
+
+	if (sqlite3_finalize(p_stmt) < 0) {
+		C_LOGE("RDB: Error during finalizing statement: %s", sqlite3_errmsg(p_db));
+	}
+
+	return ret;
+}
+
 
 int add_permission_internal(sqlite3 *p_db,
 			    const char *const s_permission_name,

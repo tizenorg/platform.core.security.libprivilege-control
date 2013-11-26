@@ -147,6 +147,19 @@ const char* app_type_name(app_type_t app_type);
 const char* app_type_group_name(app_type_t app_type);
 
 /**
+ * Get the app path type name as stored in the database.
+ *
+ * This returns valid names only if paths of the given type are stored in the database.
+ * Otherwise NULL is returned.
+ *
+ * @ingroupd RDB itnernal functions
+ *
+ * @param  app_path_type type of the application's path
+ * @return name of the application's path or NULL if no matching type was found
+ */
+const char* app_path_type_name(app_path_type_t app_path_type);
+
+/**
  * Divide a Smack rule into subject, object and access
  *
  * @ingroup RDB internal functions

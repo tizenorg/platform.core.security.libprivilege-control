@@ -290,6 +290,35 @@ finish:
 }
 
 
+int rdb_get_app_paths(const char *const s_app_label_name,
+		      const char *const s_app_path_type_name,
+		      char ***ppp_paths)
+{
+	RDB_LOG_ENTRY_PARAM("%s %s", s_app_label_name, s_app_path_type_name);
+
+	int ret;
+	int i_num_paths;
+	sqlite3 *p_db = NULL;
+
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_SHARED_READ);
+	if (ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = get_app_paths_count_internal(p_db,
+					   s_app_label_name,
+					   s_app_path_type_name,
+					   &i_num_paths);
+	if (ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = get_app_paths_internal(p_db, s_app_label_name,
+				     s_app_path_type_name,
+				     i_num_paths,
+				     ppp_paths);
+
+finish:
+	return rdb_finish(p_db, ret);
+}
+
+
 int rdb_add_permission_rules(const char *const s_permission_name,
 			     const char *const s_permission_type_name,
 			     const char *const *const pp_smack_rules)

@@ -207,6 +207,40 @@ int add_path_internal(sqlite3 *p_db,
 
 
 /**
+ * Get number of paths of the specified type for the given application.
+ *
+ * @param  p_db                 pointer to a SQLite3 database object
+ * @param  s_app_label_name     application's label name
+ * @param  s_app_path_type_name name of the path type to get
+ * @param  p_num_paths          buffer for the return value
+ * @return                      PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int get_app_paths_count_internal(sqlite3 *p_db,
+				 const char *const s_app_label_name,
+				 const char *const s_app_path_type_name,
+				 int *const p_num_paths);
+
+
+/**
+ * Get paths of the specified type for the given application.
+ *
+ * @ingroup RDB API functions
+ *
+ * @param  p_db                 pointer to a SQLite3 database object
+ * @param  s_app_label_name     application's label name
+ * @param  s_app_path_type_name name of the path type to get
+ * @param  i_num_paths          number of paths
+ * @param  ppp_paths            buffer for return value
+ * @return                      PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int get_app_paths_internal(sqlite3 *p_db,
+			   const char *const s_app_label_name,
+			   const char *const s_app_path_type_name,
+			   const int i_num_paths,
+			   char ***ppp_paths);
+
+
+/**
  * Add a permission with a given name and of a give type
  * and return its internal permission id.
  *
