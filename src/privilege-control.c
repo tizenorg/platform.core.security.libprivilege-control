@@ -1405,12 +1405,6 @@ API int perm_app_install(const char* pkg_id)
 	char* smack_path AUTO_FREE;
 	struct smack_accesses *smack AUTO_SMACK_FREE;
 
-	ret = perm_begin();
-	if(ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("RDB perm_begin failed with: %d", ret);
-		return ret;
-	}
-
 	if (!smack_label_is_valid(pkg_id)) {
 		C_LOGE("Invalid param pkg_id.");
 		return PC_ERR_INVALID_PARAM;
