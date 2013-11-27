@@ -13,7 +13,7 @@ PRAGMA auto_vacuum = NONE;
 BEGIN EXCLUSIVE TRANSACTION;
 
 -- Update here on every schema change! Integer value.
-PRAGMA user_version = 2;
+PRAGMA user_version = 3;
 
 CREATE TABLE IF NOT EXISTS  app (
     app_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -22,7 +22,6 @@ CREATE TABLE IF NOT EXISTS  app (
 
     FOREIGN KEY(label_id) REFERENCES label(label_id)
 );
-CREATE INDEX IF NOT EXISTS app_index ON app(app_id, label_id);
 
 
 CREATE TABLE IF NOT EXISTS app_permission (
@@ -36,6 +35,9 @@ CREATE TABLE IF NOT EXISTS app_permission (
     FOREIGN KEY(app_id) REFERENCES app(app_id),
     FOREIGN KEY(permission_id) REFERENCES permission(permission_id)
 );
+
+-- Used by ltl_ view
+CREATE INDEX IF NOT EXISTS app_permission_permission_id_index ON app_permission(permission_id);
 
 CREATE TABLE IF NOT EXISTS app_path (
     app_id INTEGER NOT NULL,
@@ -58,13 +60,15 @@ CREATE TABLE IF NOT EXISTS app_path (
     FOREIGN KEY(app_path_type_id) REFERENCES app_path_type(app_path_type_id)
 );
 
+-- Used by ltl_ view
+CREATE INDEX IF NOT EXISTS app_path_app_path_type_id_index ON app_path(app_path_type_id);
+
 CREATE TABLE IF NOT EXISTS app_path_type (
     app_path_type_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL ,
 
     UNIQUE (name)
 );
--- CREATE INDEX IF NOT EXISTS app_path_type_index ON app_path_type(app_path_type_id, name);
 
 
 CREATE TABLE IF NOT EXISTS permission_permission_rule (
@@ -91,6 +95,9 @@ CREATE TABLE IF NOT EXISTS permission_label_rule (
     FOREIGN KEY(label_id) REFERENCES label(label_id)
 );
 
+-- Used by ltl_ view
+CREATE INDEX IF NOT EXISTS permission_label_rule_label_id_index ON permission_label_rule(label_id);
+
 CREATE TABLE IF NOT EXISTS permission_app_path_type_rule (
     permission_id INTEGER NOT NULL,
     app_path_type_id INTEGER NOT NULL,
@@ -102,6 +109,10 @@ CREATE TABLE IF NOT EXISTS permission_app_path_type_rule (
     FOREIGN KEY(permission_id) REFERENCES permission(permission_id),
     FOREIGN KEY(app_path_type_id) REFERENCES app_path_type(app_path_type_id)
 );
+
+-- Used by ltl_ view
+CREATE INDEX IF NOT EXISTS permission_app_path_type_rule_app_path_type_id_index
+    ON permission_app_path_type_rule(app_path_type_id);
 
 CREATE TABLE IF NOT EXISTS label_app_path_type_rule (
     label_id INTEGER NOT NULL,
@@ -139,7 +150,7 @@ CREATE TABLE IF NOT EXISTS permission (
     FOREIGN KEY(permission_type_id) REFERENCES permission_type(permission_type_id)
 );
 
-
+-- Not aggregated rules
 CREATE TABLE IF NOT EXISTS all_smack_binary_rules(
     subject TEXT NOT NULL,
     object  TEXT NOT NULL,
@@ -147,28 +158,38 @@ CREATE TABLE IF NOT EXISTS all_smack_binary_rules(
     is_volatile INTEGER NOT NULL
 );
 
+-- Index used for grouping and sorting by (subject, object)
+-- and used for filtering by subject
+CREATE INDEX IF NOT EXISTS all_smack_binary_rules_subject_object_index
+    ON all_smack_binary_rules(subject,  object);
+
+-- Index used for filtering by object
+CREATE INDEX IF NOT EXISTS all_smack_binary_rules_object_index
+    ON all_smack_binary_rules(object);
+
 -- TEMPORARY TABLES ------------------------------------------------------------
 -- Definitions are repeated in code.
-CREATE TEMPORARY TABLE history_smack_rule(
-    subject TEXT NOT NULL,
-    object  TEXT NOT NULL,
-    access  INTEGER NOT NULL
-);
-
 
 CREATE TEMPORARY TABLE modified_label(
-   name TEXT NOT NULL,
-   UNIQUE (name)
+   name TEXT NOT NULL PRIMARY KEY
 );
 
-
+-- Not aggregated subset of modified rules
 CREATE TEMPORARY TABLE all_smack_binary_rules_modified(
     subject TEXT NOT NULL,
     object  TEXT NOT NULL,
+    access  INTEGER NOT NULL,
+    is_volatile INTEGER NOT NULL
+);
+
+-- Aggregated subset of rules after changes
+CREATE TEMPORARY TABLE current_smack_rule_modified(
+    subject TEXT NOT NULL,
+    object  TEXT NOT NULL,
     access  INTEGER NOT NULL
 );
 
-
+-- Aggregated subset of rules before changes
 CREATE TEMPORARY TABLE history_smack_rule_modified(
     subject TEXT NOT NULL,
     object  TEXT NOT NULL,
@@ -701,28 +722,48 @@ WHERE       app_permission.is_enabled = 1;
 -- ltl = label to label
 DROP VIEW IF EXISTS ltl_permission_permission_rule_view;
 CREATE VIEW ltl_permission_permission_rule_view AS
-SELECT      (CASE WHEN is_reverse = 0 THEN app1.name ELSE app2.name END) AS subject,
-            (CASE WHEN is_reverse = 1 THEN app1.name ELSE app2.name END) AS object,
+SELECT      app1.name AS subject,
+            app2.name AS object,
             p.access,
             app1.is_volatile OR app2.is_volatile AS is_volatile
 FROM        permission_permission_rule AS p
 INNER JOIN  app_label_with_permission_view AS app1 USING(permission_id)
 INNER JOIN  app_label_with_permission_view AS app2
             ON app2.permission_id = p.target_permission_id
-WHERE       app1.app_id != app2.app_id;
+WHERE       is_reverse = 0 AND app1.app_id != app2.app_id
+UNION ALL
+SELECT      app2.name AS subject,
+            app1.name AS object,
+            p.access,
+            app1.is_volatile OR app2.is_volatile AS is_volatile
+FROM        permission_permission_rule AS p
+INNER JOIN  app_label_with_permission_view AS app1 USING(permission_id)
+INNER JOIN  app_label_with_permission_view AS app2
+            ON app2.permission_id = p.target_permission_id
+WHERE       is_reverse = 1 AND app1.app_id != app2.app_id;
 
 -- PERMISSION TO LABEL RULE VIEW -----------------------------------------------
 -- ltl = label to label
 DROP VIEW IF EXISTS ltl_permission_label_rule_view;
 CREATE VIEW ltl_permission_label_rule_view AS
-SELECT      (CASE WHEN is_reverse = 0 THEN app.name ELSE label.name END) AS subject,
-            (CASE WHEN is_reverse = 1 THEN app.name ELSE label.name END) AS object,
+SELECT      app.name AS subject,
+            label.name AS object,
             p.access,
             app.is_volatile
 FROM        permission_label_rule AS p
 INNER JOIN  app_label_with_permission_view AS app USING(permission_id)
 INNER JOIN  label USING(label_id)
-WHERE       app.name != label.name;
+WHERE       is_reverse = 0 AND app.name != label.name
+UNION ALL
+SELECT      label.name AS subject,
+            app.name AS object,
+            p.access,
+            app.is_volatile
+FROM        permission_label_rule AS p
+INNER JOIN  app_label_with_permission_view AS app USING(permission_id)
+INNER JOIN  label USING(label_id)
+WHERE       is_reverse = 1 AND app.name != label.name;
+
 
 
 
@@ -730,30 +771,50 @@ WHERE       app.name != label.name;
 -- ltl = label to label
 DROP VIEW IF EXISTS ltl_permission_app_path_type_rule_view;
 CREATE VIEW ltl_permission_app_path_type_rule_view AS
-SELECT      (CASE WHEN is_reverse = 0 THEN app.name ELSE label.name END) AS subject,
-            (CASE WHEN is_reverse = 1 THEN app.name ELSE label.name END) AS object,
+SELECT      app.name AS subject,
+            label.name AS object,
             p.access,
             app.is_volatile
 FROM        permission_app_path_type_rule AS p
 INNER JOIN  app_label_with_permission_view AS app USING(permission_id)
 INNER JOIN  app_path USING(app_path_type_id)
 INNER JOIN  label USING(label_id)
-WHERE       app.name != label.name;
+WHERE       is_reverse = 0 AND app.name != label.name
+UNION ALL
+SELECT      label.name AS subject,
+            app.name AS object,
+            p.access,
+            app.is_volatile
+FROM        permission_app_path_type_rule AS p
+INNER JOIN  app_label_with_permission_view AS app USING(permission_id)
+INNER JOIN  app_path USING(app_path_type_id)
+INNER JOIN  label USING(label_id)
+WHERE       is_reverse = 1 AND app.name != label.name;
 
 
 -- LABEL TO PATH TYPE RULE VIEW -------------------------------------------
 -- ltl = label to label
 DROP VIEW IF EXISTS ltl_label_app_path_type_rule_view;
 CREATE VIEW ltl_label_app_path_type_rule_view AS
-SELECT      (CASE WHEN is_reverse = 0 THEN label.name ELSE path_label.name END) AS subject,
-            (CASE WHEN is_reverse = 1 THEN label.name ELSE path_label.name END) AS object,
+SELECT      label.name AS subject,
+            path_label.name AS object,
             l.access AS access,
             0 AS is_volatile
 FROM        label_app_path_type_rule AS l
 INNER JOIN  label USING(label_id)
 INNER JOIN  app_path USING(app_path_type_id)
 INNER JOIN  label AS path_label ON app_path.label_id = path_label.label_id
-WHERE       path_label.name != label.name;
+WHERE       is_reverse = 0 AND path_label.name != label.name
+UNION ALL
+SELECT      path_label.name AS subject,
+            label.name AS object,
+            l.access AS access,
+            0 AS is_volatile
+FROM        label_app_path_type_rule AS l
+INNER JOIN  label USING(label_id)
+INNER JOIN  app_path USING(app_path_type_id)
+INNER JOIN  label AS path_label ON app_path.label_id = path_label.label_id
+WHERE       is_reverse = 1 AND path_label.name != label.name;
 
 
 -- PERMISSION TO APPLICATION'S OWN PATHS ---------------------------------------
@@ -786,8 +847,8 @@ DROP VIEW IF EXISTS all_smack_binary_rules_view;
 CREATE VIEW all_smack_binary_rules_view AS
 SELECT  subject,
         object,
-        bitwise_or(access) AS access,
-        MIN(is_volatile) AS is_volatile
+        access,
+        is_volatile
 FROM   (SELECT subject, object, access, is_volatile
         FROM   ltl_permission_permission_rule_view
         UNION ALL
@@ -805,9 +866,7 @@ FROM   (SELECT subject, object, access, is_volatile
         UNION ALL
         SELECT subject, object, access, 0
         FROM   ltl_app_path_reverse_view
-       )
-GROUP BY subject, object
-ORDER BY subject, object ASC;
+       );
 
 -- ALL INSERTED DATA VIEW ------------------------------------------------------
 -- This view is used to clear the database from inserted rules.
@@ -852,8 +911,8 @@ FROM    (
         SELECT     subject, object,
                    s1.access & ~s2.access AS access_add,
                    s2.access & ~s1.access AS access_del
-        FROM       all_smack_binary_rules AS s1
-        INNER JOIN history_smack_rule AS s2
+        FROM       current_smack_rule_modified AS s1
+        INNER JOIN history_smack_rule_modified AS s2
                    USING (subject, object)
         WHERE      s1.access != s2.access
 
@@ -862,8 +921,8 @@ FROM    (
         SELECT     subject, object,
                    s1.access AS access_add,
                    0 AS access_del
-        FROM       all_smack_binary_rules AS s1
-        LEFT JOIN  history_smack_rule s2
+        FROM       current_smack_rule_modified AS s1
+        LEFT JOIN  history_smack_rule_modified s2
                    USING (subject, object)
         WHERE      s2.subject IS NULL AND
                    s2.object  IS NULL
@@ -873,8 +932,8 @@ FROM    (
         SELECT     subject, object,
                    0 AS access_add,
                    s1.access AS access_del
-        FROM       history_smack_rule s1
-        LEFT JOIN  all_smack_binary_rules AS s2
+        FROM       history_smack_rule_modified s1
+        LEFT JOIN  current_smack_rule_modified AS s2
                    USING (subject, object)
         WHERE      s2.subject IS NULL AND
                    s2.object  IS NULL

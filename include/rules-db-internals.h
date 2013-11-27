@@ -379,17 +379,6 @@ int reset_app_permissions_internal(sqlite3 *p_db,
 
 
 /**
- * Saves present smack rules in a temporary table: history_smack_rule
- *
- * @ingroup RDB internal functions
- *
- * @param  p_db pointer to a SQLite3 database object
- * @return      PC_OPERATION_SUCCESS on success, error code otherwise
- */
-int save_smack_rules(sqlite3 *p_db);
-
-
-/**
  * Prepare tables with smack rules.
  *
  * @ingroup RDB internal functions

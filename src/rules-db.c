@@ -79,7 +79,6 @@ static int rdb_begin(sqlite3 **pp_db, rdb_transaction_type_t transaction_type)
 		return PC_ERR_DB_CONNECTION;
 	}
 
-	ret = save_smack_rules(*pp_db);
 	return ret;
 }
 

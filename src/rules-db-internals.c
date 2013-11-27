@@ -212,34 +212,35 @@ int open_rdb_connection(sqlite3 **p_db)
 	// Create the temporary tables:
 	if(sqlite3_exec(*p_db,
 			"PRAGMA foreign_keys = ON;                                 \
-			CREATE TEMPORARY TABLE history_smack_rule(                 \
+			                                                           \
+			CREATE TEMPORARY TABLE modified_label(                     \
+			        name VARCHAR NOT NULL PRIMARY KEY);                \
+			                                                           \
+			CREATE TEMPORARY TABLE all_smack_binary_rules_modified(    \
+			        subject TEXT NOT NULL,                             \
+			        object  TEXT NOT NULL,                             \
+			        access  INTEGER NOT NULL,                          \
+			        is_volatile INTEGER NOT NULL);                     \
+			                                                           \
+			CREATE TEMPORARY TABLE current_smack_rule_modified(        \
 			        subject VARCHAR NOT NULL,                          \
 			        object  VARCHAR NOT NULL,                          \
 			        access  INTEGER NOT NULL);                         \
-			                                                           \
-			CREATE TEMPORARY TABLE modified_label(                     \
-			        name VARCHAR NOT NULL,                             \
-			        UNIQUE(name));                                     \
-			                                                           \
-			CREATE TEMPORARY TABLE all_smack_binary_rule_modified(     \
-			        subject VARCHAR NOT NULL,                          \
-				object  VARCHAR NOT NULL,                          \
-				access  INTEGER NOT NULL);                         \
 			                                                           \
 			CREATE TEMPORARY TABLE history_smack_rule_modified(        \
 			        subject VARCHAR NOT NULL,                          \
 			        object  VARCHAR NOT NULL,                          \
 			        access  INTEGER NOT NULL);                         \
 			                                                           \
-                        CREATE TEMPORARY VIEW modified_smack_rules AS              \
-			SELECT 	subject, object,                                   \
+			CREATE TEMPORARY VIEW modified_smack_rules AS              \
+			SELECT  subject, object,                                   \
 				access_to_str(access_add) AS access_add,           \
 				access_to_str(access_del) AS access_del            \
-			FROM 	(                                                  \
-				SELECT 	   subject, object,                        \
+			FROM    (                                                  \
+				SELECT     subject, object,                        \
 				           s1.access & ~s2.access AS access_add,   \
 				           s2.access & ~s1.access AS access_del    \
-				FROM       all_smack_binary_rule_modified AS s1    \
+				FROM       current_smack_rule_modified AS s1       \
 				INNER JOIN history_smack_rule_modified AS s2       \
 				           USING (subject, object)                 \
 				WHERE      s1.access != s2.access                  \
@@ -247,7 +248,7 @@ int open_rdb_connection(sqlite3 **p_db)
 				SELECT     subject, object,                        \
 				           s1.access AS access_add,                \
 				           0 AS access_del                         \
-				FROM       all_smack_binary_rule_modified s1       \
+				FROM       current_smack_rule_modified s1          \
 				LEFT JOIN  history_smack_rule_modified s2          \
 				           USING (subject, object)                 \
 				WHERE      s2.subject IS NULL AND                  \
@@ -257,7 +258,7 @@ int open_rdb_connection(sqlite3 **p_db)
 				           0 AS access_add,                        \
 				           s1.access AS access_del                 \
 				FROM       history_smack_rule_modified s1          \
-				LEFT JOIN  all_smack_binary_rule_modified s2       \
+				LEFT JOIN  current_smack_rule_modified s2          \
 				           USING (subject, object)                 \
 				WHERE      s2.subject IS NULL AND                  \
 				           s2.object  IS NULL                      \
@@ -1170,59 +1171,53 @@ finish:
 	return ret;
 }
 
-
-int save_smack_rules(sqlite3 *p_db)
-{
-	RDB_LOG_ENTRY;
-
-	if(sqlite3_exec(p_db,
-			"DELETE FROM history_smack_rule;                     \
-			                                                     \
-			INSERT INTO history_smack_rule 			     \
-			SELECT subject, object, access                       \
-			FROM all_smack_binary_rules;                         \
-			                                                     \
-			CREATE INDEX history_smack_rule_subject_object_index \
-			ON history_smack_rule(subject, object);",
-			0, 0, 0) != SQLITE_OK) {
-		C_LOGE("RDB: Error during saving history table: %s",
-		       sqlite3_errmsg(p_db));
-		return PC_ERR_DB_OPERATION;
-	}
-
-	return PC_OPERATION_SUCCESS;
-}
-
-
 int update_rules_in_db(sqlite3 *p_db)
 {
 	RDB_LOG_ENTRY;
 
-	// All rules generated by the present state of the database
 	if(sqlite3_exec(p_db,
-			"DELETE FROM all_smack_binary_rules; 	    \
-			                                            \
-			INSERT INTO all_smack_binary_rules          \
-			SELECT subject, object, access, is_volatile \
-			FROM all_smack_binary_rules_view;           \
-			                                            \
-			DELETE FROM all_smack_binary_rule_modified; \
-			                                            \
-			INSERT INTO all_smack_binary_rule_modified  \
-			SELECT subject, object, access              \
-			FROM   all_smack_binary_rules,              \
-			       modified_label                       \
-			WHERE  subject IN modified_label OR         \
-			       object IN modified_label;            \
-			                                            \
-			DELETE FROM history_smack_rule_modified;    \
-			                                            \
-			INSERT INTO history_smack_rule_modified     \
-			SELECT subject, object, access              \
-			FROM   history_smack_rule,                  \
-			       modified_label                       \
-			WHERE  subject IN modified_label OR         \
-			       object IN modified_label;            \
+			"\
+			-- clean temporary tables\n                                             \
+			DELETE FROM all_smack_binary_rules_modified;                            \
+			DELETE FROM current_smack_rule_modified;                                \
+			DELETE FROM history_smack_rule_modified;                                \
+			                                                                        \
+			-- gather possibly modified rules\n                                     \
+			INSERT INTO all_smack_binary_rules_modified                             \
+			SELECT subject, object, access, is_volatile                             \
+			FROM   all_smack_binary_rules_view                                      \
+			WHERE  subject IN modified_label;                                       \
+			                                                                        \
+			INSERT INTO all_smack_binary_rules_modified                             \
+			SELECT subject, object, access, is_volatile                             \
+			FROM   all_smack_binary_rules_view                                      \
+			WHERE  object IN modified_label AND subject NOT IN modified_label;      \
+			                                                                        \
+			-- prepare aggregated rules for diff algorithm\n                        \
+			INSERT INTO current_smack_rule_modified                                 \
+			SELECT subject, object, bitwise_or(access)                              \
+			FROM   all_smack_binary_rules_modified                                  \
+			GROUP BY subject, object                                                \
+			ORDER BY subject, object ASC;                                           \
+			                                                                        \
+			INSERT INTO history_smack_rule_modified                                 \
+			SELECT subject, object, bitwise_or(access)                              \
+			FROM   all_smack_binary_rules                                           \
+			WHERE  subject IN modified_label OR object IN modified_label            \
+			GROUP BY subject, object                                                \
+			ORDER BY subject, object ASC;                                           \
+			                                                                        \
+			-- apply changes to all_smack_binary_rules\n                            \
+			DELETE FROM all_smack_binary_rules                                      \
+			WHERE  subject IN modified_label OR                                     \
+			       object IN modified_label;                                        \
+			                                                                        \
+			INSERT INTO all_smack_binary_rules                                      \
+			SELECT subject, object, access, is_volatile                             \
+			FROM   all_smack_binary_rules_modified;                                 \
+			                                                                        \
+			-- cleanup\n                                                            \
+			DELETE FROM modified_label;                                             \
 			",
 			0, 0, 0) != SQLITE_OK) {
 		C_LOGE("RDB: Error during updating rules: %s",
