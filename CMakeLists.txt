@@ -25,7 +25,7 @@ ENDFOREACH(flag)
 # will be expanded to empty instruction.
 
 SET(CMAKE_C_FLAGS_CCOV    "--coverage")
-SET(CMAKE_C_FLAGS_DEBUG   "-O0 -g -ggdb -DDLOG_DEBUG_ENABLED -DTIZEN_ENGINEER_MODE")
+SET(CMAKE_C_FLAGS_DEBUG   "-O0 -g -ggdb -DDLOG_DEBUG_ENABLED -DTIZEN_DEBUG_ENABLE")
 SET(CMAKE_C_FLAGS_RELEASE "-O2 -g")
 
 SET(src_dir "./src")
