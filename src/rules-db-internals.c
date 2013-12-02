@@ -266,7 +266,7 @@ int open_rdb_connection(sqlite3 **p_db)
 			ORDER BY subject, object ASC;",
 			0, 0, 0) != SQLITE_OK) {
 		C_LOGE("RDB: Error during preparing script: %s", sqlite3_errmsg(*p_db));
-		return PC_ERR_DB_OPERATION;
+		return PC_ERR_DB_CONNECTION;
 	}
 
 	return PC_OPERATION_SUCCESS;
