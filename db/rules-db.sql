@@ -217,8 +217,17 @@ BEGIN
 
     -- Delete the previous definition of the permission
     DELETE FROM permission_label_rule_view
-    WHERE       permission_label_rule_view.permission_name = NEW.name AND
-                permission_label_rule_view.permission_type_name = NEW.type_name;
+    WHERE       permission_name = NEW.name AND
+                permission_type_name = NEW.type_name;
+
+    DELETE FROM permission_permission_rule_view
+    WHERE       permission_name = NEW.name AND
+                permission_type_name = NEW.type_name;
+
+    DELETE FROM permission_app_path_type_rule_view
+    WHERE       permission_name = NEW.name AND
+                permission_type_name = NEW.type_name;
+
 END;
 
 -- PERMISSION TO LABEL RULE VIEW -----------------------------------------------
@@ -442,8 +451,8 @@ CREATE TRIGGER  permission_permission_rule_view_delete_trigger
 INSTEAD OF DELETE ON  permission_permission_rule_view
 BEGIN
     -- Delete the rule
-    DELETE FROM permission_permission_rule_view
-    WHERE       permission_permission_rule_view.permission_id
+    DELETE FROM permission_permission_rule
+    WHERE       permission_permission_rule.permission_id
                 IN (SELECT permission_view.permission_id
                     FROM   permission_view
                     WHERE  permission_view.name = OLD.permission_name AND
