@@ -321,7 +321,25 @@ int rdb_get_app_paths(const char *const s_app_label_name,
 				     s_app_path_type_name,
 				     i_num_paths,
 				     ppp_paths);
+finish:
+	return rdb_finish(p_db, ret);
+}
 
+int rdb_remove_path(const char *const s_owner_label_name,
+		    const char *const s_path)
+{
+	RDB_LOG_ENTRY_PARAM("%s %s", s_owner_label_name, s_path);
+
+	int ret;
+	sqlite3 *p_db = NULL;
+
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_EXCLUSIVE);
+	if (ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = add_modified_paths_label_internal(p_db, s_path);
+	if (ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = remove_path_internal(p_db, s_owner_label_name, s_path);
 finish:
 	return rdb_finish(p_db, ret);
 }

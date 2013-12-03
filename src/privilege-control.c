@@ -1414,6 +1414,31 @@ API int perm_app_get_paths(const char* pkg_id, app_path_type_t app_path_type, ch
 	return PC_OPERATION_SUCCESS;
 }
 
+API int perm_app_remove_path(const char* pkg_id, const char *path)
+{
+	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, path=%s", __func__, pkg_id, path);
+
+	int ret;
+
+	if (path == NULL) {
+		C_LOGE("Invalid param path (NULL).");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if (!smack_label_is_valid(pkg_id)) {
+		C_LOGE("Invalid param app_id.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	ret = rdb_remove_path(pkg_id, path);
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("RDB rdb_remove_path failed with %d", ret);
+		return ret;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
 API int app_add_friend(const char* pkg_id1, const char* pkg_id2)//deprecated
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id1=%s, pkg_id2=%s",

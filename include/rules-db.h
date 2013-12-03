@@ -123,6 +123,21 @@ int rdb_get_app_paths(const char *const s_app_label_name,
 		      const char *const s_app_path_type_name,
 		      char ***ppp_paths);
 
+
+/**
+ * Remove path and all rules associated with it from the database.
+ *
+ * @ingroup RDB API functions
+ *
+ * @param  s_owner_label_name owner application's label name
+ * @param  s_path             the path
+ * @return                    PC_OPERATION_SUCCESS on success,
+ *                            error code otherwise
+ */
+int rdb_remove_path(const char *const s_owner_label_name,
+		    const char *const s_path);
+
+
 /**
  * Add permission with the given name and type and add smack rules.
  *

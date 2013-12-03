@@ -602,6 +602,32 @@ BEGIN
         DELETE FROM label_view WHERE label_view.name = OLD.path_label_name;
 END;
 
+
+-- PATH_REMOVAL VIEW -------------------------------------------------------------------
+DROP VIEW IF EXISTS path_removal_view;
+CREATE VIEW path_removal_view       AS
+SELECT      application_view.app_id AS owner_app_id,
+            application_view.name   AS owner_app_label_name,
+            app_path.path           AS path,
+            label.label_id          AS path_label_id
+FROM        app_path
+LEFT JOIN   application_view USING (app_id)
+LEFT JOIN   label            USING (label_id);
+
+DROP TRIGGER IF EXISTS path_removal_delete_trigger;
+CREATE TRIGGER path_removal_delete_trigger
+INSTEAD OF DELETE ON path_removal_view
+BEGIN
+        -- Delete the path.
+        DELETE FROM app_path
+        WHERE  app_path.app_id = OLD.owner_app_id AND
+               app_path.path = OLD.path;
+
+        -- Delete the path's label if it's not used anymore.
+        DELETE FROM label_view WHERE label_view.label_id = OLD.path_label_id;
+END;
+
+
 -- APP PERMISSION LIST VIEW ----------------------------------------------------
 -- Used in check_app_permission_internal to check if permissions are present
 -- TODO: Check if SQLite optimizer doesn't change app_permission_view to the same code.

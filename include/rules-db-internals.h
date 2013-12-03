@@ -114,6 +114,19 @@ int add_modified_additional_rules_internal(sqlite3 *p_db);
  *                          error code otherwise
  */
 int add_modified_apps_path_internal(sqlite3 *p_db, const char *const s_app_label_name);
+
+/**
+ * Adds path label's name to the modified labels.
+ * Used during removing path.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param  p_db   pointer to a SQLite3 database object
+ * @param  s_path the path
+ * @return        PC_OPERATION_SUCCESS on success, error code otherwise
+ */
+int add_modified_paths_label_internal(sqlite3 *p_db, const char *const s_path);
+
 /**
  * Open a connection with the database and perform an initialization.
  *
@@ -205,6 +218,18 @@ int add_path_internal(sqlite3 *p_db,
 		      const char *const s_access,
 		      const char *const s_access_reverse,
 		      const char *const s_type);
+
+/**
+ * Remove path for the specified application and delete it's label if it's no longer used.
+ *
+ * @param  p_db               pointer to a SQLite3 database object
+ * @param  s_owner_label_name owner application
+ * @param  s_path             the path
+ * @return                    PC_OPERATION_SUCCESS on success, error code otherwise
+ */
+int remove_path_internal(sqlite3 *p_db,
+			 const char *const s_owner_label_name,
+			 const char *const s_path);
 
 
 /**

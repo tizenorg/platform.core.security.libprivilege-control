@@ -450,6 +450,17 @@ int app_setup_path(const char* pkg_id, const char* path, app_path_type_t app_pat
 int perm_app_get_paths(const char* pkg_id, app_path_type_t app_path_type, char*** ppp_paths);
 
 /**
+ * Remove path and all rules associated with it from the database.
+ *
+ * This does not remove data from the filesystem.
+ *
+ * @param  pkg_id application identifier
+ * @param  path   path to remove
+ * @return        PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int perm_app_remove_path(const char* pkg_id, const char *path);
+
+/**
  * Make two applications "friends", by giving them both full permissions on
  * each other.
  * Results will be persistent on the file system. Must be called after

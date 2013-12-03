@@ -154,6 +154,27 @@ finish:
 	return ret;
 }
 
+int add_modified_paths_label_internal(sqlite3 *p_db, const char *const s_path)
+{
+	int ret = PC_OPERATION_SUCCESS;
+	sqlite3_stmt *p_stmt = NULL;
+
+	ret = prepare_stmt(p_db, &p_stmt,
+			   "INSERT OR IGNORE INTO modified_label(name) \
+			    SELECT path_view.path_label_name           \
+			    FROM   path_view                           \
+			    WHERE  path_view.path = %Q",
+			   s_path);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = step_and_convert_returned_value(p_stmt);
+finish:
+	if(sqlite3_finalize(p_stmt) < 0)
+		C_LOGE("RDB: Error during finalizing statement: %s", sqlite3_errmsg(p_db));
+
+	return ret;
+}
+
 /**
  * Function called when the target database is busy.
  * We attempt to access the database every
@@ -565,6 +586,28 @@ finish:
 		C_LOGE("RDB: Error during finalizing statement: %s", sqlite3_errmsg(p_db));
 	}
 
+	return ret;
+}
+
+
+int remove_path_internal(sqlite3 *p_db,
+			 const char *const s_owner_label_name,
+			 const char *const s_path)
+{
+	int ret;
+	sqlite3_stmt *p_stmt = NULL;
+
+	ret = prepare_stmt(p_db, &p_stmt,
+			   "DELETE FROM path_removal_view        \
+			    WHERE  owner_app_label_name = %Q AND \
+			           path = %Q",
+			   s_owner_label_name, s_path);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = step_and_convert_returned_value(p_stmt);
+finish:
+	if(sqlite3_finalize(p_stmt) < 0)
+		C_LOGE("RDB: Error during finalizing statement: %s", sqlite3_errmsg(p_db));
 	return ret;
 }
 
