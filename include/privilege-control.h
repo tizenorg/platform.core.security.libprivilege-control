@@ -61,13 +61,13 @@ extern "C" {
 /// Query fails during stepping a SQL statement
 #define PC_ERR_DB_QUERY_STEP            -10
 
-// Unable to establish a connection with the database
+/// Unable to establish a connection with the database
 #define PC_ERR_DB_CONNECTION            -11
 
-// There is no application with such app_id
+/// There is no application with such app_id
 #define PC_ERR_DB_NO_SUCH_APP           -12
 
-// There already exists a permission with this name and type
+/// There already exists a permission with this name and type
 #define PC_ERR_DB_PERM_FORBIDDEN        -13
 
 
@@ -515,6 +515,14 @@ int perm_begin(void);
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
 int perm_end(void);
+
+/**
+* Run to rollback any privilege modification.
+*
+* @return PC_OPERATION_SUCCESS on success,
+*         PC_ERR_* on error
+*/
+int perm_rollback(void);
 
 /**
  * Adds additional rules to the database. The rules can use wild-cards and labels.

@@ -112,6 +112,20 @@ API int perm_end(void)
 	return rdb_modification_finish();
 }
 
+API int perm_rollback(void)
+{
+	SECURE_C_LOGD("Entering function: %s.", __func__);
+
+	int ret = rdb_modification_rollback();
+
+	if (ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("RDB %s failed with: %d", __func__, ret);
+		return ret;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
 API int control_privilege(void)//deprecated
 {
 	SECURE_C_LOGD("Entering function: %s.", __func__);

@@ -213,6 +213,19 @@ int rdb_modification_finish(void)
 	}
 }
 
+int rdb_modification_rollback(void)
+{
+	if(p_db__) {
+		if(i_session_ret_code__ == PC_OPERATION_SUCCESS) {
+			// Trigger rollback
+			i_session_ret_code__ = PC_ERR_INVALID_OPERATION;
+		}
+		return rdb_modification_finish();
+	} else {
+		C_LOGE("RDB: Error nothing to rollback");
+		return PC_ERR_INVALID_OPERATION;
+	}
+}
 
 int rdb_add_application(const char *const s_label_name)
 {

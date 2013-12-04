@@ -62,6 +62,17 @@ int rdb_modification_finish(void);
 
 
 /**
+ * Rollbacks last transaction and finishes session
+ * with the database.
+ *
+ * @ingroup RDB API functions
+ * @return  PC_OPERATION_SUCCESS on success,
+ *          error code otherwise
+ */
+int rdb_modification_rollback(void);
+
+
+/**
  * Add application label to the database.
  * If label present: do nothing.
  *
