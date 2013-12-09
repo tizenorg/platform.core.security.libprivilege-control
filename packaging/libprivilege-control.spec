@@ -83,6 +83,7 @@ api_feature_loader --verbose --rules=/usr/share/privilege-control/ADDITIONAL_RUL
 /usr/share/privilege-control/db/updater.sh
 /usr/share/privilege-control/db/updates/*
 /usr/share/privilege-control/db/load-rules-db.sql
+/etc/opt/upgrade/220.libprivilege-updater.patch.sh
 
 %files conf
 %manifest %{name}.manifest

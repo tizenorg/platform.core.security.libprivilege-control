@@ -102,6 +102,10 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/updater.sh DESTINATION /usr/share/p
                  WORLD_READ
                  WORLD_EXECUTE)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/load-rules-db.sql DESTINATION /usr/share/privilege-control/db)
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/220.libprivilege-updater.patch.sh DESTINATION /etc/opt/upgrade
+     PERMISSIONS OWNER_READ
+                 OWNER_WRITE
+                 OWNER_EXECUTE)
 
 
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/smack-rules.service
