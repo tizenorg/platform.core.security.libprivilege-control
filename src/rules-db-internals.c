@@ -213,6 +213,8 @@ int open_rdb_connection(sqlite3 **p_db)
 	if(sqlite3_exec(*p_db,
 			"PRAGMA foreign_keys = ON;                                 \
 			                                                           \
+			PRAGMA temp_store = MEMORY;                                \
+			                                                           \
 			CREATE TEMPORARY TABLE modified_label(                     \
 			        name VARCHAR NOT NULL PRIMARY KEY);                \
 			                                                           \
