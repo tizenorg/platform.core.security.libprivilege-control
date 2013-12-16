@@ -482,8 +482,15 @@ int rdb_add_additional_rules(const char *const *const pp_smack_rules)
 	ret = rdb_begin(&p_db, RDB_TRANSACTION_EXCLUSIVE);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
-	ret = add_additional_rules_internal(p_db,
-					    pp_smack_rules);
+	// Old rules may disappear, so mark as modified
+	ret = add_modified_additional_rules_internal(p_db);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = add_additional_rules_internal(p_db, pp_smack_rules);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	// New rules appear, so also mark as modified
+	ret = add_modified_additional_rules_internal(p_db);
 
 finish:
 	return rdb_finish(p_db, ret);

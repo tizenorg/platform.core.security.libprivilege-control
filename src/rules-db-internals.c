@@ -120,6 +120,19 @@ finish:
 }
 
 
+int add_modified_additional_rules_internal(sqlite3 *p_db)
+{
+	if(sqlite3_exec(p_db,"INSERT OR IGNORE INTO modified_label(name)  \
+			      SELECT label_name                           \
+			      FROM   label_app_path_type_rule_view",
+			0, 0, 0) != SQLITE_OK) {
+		C_LOGE("RDB: Error during marking labels as modified: %s", sqlite3_errmsg(p_db));
+		return PC_ERR_DB_OPERATION;
+	}
+	return PC_OPERATION_SUCCESS;
+}
+
+
 int add_modified_apps_path_internal(sqlite3 *p_db,
 				    const char *const s_app_label_name)
 {
@@ -839,11 +852,6 @@ int add_additional_rules_internal(sqlite3 *p_db, const char *const *const pp_sma
 							   is_reverse);
 			if(ret != PC_OPERATION_SUCCESS) goto finish;
 		}
-
-
-		// Mark label as modified
-		ret = add_modified_label_internal(p_db, ps_subject);
-		if(ret != PC_OPERATION_SUCCESS) goto finish;
 	}
 
 finish:

@@ -89,6 +89,19 @@ int add_modified_label_internal(sqlite3 *p_db, const char *const s_label_name);
  */
 int add_modified_permission_internal(sqlite3 *p_db, sqlite3_int64 i_permission_id);
 
+
+/**
+ * Adds all label names from additional rules to modified labels.
+ * Used when additional rules are inserted into the database.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param  p_db  pointer to a SQLite3 database object
+ * @return       PC_OPERATION_SUCCESS on success, error code otherwise
+ */
+int add_modified_additional_rules_internal(sqlite3 *p_db);
+
+
 /**
  * Adds label names of the application's folders to the modified labels.
  * Used during removing application.
