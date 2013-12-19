@@ -115,10 +115,19 @@ int tokenize_rule(const char *const s_rule,
 		  char s_object[],
 		  char s_access[])
 {
-	if(sscanf(s_rule, "%s %s %s", s_subject, s_object, s_access) < 3) {
-		C_LOGE("RDB: Failed to tokenize the rule: %s", s_rule);
+	char tmp_s_dump[2] = "\0";
+	int ret = 0;
+
+	ret = sscanf(s_rule, "%" TOSTRING(SMACK_LABEL_LEN) "s%*[ \t\n\r]%" TOSTRING(SMACK_LABEL_LEN)
+	             "s%*[ \t\n\r]%" TOSTRING(ACC_LEN) "s%1s", s_subject, s_object,s_access,
+	             tmp_s_dump);
+
+	if (ret != 3) {
+		C_LOGE("RDB: Failed to tokenize the rule: <%s>. %d tokens needed, %d found.",
+		       s_rule, 3, ret);
 		return PC_ERR_INVALID_OPERATION;
 	}
+
 	return PC_OPERATION_SUCCESS;
 }
 
