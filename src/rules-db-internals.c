@@ -178,7 +178,7 @@ static int database_busy_handler(void *not_used UNUSED,
 }
 
 
-int open_rdb_connection(sqlite3 **p_db)
+int open_rdb_connection(sqlite3 **p_db, bool b_create_temporary_tables)
 {
 	RDB_LOG_ENTRY;
 
@@ -222,66 +222,74 @@ int open_rdb_connection(sqlite3 **p_db)
 	sqlite3_free(p_err_msg);
 
 
-	// Create the temporary tables:
-	if(sqlite3_exec(*p_db,
-			"PRAGMA foreign_keys = ON;                                 \
-			                                                           \
-			PRAGMA temp_store = MEMORY;                                \
-			                                                           \
-			CREATE TEMPORARY TABLE modified_label(                     \
-			        name VARCHAR NOT NULL PRIMARY KEY);                \
-			                                                           \
-			CREATE TEMPORARY TABLE all_smack_binary_rules_modified(    \
-			        subject TEXT NOT NULL,                             \
-			        object  TEXT NOT NULL,                             \
-			        access  INTEGER NOT NULL,                          \
-			        is_volatile INTEGER NOT NULL);                     \
-			                                                           \
-			CREATE TEMPORARY TABLE current_smack_rule_modified(        \
-			        subject VARCHAR NOT NULL,                          \
-			        object  VARCHAR NOT NULL,                          \
-			        access  INTEGER NOT NULL);                         \
-			                                                           \
-			CREATE TEMPORARY TABLE history_smack_rule_modified(        \
-			        subject VARCHAR NOT NULL,                          \
-			        object  VARCHAR NOT NULL,                          \
-			        access  INTEGER NOT NULL);                         \
-			                                                           \
-			CREATE TEMPORARY VIEW modified_smack_rules AS              \
-			SELECT  subject, object,                                   \
-				access_to_str(access_add) AS access_add,           \
-				access_to_str(access_del) AS access_del            \
-			FROM    (                                                  \
-				SELECT     subject, object,                        \
-				           s1.access & ~s2.access AS access_add,   \
-				           s2.access & ~s1.access AS access_del    \
-				FROM       current_smack_rule_modified AS s1       \
-				INNER JOIN history_smack_rule_modified AS s2       \
-				           USING (subject, object)                 \
-				WHERE      s1.access != s2.access                  \
-				UNION                                              \
-				SELECT     subject, object,                        \
-				           s1.access AS access_add,                \
-				           0 AS access_del                         \
-				FROM       current_smack_rule_modified s1          \
-				LEFT JOIN  history_smack_rule_modified s2          \
-				           USING (subject, object)                 \
-				WHERE      s2.subject IS NULL AND                  \
-				           s2.object  IS NULL                      \
-				UNION                                              \
-				SELECT     subject, object,                        \
-				           0 AS access_add,                        \
-				           s1.access AS access_del                 \
-				FROM       history_smack_rule_modified s1          \
-				LEFT JOIN  current_smack_rule_modified s2          \
-				           USING (subject, object)                 \
-				WHERE      s2.subject IS NULL AND                  \
-				           s2.object  IS NULL                      \
-				)                                                  \
-			ORDER BY subject, object ASC;",
-			0, 0, 0) != SQLITE_OK) {
-		C_LOGE("RDB: Error during preparing script: %s", sqlite3_errmsg(*p_db));
-		return PC_ERR_DB_CONNECTION;
+	if (b_create_temporary_tables) {
+		// Create the temporary tables:
+		if(sqlite3_exec(*p_db,
+				"PRAGMA foreign_keys = ON;                                 \
+											   \
+				PRAGMA temp_store = MEMORY;                                \
+											   \
+				CREATE TEMPORARY TABLE modified_label(                     \
+					name VARCHAR NOT NULL PRIMARY KEY);                \
+											   \
+				CREATE TEMPORARY TABLE all_smack_binary_rules_modified(    \
+					subject TEXT NOT NULL,                             \
+					object  TEXT NOT NULL,                             \
+					access  INTEGER NOT NULL,                          \
+					is_volatile INTEGER NOT NULL);                     \
+											   \
+				CREATE TEMPORARY TABLE current_smack_rule_modified(        \
+					subject VARCHAR NOT NULL,                          \
+					object  VARCHAR NOT NULL,                          \
+					access  INTEGER NOT NULL);                         \
+											   \
+				CREATE TEMPORARY TABLE history_smack_rule_modified(        \
+					subject VARCHAR NOT NULL,                          \
+					object  VARCHAR NOT NULL,                          \
+					access  INTEGER NOT NULL);                         \
+											   \
+				CREATE TEMPORARY VIEW modified_smack_rules AS              \
+				SELECT  subject, object,                                   \
+					access_to_str(access_add) AS access_add,           \
+					access_to_str(access_del) AS access_del            \
+				FROM    (                                                  \
+					SELECT     subject, object,                        \
+						   s1.access & ~s2.access AS access_add,   \
+						   s2.access & ~s1.access AS access_del    \
+					FROM       current_smack_rule_modified AS s1       \
+					INNER JOIN history_smack_rule_modified AS s2       \
+						   USING (subject, object)                 \
+					WHERE      s1.access != s2.access                  \
+					UNION                                              \
+					SELECT     subject, object,                        \
+						   s1.access AS access_add,                \
+						   0 AS access_del                         \
+					FROM       current_smack_rule_modified s1          \
+					LEFT JOIN  history_smack_rule_modified s2          \
+						   USING (subject, object)                 \
+					WHERE      s2.subject IS NULL AND                  \
+						   s2.object  IS NULL                      \
+					UNION                                              \
+					SELECT     subject, object,                        \
+						   0 AS access_add,                        \
+						   s1.access AS access_del                 \
+					FROM       history_smack_rule_modified s1          \
+					LEFT JOIN  current_smack_rule_modified s2          \
+						   USING (subject, object)                 \
+					WHERE      s2.subject IS NULL AND                  \
+						   s2.object  IS NULL                      \
+					)                                                  \
+				ORDER BY subject, object ASC;",
+				0, 0, 0) != SQLITE_OK) {
+			C_LOGE("RDB: Error during preparing script: %s", sqlite3_errmsg(*p_db));
+			return PC_ERR_DB_CONNECTION;
+		}
+	} else {
+		// Just enable foreign keys:
+		if(sqlite3_exec(*p_db, "PRAGMA foreign_keys = ON", 0, 0, 0) != SQLITE_OK) {
+			C_LOGE("RDB: Error during preparing script: %s", sqlite3_errmsg(*p_db));
+			return PC_ERR_DB_CONNECTION;
+		}
 	}
 
 	return PC_OPERATION_SUCCESS;

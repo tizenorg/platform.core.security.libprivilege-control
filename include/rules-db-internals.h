@@ -119,10 +119,11 @@ int add_modified_apps_path_internal(sqlite3 *p_db, const char *const s_app_label
  *
  * @ingroup RDB internal functions
  *
- * @param  p_db pointer to a SQLite3 database object
- * @return      PC_OPERATION_SUCCESS on success, error code otherwise
+ * @param  p_db                      pointer to a SQLite3 database object
+ * @param  b_create_temporary_tables variable denoting if temporary tables should be created
+ * @return                           PC_OPERATION_SUCCESS on success, error code otherwise
  */
-int open_rdb_connection(sqlite3 **pp_db);
+int open_rdb_connection(sqlite3 **pp_db, bool b_create_temporary_tables);
 
 
 /**

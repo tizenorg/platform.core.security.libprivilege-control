@@ -33,6 +33,7 @@
 
 static sqlite3 *p_db__          = NULL;
 static int i_session_ret_code__ = PC_OPERATION_SUCCESS;
+static bool b_shared_transaction__ = false;
 
 typedef enum {
 	RDB_TRANSACTION_EXCLUSIVE,
@@ -53,18 +54,24 @@ static int rdb_begin(sqlite3 **pp_db, rdb_transaction_type_t transaction_type)
 	RDB_LOG_ENTRY;
 
 	// If rdb_modification_start was called we use a global connection.
+	// Since global connection is always opened only for exclusive transactions, temporary
+	// tables are already created and b_shared_transaction is set to false.
 	if(p_db__) {
 		*pp_db = p_db__;
 		return PC_OPERATION_SUCCESS;
 	}
 
-	int ret = open_rdb_connection(pp_db);
+	// Shared transaction doesn't need temporary tables because SMACK labels won't be modified.
+	bool b_create_temporary_tables = transaction_type != RDB_TRANSACTION_SHARED_READ;
+	int ret = open_rdb_connection(pp_db, b_create_temporary_tables);
 	if(ret != PC_OPERATION_SUCCESS) return ret;
 
 	if(transaction_type == RDB_TRANSACTION_EXCLUSIVE) {
+		b_shared_transaction__ = false;
 		ret = sqlite3_exec(*pp_db, "BEGIN EXCLUSIVE TRANSACTION", 0, 0, 0);
 	}
 	else if(transaction_type == RDB_TRANSACTION_SHARED_READ) {
+		b_shared_transaction__ = true;
 		ret = sqlite3_exec(*pp_db, "BEGIN DEFERRED TRANSACTION", 0, 0, 0);
 	}
 	else {
@@ -76,6 +83,7 @@ static int rdb_begin(sqlite3 **pp_db, rdb_transaction_type_t transaction_type)
 	if(ret != SQLITE_OK) {
 		C_LOGE("RDB: Error during transaction begin: %s",
 		       sqlite3_errmsg(*pp_db));
+		b_shared_transaction__ = false;
 		return PC_ERR_DB_CONNECTION;
 	}
 
@@ -101,7 +109,7 @@ static int rdb_end(sqlite3 *p_db, int i_session_ret)
 	int ret = PC_OPERATION_SUCCESS;
 
 	// No error during the session, make updates
-	if(i_session_ret == PC_OPERATION_SUCCESS) {
+	if(i_session_ret == PC_OPERATION_SUCCESS && !b_shared_transaction__) {
 		ret = update_rules_in_db(p_db);
 		if(ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("RDB: Error during updating rules in the database: %d", ret);
