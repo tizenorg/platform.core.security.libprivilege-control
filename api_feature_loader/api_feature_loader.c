@@ -279,7 +279,7 @@ void load_single_file(const char *const s_file_path)
 	struct dirent file;
 
 	if(!has_smack_ext(s_file_path)) {
-		API_FEATURE_LOADER_LOG("File doesn't have smack extension.");
+		API_FEATURE_LOADER_LOG("File doesn't have smack extension: %s\n", s_file_path);
 		perm_end();
 		return;
 	}
@@ -301,7 +301,7 @@ void load_single_file(const char *const s_file_path)
 		load_rules_from_file(s_file_path, s_permission_name, PERM_APP_TYPE_EFL);
 
 	} else {
-		API_FEATURE_LOADER_LOG("Unknown api-feature type.");
+		API_FEATURE_LOADER_LOG("Unknown api-feature type: %s\n", s_file_path);
 	}
 
 	free(s_permission_name);
