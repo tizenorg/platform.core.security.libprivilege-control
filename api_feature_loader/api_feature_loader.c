@@ -29,6 +29,7 @@
 #define _GNU_SOURCE
 #include <dirent.h>             // For iterating directories
 #include <getopt.h>             // For getopt
+#include <glob.h>               // For glob
 #include <obstack.h>            // For obstack implementation
 #include <privilege-control.h>  // For app_type
 #include <stdio.h>              // For file manipulation
@@ -268,7 +269,7 @@ void load_from_dir(const char  *const s_dir)
 	API_FEATURE_LOADER_LOG("Done.\n");
 }
 
-void load_from_file(const char  *const s_file_path)
+void load_single_file(const char *const s_file_path)
 {
 	API_FEATURE_LOADER_LOG("Loading rules from file...\n");
 	if(perm_begin()) return;
@@ -284,7 +285,7 @@ void load_from_file(const char  *const s_file_path)
 	}
 
 	s_file_name = basename(s_file_path);
-	strcpy(file.d_name, s_file_name);
+	strncpy(file.d_name, s_file_name, sizeof(file.d_name));
 
 	// Load as the right type of permission
 	if(wrt_family_filter(&file)) {
@@ -309,7 +310,43 @@ void load_from_file(const char  *const s_file_path)
 	API_FEATURE_LOADER_LOG("Done.\n");
 }
 
-void load_additional_rules(const char  *const s_rules_file_path)
+void load_from_file(const char *const s_name_pattern)
+{
+	API_FEATURE_LOADER_LOG("Loading rules from file(s) matching pattern: %s\n",
+			       s_name_pattern);
+	int ret;
+	glob_t g;
+	ret = glob(s_name_pattern, 0, NULL, &g);
+
+	if(ret == GLOB_ABORTED) {
+		API_FEATURE_LOADER_LOG("Cannot open given directory\n");
+		goto finish;
+	}
+	if(ret == GLOB_NOMATCH) {
+		API_FEATURE_LOADER_LOG("No match found for given pattern\n");
+		goto finish;
+	}
+	if(ret == GLOB_NOSPACE) {
+		API_FEATURE_LOADER_LOG("Not enough memory\n");
+		goto finish;
+	}
+	if(ret != 0) {
+		API_FEATURE_LOADER_LOG("Error during file(s) loading\n");
+		goto finish;
+	}
+
+	size_t i;
+	for(i = 0; i < g.gl_pathc; ++i)
+		load_single_file(g.gl_pathv[i]);
+
+finish:
+	globfree(&g);
+
+	API_FEATURE_LOADER_LOG("Loading rules from file(s) matching pattern: %s done.\n",
+			       s_name_pattern);
+}
+
+void load_additional_rules(const char *const s_rules_file_path)
 {
 	FILE *p_file       = NULL;
 	char *s_rule       = NULL;
