@@ -1189,6 +1189,271 @@ finish:
 	return ret;
 }
 
+int get_permission_number(sqlite3 *p_db,
+			  size_t *pi_permission_number,
+			  const char *const s_permission_type_name)
+{
+	RDB_LOG_ENTRY_PARAM("%s", s_permission_type_name);
+
+	int ret_db = SQLITE_ERROR;
+	int ret = PC_ERR_DB_OPERATION;
+	sqlite3_stmt *p_stmt = NULL;
+
+	ret = prepare_stmt(p_db, &p_stmt,
+			   "SELECT COUNT(name)      \
+			   FROM permission_view     \
+			   WHERE type_name = %Q AND \
+				 name != %Q",
+			   s_permission_type_name,
+			   s_permission_type_name);
+
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret_db = sqlite3_step(p_stmt);
+
+	if(ret_db == SQLITE_ROW) {
+		*pi_permission_number = (size_t)sqlite3_column_int(p_stmt, RDB_FIRST_COLUMN);
+		ret = PC_OPERATION_SUCCESS;
+	} else if(ret_db == SQLITE_DONE) {
+		// no return value - something went wrong
+		C_LOGD("RDB: Not able to determine number of rows");
+		ret = PC_ERR_DB_OPERATION;
+	} else if(ret_db == SQLITE_BUSY) {
+		//base locked in exclusive mode for too long
+		C_LOGE("RDB: Database is busy. RDB Connection Error returned.");
+		ret = PC_ERR_DB_CONNECTION;
+	} else {
+		C_LOGE("RDB: Error during stepping: %s", sqlite3_errmsg(p_db));
+		ret = PC_ERR_DB_QUERY_STEP;
+	}
+
+finish:
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
+		C_LOGE("RDB: Error during finalizing statement: %s",
+		       sqlite3_errmsg(p_db));
+
+	return ret;
+}
+
+int get_permissions_internal(sqlite3 *p_db,
+			     char ***ppp_permissions,
+			     size_t i_permission_number,
+			     const char *const s_permission_type_name)
+{
+	RDB_LOG_ENTRY_PARAM("%d %s", i_permission_number, s_permission_type_name);
+
+	int ret_db = SQLITE_ERROR;
+	int ret = PC_ERR_DB_OPERATION;
+	sqlite3_stmt *p_stmt = NULL;
+	size_t i_allocated_count = 0;
+	size_t i;
+
+	// add one additional element to the list to end it with NULL
+	*ppp_permissions = (char **)malloc((i_permission_number + 1) * sizeof(char *));
+
+	if(*ppp_permissions == NULL) {
+		RDB_LOG_ENTRY_PARAM("RDB: Error during allocating memory.\n");
+		ret = PC_ERR_MEM_OPERATION;
+		goto finish;
+	}
+
+	ret = prepare_stmt(p_db, &p_stmt,
+			   "SELECT name             \
+			   FROM permission_view     \
+			   WHERE type_name = %Q AND \
+				 name != %Q",
+			   s_permission_type_name,
+			   s_permission_type_name);
+
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	for(i = 0; i < i_permission_number; ++i) {
+		ret_db = sqlite3_step(p_stmt);
+		if(ret_db == SQLITE_ROW) {
+			(*ppp_permissions)[i] = strdup((char *)sqlite3_column_text(p_stmt,
+							RDB_FIRST_COLUMN));
+			C_LOGD("RDB: Found permission: %s", (*ppp_permissions)[i]);
+			if((*ppp_permissions)[i] == NULL) {
+				ret = PC_ERR_MEM_OPERATION;
+				goto finish;
+			}
+			++i_allocated_count;
+		} else if(ret_db == SQLITE_DONE) {
+			C_LOGE("RDB: Not enought permissions read.");
+			ret = PC_ERR_DB_OPERATION;
+			goto finish;
+		} else if(ret_db == SQLITE_BUSY) {
+			//base locked in exclusive mode for too long
+			C_LOGE("RDB: Database is busy. RDB Connection Error returned.");
+			ret = PC_ERR_DB_CONNECTION;
+			goto finish;
+		} else {
+			C_LOGE("RDB: Error during stepping: %s", sqlite3_errmsg(p_db));
+			ret = PC_ERR_DB_QUERY_STEP;
+			goto finish;
+		}
+	}
+
+	(*ppp_permissions)[i] = NULL;
+
+	ret_db = sqlite3_step(p_stmt);
+	if(ret_db != SQLITE_DONE) {
+		C_LOGE("RDB: Some unread permissions left.");
+		ret = PC_ERR_DB_OPERATION;
+	}
+
+finish:
+	// if memory allocation succeeded only partially, clean everything up
+	if(ret != PC_OPERATION_SUCCESS) {
+		for(i = 0; i < i_allocated_count; ++i) {
+			free((*ppp_permissions)[i]);
+		}
+		free(*ppp_permissions);
+		*ppp_permissions = NULL;
+	}
+
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
+		C_LOGE("RDB: Error during finalizing statement: %s",
+		       sqlite3_errmsg(p_db));
+
+	return ret;
+}
+
+int get_apps_number(sqlite3 *p_db,
+		    size_t *pi_apps_number,
+		    const char *const s_permission_type_name,
+		    const char *const s_permission_name)
+{
+	RDB_LOG_ENTRY_PARAM("%s %s", s_permission_type_name, s_permission_name);
+
+	int ret_db = SQLITE_ERROR;
+	int ret = PC_ERR_DB_OPERATION;
+	sqlite3_stmt *p_stmt = NULL;
+
+	// determine number of apps:
+	ret = prepare_stmt(p_db, &p_stmt,
+			   "SELECT COUNT(app_id)    \
+			   FROM app_permission_view \
+			   WHERE type_name= %Q AND  \
+				 name = %Q",
+			   s_permission_type_name,
+			   s_permission_name);
+
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret_db = sqlite3_step(p_stmt);
+
+	if(ret_db == SQLITE_ROW) {
+		*pi_apps_number = (size_t)sqlite3_column_int(p_stmt, RDB_FIRST_COLUMN);
+		ret = PC_OPERATION_SUCCESS;
+	} else if(ret_db == SQLITE_DONE) {
+		// no return value - something went wrong
+		C_LOGD("RDB: Not able to determine number of rows");
+		ret = PC_ERR_DB_OPERATION;
+	} else if(ret_db == SQLITE_BUSY) {
+		// base locked in exclusive mode for too long
+		C_LOGE("RDB: Database is busy. RDB Connection Error returned.");
+		ret = PC_ERR_DB_CONNECTION;
+	} else {
+		C_LOGE("RDB: Error during stepping: %s", sqlite3_errmsg(p_db));
+		ret = PC_ERR_DB_QUERY_STEP;
+	}
+
+finish:
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
+		C_LOGE("RDB: Error during finalizing statement: %s",
+		       sqlite3_errmsg(p_db));
+
+	return ret;
+}
+
+int get_apps_with_permission_internal(sqlite3 *p_db,
+				      perm_app_status_t **pp_apps,
+				      size_t i_apps_number,
+				      const char *const s_permission_type_name,
+				      const char *const s_permission_name)
+{
+	RDB_LOG_ENTRY_PARAM("%s %s", s_permission_type_name, s_permission_name);
+
+	int ret_db = SQLITE_ERROR;
+	int ret = PC_ERR_DB_OPERATION;
+	sqlite3_stmt *p_stmt = NULL;
+	size_t i_allocated_count = 0;
+	size_t i;
+
+	*pp_apps = (perm_app_status_t *)malloc(i_apps_number * sizeof(perm_app_status_t));
+
+	if(*pp_apps == NULL) {
+		RDB_LOG_ENTRY_PARAM("RDB: Error during allocating memory.\n");
+		ret = PC_ERR_MEM_OPERATION;
+		goto finish;
+	}
+
+	ret = prepare_stmt(p_db, &p_stmt,
+			   "SELECT app_name,        \
+				   is_enabled,      \
+				   is_volatile      \
+			   FROM app_permission_view \
+			   WHERE type_name= %Q AND  \
+				 name = %Q",
+			   s_permission_type_name,
+			   s_permission_name);
+
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	for(i = 0; i < i_apps_number; ++i) {
+		ret_db = sqlite3_step(p_stmt);
+		if(ret_db == SQLITE_ROW) {
+			(*pp_apps)[i].app_id = strdup((char *)sqlite3_column_text(p_stmt,
+						      RDB_FIRST_COLUMN));
+			(*pp_apps)[i].is_enabled = sqlite3_column_int(p_stmt, RDB_SECOND_COLUMN);
+			(*pp_apps)[i].is_permanent = !sqlite3_column_int(p_stmt, RDB_THIRD_COLUMN);
+			C_LOGD("RDB: Found (app_id, is_enabled, is_permanent): %s, %d, %d",
+			       (*pp_apps)[i].app_id,
+			       (*pp_apps)[i].is_enabled,
+			       (*pp_apps)[i].is_permanent);
+			if((*pp_apps)[i].app_id == NULL) {
+				ret = PC_ERR_MEM_OPERATION;
+				goto finish;
+			}
+			++i_allocated_count;
+		} else if(ret_db == SQLITE_DONE) {
+			ret = PC_ERR_DB_OPERATION;
+			C_LOGE("RDB: Not enough permissions read.");
+			goto finish;
+		} else if(ret_db == SQLITE_BUSY) {
+			// base locked in exclusive mode for too long
+			C_LOGE("RDB: Database is busy. RDB Connection Error returned.");
+			ret = PC_ERR_DB_CONNECTION;
+			goto finish;
+		} else {
+			C_LOGE("RDB: Error during stepping: %s", sqlite3_errmsg(p_db));
+			ret = PC_ERR_DB_QUERY_STEP;
+			goto finish;
+		}
+	}
+
+	ret_db = sqlite3_step(p_stmt);
+	if(ret_db != SQLITE_DONE) {
+		C_LOGE("RDB: Some unread permissions left.");
+		ret = PC_ERR_DB_OPERATION;
+	}
+
+finish:
+	// if memory allocation succeeded only partially, clean everything up
+	if(ret != PC_OPERATION_SUCCESS) {
+		for(i = 0; i < i_allocated_count; ++i) {
+			free((*pp_apps)[i].app_id);
+		}
+		free(*pp_apps);
+		*pp_apps = NULL;
+	}
+
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
+		C_LOGE("RDB: Error during finalizing statement: %s",
+		       sqlite3_errmsg(p_db));
+	return ret;
+}
 
 int get_app_id_internal(sqlite3 *p_db,
 			int *pi_app_id,

@@ -328,6 +328,74 @@ int check_app_has_permission_internal(sqlite3 *p_db,
 				      const char *const s_permission_type_name,
 				      bool *const p_is_enabled);
 
+/**
+ * Get number of the permissions for given application type.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param p_db                   pointer to a SQLite3 database object
+ * @param pi_permission_number   number of found permissions
+ * @param s_permission_type_name permission's type
+ * @return                       PC_OPERATION_SUCCESS on success,
+ *                               PC_ERR_* on error
+ */
+int get_permission_number(sqlite3 *p_db,
+			  size_t *pi_permission_number,
+			  const char *const s_permission_type_name);
+
+/**
+ * Get the list of the permissions for given application type.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param p_db                   pointer to a SQLite3 database object
+ * @param ppp_permissions        list of all permissions
+ * @param i_permission_number    number of found permissions
+ * @param s_permission_type_name permission's type
+
+ * @return                       PC_OPERATION_SUCCESS on success,
+ *                               PC_ERR_* on error
+ */
+int get_permissions_internal(sqlite3 *p_db,
+			     char ***ppp_permissions,
+			     size_t i_permission_number,
+			     const char *const s_permission_type_name);
+
+/**
+ * Get number of apps for given app type with given permission.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param p_db                   pointer to a SQLite3 database object
+ * @param pi_apps_number         number of found apps
+ * @param s_permission_type_name permission's type
+ * @param s_permission_name      permission's name
+ * @return                       PC_OPERATION_SUCCESS on success,
+ *                               PC_ERR_* on error
+ */
+int get_apps_number(sqlite3 *p_db,
+		    size_t *pi_apps_number,
+		    const char *const s_permission_type_name,
+		    const char *const s_permission_name);
+
+/**
+ * Get the list of the applications's statuses of given type with particular permission.
+ *
+ * @ingroup RDB internal functions
+ *
+ * @param p_db                   pointer to a SQLite3 database object
+ * @param pp_apps                list of application's statuses
+ * @param i_apps_number          number of found applicationa
+ * @param s_permission_type_name permission's type
+ * @param s_permission_name      permission's name
+ * @return                       PC_OPERATION_SUCCESS on success,
+ *                               PC_ERR_* on error
+ */
+int get_apps_with_permission_internal(sqlite3 *p_db,
+				      perm_app_status_t **pp_apps,
+				      size_t i_apps_number,
+				      const char *const s_permission_type_name,
+				      const char *const s_permission_name);
 
 /**
  * Get number of permission of a certain type for the specified app.

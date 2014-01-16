@@ -615,3 +615,53 @@ int rdb_app_get_permissions(const char *const s_app_label_name,
 finish:
 	return rdb_finish(p_db, ret);
 }
+
+int rdb_get_permissions(char ***ppp_permissions, const char *const s_permission_type_name)
+{
+	RDB_LOG_ENTRY_PARAM("%s", s_permission_type_name);
+	int ret = PC_ERR_DB_OPERATION;
+	size_t i_permission_number;
+	sqlite3 *p_db = NULL;
+
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_SHARED_READ);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = get_permission_number(p_db, &i_permission_number, s_permission_type_name);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = get_permissions_internal(p_db,
+				       ppp_permissions,
+				       i_permission_number,
+				       s_permission_type_name);
+
+finish:
+	return rdb_finish(p_db, ret);
+}
+
+int rdb_get_apps_with_permission(perm_app_status_t **pp_apps,
+				 size_t *pi_apps_number,
+				 const char *const s_permission_type_name,
+				 const char *const s_permission_name)
+{
+	RDB_LOG_ENTRY_PARAM("%s %s", s_permission_type_name, s_permission_name);
+	int ret = PC_ERR_DB_OPERATION;
+	sqlite3 *p_db = NULL;
+
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_SHARED_READ);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = get_apps_number(p_db,
+			      pi_apps_number,
+			      s_permission_type_name,
+			      s_permission_name);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = get_apps_with_permission_internal(p_db,
+						pp_apps,
+						*pi_apps_number,
+						s_permission_type_name,
+						s_permission_name);
+
+finish:
+	return rdb_finish(p_db, ret);
+}

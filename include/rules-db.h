@@ -257,7 +257,6 @@ int rdb_app_has_permission(const char *const s_app_label_name,
 			   const char *const s_permission_name,
 			   bool *const p_is_enabled);
 
-
 /**
  * Get permissions for the specified app.
  *
@@ -272,5 +271,34 @@ int rdb_app_has_permission(const char *const s_app_label_name,
 int rdb_app_get_permissions(const char *const s_app_label_name,
 			    const char *const s_permission_type_name,
 			    char ***ppp_perm_list);
+
+/**
+ *  Get the list of the permissions for given application type.
+ *
+ * @ingroup RDB API functions
+ *
+ * @param ppp_permissions        buffer for all of the found permissions
+ * @param s_permission_type_name permission's type
+ * @return                       PC_OPERATION_SUCCESS on success,
+ *                               PC_ERR_* on error
+ */
+int rdb_get_permissions(char ***ppp_permissions, const char *const s_permission_type_name);
+
+/**
+ * Get the list of apps for given app type with given permission.
+ *
+ * @ingroup RDB API functions
+ *
+ * @param pp_apps                list of application's statuses
+ * @param pi_apps_number         number of found apps
+ * @param s_permission_type_name permission's type
+ * @param s_permission_name      permission's name
+ * @return                       PC_OPERATION_SUCCESS on success,
+ *                               PC_ERR_* on error
+ */
+int rdb_get_apps_with_permission(perm_app_status_t **pp_apps,
+				 size_t *pi_apps_number,
+				 const char *const s_permission_type_name,
+				 const char *const s_permission_name);
 
 #endif /*_RULES_DB_H_*/

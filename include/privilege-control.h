@@ -91,6 +91,12 @@ typedef enum {
 	PERM_APP_PATH_ANY_LABEL,
 } app_path_type_t;
 
+typedef struct perm_app_status {
+	char *app_id;
+	bool is_enabled;
+	bool is_permanent;
+} perm_app_status_t;
+
 
 // TODO: after all projects change their code delete these defines
 // Historical in app_type_t
@@ -147,8 +153,8 @@ int get_smack_label_from_process(pid_t pid, char *smack_label);
  * @return              0 (no access) or 1 (access) or -1 (error)
  */
 int smack_pid_have_access(pid_t pid,
-							const char* object,
-							const char *access_type);
+			  const char *object,
+			  const char *access_type);
 
 /**
  * Set DAC and SMACK privileges for application.
@@ -329,6 +335,48 @@ int perm_app_has_permission(const char *pkg_id,
 			    bool *is_enabled);
 
 /**
+ * Get the list of the permissions for given application type
+ * Caller is responsible for freeing allocated memory.
+ * *ppp_permissions is a pointer to an array consisting of char pointers,
+ * terminated with NULL pointer. Memory allocated with each
+ * of these pointer except for the last one (NULL) should be freed,
+ * followed by freeing *ppp_permissions itself.
+ *
+ * @param ppp_permissions list of all permissions
+ * @param app_type        application type
+ * @return                PC_OPERATION_SUCCESS on success,
+ *                        PC_ERR_* on error
+ */
+int perm_get_permissions(char ***ppp_permissions, app_type_t app_type);
+
+/**
+ * Get the list of the applications of given type with particular permission.
+ * Caller is responsible for freeing allocated memory
+ * using perm_free_apps_list()
+ *
+ * @param pp_apps           list of application's statuses
+ * @param pi_apps_number    number of found application
+ * @param app_type          application type
+ * @param s_permission_name permission name
+ * @return                  PC_OPERATION_SUCCESS on success,
+ *                          PC_ERR_* on error
+ */
+int perm_get_apps_with_permission(perm_app_status_t **pp_apps,
+				  size_t *pi_apps_number,
+				  app_type_t app_type,
+				  const char *s_permission_name);
+
+/**
+ * Free the list of the applications allocated with
+ * perm_get_apps_with_permission().
+ *
+ * @param pp_apps       list of application's statuses
+ * @param i_apps_number number of applications on the list
+ */
+void perm_free_apps_list(perm_app_status_t *pp_apps,
+			 size_t i_apps_number);
+
+/**
  * Get permissions for the specified app.
  *
  * In case of success caller is responsible for freeing memory allocated by it.
@@ -488,16 +536,16 @@ int app_add_friend(const char* pkg_id1, const char* pkg_id2) DEPRECATED;
  * @return                   PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
 int perm_add_api_feature(app_type_t app_type,
-					const char* api_feature_name,
-					const char** set_smack_rule_set,
-					const gid_t* list_of_db_gids,
-					size_t list_size);
-int add_api_feature(app_type_t app_type,
-                    const char* api_feature_name,
-                    const char** set_smack_rule_set,
-                    const gid_t* list_of_db_gids,
-                    size_t list_size) DEPRECATED;
+			 const char* api_feature_name,
+			 const char** set_smack_rule_set,
+			 const gid_t* list_of_db_gids,
+			 size_t list_size);
 
+int add_api_feature(app_type_t app_type,
+		    const char* api_feature_name,
+		    const char** set_smack_rule_set,
+		    const gid_t* list_of_db_gids,
+		    size_t list_size) DEPRECATED;
 
 /**
  * Starts exclusive database transaction. Run before functions modifying

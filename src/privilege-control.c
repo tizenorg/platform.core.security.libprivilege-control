@@ -1075,6 +1075,98 @@ API int perm_app_get_permissions(const char *pkg_id, app_type_t app_type, char *
 	return PC_OPERATION_SUCCESS;
 }
 
+API int perm_get_permissions(char ***ppp_permissions, app_type_t app_type)
+{
+	SECURE_C_LOGD("Entering function: %s. Params: app_type=%d",
+		      __func__, app_type);
+	int ret;
+
+	if(ppp_permissions == NULL) {
+		C_LOGE("Invalid ppp_permissions (NULL).");
+		return PC_ERR_INVALID_PARAM;
+	}
+	// Set the given pointer to NULL in case of future failure
+	*ppp_permissions = NULL;
+
+	const char *s_permission_type_name = app_type_group_name(app_type);
+
+	if(s_permission_type_name == NULL) {
+		C_LOGE("Unknown param app type.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	ret = rdb_get_permissions(ppp_permissions, s_permission_type_name);
+
+	if(ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("RDB %s failed with: %d", __func__, ret);
+		return ret;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
+API int perm_get_apps_with_permission(perm_app_status_t **pp_apps,
+				      size_t *pi_apps_number,
+				      app_type_t app_type,
+				      const char *s_permission_name)
+{
+	SECURE_C_LOGD("Entering function: %s. Params: \
+		       app_type=%d, s_permission_name=%s",
+		       __func__, app_type, s_permission_name);
+	int ret;
+
+	if(pp_apps == NULL) {
+		C_LOGE("Invalid ppp_permissions (NULL).");
+		return PC_ERR_INVALID_PARAM;
+	}
+	// Set the given pointer to NULL in case of future failure
+	*pp_apps = NULL;
+
+	if(pi_apps_number == NULL) {
+		C_LOGE("Invalid pi_apps_number (NULL).");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if(s_permission_name == NULL) {
+		C_LOGE("Invalid s_permission_name (NULL).");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	const char *s_permission_type_name = app_type_group_name(app_type);
+
+	if(s_permission_type_name == NULL) {
+		C_LOGE("Unknown param app type.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	ret = rdb_get_apps_with_permission(pp_apps,
+					   pi_apps_number,
+					   s_permission_type_name,
+					   s_permission_name);
+
+	if(ret != PC_OPERATION_SUCCESS) {
+		C_LOGE("RDB %s failed with: %d", __func__, ret);
+		return ret;
+	}
+
+	return PC_OPERATION_SUCCESS;
+}
+
+API void perm_free_apps_list(perm_app_status_t *pp_apps,
+			     size_t i_apps_number)
+{
+	SECURE_C_LOGD("Entering function: %s. Params: i_apps_number=%d",
+		      __func__, i_apps_number);
+
+	size_t i;
+	if(pp_apps != NULL) {
+		for(i = 0; i < i_apps_number; ++i) {
+			free(pp_apps[i].app_id);
+		}
+		free(pp_apps);
+	}
+}
+
 API int app_label_dir(const char* label, const char* path)//deprecated
 {
 	SECURE_C_LOGD("Entering function: %s. Params: label=%s, path=%s",
