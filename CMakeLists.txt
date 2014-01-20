@@ -51,7 +51,6 @@ SET(libprivilege-control_SOURCES
 	${src_dir}/rules-db.c
 	${src_dir}/rules-db-internals.c
 	)
-SET(libprivilege-control_LDFLAGS " -module -avoid-version ")
 SET(libprivilege-control_CFLAGS  " ${CFLAGS} -fPIC -I${include_dir}")
 SET(libprivilege-control_LIBADD  "${pkgs_LDFLAGS} -lcap -lcrypt")
 
@@ -71,7 +70,6 @@ SET_TARGET_PROPERTIES(rules-db-sql-udf PROPERTIES COMPILE_FLAGS "${rules-db-sql-
 ###################################################################################################
 ## for slp-su (excutable)
 SET(slp-su_SOURCES ${src_dir}/slp-su.c)
-SET(slp-su_LDFLAGS " -module -avoid-version ")
 SET(slp-su_CFLAGS  " ${CFLAGS} -fPIC -I${include_dir}")
 
 ADD_EXECUTABLE(slp-su ${slp-su_SOURCES})
