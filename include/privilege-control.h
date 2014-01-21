@@ -37,7 +37,7 @@ extern "C" {
 #define API __attribute__((visibility("default")))
 #endif // API
 
-#define DEPRECATED __attribute__((deprecated));
+#define DEPRECATED __attribute__((deprecated))
 #define UNUSED __attribute__((unused))
 
 /* error codes */

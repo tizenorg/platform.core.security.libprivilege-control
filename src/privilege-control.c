@@ -1243,7 +1243,6 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 
 	case APP_PATH_PUBLIC: {
 		C_LOGD("app_path_type is APP_PATH_PUBLIC.");
-		char **app_ids AUTO_FREE;
 		const char *label;
 		int ret;
 
@@ -1275,7 +1274,6 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 
 	case APP_PATH_SETTINGS: {
 		C_LOGD("app_path_type is APP_PATH_SETTINGS.");
-		char **app_ids AUTO_FREE;
 		const char *label;
 		int ret;
 
@@ -1448,9 +1446,6 @@ API int perm_app_install(const char* pkg_id)
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s",
 				__func__, pkg_id);
 	int ret;
-	int fd AUTO_CLOSE;
-	char* smack_path AUTO_FREE;
-	struct smack_accesses *smack AUTO_SMACK_FREE;
 
 	if (!smack_label_is_valid(pkg_id)) {
 		C_LOGE("Invalid param pkg_id.");
@@ -1478,7 +1473,6 @@ API int app_uninstall(const char* pkg_id)//deprecated
 API int perm_app_uninstall(const char* pkg_id)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s", __func__, pkg_id);
-	char* smack_path AUTO_FREE;
 	int ret;
 
 	if (!smack_label_is_valid(pkg_id)) {
@@ -1545,7 +1539,6 @@ API int perm_add_api_feature(app_type_t app_type,
 				__func__, app_type, api_feature_name);
 
 	int ret = PC_OPERATION_SUCCESS;
-	char* smack_file AUTO_FREE;
 	char* dac_file AUTO_FREE;
 	char * base_api_feature_name AUTO_FREE;
 	FILE* file = NULL;

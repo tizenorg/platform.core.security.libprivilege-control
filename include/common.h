@@ -86,12 +86,10 @@
 void freep(void *p);
 void closep(int *fd);
 void fclosep(FILE **f);
-void smack_freep(struct smack_accesses **smack);
 void fts_closep(FTS **f);
 #define AUTO_FREE       __attribute__ ((cleanup(freep)))       = NULL
 #define AUTO_CLOSE      __attribute__ ((cleanup(closep)))      = -1
 #define AUTO_FCLOSE     __attribute__ ((cleanup(fclosep)))     = NULL
-#define AUTO_SMACK_FREE __attribute__ ((cleanup(smack_freep))) = NULL
 #define AUTO_FTS_CLOSE  __attribute__ ((cleanup(fts_closep)))   = NULL
 
 #define SMACK_RULES_DIR          "/opt/etc/smack-app/accesses.d/"
@@ -109,7 +107,7 @@ int load_smack_from_file_early(const char* app_id, struct smack_accesses** smack
 int smack_mark_file_name(const char *app_id, char **path);
 bool file_exists(const char* path);
 int smack_file_name(const char* app_id, char** path);
-inline int have_smack(void);
+int have_smack(void);
 int base_name_from_perm(const char *perm, char **name);
 
 

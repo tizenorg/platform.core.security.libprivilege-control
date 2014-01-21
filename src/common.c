@@ -246,11 +246,6 @@ void fclosep(FILE **f)
 		fclose(*f);
 }
 
-void smack_freep(struct smack_accesses **smack)
-{
-	smack_accesses_free(*smack);
-}
-
 void fts_closep(FTS **f)
 {
 	if(*f)
@@ -369,7 +364,7 @@ int smack_file_name(const char *app_id, char **path)
 	return PC_OPERATION_SUCCESS;
 }
 
-inline int have_smack(void)
+int have_smack(void)
 {
 	SECURE_C_LOGD("Entering function: %s.", __func__);
 
