@@ -1,3 +1,0 @@
-~APP~ contacts-service::read r
-~APP~ contacts-service::write w
-~APP~ contacts-service::svc rw

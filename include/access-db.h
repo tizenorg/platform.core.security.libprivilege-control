@@ -22,41 +22,18 @@
 #ifndef _ACCESS_DB_H_
 #define _ACCESS_DB_H_
 
-/**
- * This function add app_id to database.
- * Needs to be call by privileged user.
- */
-int add_app_id_to_databse(const char * app_id);
 
 /**
- * This function add anti_virus_id to database.
- * Needs to be call by privileged user.
- */
-int add_av_id_to_databse(const char * av_id);
-
-/**
- * This function returns (in params) labels of all installed applications.
- * apps_ids should be freed by caller.
- */
-int get_all_apps_ids(char *** apps_ids, int * len);
-
-/**
- * This function returns (in params) labels of all installed anti viruses.
- * avs_ids should be freed by caller.
- */
-int get_all_avs_ids(char *** av_ids, int * len);
-
-/**
- * This function adds an app to a suplementary group identified by gid
+ * This function adds an app to a supplementary group identified by gid
  */
 int add_app_gid(const char *app_id, unsigned gid);
 
+
 /**
- * This function returns (in params) suplementary group ids that an app
+ * This function returns (in params) supplementary group ids that an app
  * has been assigned to.
  * gids should be freed by caller.
  */
 int get_app_gids(const char *app_id, unsigned **gids, int *len);
-
 
 #endif // _ACCESS_DB_H_

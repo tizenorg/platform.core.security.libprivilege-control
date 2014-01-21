@@ -37,28 +37,32 @@
 
 // conditional log macro for dlogutil (debug)
 #ifdef DLOG_DEBUG_ENABLED
-#define C_LOGD(...) LOGD(__VA_ARGS__)
+#define C_LOGD(...) SLOGD(__VA_ARGS__)
+#define SECURE_C_LOGD(...) SECURE_SLOGD(__VA_ARGS__)
 #else
 #define C_LOGD(...) do { } while(0)
+#define SECURE_C_LOGD(...) do { } while(0)
 #endif //DLOG_DEBUG_ENABLED
 
 // conditional log macro for dlogutil (error)
 #ifdef DLOG_ERROR_ENABLED
-#define C_LOGE(...) LOGE(__VA_ARGS__)
+#define C_LOGE(...) SLOGE(__VA_ARGS__)
+#define SECURE_C_LOGE(...) SECURE_SLOGE(__VA_ARGS__)
 #else
 #define C_LOGE(...) do { } while(0)
+#define SECURE_C_LOGE(...) do { } while(0)
 #endif //DLOG_ERROR_ENABLED
 
 void print_usage(void)
 {
-    C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s.", __func__);
 	printf("%s", "Usage: slp-su [PKG_NAME]\n\n");
 	printf("%s", "Execute new shell which be belonged to user related with PKG_NAME\n\n");
 }
 
 int main(int argc, char* argv[])
 {
-    C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s.", __func__);
 	pid_t pid = -1;
 	char* buf = NULL;
 
@@ -75,23 +79,23 @@ int main(int argc, char* argv[])
 	{
 		case 0:		// child
 			{
-				if(set_app_privilege(argv[1], NULL, NULL) == 0)	// success
+				if(perm_app_set_privilege(argv[1], NULL, NULL) == 0)	// success
 				{
-					fprintf(stderr, "%s", "[LOG] Success to execute set_privilege()\n");
-					C_LOGD("[LOG] Success to execute set_privilege()");
+					fprintf(stderr, "%s", "[LOG] Successfully executed set_privilege()\n");
+					C_LOGD("[LOG] Successfully executed set_privilege()");
 				}
 				else
 				{
-					fprintf(stderr, "%s", "[ERR] Fail to execute set_privilege()\n");
-					C_LOGE("[ERR] Fail to execute set_privilege()");
+					fprintf(stderr, "%s", "[ERR] Failed to execute set_privilege()\n");
+					C_LOGE("[ERR] Failed to execute set_privilege()");
 					exit(1);
 				}
 
 				buf = getenv("HOME");
 				if(buf == NULL)	// fail
 				{
-					fprintf(stderr, "%s", "[ERR] Fail to execute getenv()\n");
-					C_LOGE("[ERR] Fail to execute getenv()");
+					fprintf(stderr, "%s", "[ERR] Failed to execute getenv()\n");
+					C_LOGE("[ERR] Failed to execute getenv()");
 					exit(0);
 				}
 				else
@@ -102,13 +106,13 @@ int main(int argc, char* argv[])
 				
 				if(chdir(buf) == 0)	// success
 				{
-					fprintf(stderr, "%s", "[LOG] Success to change working directory\n");
-					C_LOGD("[LOG] Success to change working directory");
+					fprintf(stderr, "%s", "[LOG] Successfully changed working directory\n");
+					C_LOGD("[LOG] Successfully changed working directory");
 				}
 				else
 				{
-					fprintf(stderr, "%s", "[ERR] Fail to execute chdir()\n");
-					C_LOGE("[ERR] Fail to execute chdir()");
+					fprintf(stderr, "%s", "[ERR] Failed to execute chdir()\n");
+					C_LOGE("[ERR] Failed to execute chdir()");
 					exit(0);
 				}
 				
@@ -118,8 +122,8 @@ int main(int argc, char* argv[])
 			}
 		case -1:	// error
 			{
-				fprintf(stderr, "%s", "[ERR] Fail to execute fork()\n");
-				C_LOGE("[ERR] Fail to execute fork()");
+				fprintf(stderr, "%s", "[ERR] Failed to execute fork()\n");
+				C_LOGE("[ERR] Failed to execute fork()");
 				exit(1);
 				break;
 			}
