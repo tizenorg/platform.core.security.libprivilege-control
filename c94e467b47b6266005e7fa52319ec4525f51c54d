@@ -1,0 +1,7 @@
+Verified+1: Casey Schaufler <casey.schaufler@intel.com>
+Code-Review+2: Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>
+Submitted-by: Casey Schaufler <casey.schaufler@intel.com>
+Submitted-at: Tue, 21 Jan 2014 11:34:32 -0800
+Reviewed-on: https://review.tizen.org/gerrit/15421
+Project: platform/core/security/libprivilege-control
+Branch: refs/heads/tizen
