@@ -92,7 +92,7 @@ int add_modified_label_internal(sqlite3 *p_db, const char *const s_label_name)
 
 	ret = step_and_convert_returned_value(p_stmt);
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -113,7 +113,7 @@ int add_modified_permission_internal(sqlite3 *p_db, sqlite3_int64 i_permission_i
 
 	ret = step_and_convert_returned_value(p_stmt);
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -148,7 +148,7 @@ int add_modified_apps_path_internal(sqlite3 *p_db,
 
 	ret = step_and_convert_returned_value(p_stmt);
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -226,7 +226,7 @@ int open_rdb_connection(sqlite3 **p_db, bool b_create_temporary_tables)
 	}
 
 	// Load extensions:
-	if(sqlite3_enable_load_extension(*p_db, 1)) {
+	if(sqlite3_enable_load_extension(*p_db, 1) != SQLITE_OK) {
 		C_LOGE("RDB: Error enabling extensions: %s", sqlite3_errmsg(*p_db));
 		return PC_ERR_DB_CONNECTION;
 	}
@@ -339,7 +339,7 @@ int prepare_stmt(sqlite3 *p_db,
 			      s_query,
 			      strlen(s_query) + 1,
 			      pp_stmt,
-			      NULL)) {
+			      NULL) != SQLITE_OK) {
 		C_LOGE("RDB: Error during preparing statement: %s", sqlite3_errmsg(p_db));
 		ret = PC_ERR_DB_QUERY_PREP;
 		goto finish;
@@ -388,7 +388,7 @@ int check_app_label_internal(sqlite3 *p_db,
 		ret = PC_ERR_DB_QUERY_STEP;
 	}
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -410,7 +410,7 @@ int add_app_internal(sqlite3 *p_db,
 
 	ret = step_and_convert_returned_value(p_stmt);
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -434,7 +434,7 @@ int remove_app_internal(sqlite3 *p_db,
 
 	ret = step_and_convert_returned_value(p_stmt);
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -470,7 +470,7 @@ int add_path_internal(sqlite3 *p_db,
 
 	ret = step_and_convert_returned_value(p_stmt);
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -509,7 +509,7 @@ int get_app_paths_count_internal(sqlite3 *p_db,
 	}
 
 finish:
-	if (sqlite3_finalize(p_stmt) < 0) {
+	if (sqlite3_finalize(p_stmt) != SQLITE_OK) {
 		C_LOGE("RDB: Error during finalizing statement: %s", sqlite3_errmsg(p_db));
 	}
 
@@ -582,7 +582,7 @@ finish:
 		*ppp_paths = NULL;
 	}
 
-	if (sqlite3_finalize(p_stmt) < 0) {
+	if (sqlite3_finalize(p_stmt) != SQLITE_OK) {
 		C_LOGE("RDB: Error during finalizing statement: %s", sqlite3_errmsg(p_db));
 	}
 
@@ -630,7 +630,7 @@ int add_permission_internal(sqlite3 *p_db,
 
 	ret = step_and_convert_returned_value(p_stmt);
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -670,7 +670,7 @@ int get_permission_id_internal(sqlite3 *p_db,
 	}
 
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 
@@ -686,7 +686,7 @@ int prepare_stmts_for_bind(sqlite3 *p_db,
 			      s_query,
 			      strlen(s_query) + 1,
 			      pp_stmt,
-			      NULL)) {
+			      NULL) != SQLITE_OK) {
 		C_LOGE("RDB: Error during preparing statement: %s",
 		       sqlite3_errmsg(p_db));
 		return PC_ERR_DB_QUERY_PREP;
@@ -886,19 +886,19 @@ int add_permission_rules_internal(sqlite3 *p_db,
 
 finish:
 	if(p_perm_to_label_stmt &&
-	    sqlite3_finalize(p_perm_to_label_stmt) < 0) {
+	    sqlite3_finalize(p_perm_to_label_stmt) != SQLITE_OK) {
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	}
 
 	if(p_perm_to_perm_stmt &&
-	    sqlite3_finalize(p_perm_to_perm_stmt) < 0) {
+	    sqlite3_finalize(p_perm_to_perm_stmt) != SQLITE_OK) {
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	}
 
 	if(p_perm_to_app_path_type_stmt &&
-	    sqlite3_finalize(p_perm_to_app_path_type_stmt) < 0) {
+	    sqlite3_finalize(p_perm_to_app_path_type_stmt) != SQLITE_OK) {
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	}
@@ -1020,7 +1020,7 @@ int add_additional_rules_internal(sqlite3 *p_db, const char *const *const pp_sma
 
 finish:
 	if(p_label_to_app_path_type_stmt &&
-	    sqlite3_finalize(p_label_to_app_path_type_stmt) < 0)
+	    sqlite3_finalize(p_label_to_app_path_type_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -1069,7 +1069,7 @@ int check_app_has_permission_internal(sqlite3 *p_db,
 	}
 
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -1109,7 +1109,7 @@ int get_app_permissions_number_internal(sqlite3  *p_db, const char *const s_app_
 	}
 
 finish:
-	if (sqlite3_finalize(p_stmt) < 0) {
+	if (sqlite3_finalize(p_stmt) != SQLITE_OK) {
 		C_LOGE("RDB: Error during finalizing statement: %s", sqlite3_errmsg(p_db));
 	}
 
@@ -1182,7 +1182,7 @@ finish:
 		*ppp_perm_list = NULL;
 	}
 
-	if (sqlite3_finalize(p_stmt) < 0) {
+	if (sqlite3_finalize(p_stmt) != SQLITE_OK) {
 		C_LOGE("RDB: Error during finalizing statement: %s", sqlite3_errmsg(p_db));
 	}
 
@@ -1222,7 +1222,7 @@ int get_app_id_internal(sqlite3 *p_db,
 	}
 
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -1256,7 +1256,7 @@ int add_app_permission_internal(sqlite3 *p_db,
 
 	ret = step_and_convert_returned_value(p_stmt);
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -1288,7 +1288,7 @@ int switch_app_permission_internal(sqlite3 *p_db,
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 	ret = step_and_convert_returned_value(p_stmt);
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -1318,7 +1318,7 @@ int update_app_permission_internal(sqlite3 *p_db,
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 	ret = step_and_convert_returned_value(p_stmt);
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -1373,7 +1373,7 @@ int change_app_permission_internal(sqlite3 *p_db,
 		i_permission_id = sqlite3_column_int(p_stmt, RDB_THIRD_COLUMN);
 
 		// Finalize statement
-		if(sqlite3_finalize(p_stmt) < 0)
+		if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 			C_LOGE("RDB: Error during finalizing statement: %s",
 			       sqlite3_errmsg(p_db));
 		p_stmt = NULL;
@@ -1388,7 +1388,7 @@ int change_app_permission_internal(sqlite3 *p_db,
 	} else if(ret == SQLITE_DONE) {
 		// Wow! A brand new permission! Omnomnom...
 
-		if(sqlite3_finalize(p_stmt) < 0)
+		if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 			C_LOGE("RDB: Error during finalizing statement: %s",
 			       sqlite3_errmsg(p_db));
 		p_stmt = NULL;
@@ -1406,7 +1406,7 @@ int change_app_permission_internal(sqlite3 *p_db,
 	}
 
 finish:
-	if(p_stmt && sqlite3_finalize(p_stmt) < 0)
+	if(p_stmt && sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -1430,7 +1430,7 @@ int revoke_app_permissions_internal(sqlite3 *p_db,
 
 	ret = step_and_convert_returned_value(p_stmt);
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -1454,7 +1454,7 @@ int reset_app_permissions_internal(sqlite3 *p_db,
 
 	ret = step_and_convert_returned_value(p_stmt);
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 	return ret;
@@ -1572,7 +1572,7 @@ int update_smack_rules(sqlite3 *p_db)
 	}
 
 finish:
-	if(sqlite3_finalize(p_stmt) < 0)
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
 		C_LOGE("RDB: Error during finalizing statement: %s",
 		       sqlite3_errmsg(p_db));
 
