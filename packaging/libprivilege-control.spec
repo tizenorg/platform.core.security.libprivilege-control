@@ -57,7 +57,6 @@ mkdir -p %{buildroot}/usr/share/privilege-control/
 
 %files conf
 %manifest %{name}.manifest
-/opt/etc/smack/*
 /opt/dbspace/.privilege_control*.db
 
 %files devel
