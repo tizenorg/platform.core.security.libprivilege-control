@@ -54,15 +54,10 @@ mkdir -p %{buildroot}/usr/share/privilege-control/
 
 mkdir -p %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
 ln -sf /usr/lib/systemd/system/smack-rules.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-rules.service
+mkdir -p %{buildroot}/opt/dbspace
 
 %post
 /sbin/ldconfig
-
-if [ ! -e "/opt/dbspace" ]
-then
-    mkdir -p /opt/dbspace
-    chmod 775 /opt/dbspace
-fi
 
 /usr/share/privilege-control/db/updater.sh
 
@@ -91,6 +86,7 @@ api_feature_loader --verbose --rules=/usr/share/privilege-control/ADDITIONAL_RUL
 /usr/share/privilege-control/db/updates/*
 /usr/share/privilege-control/db/load-rules-db.sql
 /etc/opt/upgrade/220.libprivilege-updater.patch.sh
+%attr(755, root, root) %dir /opt/dbspace
 
 %files conf
 %manifest %{name}.manifest
