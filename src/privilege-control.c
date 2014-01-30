@@ -540,7 +540,7 @@ static int is_widget(const char* path)
  *
  * @param type claimed application type
  * @param path file path to executable
- * @return return void on success, terminate the process on error
+ * @return return recognized type enum on success, terminate the process on error
  */
 static app_type_t verify_app_type(const char* type, const char* path)
 {
@@ -549,7 +549,8 @@ static app_type_t verify_app_type(const char* type, const char* path)
 
 	/* TODO: this should actually be treated as error, but until the old
 	 * set_privilege API is removed, it must be ignored */
-	if (path == NULL) {
+        /* And it will be removed very soon */
+	if (path == NULL || type == NULL) {
 		C_LOGD("PKG_TYPE_OTHER");
 		return APP_TYPE_OTHER; /* good */
 	}
@@ -567,16 +568,23 @@ static app_type_t verify_app_type(const char* type, const char* path)
 		}
 
 	} else {
-		if (type == NULL || (strcmp(type, "wgt")
-				&& strcmp(type, "wgt_partner")
-				&& strcmp(type, "wgt_platform"))){
-			C_LOGD("PKG_TYPE_OTHER");
-			return PERM_APP_TYPE_OTHER; /* good */
+		if (!strcmp(type, "osp")) {
+			C_LOGD("PKG_TYPE_OSP");
+			return PERM_APP_TYPE_OSP; /* good */
+		} else if (!strcmp(type, "osp_partner")) {
+			C_LOGD("PKG_TYPE_OSP_PARTNER");
+			return PERM_APP_TYPE_OSP_PARTNER; /* good */
+		} else if (!strcmp(type, "osp_platform")) {
+			C_LOGD("PKG_TYPE_OSP_PLATFORM");
+			return PERM_APP_TYPE_OSP_PLATFORM; /* good */
+		} else if (!strcmp(type, "efl")) {
+			C_LOGD("PKG_TYPE_EFL");
+			return PERM_APP_TYPE_EFL; /* good */
 		}
 	}
 
 	/* bad */
-	C_LOGE("EXIT_FAILURE");
+	C_LOGE("EXIT_FAILURE, app_type = \"%s\" unrecognized", type);
 	exit(EXIT_FAILURE);
 }
 
