@@ -57,6 +57,13 @@ ln -sf /usr/lib/systemd/system/smack-rules.service %{buildroot}/usr/lib/systemd/
 
 %post
 /sbin/ldconfig
+
+if [ ! -e "/opt/dbspace" ]
+then
+    mkdir -p /opt/dbspace
+    chmod 775 /opt/dbspace
+fi
+
 /usr/share/privilege-control/db/updater.sh
 
 %postun -p /sbin/ldconfig
