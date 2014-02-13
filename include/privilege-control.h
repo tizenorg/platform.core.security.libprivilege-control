@@ -165,7 +165,9 @@ int smack_pid_have_access(pid_t pid,
  *
  * @param  name  package name
  * @param  type  application type (currently distinguished types:
- *               "wgt", "wgt_partner", "wgt_platform" and other)
+ *               "wgt", "wgt_partner", "wgt_platform",
+ *               "tpk", "osp", "osp_partner", "osp_platform",
+ *               "rpm", "efl")
  * @param  path  file system path to the binary
  * @return       PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
