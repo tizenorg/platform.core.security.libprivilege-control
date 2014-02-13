@@ -568,7 +568,7 @@ static app_type_t verify_app_type(const char* type, const char* path)
 		}
 
 	} else {
-		if (!strcmp(type, "osp")) {
+		if (!strcmp(type, "osp") || !strcmp(type, "tpk")) {
 			C_LOGD("PKG_TYPE_OSP");
 			return PERM_APP_TYPE_OSP; /* good */
 		} else if (!strcmp(type, "osp_partner")) {
@@ -577,7 +577,7 @@ static app_type_t verify_app_type(const char* type, const char* path)
 		} else if (!strcmp(type, "osp_platform")) {
 			C_LOGD("PKG_TYPE_OSP_PLATFORM");
 			return PERM_APP_TYPE_OSP_PLATFORM; /* good */
-		} else if (!strcmp(type, "efl")) {
+		} else if (!strcmp(type, "efl") || !strcmp(type, "rpm")) {
 			C_LOGD("PKG_TYPE_EFL");
 			return PERM_APP_TYPE_EFL; /* good */
 		}
