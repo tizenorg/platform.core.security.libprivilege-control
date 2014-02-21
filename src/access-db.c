@@ -27,6 +27,7 @@
 #include <sys/smack.h>
 #include <dlog.h>
 #include <ctype.h>
+#include <tzplatform_config.h>
 
 #include "access-db.h"
 #include "privilege-control.h"
@@ -39,16 +40,31 @@ typedef enum {
 	DB_APP_TYPE_COUNT /* Dummy enum element to get number of elements */
 } db_app_type_t;
 
-const char* db_file_names[DB_APP_TYPE_COUNT] = {
-		"/opt/dbspace/.privilege_control_all_apps_id.db",
-		"/opt/dbspace/.privilege_control_all_avs_id.db",
-		"/opt/dbspace/.privilege_control_app_gids.db",
-};
-
 typedef struct element_s {
 	struct element_s* next;
 	char* value;
 } element_t;
+
+static const char* db_file_names(db_app_type_t db_type)
+{
+	const char * db_file = NULL;
+	switch (db_type) {
+	case DB_APP_TYPE_APPLICATION:
+		db_file = tzplatform_mkpath(TZ_SYS_DB,".privilege_control_all_apps_id.db");
+		break;
+	case DB_APP_TYPE_ANTIVIRUS:
+		db_file = tzplatform_mkpath(TZ_SYS_DB,".privilege_control_all_avs_id.db");
+		break;
+	case DB_APP_TYPE_GROUPS:
+		db_file = tzplatform_mkpath(TZ_SYS_DB,".privilege_control_app_gids.db");
+		break;
+	default:
+		/* do nothing */
+		break;
+	}
+
+	return db_file;
+}
 
 static element_t* add_element (element_t* elem, const char* value)
 {
@@ -93,7 +109,7 @@ static int add_id_to_database_internal(const char * id, db_app_type_t app_type)
 {
 	C_LOGD("Enter function: %s", __func__);
 	FILE* file_db AUTO_FCLOSE;
-	const char* db_file_name = db_file_names[app_type];
+	const char* db_file_name = db_file_names(app_type);
 
 	file_db = fopen(db_file_name, "a");
 	if (NULL == file_db) {
@@ -114,7 +130,7 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 	int ret;
 	char* scanf_label_format AUTO_FREE;
 	FILE* file_db AUTO_FCLOSE;
-	const char* db_file_name = db_file_names[app_type];
+	const char* db_file_name = db_file_names(app_type);
 	char smack_label[SMACK_LABEL_LEN + 1];
 	element_t* begin_of_list = NULL;
 
