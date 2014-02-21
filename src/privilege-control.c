@@ -38,33 +38,34 @@
 #include <sys/smack.h>
 #include <stdbool.h>
 #include <search.h>
+#include <tzplatform_config.h>
 
 #include "privilege-control.h"
 #include "access-db.h"
 #include "common.h"
 
-#define APP_GID	5000
-#define APP_UID	5000
-#define DEVELOPER_GID	5100
-#define DEVELOPER_UID	5100
+#define APP_GID	tzplatform_getgid(TZ_USER_NAME)
+#define APP_UID	tzplatform_getuid(TZ_USER_NAME)
+#define DEVELOPER_GID	tzplatform_getgid(TZ_SDK_USER_NAME)
+#define DEVELOPER_UID	tzplatform_getuid(TZ_SDK_USER_NAME)
 
-#define APP_USER_NAME	"app"
-#define DEV_USER_NAME	"developer"
+#define APP_USER_NAME	tzplatform_mkstr(TZ_USER_NAME,NULL)
+#define DEV_USER_NAME	tzplatform_mkstr(TZ_SDK_USER_NAME, NULL)
 
-#define APP_HOME_DIR	TOSTRING(HOMEDIR) "/app"
-#define DEV_HOME_DIR	TOSTRING(HOMEDIR) "/developer"
+#define APP_HOME_DIR	TOSTRING(HOMEDIR)
+#define DEV_HOME_DIR	TOSTRING(HOMEDIR)
 
 #define APP_GROUP_PATH	TOSTRING(SHAREDIR) "/app_group_list"
 #define DEV_GROUP_PATH	TOSTRING(SHAREDIR) "/dev_group_list"
 
-#define SMACK_RULES_DIR  "/etc/smack/accesses.d/"
+#define SMACK_RULES_DIR  tzplatform_mkpath(TZ_SYS_SMACK, "accesses.d")
 
 #define SMACK_APP_LABEL_TEMPLATE "~APP~"
 #define SMACK_SRC_FILE_SUFFIX   "_src_file"
 #define SMACK_SRC_DIR_SUFFIX    "_src_dir"
 #define SMACK_DATA_SUFFIX       "_data"
 #define WRT_BASE_DEVCAP         "WRT"
-#define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
+#define WRT_CLIENT_PATH         tzplatform_mkpath(TZ_SYS_BIN, "wrt-client")
 #define ACC_LEN                 5
 #define SMACK_ANTIVIRUS_PERM    "antivirus"
 
@@ -265,12 +266,13 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 
 	if(t_uid == 0)	// current user is 'root'
 	{
-		if(!strncmp(pkg_name, "developer", 9))
+		if(!strncmp(pkg_name, tzplatform_mkstr(TZ_SDK_USER_NAME, NULL), 9))
 		{
 			strncpy(usr.user_name, DEV_USER_NAME, sizeof(usr.user_name));
 			usr.uid = DEVELOPER_UID;
 			usr.gid = DEVELOPER_GID;
 			strncpy(usr.home_dir, DEV_HOME_DIR, sizeof(usr.home_dir));
+			strncat(usr.home_dir,tzplatform_mkpath(TZ_SDK_USER_NAME,NULL), sizeof(usr.home_dir) - strlen(usr.home_dir));
 			strncpy(usr.group_list, DEV_GROUP_PATH, sizeof(usr.group_list));
 		}
 		else
@@ -279,6 +281,7 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 			usr.uid = APP_UID;
 			usr.gid = APP_GID;
 			strncpy(usr.home_dir, APP_HOME_DIR, sizeof(usr.home_dir));
+			strncat(usr.home_dir, tzplatform_mkpath(TZ_USER_NAME,NULL),sizeof(usr.home_dir) - strlen(usr.home_dir));
 		}
 
 		/*
@@ -766,7 +769,7 @@ API char* app_id_from_socket(int sockfd)
 
 static int smack_file_name(const char* app_id, char** path)
 {
-	if (asprintf(path, SMACK_RULES_DIR "/%s", app_id) == -1) {
+	if (asprintf(path,"%s/%s", SMACK_RULES_DIR, app_id) == -1) {
 		C_LOGE("asprintf failed");
 		*path = NULL;
 		return PC_ERR_MEM_OPERATION;
