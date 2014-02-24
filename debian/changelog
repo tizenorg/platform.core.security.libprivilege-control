@@ -1,3 +1,401 @@
+libprivilege-control (0.0.42.TIZEN) unstable; urgency=low
+
+  [ Jan Olszak ]
+  * Changed dlog logging buffer.
+
+  [ Jan Cybulski ]
+  * Adapt code for new libsmack API
+
+  [ Rafal Krypa ]
+  * Rewrite internal function app_uninstall_remove_early_rules()
+  * Create format strings for scanf statically.
+  * Add support for new access mode for setting locks ("l")
+  * Fix unwanted differences between SLP and RSA repositories.
+
+  [ Lukasz Kostyra ]
+  * Add better debug logs to libprivilege-control
+
+ -- Rafal Krypa <r.krypa@samsung.com>  Tue, 20 Aug 2013 13:56:43 +0200
+
+libprivilege-control (0.0.41.TIZEN) unstable; urgency=low
+
+  * No source code changes.
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Mon, 12 Aug 2013 10:38:13 +0200
+
+libprivilege-control (0.0.40.TIZEN) unstable; urgency=low
+
+  [ Bumjin Im ]
+  * Adding W rules to allow email-service move draft email to draft box
+  * Adding Smack rule for obexd to allow to RX to all app's shared directory
+
+  [ Pawel Polawski ]
+  * Loading all smack-app rules during boot
+  * Revert "Work around for rule loading to allow email-service and
+    contacts-servce access to shared directory of everybody."
+
+  [ Jan Cybulski ]
+  * Change API function naming sheme
+  * Add support for EFL apps
+
+  [ Janusz Kozerski ]
+  * Add generic solution for adding rules to shared dirs (RO & RW)
+
+  [ Lukasz Kostyra ]
+  * Fix libprivilege-control not checking input parameters
+
+  [ Zofia Abramowska ]
+  * Fixing language errors
+
+  [ Bartlomiej Grzelewski ]
+  * Remove deprected code.
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Thu, 8 Aug 2013 14:31:49 +0200
+
+libprivilege-control (0.0.39.TIZEN) unstable; urgency=low
+
+  [ Bumjin Im ]
+  * Work around for rule loading to allow email-service and contacts-servce
+    access to shared directory of everybody.
+
+  [ Krzysztof Jackiewicz ]
+  * File locking added
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Fri, 12 Jul 2013 22:04:38 +0200
+
+libprivilege-control (0.0.38.TIZEN) unstable; urgency=low
+
+  [ Marcin Niesluchowski ]
+  * Fixing prevent defects in libprivilege-control: * 63125
+
+  [ Zbigniew Jasinski ]
+  * Fixing segfault in libprivilege-control
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Tue, 9 Jul 2013 18:49:02 +0200
+
+libprivilege-control (0.0.37.TIZEN) unstable; urgency=low
+
+  [ Janusz Kozerski ]
+  * Add contact-service and email-service rule to read shared dirs.
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Tue, 9 Jul 2013 10:46:56 +0200
+
+libprivilege-control (0.0.36.TIZEN) unstable; urgency=low
+
+  [ Kidong Kim ]
+  * execute pkg_smack at first boot(temporary)
+
+  [ Pawel Polawski ]
+  * Implementation of background rule loading
+
+  [ Janusz Kozerski ]
+  * Early rule loading - livebox issue.
+
+  [ Zofia Abramowska ]
+  * Adding script for early rules loading
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Mon, 8 Jul 2013 16:33:33 +0200
+
+libprivilege-control (0.0.35.TIZEN) unstable; urgency=low
+
+  [ Zbigniew Jasinski ]
+  * Fixing segfault in get_app_gids when app_id = NULL
+
+ -- Tomasz Swierczek <t.swierczek@samsung.com>  Fri, 5 Jul 2013 10:07:58 +0200
+
+libprivilege-control (0.0.34.TIZEN) unstable; urgency=low
+
+  [ Kidong Kim ]
+  * add new smack rules for user-space access control
+  * add smack rules for sdcard
+  * add new smack rules for OSP se/secureelement privilege
+
+  [ Zbigniew Jasinski ]
+  * Keeping *.smack files in separate repository.
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Wed, 3 Jul 2013 19:24:23 +0200
+
+libprivilege-control (0.0.33.TIZEN) unstable; urgency=low
+
+  [ Marcin Niesluchowski ]
+  * Reducing error logs number.
+  * Fixing prevent bugs on libprivilege-control: * 58766
+
+  [ Kidong Kim ]
+  * add new smack rule for WRT
+  * add smack rules
+  * add smack rules to synchronize with private
+  * add smack rules for OSP/WEB app to access clipboard
+
+ -- Tomasz Swierczek <t.swierczek@samsung.com>  Thu, 27 Jun 2013 12:16:22 +0200
+
+libprivilege-control (0.0.32.TIZEN) unstable; urgency=low
+
+  [ Kidong Kim ]
+  * add smack rule of OSP apps for e17
+  * add smack rules for WRT app
+  * add smack default rules
+
+  [ Zbigniew Jasinski ]
+  * Added SECURE_LOG* macro
+  * Log messages refactoring
+
+  [ Marcin Niesluchowski ]
+  * Fixing prevent critical defects in libprivilege-control and some log messages.
+
+ -- Bartlomiej Grzelewski <b.grzelewski@samsung.com>  Thu, 20 Jun 2013 11:16:19 +0200
+
+libprivilege-control (0.0.31.TIZEN) unstable; urgency=low
+
+  * No source changes.
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Mon, 17 Jun 2013 15:13:39 +0200
+
+libprivilege-control (0.0.30.TIZEN) unstable; urgency=low
+
+  [ Kidong Kim ]
+  * add smack rules for app-package::db
+  * fix rules and labeling on db
+  * add smack rules
+  * add new rules for OSP app
+
+  [ Tomasz Swierczek ]
+  * Added missing part of fix for rule overwriting issue
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Mon, 17 Jun 2013 14:44:16 +0200
+
+libprivilege-control (0.0.29.TIZEN) unstable; urgency=low
+
+  [ Tomasz Swierczek ]
+  * Fixed creation of rule sets with missing ----- (change-rule interface)
+
+  [ Marcin Niesluchowski ]
+  * privilege-control.c and privilege-control.h extended by new app_type_t values.
+  * Comment to app_revoke_permissions() changed.
+
+  [ Bartlomiej Grzelewski ]
+  * Add error logs in app_give_access.
+
+  [ Jan Cybulski ]
+  * Add implementation for appsetting privilege
+  * Change parameter names app_id to pkg_id in API functions
+
+  [ Janusz Kozerski ]
+  * Fast boot optimization
+
+  [ Bartlomiej Grzelewski ]
+  * Add value APP_PATH_ANY_LABEL to enum app_path_type_t.
+
+  [ Kidong Kim ]
+  * synchronize OSP/WRT rules with private repository
+
+  [ Bumjin Im ]
+  * Fixing Rule Loading fail for livebox apps on next reboot
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Mon, 10 Jun 2013 17:01:25 +0200
+
+libprivilege-control (0.0.28.TIZEN) unstable; urgency=low
+
+  [ Janusz Kozerski ]
+  * Add API functions smack_pid_have_access and get_smack_label_from_process.
+  * Implement special handling for http://tizen.org/privilege/antivirus
+
+  [ Rafal Krypa ]
+  * Code refactoring, new internal function for adding single rule for an application.
+  * New API for labeling directories and files.
+
+  [ Zofia Abramowska ]
+  * Changing way of mapping feature to file name
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Wed, 29 May 2013 18:17:07 +0200
+
+libprivilege-control (0.0.27.TIZEN) unstable; urgency=low
+
+  [ Karol Lewandowski ]
+  * Bugfix: Ensure that SMACK labelling finishes before we start launching middleware services
+
+  [ Junfeng Dong ]
+  * Fix for 64 bit compatibility.
+
+  [ Rafal Krypa ]
+  * Fix app_install function.
+  * Fix error handling in perm_to_smack() internal function.
+  * Fix ifdef for debug logging.
+  * Fix logging in app_add_permissions_internal()
+  * Add debug logging into app_install() and app_uninstall()
+  * Check validity of Smack labels in API function arguments.
+  * Revert "Temporary fix for web app launching."
+  * Imlement app_disable_permissions() API function stub.
+  * Fix logging ifdefs in slp-su.c.
+  * Unify code indentation.
+  * Change implementation of have_smack()
+  * Truncate Smack file for app in app_revoke_permissions().
+  * Implement adding apps to additional groups based on enabled permissions.
+  * Full set of SMACK rules support for OSP and WRT
+  * Re-enable Smack setting for native apps.
+  * Temporary workaround for complimentary groups not working on non-SMACK system.
+  * Don't delete SMACK rules file for app in function app_reset_permissions()
+  * Create separate source file for internal, common code.
+  * Simplify cleanup code by using GCC extension for variable scoping.
+  * Remove SMACK_ENABLED ifdefs.
+  * Fix for complimentary groups setting.
+  * Add DAC config files for DB access control.
+  * Merge missing code pieces from private repository.
+  * permissions: unify smack config files with private repository
+
+  [ Bartlomiej Grzelewski ]
+  * Implemet data control solution for OSP apps.
+  * Reduce complexity from O(n) to O(log(n)) druing state search.
+  * Allow multiple call of app_give_access.
+
+  [ Krzysztof Jackiewicz ]
+  * Added add_api_feature API
+  * Added support for gids in add_new_feature API
+  * Klocwork bugfixes
+  * Clean up libprivilege-control code
+  * WRT binary link handling updated.
+
+  [ Janusz Kozerski ]
+  * Add API for install antivirus (app_register_av API function).
+  * Add AV custom rule set support
+
+  [ Jan Cybulski ]
+  * Add implementation of API function add_shared_dir_readers.
+  * Add check if app_label and shared_label are different in app_label_shared_dir
+  * app_shared_dir_add_readers() accepts NULL in 'app_list' not ""
+
+  [ Tomasz Swierczek ]
+  * Setting WebAPP label to pkgId again.
+  * Added rules for OSP/WRT apps for app_give_access API usage in security-server
+
+  [ Kidong Kim ]
+  * add new labels for vconf
+  * add new rules for system::share
+  * add smack rules for osp/web app
+  * add smack rules for sdcard
+  * add rule for wrt_launchpad_daemon
+  * add new smack rule
+
+  [ Jinha Hwang ]
+  * Update .smack files 2
+
+  [ Bumjin Im ]
+  * Adjusting Rules for boolmark
+
+  [ Zofia Abramowska ]
+  * Marking app_give_access & app_revoke_access as deprecated
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Wed, 29 May 2013 16:12:06 +0200
+
+libprivilege-control (0.0.26.TIZEN) unstable; urgency=low
+
+  [ Kidong Kim ]
+  * integrate default smack rules
+  * add new rules for bt-service
+  * add missing smack rules
+  * add smack rules regarding data-provider-master
+  * add smack rules regarding secure-storage
+  * add new smack labels
+  * add new rules and remove vconf labels
+  * add smack rules for privacy-manager
+  * add smack rules for wifi and osp
+  * add smack rules for oma-ds-agent::cfg
+  * add new smack rules for tizenprv00.privacy-popup
+  * add new smack labels for vconf and support IPv6
+  * add default rules
+  * add new label and rules - system::share
+
+  [ Junfeng Dong ]
+  * Fix for 64 bit compatibility.
+
+  [ Bumjin Im ]
+  * adding missing rules
+
+  [ Jinha Hwang ]
+  * Update .smack files
+
+  [ Bumjin Im ]
+  * Modifying Smack rules for Apps
+  * Modifying Smack rules for Apps
+  * Removing Label for so files
+  * Adjusting overwrapped Rule
+  * Adding x rules for osp-*-services
+
+  [ Tomasz Swierczek ]
+  * Added rules for OSP/WRT apps for app_give_access API usage in security-server
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Mon, 13 May 2013 19:06:30 +0200
+
+libprivilege-control (0.0.25.TIZEN) unstable; urgency=low
+
+  [ Tomasz Swierczek ]
+  * Disable libprivilege-control logs for performance increase
+  * Temporary fix for web app launching.
+  * Added stub for add_shared_dir_readers function.
+  * Added proper #ifdef SMACK_ENABLED to new APIs static functions.
+
+  [ Kidong Kim ]
+  * add new rules
+  * apply smack default rules
+
+  [ Bumjin Im ]
+  * Revising running Smack default rules for all combinations
+  * Adding missing rules
+  * Adding missing rule for crash popup
+  * Modifying device node labels
+  * Modifying rules for changed osp-*-service labels
+
+  [ Kidong Kim ]
+  * remove udev rules file
+
+  [ Junfeng Dong ]
+  * Fix for compatibility of GCC 4.7.
+
+  [ Bartlomiej Grzelewski ]
+  * Enable libprivilege-control for target without smack module in kernel.
+
+  [ Rafal Krypa ]
+  * Cosmetic: fix space indentation.
+  * Rework Smack-less mode.
+  * New API function app_add_friend(app_id1, app_id2).
+  * Add new API functions app_install() and app_uninstall().
+  * Add new API function app_enable_permissions() to replace app_add_permissions() and app_add_volatile_permissions().
+  * Don't fail when trying to enable app permissions that doesn't exist.
+  * Implicitly include base permission in app_enable_permissions().
+
+ -- Krzysztof Jackiewicz <k.jackiewicz@samsung.com>  Wed, 27 Mar 2013 10:55:13 +0100
+
+libprivilege-control (0.0.24.TIZEN) unstable; urgency=low
+
+  * Refactoring: adjust names of some internal identifiers.
+  * Refactoring: removed compilation warnings when SMACK is disabled.
+  * Disabled SMACK operation for tizendev.org.
+  * Remove prefix from process labels of WRT applications.
+  * Provide app_reset_permissions() API function.
+  * Provide app_add_volatile_permissions() API function.
+  * Rewrite internal function set_smack_for_wrt().
+  * Recreate Smack configuration files for WRT devcaps.
+  * Remove legacy code for WRT, enable new WRT functionality.
+
+ -- Tomasz Swierczek <t.swierczek@samsung.com>  Thu, 14 Feb 2013 12:00:00 +0100
+
+libprivilege-control (0.0.23.TIZEN) unstable; urgency=low
+
+  * Fixing bug in setting execute label for executable files.
+  * Correct bug in dir_set_smack_r() introduced by previous fix.
+  * Fix implementation of setting process label from Smack exec label.
+  * Removed white spaces at the end of lines in smack_default_rules file
+
+  -- Tomasz Swierczek <t.swierczek@samsung.com>  Wed, Feb 06 2013 12:00:00 +0100
+
+libprivilege-control (0.0.22.TIZEN) unstable; urgency=low
+
+  * Added new API for setting access/execute labels and transmute on OSP apps directories
+  * Fixed dlog usage
+  * Reverted "make symbolic link of udev rules file" (commit c3a7c9d1188f08fdc950858c589173bb5bb0c817)
+
+  -- Tomasz Swierczek <t.swierczek@samsung.com>  Tue, Feb 05 2013 12:00:00 +0100
+
 libprivilege-control (0.0.21.TIZEN) unstable; urgency=low
 
   [ Kidong Kim ]

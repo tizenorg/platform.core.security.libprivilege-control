@@ -33,16 +33,12 @@
 #include "common.h"
 
 typedef enum {
-	DB_APP_TYPE_APPLICATION,
-	DB_APP_TYPE_ANTIVIRUS,
 	DB_APP_TYPE_GROUPS,
 	DB_APP_TYPE_COUNT /* Dummy enum element to get number of elements */
 } db_app_type_t;
 
 const char* db_file_names[DB_APP_TYPE_COUNT] = {
-		"/opt/dbspace/.privilege_control_all_apps_id.db",
-		"/opt/dbspace/.privilege_control_all_avs_id.db",
-		"/opt/dbspace/.privilege_control_app_gids.db",
+		"/opt/dbspace/.privilege_control_app_gids.db"
 };
 
 typedef struct element_s {
@@ -52,7 +48,8 @@ typedef struct element_s {
 
 static element_t* add_element (element_t* elem, const char* value)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: value=%s",
+				__func__, value);
 
 	if (NULL == elem)
 		return NULL;
@@ -75,58 +72,62 @@ static element_t* add_element (element_t* elem, const char* value)
 	return new_element;
 }
 
+
 static int remove_list(element_t* first_elem)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s.", __func__);
 
 	element_t* current = NULL;
 
 	while (NULL != first_elem) {
 		current = first_elem;
 		first_elem = first_elem->next;
+		if (current->value)
+			free(current->value);
 		free(current);
 	}
 	return 0;
 }
 
+
 static int add_id_to_database_internal(const char * id, db_app_type_t app_type)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: id=%s",
+				__func__, id);
+
 	FILE* file_db AUTO_FCLOSE;
 	const char* db_file_name = db_file_names[app_type];
 
+	SECURE_C_LOGD("Opening database file %s.", db_file_name);
 	file_db = fopen(db_file_name, "a");
 	if (NULL == file_db) {
-		C_LOGE("Error while opening database file: %s", db_file_name);
+		SECURE_C_LOGD("Error while opening database file: %s", db_file_name);
 		return PC_ERR_FILE_OPERATION;
 	}
 
 	if (0 > fprintf(file_db, "%s\n", id)) {
-		C_LOGE("Write label %s to database failed: %s", id, strerror(errno));
+		SECURE_C_LOGE("Write label %s to database failed (error: %s)", id, strerror(errno));
 		return PC_ERR_FILE_OPERATION;
 	}
 
 	return PC_OPERATION_SUCCESS;
 }
 
+
 static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type)
 {
+	SECURE_C_LOGD("Entering function: %s.", __func__);
+
 	int ret;
-	char* scanf_label_format AUTO_FREE;
 	FILE* file_db AUTO_FCLOSE;
 	const char* db_file_name = db_file_names[app_type];
 	char smack_label[SMACK_LABEL_LEN + 1];
 	element_t* begin_of_list = NULL;
 
-	if (asprintf(&scanf_label_format, "%%%ds\\n", SMACK_LABEL_LEN) < 0) {
-		C_LOGE("Error while creating scanf input label format");
-		ret = PC_ERR_MEM_OPERATION;
-		goto out;
-	}
-
+	SECURE_C_LOGD("Opening database file %s.", db_file_name);
 	file_db = fopen(db_file_name, "r");
 	if (NULL == file_db) {
-		C_LOGE("Error while opening antivirus_ids database file: %s", db_file_name);
+		SECURE_C_LOGE("Error while opening database file: %s", db_file_name);
 		ret = PC_ERR_FILE_OPERATION;
 		goto out;
 	}
@@ -145,17 +146,18 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 
 	// reading from file ("database")
 	// notice that first element always stays with empty "value"
-	while (fscanf(file_db, scanf_label_format, smack_label) == 1) {
+	while (fscanf(file_db, "%" TOSTRING(SMACK_LABEL_LEN) "s\n", smack_label) == 1) {
 		smack_label[SMACK_LABEL_LEN] = '\0';
 		if (!smack_label_is_valid(smack_label)) {
-			C_LOGD("Found entry in database, but it's not correct SMACK label: \"%s\"", smack_label);
+			SECURE_C_LOGD("Found entry in database, but it's not correct SMACK label: \"%s\"", smack_label);
 			continue;
 		}
-		C_LOGD("Found installed anti virus label: \"%s\"", smack_label);
+		SECURE_C_LOGD("Found installed label: \"%s\"", smack_label);
 		++(*len);
 		current = add_element(current, smack_label);
 		if (NULL == current) {
-			C_LOGE("Error while adding smack label to the list");
+			*len = 0;
+			C_LOGE("Error while adding smack label to the list.");
 			ret = PC_ERR_MEM_OPERATION;
 			goto out;
 		}
@@ -165,7 +167,8 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 		C_LOGD("Allocating memory for list of %d labels", *len);
 		*ids = malloc((*len) * sizeof(char*));
 		if (NULL == *ids) {
-			C_LOGE("Error while allocating memory for list of labels");
+			*len = 0;
+			C_LOGE("Error while allocating memory for list of labels.");
 			ret = PC_ERR_MEM_OPERATION;
 			goto out;
 		}
@@ -176,6 +179,12 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 			(*ids)[i] = malloc((SMACK_LABEL_LEN + 1) * sizeof(char));
 			if (NULL == (*ids)[i]) {
 				ret = PC_ERR_MEM_OPERATION;
+				int j;
+				for (j = 0; j < i; ++j)
+					free((*ids)[j]);
+				free(*ids);
+				*ids = NULL;
+				*len = 0;
 				C_LOGE("Error while allocating memory for \"%s\" label", current->value);
 				goto out;
 			}
@@ -185,7 +194,7 @@ static int get_all_ids_internal (char *** ids, int * len, db_app_type_t app_type
 		}
 	}
 	else {
-		C_LOGD("Not found any labels!");
+		C_LOGD("No labels found!");
 		*ids = NULL;
 	}
 
@@ -198,51 +207,21 @@ out:
 	return ret;
 }
 
-int get_all_apps_ids (char *** apps_ids, int * len)
-{
-	if (get_all_ids_internal(apps_ids, len, DB_APP_TYPE_APPLICATION))
-		return PC_ERR_DB_OPERATION;
-
-	return PC_OPERATION_SUCCESS;
-}
-
-int get_all_avs_ids (char *** av_ids, int * len)
-{
-	if (get_all_ids_internal(av_ids, len, DB_APP_TYPE_ANTIVIRUS))
-		return PC_ERR_DB_OPERATION;
-
-	return PC_OPERATION_SUCCESS;
-}
-
-int add_app_id_to_databse(const char * app_id)
-{
-	C_LOGD("Enter function: %s", __func__);
-
-	if (add_id_to_database_internal(app_id, DB_APP_TYPE_APPLICATION))
-		return PC_ERR_DB_OPERATION;
-
-	return PC_OPERATION_SUCCESS;
-}
-
-int add_av_id_to_databse (const char * av_id)
-{
-	C_LOGD("Enter function: %s", __func__);
-
-	if (add_id_to_database_internal(av_id, DB_APP_TYPE_ANTIVIRUS))
-		return PC_ERR_DB_OPERATION;
-
-	return PC_OPERATION_SUCCESS;
-}
 
 int add_app_gid(const char *app_id, unsigned gid)
 {
-	C_LOGD("Enter function: %s", __func__);
+	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s, gid=%u",
+				__func__, app_id, gid);
+
 	char *field = NULL;
 	int ret;
 
 	ret = asprintf(&field, "%u:%s", gid, app_id);
 	if (ret == -1)
+	{
+		C_LOGE("asprintf failed.");
 		return PC_ERR_MEM_OPERATION;
+	}
 
 	ret = add_id_to_database_internal(field, DB_APP_TYPE_GROUPS);
 	free(field);
@@ -250,14 +229,21 @@ int add_app_gid(const char *app_id, unsigned gid)
 	return ret;
 }
 
+
 int get_app_gids(const char *app_id, unsigned **gids, int *len)
 {
+	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
+				__func__, app_id);
+
 	char** fields AUTO_FREE;
 	int len_tmp, ret, i;
 
 	ret = get_all_ids_internal(&fields, &len_tmp, DB_APP_TYPE_GROUPS);
 	if (ret != PC_OPERATION_SUCCESS)
+	{
+		C_LOGE("get_all_ids_internal failed.");
 		return ret;
+	}
 
 	*len = 0;
 	*gids = NULL;
@@ -274,22 +260,27 @@ int get_app_gids(const char *app_id, unsigned **gids, int *len)
 			if (isdigit(*field)) {
 				gid = gid * 10 + *field - '0';
 			} else {
-				C_LOGE("Invalid line read: %s", fields[i]);
+				C_LOGE("Invalid format of group id read from groups database: %s", fields[i]);
 				ret = PC_ERR_FILE_OPERATION;
 				goto out;
 			}
 		}
 
 		if (!app_id_tmp) {
-			C_LOGE("No group id found");
+			C_LOGE("No group id found.");
 			ret = PC_ERR_FILE_OPERATION;
 			goto out;
+		}
+
+		if (NULL == app_id) {
+			*len = 0;
+			return PC_OPERATION_SUCCESS;
 		}
 
 		if (!strcmp(app_id, app_id_tmp)) {
 			unsigned *gids_realloc = realloc(*gids, sizeof(unsigned) * (*len + 1));
 			if (gids_realloc == NULL) {
-				C_LOGE("Memory allocation failed");
+				C_LOGE("Memory allocation failed.");
 				ret = PC_ERR_MEM_OPERATION;
 				goto out;
 			}
