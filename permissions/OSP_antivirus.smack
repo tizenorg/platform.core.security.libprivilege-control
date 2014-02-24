@@ -1,8 +1,0 @@
-~APP~ org.tizen.message rwx
-org.tizen.message ~APP~ rx
-~APP~ org.tizen.email rwx
-org.tizen.email ~APP~ rx
-~APP~ org.tizen.browser rwx
-org.tizen.browser ~APP~ rx
-~APP~ org.tizen.setting rwx
-org.tizen.setting ~APP~ rx
