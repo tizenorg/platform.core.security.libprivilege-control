@@ -138,8 +138,7 @@ bool is_wildcard(const char *const s_label)
 		!strcmp(s_label, "~ALL_APPS_WITH_SAME_PERMISSION~") ||
 		!strcmp(s_label, "~PUBLIC_PATH~") ||
 		!strcmp(s_label, "~GROUP_PATH~") ||
-		!strcmp(s_label, "~SETTINGS_PATH~") ||
-		!strcmp(s_label, "~NPRUNTIME_PATH~");
+		!strcmp(s_label, "~SETTINGS_PATH~");
 }
 
 
@@ -389,25 +388,13 @@ inline const char* app_type_name(app_type_t app_type)
 				__func__, app_type);
 
 	switch (app_type) {
-	case PERM_APP_TYPE_WRT:
+	case APP_TYPE_WGT:
 		C_LOGD("App type = WRT");
 		return "WRT";
-	case PERM_APP_TYPE_OSP:
+	case APP_TYPE_OSP:
 		C_LOGD("App type = OSP");
 		return "OSP";
-	case PERM_APP_TYPE_WRT_PARTNER:
-		C_LOGD("App type = WRT_partner");
-		return "WRT_partner";
-	case PERM_APP_TYPE_WRT_PLATFORM:
-		C_LOGD("App type = WRT_platform");
-		return "WRT_platform";
-	case PERM_APP_TYPE_OSP_PARTNER:
-		C_LOGD("App type = OSP_partner");
-		return "OSP_partner";
-	case PERM_APP_TYPE_OSP_PLATFORM:
-		C_LOGD("App type = OSP_platform");
-		return "OSP_platform";
-	case PERM_APP_TYPE_EFL:
+	case APP_TYPE_EFL:
 		C_LOGD("App type = EFL");
 		return "EFL";
 	default:
@@ -422,17 +409,13 @@ inline const char* app_type_group_name(app_type_t app_type)
 				__func__, app_type);
 
 	switch (app_type) {
-	case PERM_APP_TYPE_WRT:
-	case PERM_APP_TYPE_WRT_PARTNER:
-	case PERM_APP_TYPE_WRT_PLATFORM:
+	case APP_TYPE_WGT:
 		C_LOGD("App type group name = WRT");
 		return "WRT";
-	case PERM_APP_TYPE_OSP:
-	case PERM_APP_TYPE_OSP_PARTNER:
-	case PERM_APP_TYPE_OSP_PLATFORM:
+	case APP_TYPE_OSP:
 		C_LOGD("App type group name = OST");
 		return "OSP";
-	case PERM_APP_TYPE_EFL:
+	case APP_TYPE_EFL:
 		C_LOGD("App type = EFL");
 		return "EFL";
 	default:
@@ -445,16 +428,14 @@ const char* app_path_type_name(app_path_type_t app_path_type)
 	SECURE_C_LOGD("Entering function %s. Params: app_path_type=%d", __func__, app_path_type);
 
 	switch(app_path_type) {
-	case PERM_APP_PATH_GROUP:
+	case APP_PATH_GROUP_RW:
 		return "GROUP_PATH";
-	case PERM_APP_PATH_PUBLIC:
+	case APP_PATH_PUBLIC_RO:
 		return "PUBLIC_PATH";
-	case PERM_APP_PATH_SETTINGS:
+	case APP_PATH_SETTINGS_RW:
 		return "SETTINGS_PATH";
-	case PERM_APP_PATH_NPRUNTIME:
-		return "NPRUNTIME_PATH";
-	case PERM_APP_PATH_PRIVATE:
-	case PERM_APP_PATH_ANY_LABEL:
+	case APP_PATH_PRIVATE:
+	case APP_PATH_ANY_LABEL:
 	default:
 		// App path type not stored in the database, return NULL;
 		return NULL;

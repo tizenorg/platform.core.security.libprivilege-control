@@ -72,59 +72,19 @@ extern "C" {
 
 
 typedef enum {
-	PERM_APP_TYPE_WRT,
-	PERM_APP_TYPE_OSP,
-	PERM_APP_TYPE_OTHER,
-	PERM_APP_TYPE_WRT_PARTNER,
-	PERM_APP_TYPE_WRT_PLATFORM,
-	PERM_APP_TYPE_OSP_PARTNER,
-	PERM_APP_TYPE_OSP_PLATFORM,
-	PERM_APP_TYPE_EFL,
+       APP_TYPE_WGT,
+       APP_TYPE_OSP,
+       APP_TYPE_EFL,
+       APP_TYPE_OTHER,
 } app_type_t;
 
 typedef enum {
-	PERM_APP_PATH_PRIVATE,
-	PERM_APP_PATH_GROUP,
-	PERM_APP_PATH_PUBLIC,
-	PERM_APP_PATH_SETTINGS,
-	PERM_APP_PATH_NPRUNTIME,
-	PERM_APP_PATH_ANY_LABEL,
+        APP_PATH_PRIVATE,
+        APP_PATH_GROUP_RW,
+        APP_PATH_PUBLIC_RO,
+        APP_PATH_SETTINGS_RW,
+        APP_PATH_ANY_LABEL,
 } app_path_type_t;
-
-typedef struct perm_app_status {
-	char *app_id;
-	bool is_enabled;
-	bool is_permanent;
-} perm_app_status_t;
-
-
-// TODO: after all projects change their code delete these defines
-// Historical in app_type_t
-#define PERM_APP_TYPE_WGT PERM_APP_TYPE_WRT
-#define PERM_APP_TYPE_WGT_PARTNER PERM_APP_TYPE_WRT_PARTNER
-#define PERM_APP_TYPE_WGT_PLATFORM PERM_APP_TYPE_WRT_PLATFORM
-
-
-#define APP_TYPE_WGT PERM_APP_TYPE_WRT
-#define APP_TYPE_OSP PERM_APP_TYPE_OSP
-#define APP_TYPE_OTHER PERM_APP_TYPE_OTHER
-#define APP_TYPE_WGT_PARTNER PERM_APP_TYPE_WRT_PARTNER
-#define APP_TYPE_WGT_PLATFORM PERM_APP_TYPE_WRT_PLATFORM
-#define APP_TYPE_OSP_PARTNER PERM_APP_TYPE_OSP_PARTNER
-#define APP_TYPE_OSP_PLATFORM PERM_APP_TYPE_OSP_PLATFORM
-#define APP_TYPE_EFL PERM_APP_TYPE_EFL
-
-// Historical names in app_path_type_t
-#define APP_PATH_PRIVATE PERM_APP_PATH_PRIVATE
-#define APP_PATH_GROUP PERM_APP_PATH_GROUP
-#define APP_PATH_PUBLIC PERM_APP_PATH_PUBLIC
-#define APP_PATH_SETTINGS PERM_APP_PATH_SETTINGS
-#define APP_PATH_ANY_LABEL PERM_APP_PATH_ANY_LABEL
-#define APP_PATH_GROUP_RW APP_PATH_GROUP
-#define APP_PATH_PUBLIC_RO APP_PATH_PUBLIC
-#define APP_PATH_SETTINGS_RW APP_PATH_SETTINGS
-
-
 
 /* APIs - used by applications */
 int control_privilege(void) DEPRECATED;
@@ -132,44 +92,20 @@ int control_privilege(void) DEPRECATED;
 int set_privilege(const char* pkg_name) DEPRECATED;
 
 /**
- * Gets smack label of a process, based on its pid.
- *
- * @param  pid          pid of process
- * @param  smack_label  label of process
- * @return              PC_OPERATION_SUCCESS on success PC_ERR_* on error.
- */
-int get_smack_label_from_process(pid_t pid, char *smack_label);
-
-/**
- * Checks if process with pid has access to object.
- * This function checks if subject has access to object via smack_have_access() function.
- * If YES then returns access granted. In NO then function checks if process with pid has
- * CAP_MAC_OVERRIDE capability. If YES then returns access granted.
- * If NO then returns access denied.
- *
- * @param  pid          pid of process
- * @param  object       label of object to access
- * @param  access_type  smack access type.
- * @return              0 (no access) or 1 (access) or -1 (error)
- */
-int smack_pid_have_access(pid_t pid,
-			  const char *object,
-			  const char *access_type);
-
-/**
  * Set DAC and SMACK privileges for application.
- * This function is meant to be called by the application launcher just before
+ * This function is meant to be call by the application launcher just before
  * it launches an application. It will setup DAC and SMACK privileges based
  * on app type and accesses.
  * It must be called with root privileges, which will be dropped in the function.
  *
- * @param  name  package name
- * @param  type  application type (currently distinguished types:
- *               "wgt", "wgt_partner", "wgt_platform",
- *               "tpk", "osp", "osp_partner", "osp_platform",
- *               "rpm", "efl")
- * @param  path  file system path to the binary
- * @return       PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ * @param name package name
+ * @param type application type (currently distinguished types:
+ *             "wgt",
+ *             "tpk", "osp",
+ *             "rpm", "efl")
+ *
+ * @param path file system path to the binary
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
 int perm_app_set_privilege(const char* name, const char* type, const char* path);
 int set_app_privilege(const char* name, const char* type, const char* path) DEPRECATED;
@@ -253,27 +189,12 @@ int app_add_permissions(const char* app_id, const char** perm_list) DEPRECATED;
 int app_add_volatile_permissions(const char* app_id, const char** perm_list) DEPRECATED;
 
 /**
- * Grants SMACK permissions to an application, based on permissions list. It is
- * intended to be called during that application installation. The permissions
- * will be persistent. It must be called by privileged user and within database
- * transaction started with perm_begin() and finished with perm_end().
- *
- * @param  pkg_id     application identifier
- * @param  app_type   application type
- * @param  perm_list  array of permission names, last element must be NULL
- * @return            PC_OPERATION_SUCCESS on success, PC_ERR_* on error
- */
-int perm_app_setup_permissions(const char* pkg_id, app_type_t app_type,
-			       const char** perm_list);
-
-/**
- * Grants SMACK permissions to an application, based on permissions list. It was
- * intended to be called during that application installation. Permissions
- * granted as volatile will not be present after system boot. It must be called
- * by privileged user and within database transaction started with perm_begin()
- * and finished with perm_end().
- * In new code please call perm_app_setup_permissions during your application
- * installation instead of this function.
+ * Grant SMACK permissions based on permissions list.
+ * It is intended to be called during app installation.
+ * It will construct SMACK rules based on permissions list, grant them
+ * and store it in a database, so they will be automatically granted on
+ * system boot, when persistent mode is enabled.
+ * It must be called by privileged user.
  *
  * @param  pkg_id      application identifier
  * @param  app_type    application type
@@ -287,9 +208,8 @@ int app_enable_permissions(const char* pkg_id, app_type_t app_type, const char**
 /**
  * Removes previously granted SMACK permissions based on permissions list.
  * It will remove given permissions from an application, leaving other granted
- * permissions untouched. Results will be persistent. It must be called by
- * privileged user and within database transaction started with perm_begin()
- * and finished with perm_end().
+ * permissions untouched. Results will be persistent.
+ * It must be called by privileged user.
  *
  * @param  pkg_id     application identifier
  * @param  app_type   application type
@@ -301,8 +221,7 @@ int app_disable_permissions(const char* pkg_id, app_type_t app_type, const char*
 
 /**
  * Removes all application's permissions, rules and directories registered in
- * the database. It must be called by privileged user and within database
- * transaction started with perm_begin() and finished with perm_end().
+ * the database. It must be called by privileged user.
  *
  * @param  pkg_id  application identifier
  * @return         PC_OPERATION_SUCCESS on success, PC_ERR_* on error
@@ -312,88 +231,13 @@ int app_revoke_permissions(const char* pkg_id) DEPRECATED;
 
 /**
  * Removes all application's permissions which are not persistent. It must be
- * called by privileged user and within database transaction started with
- * perm_begin() and finished with perm_end().
+ * called by privileged user.
  *
  * @param  pkg_id  application identifier
  * @return         PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
 int perm_app_reset_permissions(const char* pkg_id);
 int app_reset_permissions(const char* pkg_id) DEPRECATED;
-
-/**
- * Checks if an application has the privilege that is specified by the name.
- * It must be called by privileged user.
- *
- * @param  pkg_id           application identifier
- * @param  app_type         application type
- * @param  permission_name  permission name
- * @param  is_enabled       buffer for return value
- * @return                  PC_OPERATION_SUCCESS on success, PC_ERR_* on error
- */
-int perm_app_has_permission(const char *pkg_id,
-			    app_type_t app_type,
-			    const char *permission_name,
-			    bool *is_enabled);
-
-/**
- * Get the list of the permissions for given application type
- * Caller is responsible for freeing allocated memory.
- * *ppp_permissions is a pointer to an array consisting of char pointers,
- * terminated with NULL pointer. Memory allocated with each
- * of these pointer except for the last one (NULL) should be freed,
- * followed by freeing *ppp_permissions itself.
- *
- * @param ppp_permissions list of all permissions
- * @param app_type        application type
- * @return                PC_OPERATION_SUCCESS on success,
- *                        PC_ERR_* on error
- */
-int perm_get_permissions(char ***ppp_permissions, app_type_t app_type);
-
-/**
- * Get the list of the applications of given type with particular permission.
- * Caller is responsible for freeing allocated memory
- * using perm_free_apps_list()
- *
- * @param pp_apps           list of application's statuses
- * @param pi_apps_number    number of found application
- * @param app_type          application type
- * @param s_permission_name permission name
- * @return                  PC_OPERATION_SUCCESS on success,
- *                          PC_ERR_* on error
- */
-int perm_get_apps_with_permission(perm_app_status_t **pp_apps,
-				  size_t *pi_apps_number,
-				  app_type_t app_type,
-				  const char *s_permission_name);
-
-/**
- * Free the list of the applications allocated with
- * perm_get_apps_with_permission().
- *
- * @param pp_apps       list of application's statuses
- * @param i_apps_number number of applications on the list
- */
-void perm_free_apps_list(perm_app_status_t *pp_apps,
-			 size_t i_apps_number);
-
-/**
- * Get permissions for the specified app.
- *
- * In case of success caller is responsible for freeing memory allocated by it.
- * Each cell in *ppp_perm_list except for the last (NULL) should be freed, followed by freeing
- * *ppp_perm_list itself.
- *
- * In case of error an error code is returned and, provided that ppp_perm_list is not NULL,
- * *ppp_perm_list is set to NULL.
- *
- * @param  pkg_id        application identifier
- * @param  app_type      application type
- * @param  ppp_perm_list buffer for return value
- * @return               PC_OPERATION_SUCCESS on success, PC_ERR_* on error
- */
-int perm_app_get_permissions(const char *pkg_id, app_type_t app_type, char ***ppp_perm_list);
 
 /**
  * Recursively set SMACK access labels for an application directory
@@ -444,30 +288,21 @@ int add_shared_dir_readers(const char* shared_label, const char** app_list) DEPR
  * 	- APP_PATH_PRIVATE: label with app's label, set access label on everything
  *    and execute label on executable files and symlinks to executable files
  *
- * 	- APP_PATH_GROUP: label with given shared_label, set access label on
+ * 	- APP_PATH_GROUP_RW: label with given shared_label, set access label on
  * 	  everything and enable transmute on directories. Also give pkg_id full access
  * 	  to the shared label.
  *
- * 	- APP_PATH_PUBLIC: label with autogenerated label, set access label on
+ * 	- APP_PATH_PUBLIC_RO: label with autogenerated label, set access label on
  * 	  everything and enable transmute on directories. Give full access to the label to
- * 	  pkg_id and RX access to all other applications.
+ * 	  pkg_id and RX access to all other apps.
  *
- * 	- APP_PATH_SETTINGS: label with autogenerated label, set access label on
+ * 	- APP_PATH_SETTINGS_RW: label with autogenerated label, set access label on
  * 	  everything and enable transmute on directories. Give full access to the label to
- * 	  pkg_id and RWX access to all appsetting applications.
+ * 	  pkg_id and RWX access to all appsetting apps.
  *
- * 	- PERM_APP_PATH_NPRUNTIME: label executable file or symlink to an exec given in path param
- * 	  with label "<pkg_id>.npruntime". Set execute label on it.
- * 	  Give pkg_id RW access to new created label and give new label RXAT access to pkg_id.
- *
- * 	- APP_PATH_ANY_LABEL: label with given shared_label. Set access label on
- * 	  everything and execute label on executable files and symlinks to
- * 	  executable files.
- *
- * This function should be called during application installation. Results will
- * be persistent on the file system. It must be called by privileged user and
- * within database transaction started with perm_begin() and finished with
- * perm_end().
+ * This function should be called during app installation.
+ * Results will be persistent on the file system.
+ * It must be called by privileged user.
  *
  * @param  pkg_id         application identifier
  * @param  path           file or directory path
@@ -478,37 +313,6 @@ int add_shared_dir_readers(const char* shared_label, const char** app_list) DEPR
  */
 int perm_app_setup_path(const char* pkg_id, const char* path, app_path_type_t app_path_type, ...);
 int app_setup_path(const char* pkg_id, const char* path, app_path_type_t app_path_type, ...) DEPRECATED;
-
-/**
- * Get paths of the specified type for the given application.
- *
- * Provided type must be one of PERM_APP_PATH_GROUP, PERM_APP_PATH_PUBLIC, PERM_APP_PATH_SETTINGS,
- * PERM_APP_PATH_NPRUNTIME, as other types are not stored in the database.
- *
- * In case of success caller is responsible for freeing memory allocated by it.
- * Each cell in *ppp_paths except for the last (NULL) should be freed, followed by freeing
- * *ppp_paths itself.
- *
- * In case of error an error code is returned and, provided that ppp_paths is not NULL,
- * *ppp_paths is set to NULL.
- *
- * @param  pkg_id        application identifier
- * @param  app_path_type type of path
- * @param  ppp_paths     buffer for return value
- * @return               PC_OPERATION_SUCCESS on success, PC_ERR_* on error
- */
-int perm_app_get_paths(const char* pkg_id, app_path_type_t app_path_type, char*** ppp_paths);
-
-/**
- * Remove path and all rules associated with it from the database.
- *
- * This does not remove data from the filesystem.
- *
- * @param  pkg_id application identifier
- * @param  path   path to remove
- * @return        PC_OPERATION_SUCCESS on success, PC_ERR_* on error
- */
-int perm_app_remove_path(const char* pkg_id, const char *path);
 
 /**
  * Make two applications "friends", by giving them both full permissions on
@@ -523,6 +327,28 @@ int perm_app_remove_path(const char* pkg_id, const char *path);
  */
 int perm_app_add_friend(const char* pkg_id1, const char* pkg_id2);
 int app_add_friend(const char* pkg_id1, const char* pkg_id2) DEPRECATED;
+
+/**
+ * Modify SMACK rules to give access from (subject)customer_label to (object)
+ * provider_label.
+ * Note: This function will do nothing if subject has already rwxat access to
+ * object. You can revoke this modyfication by calling app_rovoke_access.
+ *
+ * @param subject - label of client application
+ * @param object  - label of provider application
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_give_access(const char* subject, const char* object, const char* permission);
+
+/**
+ * Revoke access granted by app_give_access. This function will not remove
+ * accesses that were granted before app_give_access call.
+ *
+ * @param subject - label of client application
+ * @param object  - label of provider application
+ * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int app_revoke_access(const char* subject, const char* object);
 
 /**
  * Adds new feature to the database. It must be called by privileged user and
@@ -573,16 +399,6 @@ int perm_end(void);
 *         PC_ERR_* on error
 */
 int perm_rollback(void);
-
-/**
- * Adds additional rules to the database. The rules can use wild-cards and labels.
- * It must be called within database transaction started with perm_begin() and
- * finished with perm_end().
- *
- * @param  set_smack_rule_set  an array of rules, NULL terminated
- * @return                     PC_OPERATION_SUCCESS on success, PC_ERR_* on error
- */
-int perm_add_additional_rules(const char** set_smack_rule_set);
 
 /**
  * Get message connected to error code.

@@ -70,21 +70,9 @@ int wrt_filter(const struct dirent *entry)
 	return !strcmp(entry->d_name, "WRT.smack");
 }
 
-int wrt_partner_filter(const struct dirent *entry)
-{
-	return !strcmp(entry->d_name, "WRT_partner.smack");
-}
-
-int wrt_platform_filter(const struct dirent *entry)
-{
-	return !strcmp(entry->d_name, "WRT_platform.smack");
-}
-
 int wrt_family_filter(const struct dirent *entry)
 {
 	return has_prefix(entry->d_name, "WRT_") &&
-	       !has_prefix(entry->d_name, "WRT_partner") &&
-	       !has_prefix(entry->d_name, "WRT_platform") &&
 	       has_smack_ext(entry->d_name);
 }
 
@@ -93,21 +81,10 @@ int osp_filter(const struct dirent *entry)
 	return !strcmp(entry->d_name, "OSP.smack");
 }
 
-int osp_partner_filter(const struct dirent *entry)
-{
-	return !strcmp(entry->d_name, "OSP_partner.smack");
-}
-
-int osp_platform_filter(const struct dirent *entry)
-{
-	return !strcmp(entry->d_name, "OSP_platform.smack");
-}
 
 int osp_family_filter(const struct dirent *entry)
 {
 	return has_prefix(entry->d_name, "OSP_") &&
-	       !has_prefix(entry->d_name, "OSP_partner") &&
-	       !has_prefix(entry->d_name, "OSP_platform") &&
 	       has_smack_ext(entry->d_name);
 }
 
@@ -120,11 +97,6 @@ int efl_family_filter(const struct dirent *entry)
 {
 	return has_prefix(entry->d_name, "EFL_") &&
 	       has_smack_ext(entry->d_name);
-}
-
-int additional_rules_filter(const struct dirent *entry)
-{
-	return !strcmp(entry->d_name, "ADDITIONAL_RULES.smack");;
 }
 
 void load_rules_from_file(const char *s_rules_file_path,
@@ -251,18 +223,14 @@ void load_from_dir(const char  *const s_dir)
 	if(perm_begin()) return;
 
 	// Load rules specific to permission's types:
-	load_pemission_type_rules(wrt_filter,          "WRT",          PERM_APP_TYPE_WRT,          s_dir);
-	load_pemission_type_rules(wrt_partner_filter,  "WRT_partner",  PERM_APP_TYPE_WRT_PARTNER,  s_dir);
-	load_pemission_type_rules(wrt_platform_filter, "WRT_platform", PERM_APP_TYPE_WRT_PLATFORM, s_dir);
-	load_pemission_type_rules(osp_filter,          "OSP",          PERM_APP_TYPE_OSP,          s_dir);
-	load_pemission_type_rules(osp_partner_filter,  "OSP_partner" , PERM_APP_TYPE_OSP_PARTNER,  s_dir);
-	load_pemission_type_rules(osp_platform_filter, "OSP_platform", PERM_APP_TYPE_OSP_PLATFORM, s_dir);
-	load_pemission_type_rules(efl_filter,          "EFL",          PERM_APP_TYPE_EFL,          s_dir);
+	load_pemission_type_rules(wrt_filter,          "WRT",          APP_TYPE_WGT,          s_dir);
+	load_pemission_type_rules(osp_filter,          "OSP",          APP_TYPE_OSP,          s_dir);
+	load_pemission_type_rules(efl_filter,          "EFL",          APP_TYPE_EFL,          s_dir);
 
 	// Load rules for each permission type:
-	load_permission_family(wrt_family_filter, "WRT_", PERM_APP_TYPE_WRT, s_dir);
-	load_permission_family(osp_family_filter, "OSP_", PERM_APP_TYPE_OSP, s_dir);
-	load_permission_family(efl_family_filter, "EFL_", PERM_APP_TYPE_EFL, s_dir);
+	load_permission_family(wrt_family_filter, "WRT_", APP_TYPE_WGT, s_dir);
+	load_permission_family(osp_family_filter, "OSP_", APP_TYPE_OSP, s_dir);
+	load_permission_family(efl_family_filter, "EFL_", APP_TYPE_EFL, s_dir);
 
 
 	perm_end();
@@ -290,15 +258,15 @@ void load_single_file(const char *const s_file_path)
 	// Load as the right type of permission
 	if(wrt_family_filter(&file)) {
 		s_permission_name = get_permission_name(s_file_name, "WRT_");
-		load_rules_from_file(s_file_path, s_permission_name, PERM_APP_TYPE_WRT);
+		load_rules_from_file(s_file_path, s_permission_name, APP_TYPE_WGT);
 
 	} else if(osp_family_filter(&file)) {
 		s_permission_name = get_permission_name(s_file_name, "OSP_");
-		load_rules_from_file(s_file_path, s_permission_name, PERM_APP_TYPE_OSP);
+		load_rules_from_file(s_file_path, s_permission_name, APP_TYPE_OSP);
 
 	} else if(efl_family_filter(&file)) {
 		s_permission_name = get_permission_name(s_file_name, "EFL_");
-		load_rules_from_file(s_file_path, s_permission_name, PERM_APP_TYPE_EFL);
+		load_rules_from_file(s_file_path, s_permission_name, APP_TYPE_EFL);
 
 	} else {
 		API_FEATURE_LOADER_LOG("Unknown api-feature type: %s\n", s_file_path);
@@ -346,49 +314,6 @@ finish:
 			       s_name_pattern);
 }
 
-void load_additional_rules(const char *const s_rules_file_path)
-{
-	FILE *p_file       = NULL;
-	char *s_rule       = NULL;
-	char **rules_array = NULL;
-	size_t i_num_rules = 0;
-	size_t i           = 0;
-	int ret;
-	vector_t rules_vector;
-
-	API_FEATURE_LOADER_LOG("Loading additional rules from file...\n");
-
-	p_file = fopen(s_rules_file_path, "r");
-	if(!p_file) goto finish;
-
-
-	vector_init(rules_vector);
-	while(getline(&s_rule, &i, p_file) > 0) {
-		vector_push_back_ptr(rules_vector, s_rule);
-		API_FEATURE_LOADER_LOG("Loading rule: %s", s_rule);
-		++i_num_rules;
-		s_rule = NULL;
-	}
-	vector_push_back_ptr(rules_vector, NULL);
-
-	rules_array = vector_finish(rules_vector);
-
-	ret = perm_add_additional_rules((const char **)rules_array);
-	if(ret != PC_OPERATION_SUCCESS)
-		API_FEATURE_LOADER_LOG("Error %d\n", ret);
-
-finish:
-	if(p_file != NULL) fclose(p_file);
-	if(rules_array != NULL) {
-		for(i = 0; i < i_num_rules; ++i) {
-			free(rules_array[i]);
-		}
-		vector_free(rules_vector);
-	}
-
-	API_FEATURE_LOADER_LOG("Done.\n");
-}
-
 int main(int argc, char *argv[])
 {
 	int c;
@@ -400,16 +325,12 @@ int main(int argc, char *argv[])
 	bool b_load_from_dir = false;
 	const char *s_dir_name = NULL;
 
-	bool b_load_additional_rules = false;
-	const char *s_additional_rules_file_name = NULL;
-
 	static struct option long_options[] = {
 		{"verbose", no_argument,       &i_verbose_flag__,  1},
 		{"file",    required_argument, 0, 'f'},
 		{"dir",     required_argument, 0, 'd'},
 		{"help",    no_argument,       0, 'h'},
 		{"version", no_argument,       0, 'v'},
-		{"rules",   required_argument, 0, 'r'},
 		{0, 0, 0, 0}
 	};
 
@@ -435,18 +356,12 @@ int main(int argc, char *argv[])
 			s_dir_name = optarg;
 			break;
 
-		case 'r':
-			b_load_additional_rules = true;
-			s_additional_rules_file_name = optarg;
-			break;
-
 		case 'h':
 			printf("Api feature loader v." API_FEATURE_LOADER_VERSION "\n\n");
 			printf("    Options:\n");
 			printf("        -d,--dir=path        load api-features from the directory\n");
 			printf("        -f,--file=file_name  load api-feature from the file\n");
 			printf("        -h,--help            print this help\n");
-			printf("        -r,--rules           load additional rules from the file\n");
 			printf("        --verbose            verbose output\n");
 			printf("        -v,--version         show applcation version\n");
 
@@ -471,14 +386,11 @@ int main(int argc, char *argv[])
 	}
 
 	// Run task
-	if(b_load_additional_rules)
-		load_additional_rules(s_additional_rules_file_name);
 	if(b_load_from_dir)
 		load_from_dir(s_dir_name);
 	if(b_load_from_file)
 		load_from_file(s_file_name);
-	if(!b_load_additional_rules &&
-	    !b_load_from_dir &&
+	if(!b_load_from_dir &&
 	    !b_load_from_file)
 		load_from_dir(API_FEATURES_DIR);
 

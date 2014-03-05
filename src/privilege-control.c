@@ -141,139 +141,6 @@ API int control_privilege(void)//deprecated
 	}
 }
 
-/**
- * TODO: this function should be moved to libsmack in open-source.
- */
-API int get_smack_label_from_process(pid_t pid, char *smack_label)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pid=%i", __func__, pid);
-
-	int ret;
-	int fd AUTO_CLOSE;
-	int PATH_MAX_LEN = 64;
-	char path[PATH_MAX_LEN + 1];
-
-	if (pid < 0) {
-		C_LOGE("invalid param pid.");
-		ret = PC_ERR_INVALID_PARAM;
-		goto out;
-	}
-
-	if(smack_label == NULL) {
-		C_LOGE("Invalid param smack_label (NULL).");
-		ret = PC_ERR_INVALID_PARAM;
-		goto out;
-	}
-
-	bzero(smack_label, SMACK_LABEL_LEN + 1);
-	if (!have_smack()) { // If no smack just return success with empty label
-		C_LOGD("No SMACK. Returning empty label");
-		ret = PC_OPERATION_SUCCESS;
-		goto out;
-	}
-
-	bzero(path, PATH_MAX_LEN + 1);
-	snprintf(path, PATH_MAX_LEN, "/proc/%d/attr/current", pid);
-	fd = open(path, O_RDONLY);
-	if (fd < 0) {
-		SECURE_C_LOGE("Cannot open file %s (errno: %s)", path, strerror(errno));
-		ret = PC_ERR_FILE_OPERATION;
-		goto out;
-	}
-
-	ret = read(fd, smack_label, SMACK_LABEL_LEN);
-	if (ret < 0) {
-		SECURE_C_LOGE("Cannot read from file %s", path);
-		ret = PC_ERR_FILE_OPERATION;
-		goto out;
-	}
-
-	SECURE_C_LOGD("smack_label=%s", smack_label);
-
-	ret = PC_OPERATION_SUCCESS;
-
-out:
-	return ret;
-}
-
-API int smack_pid_have_access(pid_t pid,
-								const char* object,
-								const char *access_type)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pid=%i, object=%s, access_type=%s",
-				__func__, pid, object, access_type);
-
-	int ret;
-	char pid_subject_label[SMACK_LABEL_LEN + 1];
-	cap_t cap;
-	cap_flag_value_t cap_v;
-
-	if (!have_smack()) {
-		C_LOGD("No SMACK. Return access granted");
-		return 1;
-	}
-
-	if (pid < 0) {
-		C_LOGE("Invalid pid.");
-		return -1;
-	}
-
-	if(object == NULL) {
-		C_LOGE("Invalid object param.");
-		return -1;
-	}
-
-	if(access_type == NULL) {
-		C_LOGE("Invalid access_type param");
-		return -1;
-	}
-
-	//get SMACK label of process
-	ret = get_smack_label_from_process(pid, pid_subject_label);
-	if (PC_OPERATION_SUCCESS != ret) {
-		SECURE_C_LOGE("get_smack_label_from_process %d failed: %d", pid, ret);
-		return -1;
-	}
-	SECURE_C_LOGD("pid %d has label: %s", pid, pid_subject_label);
-
-	// do not call smack_have_access() if label is empty
-	if (pid_subject_label[0] != '\0') {
-		ret = smack_have_access(pid_subject_label, object, access_type);
-		if ( -1 == ret) {
-			C_LOGE("smack_have_access failed.");
-			return -1;
-		}
-		if ( 1 == ret ) { // smack_have_access return 1 (access granted)
-			C_LOGD("smack_have_access returned 1 (access granted)");
-			return 1;
-		}
-	}
-
-	// smack_have_access returned 0 (access denied). Now CAP_MAC_OVERRIDE should be checked
-	C_LOGD("smack_have_access returned 0 (access denied)");
-	cap = cap_get_pid(pid);
-	if (cap == NULL) {
-		C_LOGE("cap_get_pid failed");
-		return -1;
-	}
-	ret = cap_get_flag(cap, CAP_MAC_OVERRIDE, CAP_EFFECTIVE, &cap_v);
-	if (0 != ret) {
-		C_LOGE("cap_get_flag failed");
-		return -1;
-	}
-
-	if (cap_v == CAP_SET) {
-		C_LOGD("pid %d has CAP_MAC_OVERRIDE", pid);
-		return 1;
-
-	} else {
-		C_LOGD("pid %d doesn't have CAP_MAC_OVERRIDE", pid);
-		return 0;
-	}
-}
-
-
-
 static int get_user_groups(uid_t user_id, int *nbgroup, gid_t **groups_list)
 {
 	gid_t *groups = NULL;
@@ -463,9 +330,7 @@ static int get_smack_from_binary(char **smack_label, const char* path, app_type_
 	int ret;
 
 	*smack_label = NULL;
-	if (type == PERM_APP_TYPE_WRT
-	|| type == PERM_APP_TYPE_WRT_PARTNER
-	|| type == PERM_APP_TYPE_WRT_PLATFORM) {
+	if (type == APP_TYPE_WGT) {
 		ret = smack_lgetlabel(path, smack_label, SMACK_LABEL_EXEC);
 	} else {
 		ret = smack_getlabel(path, smack_label, SMACK_LABEL_EXEC);
@@ -558,28 +423,15 @@ static app_type_t verify_app_type(const char* type, const char* path)
 	if (is_widget(path)) {
 		if (!strcmp(type, "wgt")) {
 			C_LOGD("PKG_TYPE_WRT");
-			return PERM_APP_TYPE_WRT; /* good */
-		} else if (!strcmp(type, "wgt_partner")) {
-			C_LOGD("PKG_TYPE_WRT_PARTNER");
-			return PERM_APP_TYPE_WRT_PARTNER; /* good */
-		} else if (!strcmp(type, "wgt_platform")) {
-			C_LOGD("PKG_TYPE_WRT_PLATFORM");
-			return PERM_APP_TYPE_WRT_PLATFORM; /* good */
+			return APP_TYPE_WGT; /* good */
 		}
-
 	} else {
 		if (!strcmp(type, "osp") || !strcmp(type, "tpk")) {
 			C_LOGD("PKG_TYPE_OSP");
-			return PERM_APP_TYPE_OSP; /* good */
-		} else if (!strcmp(type, "osp_partner")) {
-			C_LOGD("PKG_TYPE_OSP_PARTNER");
-			return PERM_APP_TYPE_OSP_PARTNER; /* good */
-		} else if (!strcmp(type, "osp_platform")) {
-			C_LOGD("PKG_TYPE_OSP_PLATFORM");
-			return PERM_APP_TYPE_OSP_PLATFORM; /* good */
+			return APP_TYPE_OSP; /* good */
 		} else if (!strcmp(type, "efl") || !strcmp(type, "rpm")) {
 			C_LOGD("PKG_TYPE_EFL");
-			return PERM_APP_TYPE_EFL; /* good */
+			return APP_TYPE_EFL; /* good */
 		}
 	}
 
@@ -866,14 +718,6 @@ API int app_add_volatile_permissions(const char* app_id, const char** perm_list)
 	return perm_app_enable_permissions(app_id, APP_TYPE_OTHER, perm_list, false);
 }
 
-API int perm_app_setup_permissions(const char* pkg_id, app_type_t app_type,
-				   const char** perm_list)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d",
-				__func__, pkg_id, app_type);
-	return perm_app_enable_permissions(pkg_id, app_type, perm_list, true);
-}
-
 API int app_enable_permissions(const char* pkg_id, app_type_t app_type, const char** perm_list, bool persistent)//deprecated
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d, persistent=%d",
@@ -1016,165 +860,6 @@ API int perm_app_reset_permissions(const char* pkg_id)
 	return PC_OPERATION_SUCCESS;
 }
 
-API int perm_app_has_permission(const char *pkg_id,
-				app_type_t app_type,
-				const char *permission_name,
-				bool *is_enabled)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d, permission_name=%s",
-				__func__, pkg_id, app_type, permission_name);
-
-	const char *app_group = app_type_group_name(app_type);
-
-	if (app_group == NULL) {
-		C_LOGE("Unknown param app type.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if (!smack_label_is_valid(pkg_id)) {
-		C_LOGE("Invalid param app_id.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if (permission_name == NULL) {
-		C_LOGE("Invalid param permission_name (NULL).");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if (is_enabled == NULL) {
-		C_LOGE("Invalid param is_enabled (NULL).");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	return rdb_app_has_permission(pkg_id, app_group, permission_name, is_enabled);
-}
-
-API int perm_app_get_permissions(const char *pkg_id, app_type_t app_type, char ***ppp_perm_list)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d", __func__, pkg_id,
-		      app_type);
-
-	const char *app_group = app_type_group_name(app_type);
-	int ret;
-
-	if (ppp_perm_list == NULL) {
-		C_LOGE("Invalid param ppp_perm_list (NULL).");
-		return PC_ERR_INVALID_PARAM;
-	}
-	// Set the given pointer to NULL in case of future failure.
-	*ppp_perm_list = NULL;
-
-	if (app_group == NULL) {
-		C_LOGE("Unknown param app type.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if (!smack_label_is_valid(pkg_id)) {
-		C_LOGE("Invalid param app_id.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	ret = rdb_app_get_permissions(pkg_id, app_group, ppp_perm_list);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("RDB rdb_app_get_permissions failed with: %d", ret);
-		return ret;
-	}
-
-	return PC_OPERATION_SUCCESS;
-}
-
-API int perm_get_permissions(char ***ppp_permissions, app_type_t app_type)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: app_type=%d",
-		      __func__, app_type);
-	int ret;
-
-	if(ppp_permissions == NULL) {
-		C_LOGE("Invalid ppp_permissions (NULL).");
-		return PC_ERR_INVALID_PARAM;
-	}
-	// Set the given pointer to NULL in case of future failure
-	*ppp_permissions = NULL;
-
-	const char *s_permission_type_name = app_type_group_name(app_type);
-
-	if(s_permission_type_name == NULL) {
-		C_LOGE("Unknown param app type.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	ret = rdb_get_permissions(ppp_permissions, s_permission_type_name);
-
-	if(ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("RDB %s failed with: %d", __func__, ret);
-		return ret;
-	}
-
-	return PC_OPERATION_SUCCESS;
-}
-
-API int perm_get_apps_with_permission(perm_app_status_t **pp_apps,
-				      size_t *pi_apps_number,
-				      app_type_t app_type,
-				      const char *s_permission_name)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: \
-		       app_type=%d, s_permission_name=%s",
-		       __func__, app_type, s_permission_name);
-	int ret;
-
-	if(pp_apps == NULL) {
-		C_LOGE("Invalid ppp_permissions (NULL).");
-		return PC_ERR_INVALID_PARAM;
-	}
-	// Set the given pointer to NULL in case of future failure
-	*pp_apps = NULL;
-
-	if(pi_apps_number == NULL) {
-		C_LOGE("Invalid pi_apps_number (NULL).");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if(s_permission_name == NULL) {
-		C_LOGE("Invalid s_permission_name (NULL).");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	const char *s_permission_type_name = app_type_group_name(app_type);
-
-	if(s_permission_type_name == NULL) {
-		C_LOGE("Unknown param app type.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	ret = rdb_get_apps_with_permission(pp_apps,
-					   pi_apps_number,
-					   s_permission_type_name,
-					   s_permission_name);
-
-	if(ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("RDB %s failed with: %d", __func__, ret);
-		return ret;
-	}
-
-	return PC_OPERATION_SUCCESS;
-}
-
-API void perm_free_apps_list(perm_app_status_t *pp_apps,
-			     size_t i_apps_number)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: i_apps_number=%d",
-		      __func__, i_apps_number);
-
-	size_t i;
-	if(pp_apps != NULL) {
-		for(i = 0; i < i_apps_number; ++i) {
-			free(pp_apps[i].app_id);
-		}
-		free(pp_apps);
-	}
-}
-
 API int app_label_dir(const char* label, const char* path)//deprecated
 {
 	SECURE_C_LOGD("Entering function: %s. Params: label=%s, path=%s",
@@ -1212,7 +897,6 @@ API int app_label_dir(const char* label, const char* path)//deprecated
 	ret = dir_set_smack_r(path, label, SMACK_LABEL_EXEC, &label_links_to_execs);
 	return ret;
 }
-
 
 API int app_label_shared_dir(const char* app_label, const char* shared_label, const char* path)//deprecated
 {
@@ -1322,7 +1006,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		C_LOGD("app_path_type is APP_PATH_PRIVATE.");
 		return app_label_dir(pkg_id, path);
 
-	case APP_PATH_GROUP: {
+	case APP_PATH_GROUP_RW: {
 		C_LOGD("app_path_type is APP_PATH_GROUP.");
 		int ret;
 		const char *shared_label;
@@ -1355,7 +1039,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		return PC_OPERATION_SUCCESS;
 	}
 
-	case APP_PATH_PUBLIC: {
+	case APP_PATH_PUBLIC_RO: {
 		C_LOGD("app_path_type is APP_PATH_PUBLIC.");
 		const char *label;
 		int ret;
@@ -1386,7 +1070,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		return PC_OPERATION_SUCCESS;
 	}
 
-	case APP_PATH_SETTINGS: {
+	case APP_PATH_SETTINGS_RW: {
 		C_LOGD("app_path_type is APP_PATH_SETTINGS.");
 		const char *label;
 		int ret;
@@ -1408,40 +1092,6 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 
 		// Add the path to the database:
 		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "-", "SETTINGS_PATH");
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("RDB rdb_add_path failed with: %d", ret);
-			return ret;
-		}
-
-		return PC_OPERATION_SUCCESS;
-	}
-
-	case PERM_APP_PATH_NPRUNTIME: {
-		C_LOGD("app_path_type is PERM_APP_PATH_NPRUNTIME.");
-		char label[SMACK_LABEL_LEN + 1];
-		int ret;
-
-		// Create label:
-		if ((strlen(pkg_id) + strlen(".npruntime")) > SMACK_LABEL_LEN) {
-			C_LOGE("cannot create npruntime label, pkg_id is too long.");
-			return PC_ERR_INVALID_PARAM;
-		}
-		ret = sprintf(label, "%s.npruntime", pkg_id);
-		if (ret <= 0) {
-			C_LOGE("creating npruntime label failed.");
-			return PC_ERR_INVALID_OPERATION;
-		}
-		C_LOGD("Generated npruntime label '%s' for path %s", label, path);
-
-		// Label executable/symlink
-		ret = set_exec_label(label, path);
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("cannot set executable label '%s' for path %s.", label, path);
-			return ret;
-		}
-
-		// Add the path to the database:
-		ret = rdb_add_path(pkg_id, label, path, "rw", "rxat", "NPRUNTIME_PATH");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("RDB rdb_add_path failed with: %d", ret);
 			return ret;
@@ -1480,7 +1130,6 @@ API int app_setup_path(const char* pkg_id, const char* path, app_path_type_t app
 	return ret;
 }
 
-
 API int perm_app_setup_path(const char* pkg_id, const char* path, app_path_type_t app_path_type, ...)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, path=%s, app_path_type=%d",
@@ -1492,65 +1141,6 @@ API int perm_app_setup_path(const char* pkg_id, const char* path, app_path_type_
 	ret = perm_app_setup_path_internal( pkg_id, path, app_path_type, ap );
 	va_end( ap );
 	return ret;
-}
-
-API int perm_app_get_paths(const char* pkg_id, app_path_type_t app_path_type, char*** ppp_paths)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_path_type=%d", __func__,
-		      pkg_id, app_path_type);
-
-	const char *path_type_name = app_path_type_name(app_path_type);
-	int ret;
-
-	if (ppp_paths == NULL) {
-		C_LOGE("Invalid param ppp_paths (NULL).");
-		return PC_ERR_INVALID_PARAM;
-	}
-	// Set the given pointer to NULL in case of future failure.
-	*ppp_paths = NULL;
-
-	if (path_type_name == NULL) {
-		C_LOGE("Unknown or invalid param app_path_type.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if (!smack_label_is_valid(pkg_id)) {
-		C_LOGE("Invalid param app_id.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	ret = rdb_get_app_paths(pkg_id, path_type_name, ppp_paths);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("RDB rdb_app_get_paths failed with: %d", ret);
-		return ret;
-	}
-
-	return PC_OPERATION_SUCCESS;
-}
-
-API int perm_app_remove_path(const char* pkg_id, const char *path)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, path=%s", __func__, pkg_id, path);
-
-	int ret;
-
-	if (path == NULL) {
-		C_LOGE("Invalid param path (NULL).");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	if (!smack_label_is_valid(pkg_id)) {
-		C_LOGE("Invalid param app_id.");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	ret = rdb_remove_path(pkg_id, path);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("RDB rdb_remove_path failed with %d", ret);
-		return ret;
-	}
-
-	return PC_OPERATION_SUCCESS;
 }
 
 API int app_add_friend(const char* pkg_id1, const char* pkg_id2)//deprecated
@@ -1756,23 +1346,6 @@ API int app_register_av(const char* app_av_id UNUSED)//deprecated
 	return PC_ERR_INVALID_OPERATION;
 }
 
-API int perm_add_additional_rules(const char** smack_rules){
-	SECURE_C_LOGD("Entering function: %s.", __func__);
-	int ret;
-	if (!smack_rules){
-		C_LOGE("smack_rules is NULL");
-		return PC_ERR_INVALID_PARAM;
-	}
-
-	ret = rdb_add_additional_rules(smack_rules);
-	if (ret != PC_OPERATION_SUCCESS) {
-		C_LOGE("RDB rdb_add_additional_rules failed with: %d", ret);
-		return ret;
-	}
-
-	return PC_OPERATION_SUCCESS;
-}
-
 API const char* perm_strerror(int errnum)
 {
 	switch (errnum) {
@@ -1807,4 +1380,13 @@ API const char* perm_strerror(int errnum)
 	default:
 		return "Unknown error";
 	}
+}
+
+int app_give_access(const char* subject UNUSED, const char* object UNUSED, const char* permission UNUSED) {
+
+    return PC_ERR_INVALID_OPERATION;
+}
+
+int app_revoke_access(const char* subject UNUSED, const char* object UNUSED) {
+    return PC_ERR_INVALID_OPERATION;
 }

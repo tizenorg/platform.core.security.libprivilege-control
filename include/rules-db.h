@@ -121,35 +121,6 @@ int rdb_add_path(const char *const s_owner_label_name,
 
 
 /**
- * Get paths of the specified type for the given application.
- *
- * @ingroup RDB API functions
- *
- * @param s_app_label_name     application's label name
- * @param s_app_path_type_name name of the path type to get
- * @param ppp_paths            buffer for return value
- * @return                     PC_OPERATION_SUCCESS on success, PC_ERR_* on error
- */
-int rdb_get_app_paths(const char *const s_app_label_name,
-		      const char *const s_app_path_type_name,
-		      char ***ppp_paths);
-
-
-/**
- * Remove path and all rules associated with it from the database.
- *
- * @ingroup RDB API functions
- *
- * @param  s_owner_label_name owner application's label name
- * @param  s_path             the path
- * @return                    PC_OPERATION_SUCCESS on success,
- *                            error code otherwise
- */
-int rdb_remove_path(const char *const s_owner_label_name,
-		    const char *const s_path);
-
-
-/**
  * Add permission with the given name and type and add smack rules.
  *
  * @ingroup RDB API functions
@@ -228,77 +199,5 @@ int rdb_revoke_app_permissions(const char *const s_app_label_name);
  */
 int rdb_reset_app_permissions(const char *const s_app_label_name);
 
-/**
- * Add the additional rules to the database. Erase the previous rules.
- *
- * @ingroup RDB API functions
- *
- * @param  pp_smack_rules NULL terminated table of rules
- * @return                PC_OPERATION_SUCCESS on success,
- *                        error code otherwise
- */
-int rdb_add_additional_rules(const char *const *const pp_smack_rules);
-
-
-/**
- * Check if app has the privilege that is specified by the name.
- *
- * @ingroup RDB API functions
- *
- * @param  s_app_label_name       application's label name
- * @param  s_permission_type_name permission's type name
- * @param  s_permission_name      permission name
- * @param  p_is_enabled           buffer for return value
- * @return                        PC_OPERATION_SUCCESS on success,
- *                                error code otherwise
- */
-int rdb_app_has_permission(const char *const s_app_label_name,
-			   const char *const s_permission_type_name,
-			   const char *const s_permission_name,
-			   bool *const p_is_enabled);
-
-/**
- * Get permissions for the specified app.
- *
- * @ingroup RDB API functions
- *
- * @param  s_app_label_name       application label's name
- * @param  s_permission_type_name permission type's name
- * @param  ppp_perm_list          buffer for return value
- * @return                        PC_OPERATION_SUCCESS on success,
- *                                error code otherwise
- */
-int rdb_app_get_permissions(const char *const s_app_label_name,
-			    const char *const s_permission_type_name,
-			    char ***ppp_perm_list);
-
-/**
- *  Get the list of the permissions for given application type.
- *
- * @ingroup RDB API functions
- *
- * @param ppp_permissions        buffer for all of the found permissions
- * @param s_permission_type_name permission's type
- * @return                       PC_OPERATION_SUCCESS on success,
- *                               PC_ERR_* on error
- */
-int rdb_get_permissions(char ***ppp_permissions, const char *const s_permission_type_name);
-
-/**
- * Get the list of apps for given app type with given permission.
- *
- * @ingroup RDB API functions
- *
- * @param pp_apps                list of application's statuses
- * @param pi_apps_number         number of found apps
- * @param s_permission_type_name permission's type
- * @param s_permission_name      permission's name
- * @return                       PC_OPERATION_SUCCESS on success,
- *                               PC_ERR_* on error
- */
-int rdb_get_apps_with_permission(perm_app_status_t **pp_apps,
-				 size_t *pi_apps_number,
-				 const char *const s_permission_type_name,
-				 const char *const s_permission_name);
 
 #endif /*_RULES_DB_H_*/

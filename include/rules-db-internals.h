@@ -91,18 +91,6 @@ int add_modified_permission_internal(sqlite3 *p_db, sqlite3_int64 i_permission_i
 
 
 /**
- * Adds all label names from additional rules to modified labels.
- * Used when additional rules are inserted into the database.
- *
- * @ingroup RDB internal functions
- *
- * @param  p_db  pointer to a SQLite3 database object
- * @return       PC_OPERATION_SUCCESS on success, error code otherwise
- */
-int add_modified_additional_rules_internal(sqlite3 *p_db);
-
-
-/**
  * Adds label names of the application's folders to the modified labels.
  * Used during removing application.
  *
@@ -115,17 +103,6 @@ int add_modified_additional_rules_internal(sqlite3 *p_db);
  */
 int add_modified_apps_path_internal(sqlite3 *p_db, const char *const s_app_label_name);
 
-/**
- * Adds path label's name to the modified labels.
- * Used during removing path.
- *
- * @ingroup RDB internal functions
- *
- * @param  p_db   pointer to a SQLite3 database object
- * @param  s_path the path
- * @return        PC_OPERATION_SUCCESS on success, error code otherwise
- */
-int add_modified_paths_label_internal(sqlite3 *p_db, const char *const s_path);
 
 /**
  * Open a connection with the database and perform an initialization.
@@ -219,52 +196,6 @@ int add_path_internal(sqlite3 *p_db,
 		      const char *const s_access_reverse,
 		      const char *const s_type);
 
-/**
- * Remove path for the specified application and delete it's label if it's no longer used.
- *
- * @param  p_db               pointer to a SQLite3 database object
- * @param  s_owner_label_name owner application
- * @param  s_path             the path
- * @return                    PC_OPERATION_SUCCESS on success, error code otherwise
- */
-int remove_path_internal(sqlite3 *p_db,
-			 const char *const s_owner_label_name,
-			 const char *const s_path);
-
-
-/**
- * Get number of paths of the specified type for the given application.
- *
- * @param  p_db                 pointer to a SQLite3 database object
- * @param  s_app_label_name     application's label name
- * @param  s_app_path_type_name name of the path type to get
- * @param  p_num_paths          buffer for the return value
- * @return                      PC_OPERATION_SUCCESS on success, PC_ERR_* on error
- */
-int get_app_paths_count_internal(sqlite3 *p_db,
-				 const char *const s_app_label_name,
-				 const char *const s_app_path_type_name,
-				 int *const p_num_paths);
-
-
-/**
- * Get paths of the specified type for the given application.
- *
- * @ingroup RDB API functions
- *
- * @param  p_db                 pointer to a SQLite3 database object
- * @param  s_app_label_name     application's label name
- * @param  s_app_path_type_name name of the path type to get
- * @param  i_num_paths          number of paths
- * @param  ppp_paths            buffer for return value
- * @return                      PC_OPERATION_SUCCESS on success, PC_ERR_* on error
- */
-int get_app_paths_internal(sqlite3 *p_db,
-			   const char *const s_app_label_name,
-			   const char *const s_app_path_type_name,
-			   const int i_num_paths,
-			   char ***ppp_paths);
-
 
 /**
  * Add a permission with a given name and of a give type
@@ -309,123 +240,6 @@ int add_permission_rules_internal(sqlite3 *p_db,
 				  sqlite3_int64 i_permission_id,
 				  const char  *const *const pp_smack_rules);
 
-
-/**
- * Check if an app has a permission that is specified by the name.
- *
- * @ingroup RDB internal functions
- *
- * @param  p_db                   pointer to a SQLite3 database object
- * @param  i_app_id               application id
- * @param  s_permission_name      permission name
- * @param  s_permission_type_name permission type name
- * @param  p_is_enabled           buffer for return value
- * @return                        PC_OPERATION_SUCCESS on success, error code otherwise
- */
-int check_app_has_permission_internal(sqlite3 *p_db,
-				      const char *const s_app_label_name,
-				      const char *const s_permission_name,
-				      const char *const s_permission_type_name,
-				      bool *const p_is_enabled);
-
-/**
- * Get number of the permissions for given application type.
- *
- * @ingroup RDB internal functions
- *
- * @param p_db                   pointer to a SQLite3 database object
- * @param pi_permission_number   number of found permissions
- * @param s_permission_type_name permission's type
- * @return                       PC_OPERATION_SUCCESS on success,
- *                               PC_ERR_* on error
- */
-int get_permission_number(sqlite3 *p_db,
-			  size_t *pi_permission_number,
-			  const char *const s_permission_type_name);
-
-/**
- * Get the list of the permissions for given application type.
- *
- * @ingroup RDB internal functions
- *
- * @param p_db                   pointer to a SQLite3 database object
- * @param ppp_permissions        list of all permissions
- * @param i_permission_number    number of found permissions
- * @param s_permission_type_name permission's type
-
- * @return                       PC_OPERATION_SUCCESS on success,
- *                               PC_ERR_* on error
- */
-int get_permissions_internal(sqlite3 *p_db,
-			     char ***ppp_permissions,
-			     size_t i_permission_number,
-			     const char *const s_permission_type_name);
-
-/**
- * Get number of apps for given app type with given permission.
- *
- * @ingroup RDB internal functions
- *
- * @param p_db                   pointer to a SQLite3 database object
- * @param pi_apps_number         number of found apps
- * @param s_permission_type_name permission's type
- * @param s_permission_name      permission's name
- * @return                       PC_OPERATION_SUCCESS on success,
- *                               PC_ERR_* on error
- */
-int get_apps_number(sqlite3 *p_db,
-		    size_t *pi_apps_number,
-		    const char *const s_permission_type_name,
-		    const char *const s_permission_name);
-
-/**
- * Get the list of the applications's statuses of given type with particular permission.
- *
- * @ingroup RDB internal functions
- *
- * @param p_db                   pointer to a SQLite3 database object
- * @param pp_apps                list of application's statuses
- * @param i_apps_number          number of found applicationa
- * @param s_permission_type_name permission's type
- * @param s_permission_name      permission's name
- * @return                       PC_OPERATION_SUCCESS on success,
- *                               PC_ERR_* on error
- */
-int get_apps_with_permission_internal(sqlite3 *p_db,
-				      perm_app_status_t **pp_apps,
-				      size_t i_apps_number,
-				      const char *const s_permission_type_name,
-				      const char *const s_permission_name);
-
-/**
- * Get number of permission of a certain type for the specified app.
- *
- * @param  p_db                   pointer to a SQLite3 database object
- * @param  s_app_label_name       application label's name
- * @param  s_permission_type_name permission type's name
- * @param  p_num_permissions      buffer for return value
- * @return                        PC_OPERATION_SUCCESS on success, error code otherwise
- */
-int get_app_permissions_number_internal(sqlite3  *p_db,
-					const char *const s_app_label_name,
-					const char *const s_permission_type_name,
-					int *const p_num_permissions);
-
-/**
- * Get permissions for the specified app.
- *
- * @param  p_db                   pointer to a SQLite3 database object
- * @param  s_app_label_name       application label's name
- * @param  s_permission_type_name permission type's name
- * @param  i_num_permissions      number of permissions of the specified type
- * @param  ppp_perm_list          buffer for return value
- * @return                        PC_OPERATION_SUCCESS on success, error code otherwise
- */
-int get_app_permissions_internal(sqlite3 *p_db,
-				 const char *const s_app_label_name,
-				 const char *const s_permission_type_name,
-				 const int i_num_permissions,
-				 char ***ppp_perm_list);
 
 
 /**
@@ -570,18 +384,5 @@ int update_rules_in_db(sqlite3 *p_db);
  * @return      PC_OPERATION_SUCCESS on success, error code otherwise
  */
 int update_smack_rules(sqlite3 *p_db);
-
-
-/**
- * Add additional rules to the database.
- *
- * @ingroup RDB internal functions
- *
- * @param  p_db           pointer to a SQLite3 database object
- * @param  pp_smack_rules a list of smack rules
- * @return                PC_OPERATION_SUCCESS on success, error code otherwise
- */
-int add_additional_rules_internal(sqlite3 *p_db,
-				  const char  *const *const pp_smack_rules);
 
 #endif // _RULES_DB_INTERNALS_H_
