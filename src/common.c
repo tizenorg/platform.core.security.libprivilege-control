@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
+#include <limits.h>
 #include <unistd.h>
 #include <sys/smack.h>
 #include <sys/stat.h>
@@ -462,9 +463,15 @@ int base_name_from_perm(const char *s_perm, char **ps_name)
 		return PC_ERR_INVALID_PARAM;
 	}
 
-	ssize_t i_host_size = strlen(piri_parsed->host);
-	ssize_t i_path_start = 0;
-	char * pc_host_dot = NULL;
+	size_t i_host_size = strlen(piri_parsed->host);
+	if(i_host_size > INT_MAX) {
+		SECURE_C_LOGE("Permission name too long : %zu", i_host_size);
+		iri_destroy(piri_parsed);
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	size_t i_path_start = 0;
+	char *pc_host_dot = NULL;
 
 	if(piri_parsed->path) {
 		pc_host_dot = strrchr(piri_parsed->host, '.');
@@ -474,7 +481,7 @@ int base_name_from_perm(const char *s_perm, char **ps_name)
 	int ret = asprintf(ps_name, "%s%s%.*s%s",
 			   pc_host_dot ? pc_host_dot + 1 : "",
 			   pc_host_dot ? "." : "",
-			   pc_host_dot ? pc_host_dot - piri_parsed->host : i_host_size,
+			   pc_host_dot ? (int)(pc_host_dot - piri_parsed->host) : (int)i_host_size,
 			   piri_parsed->host,
 			   piri_parsed->path ? piri_parsed->path : "");
 	if (ret == -1) {
