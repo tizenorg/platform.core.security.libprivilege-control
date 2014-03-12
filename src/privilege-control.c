@@ -573,17 +573,6 @@ static int label_all(const FTSENT* ftsent UNUSED)
 	return DECISION_LABEL;
 }
 
-static int label_execs(const FTSENT* ftsent)
-{
-	SECURE_C_LOGD("Entering function: %s.", __func__);
-
-	C_LOGD("Mode = %d", ftsent->fts_statp->st_mode);
-	// label only regular executable files
-	if (S_ISREG(ftsent->fts_statp->st_mode) && (ftsent->fts_statp->st_mode & S_IXUSR))
-		return DECISION_LABEL;
-	return DECISION_SKIP;
-}
-
 static int label_dirs(const FTSENT* ftsent)
 {
 	SECURE_C_LOGD("Entering function: %s.", __func__);
@@ -592,35 +581,6 @@ static int label_dirs(const FTSENT* ftsent)
 	if (S_ISDIR(ftsent->fts_statp->st_mode))
 		return DECISION_LABEL;
 	return DECISION_SKIP;
-}
-
-static int label_links_to_execs(const FTSENT* ftsent)
-{
-	SECURE_C_LOGD("Entering function: %s.", __func__);
-
-	struct stat buf;
-	char* target AUTO_FREE;
-
-	// check if it's a link
-	if ( !S_ISLNK(ftsent->fts_statp->st_mode))
-		return DECISION_SKIP;
-
-	target = realpath(ftsent->fts_path, NULL);
-	if (!target) {
-		SECURE_C_LOGE("Getting link target for %s failed (Error = %s)", ftsent->fts_path, strerror(errno));
-		return PC_ERR_FILE_OPERATION;
-	}
-	if (-1 == stat(target, &buf)) {
-		SECURE_C_LOGE("stat failed for %s (Error = %s", target, strerror(errno));
-		return PC_ERR_FILE_OPERATION;
-	}
-	// skip if link target is not a regular executable file
-	if (buf.st_mode != (buf.st_mode | S_IXUSR | S_IFREG)) {
-		SECURE_C_LOGD("%s is not a regular executable file. Skipping.", target);
-		return DECISION_SKIP;
-	}
-
-	return DECISION_LABEL;
 }
 
 static int dir_set_smack_r(const char *path, const char* label,
@@ -879,23 +839,12 @@ API int app_label_dir(const char* label, const char* path)//deprecated
 
 	//setting access label on everything in given directory and below
 	ret = dir_set_smack_r(path, label, SMACK_LABEL_ACCESS, &label_all);
-	if (PC_OPERATION_SUCCESS != ret)
-	{
-		C_LOGE("dir_set_smack_r failed.");
-		return ret;
+	if (ret != PC_OPERATION_SUCCESS) {
+			C_LOGE("dir_set_smack_r failed");
+			return ret;
 	}
 
-	//setting execute label for everything with permission to execute
-	ret = dir_set_smack_r(path, label, SMACK_LABEL_EXEC, &label_execs);
-	if (PC_OPERATION_SUCCESS != ret)
-	{
-		C_LOGE("dir_set_smack_r failed.");
-		return ret;
-	}
-
-	//setting execute label for everything with permission to execute
-	ret = dir_set_smack_r(path, label, SMACK_LABEL_EXEC, &label_links_to_execs);
-	return ret;
+	return PC_OPERATION_SUCCESS;
 }
 
 API int app_label_shared_dir(const char* app_label, const char* shared_label, const char* path)//deprecated
