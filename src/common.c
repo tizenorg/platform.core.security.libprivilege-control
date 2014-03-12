@@ -474,7 +474,7 @@ int base_name_from_perm(const char *s_perm, char **ps_name)
 	int ret = asprintf(ps_name, "%s%s%.*s%s",
 			   pc_host_dot ? pc_host_dot + 1 : "",
 			   pc_host_dot ? "." : "",
-			   pc_host_dot ? pc_host_dot - piri_parsed->host : i_host_size,
+			   (int)(pc_host_dot ? pc_host_dot - piri_parsed->host : i_host_size),
 			   piri_parsed->host,
 			   piri_parsed->path ? piri_parsed->path : "");
 	if (ret == -1) {
