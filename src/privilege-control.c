@@ -58,9 +58,6 @@
 #define APP_HOME_DIR	TOSTRING(HOMEDIR) "/app"
 #define DEV_HOME_DIR	TOSTRING(HOMEDIR) "/developer"
 
-#define APP_GROUP_PATH	TOSTRING(SHAREDIR) "/app_group_list"
-#define DEV_GROUP_PATH	TOSTRING(SHAREDIR) "/dev_group_list"
-
 #define SMACK_SRC_FILE_SUFFIX   "_src_file"
 #define SMACK_SRC_DIR_SUFFIX    "_src_dir"
 #define SMACK_DATA_SUFFIX       "_data"
@@ -77,7 +74,6 @@ typedef struct {
 	int uid;
 	int gid;
 	char home_dir[64];
-	char group_list[64];
 } new_user;
 
 /**
@@ -192,7 +188,6 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 	C_LOGD("Initialize user structure");
 	memset(usr.user_name, 0x00, 10);
 	memset(usr.home_dir, 0x00, 64);
-	memset(usr.group_list, 0x00, 64);
 	usr.uid = -1;
 	usr.gid = -1;
 
@@ -207,7 +202,6 @@ static int set_dac(const char *smack_label, const char *pkg_name)
 			usr.uid = DEVELOPER_UID;
 			usr.gid = DEVELOPER_GID;
 			strncpy(usr.home_dir, DEV_HOME_DIR, sizeof(usr.home_dir));
-			strncpy(usr.group_list, DEV_GROUP_PATH, sizeof(usr.group_list));
 		}
 		else
 		{
