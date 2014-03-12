@@ -58,7 +58,6 @@
 #define APP_HOME_DIR	TOSTRING(HOMEDIR) "/app"
 #define DEV_HOME_DIR	TOSTRING(HOMEDIR) "/developer"
 
-#define APP_GROUP_PATH	TOSTRING(SHAREDIR) "/app_group_list"
 #define DEV_GROUP_PATH	TOSTRING(SHAREDIR) "/dev_group_list"
 
 #define SMACK_SRC_FILE_SUFFIX   "_src_file"
