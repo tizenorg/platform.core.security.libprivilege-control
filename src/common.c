@@ -66,6 +66,17 @@ err:
 	return 0;
 }
 
+/* TODO: implement this function correctly using compilation flags for both Tizen IVI and Mobile */
+const char* generate_app_label(const char *pkg_id UNUSED)
+{
+	char *label = strdup("User");
+	if (label == NULL) {
+		C_LOGE("Cannot allocate memory for app label");
+		return NULL;
+	}
+
+	return label;
+}
 
 int set_exec_label(const char *label, const char *path)
 {
