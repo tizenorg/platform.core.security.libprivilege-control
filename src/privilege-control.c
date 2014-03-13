@@ -727,6 +727,7 @@ API int perm_app_enable_permissions(const char* pkg_id, app_type_t app_type,
 				__func__, pkg_id, app_type, persistent);
 
 	int i, ret;
+	const char *app_label AUTO_FREE;
 
 	if (!smack_label_is_valid(pkg_id)) {
 		C_LOGE("Invalid param app_id.");
@@ -743,6 +744,12 @@ API int perm_app_enable_permissions(const char* pkg_id, app_type_t app_type,
 		return PC_ERR_INVALID_PARAM;
 	}
 
+	app_label = generate_app_label(pkg_id);
+	if (app_label == NULL) {
+		C_LOGE("generate_app_label returned NULL.");
+		return PC_ERR_MEM_OPERATION;
+	}
+
 	/* Add permission to DAC */
 	for (i = 0; perm_list[i] != NULL; ++i) {
 		ret = perm_to_dac(pkg_id, app_type, perm_list[i]);
@@ -753,7 +760,7 @@ API int perm_app_enable_permissions(const char* pkg_id, app_type_t app_type,
 	}
 
 	/* Enable the permissions: */
-	ret = rdb_enable_app_permissions(pkg_id, app_type, perm_list,
+	ret = rdb_enable_app_permissions(app_label, app_type, perm_list,
 					 !((bool)persistent));
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("RDB rdb_enable_app_permissions failed with: %d", ret);
@@ -777,6 +784,7 @@ API int perm_app_disable_permissions(const char* pkg_id, app_type_t app_type, co
 				__func__, pkg_id, app_type);
 
 	int ret;
+	const char *app_label AUTO_FREE;
 	if (!smack_label_is_valid(pkg_id)) {
 		C_LOGE("Invalid param app_id.");
 		return PC_ERR_INVALID_PARAM;
@@ -792,7 +800,13 @@ API int perm_app_disable_permissions(const char* pkg_id, app_type_t app_type, co
 		return PC_ERR_INVALID_PARAM;
 	}
 
-	ret = rdb_disable_app_permissions(pkg_id, app_type, perm_list);
+	app_label = generate_app_label(pkg_id);
+	if (app_label == NULL) {
+		C_LOGE("generate_app_label returned NULL.");
+		return PC_ERR_MEM_OPERATION;
+	}
+
+	ret = rdb_disable_app_permissions(app_label, app_type, perm_list);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("RDB rdb_disable_app_permissions failed with: %d", ret);
 		return ret;
@@ -811,13 +825,20 @@ API int perm_app_revoke_permissions(const char* pkg_id)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s", __func__, pkg_id);
 	int ret;
+	const char *app_label AUTO_FREE;
 
 	if (!smack_label_is_valid(pkg_id)) {
 		C_LOGE("Invalid param app_id.");
 		return PC_ERR_INVALID_PARAM;
 	}
 
-	ret = rdb_revoke_app_permissions(pkg_id);
+	app_label = generate_app_label(pkg_id);
+	if (app_label == NULL) {
+		C_LOGE("generate_app_label returned NULL.");
+		return PC_ERR_MEM_OPERATION;
+	}
+
+	ret = rdb_revoke_app_permissions(app_label);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("RDB rdb_disable_app_permissions failed with: %d", ret);
 		return ret;
@@ -839,13 +860,20 @@ API int perm_app_reset_permissions(const char* pkg_id)
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s",
 				__func__, pkg_id);
 	int ret;
+	const char *app_label AUTO_FREE;
 
 	if (!smack_label_is_valid(pkg_id)) {
 		C_LOGE("Invalid param pkg_id.");
 		return PC_ERR_INVALID_PARAM;
 	}
 
-	ret = rdb_reset_app_permissions(pkg_id);
+	app_label = generate_app_label(pkg_id);
+	if (app_label == NULL) {
+		C_LOGE("generate_app_label returned NULL.");
+		return PC_ERR_MEM_OPERATION;
+	}
+
+	ret = rdb_reset_app_permissions(app_label);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("RDB rdb_disable_app_permissions failed with: %d", ret);
 		return ret;
@@ -983,6 +1011,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, path=%s, app_path_type=%d",
 				__func__, pkg_id, path, app_path_type);
+	const char *app_label AUTO_FREE;
 
 	if(path == NULL) {
 		C_LOGE("Invalid argument path.");
@@ -995,10 +1024,16 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		return PC_ERR_INVALID_PARAM;
 	}
 
+	app_label = generate_app_label(pkg_id);
+	if (app_label == NULL) {
+		C_LOGE("generate_app_label returned NULL.");
+		return PC_ERR_MEM_OPERATION;
+	}
+
 	switch (app_path_type) {
 	case APP_PATH_PRIVATE:
 		C_LOGD("app_path_type is APP_PATH_PRIVATE.");
-		return app_label_dir(pkg_id, path);
+		return app_label_dir(app_label, path);
 
 	case APP_PATH_GROUP_RW: {
 		C_LOGD("app_path_type is APP_PATH_GROUP.");
@@ -1012,19 +1047,19 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 			return PC_ERR_INVALID_PARAM;
 		}
 
-		if (strcmp(pkg_id, shared_label) == 0) {
-			C_LOGE("pkg_id equals shared_label.");
+		if (strcmp(app_label, shared_label) == 0) {
+			C_LOGE("app_label equals shared_label.");
 			return PC_ERR_INVALID_PARAM;
 		}
 
-		ret = app_label_shared_dir(pkg_id, shared_label, path);
+		ret = app_label_shared_dir(app_label, shared_label, path);
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("app_label_shared_dir failed: %d", ret);
 			return ret;
 		}
 
 		// Add the path to the database:
-		ret = rdb_add_path(pkg_id, shared_label, path, "rwxatl", "-", "GROUP_PATH");
+		ret = rdb_add_path(app_label, shared_label, path, "rwxatl", "-", "GROUP_PATH");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("RDB rdb_add_path failed with: %d", ret);
 			return ret;
@@ -1041,21 +1076,21 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		C_LOGD("New public RO path %s", path);
 
 		// Generate label:
-		label = smack_label_for_path(pkg_id, path);
+		label = smack_label_for_path(app_label, path);
 		if (label == NULL) {
 			C_LOGE("smack_label_for_path failed.");
 			return PC_ERR_INVALID_OPERATION;
 		}
 		C_LOGD("Generated label '%s' for public RO path %s", label, path);
 
-		ret = app_label_shared_dir(pkg_id, label, path);
+		ret = app_label_shared_dir(app_label, label, path);
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("app_label_shared_dir failed.");
 			return ret;
 		}
 
 		// Add the path to the database:
-		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "-", "PUBLIC_PATH");
+		ret = rdb_add_path(app_label, label, path, "rwxatl", "-", "PUBLIC_PATH");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("RDB rdb_add_path failed with: %d", ret);
 			return ret;
@@ -1070,7 +1105,7 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		int ret;
 
 		// Generate label:
-		label = smack_label_for_path(pkg_id, path);
+		label = smack_label_for_path(app_label, path);
 		if (label == NULL) {
 			C_LOGE("smack_label_for_path failed.");
 			return PC_ERR_INVALID_OPERATION;
@@ -1078,14 +1113,14 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		C_LOGD("Appsetting: generated label '%s' for setting path %s", label, path);
 
 		/*set id for path and all subfolders*/
-		ret = app_label_shared_dir(pkg_id, label, path);
+		ret = app_label_shared_dir(app_label, label, path);
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("Appsetting: app_label_shared_dir failed (%d)", ret);
 			return ret;
 		}
 
 		// Add the path to the database:
-		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "-", "SETTINGS_PATH");
+		ret = rdb_add_path(app_label, label, path, "rwxatl", "-", "SETTINGS_PATH");
 		if (ret != PC_OPERATION_SUCCESS) {
 			C_LOGE("RDB rdb_add_path failed with: %d", ret);
 			return ret;
@@ -1169,14 +1204,21 @@ API int perm_app_install(const char* pkg_id)
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s",
 				__func__, pkg_id);
 	int ret;
+	const char *app_label AUTO_FREE;
 
 	if (!smack_label_is_valid(pkg_id)) {
 		C_LOGE("Invalid param pkg_id.");
 		return PC_ERR_INVALID_PARAM;
 	}
 
+	app_label = generate_app_label(pkg_id);
+	if (app_label == NULL) {
+		C_LOGE("generate_app_label returned NULL.");
+		return PC_ERR_MEM_OPERATION;
+	}
+
 	// Add application to the database:
-	ret = rdb_add_application(pkg_id);
+	ret = rdb_add_application(app_label);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("RDB rdb_add_application failed with: %d", ret);
 		return ret;
@@ -1197,14 +1239,21 @@ API int perm_app_uninstall(const char* pkg_id)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s", __func__, pkg_id);
 	int ret;
+	const char *app_label AUTO_FREE;
 
 	if (!smack_label_is_valid(pkg_id)) {
 		C_LOGE("Invalid param pkg_id.");
 		return PC_ERR_INVALID_PARAM;
 	}
 
+	app_label = generate_app_label(pkg_id);
+	if (app_label == NULL) {
+		C_LOGE("generate_app_label returned NULL.");
+		return PC_ERR_MEM_OPERATION;
+	}
+
 	// Remove application from the database
-	ret = rdb_remove_application(pkg_id);
+	ret = rdb_remove_application(app_label);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("RDB rdb_remove_application failed with: %d", ret);
 		return ret;
