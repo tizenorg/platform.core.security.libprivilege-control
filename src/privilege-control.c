@@ -37,6 +37,7 @@
 #include <sys/file.h>
 #include <sys/smack.h>
 #include <linux/capability.h>
+#include <linux/xattr.h>
 #include <sys/capability.h>
 #include <sys/mman.h>
 #include <stdbool.h>
@@ -58,7 +59,18 @@
 #define APP_HOME_DIR	TOSTRING(HOMEDIR) "/app"
 #define DEV_HOME_DIR	TOSTRING(HOMEDIR) "/developer"
 
-#define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
+/* Macro defined below is used to label links to executables */
+#define XATTR_NAME_TIZENEXEC XATTR_SECURITY_PREFIX "TIZEN_EXEC_LABEL"
+
+#define SMACK_SRC_FILE_SUFFIX   "_src_file"
+#define SMACK_SRC_DIR_SUFFIX    "_src_dir"
+#define SMACK_DATA_SUFFIX       "_data"
+#define WRT_BASE_DEVCAP         "WRT"
+#define ACC_LEN                 6
+#define TIZEN_PRIVILEGE_ANTIVIRUS  "http://tizen.org/privilege/antivirus"
+#define TIZEN_PRIVILEGE_APPSETTING "http://tizen.org/privilege/appsetting"
+#define PATH_RULES_PUBLIC_RO       "PATH_RULES_PUBLIC_RO.smack"
+#define PATH_RULES_GROUP_RW        "PATH_RULES_GROUP_RW.smack"
 
 typedef struct {
 	char user_name[10];
@@ -308,24 +320,50 @@ error:
  * @param path file path to take label from
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-static int get_smack_from_binary(char **smack_label, const char* path, app_type_t type)
+static int get_smack_from_binary(char **smack_label, const char* path)
 {
-	SECURE_C_LOGD("Entering function: %s. Params: path=%s, type=%d",
-				__func__, path, type);
+	SECURE_C_LOGD("Entering function: %s. Params: path=%s", __func__, path);
+	char value[SMACK_LABEL_LEN + 1];
 	int ret;
 
-	*smack_label = NULL;
-	if (type == APP_TYPE_WGT) {
-		ret = smack_lgetlabel(path, smack_label, SMACK_LABEL_EXEC);
-	} else {
-		ret = smack_getlabel(path, smack_label, SMACK_LABEL_EXEC);
-	}
-	if (ret != 0) {
-		C_LOGE("Getting exec label from file %s failed", path);
-		return PC_ERR_INVALID_OPERATION;
-	}
+	/* First try: check SMACKEXEC label on binary */
+	ret = getxattr(path, XATTR_NAME_SMACKEXEC, value, SMACK_LABEL_LEN + 1);
+	if (ret > 0)
+		goto finalize;
+	if (errno != ENODATA)
+		goto error;
 
+	/* Second try: check TIZENEXEC label on binary */
+	ret = getxattr(path, XATTR_NAME_TIZENEXEC, value, SMACK_LABEL_LEN + 1);
+	if (ret > 0)
+		goto finalize;
+	if (errno != ENODATA)
+		goto error;
+
+	/* Third try: check TIZENEXEC label on symbolic link */
+	ret = lgetxattr(path, XATTR_NAME_TIZENEXEC, value, SMACK_LABEL_LEN + 1);
+	if (ret > 0)
+		goto finalize;
+	if (errno != ENODATA)
+		goto error;
+
+	/* None of labels found  return NULL*/
+	*smack_label = NULL;
 	return PC_OPERATION_SUCCESS;
+
+finalize:
+	/* Success! */
+	value[ret] = '\0';  /* because getxattr does not add 0 at the end! */
+	*smack_label = strdup(value);
+	if (*smack_label == NULL) {
+		C_LOGE("Cannot allocate memory for smack_label");
+		return PC_ERR_MEM_OPERATION;
+	}
+	return PC_OPERATION_SUCCESS;
+
+error:
+	C_LOGE("Getting exec label from file %s failed", path);
+	return PC_ERR_INVALID_OPERATION;
 }
 
 /**
@@ -359,72 +397,6 @@ static int set_smack_for_self (char *smack_label)
 	return ret;
 }
 
-static int is_widget(const char* path)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: path=%s",
-				__func__, path);
-	char buf[sizeof(WRT_CLIENT_PATH)];
-	int ret;
-
-	ret = readlink(path, buf, sizeof(WRT_CLIENT_PATH));
-	if (ret == -1)
-		C_LOGD("readlink(%s) returned error: %s. Assuming that app is not a widget", path, strerror(errno));
-	else if (ret == sizeof(WRT_CLIENT_PATH))
-		C_LOGD("%s is not a widget", path);
-	if (ret == -1 || ret == sizeof(WRT_CLIENT_PATH))
-		return 0;
-	buf[ret] = '\0';
-	C_LOGD("buf=%s", buf);
-
-	ret = !strcmp(WRT_CLIENT_PATH, buf);
-	C_LOGD("%s is %s widget", path, ret ? "a" : "not a");
-	return (ret);
-}
-
-/**
- * Partially verify, that the type given for app is correct.
- * This function will use some heuristics to check whether the app type is right.
- * It is intended for security hardening to catch privilege setting for the
- * app type not corresponding to the actual binary.
- * Beware - when it detects an anomaly, the whole process will be terminated.
- *
- * @param type claimed application type
- * @param path file path to executable
- * @return return recognized type enum on success, terminate the process on error
- */
-static app_type_t verify_app_type(const char* type, const char* path)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: type=%s, path=%s",
-				__func__, type, path);
-
-	/* TODO: this should actually be treated as error, but until the old
-	 * set_privilege API is removed, it must be ignored */
-        /* And it will be removed very soon */
-	if (path == NULL || type == NULL) {
-		C_LOGD("PKG_TYPE_OTHER");
-		return APP_TYPE_OTHER; /* good */
-	}
-
-	if (is_widget(path)) {
-		if (!strcmp(type, "wgt")) {
-			C_LOGD("PKG_TYPE_WRT");
-			return APP_TYPE_WGT; /* good */
-		}
-	} else {
-		if (!strcmp(type, "osp") || !strcmp(type, "tpk")) {
-			C_LOGD("PKG_TYPE_OSP");
-			return APP_TYPE_OSP; /* good */
-		} else if (!strcmp(type, "efl") || !strcmp(type, "rpm")) {
-			C_LOGD("PKG_TYPE_EFL");
-			return APP_TYPE_EFL; /* good */
-		}
-	}
-
-	/* bad */
-	C_LOGE("EXIT_FAILURE, app_type = \"%s\" unrecognized", type);
-	exit(EXIT_FAILURE);
-}
-
 API int set_app_privilege(const char* name, const char* type, const char* path)//deprecated
 {
 	SECURE_C_LOGD("Entering function: %s. Params: name=%s, type=%s, path=%s",
@@ -433,7 +405,7 @@ API int set_app_privilege(const char* name, const char* type, const char* path)/
 	return perm_app_set_privilege(name, type, path);
 }
 
-API int perm_app_set_privilege(const char* name, const char* type, const char* path)
+API int perm_app_set_privilege(const char* name, const char* type UNUSED, const char* path)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: name=%s, type=%s, path=%s",
 				__func__, name, type, path);
@@ -448,7 +420,7 @@ API int perm_app_set_privilege(const char* name, const char* type, const char* p
 	}
 
 	if (path != NULL && have_smack()) {
-		ret = get_smack_from_binary(&smack_label, path, verify_app_type(type, path));
+		ret = get_smack_from_binary(&smack_label, path);
 		if (ret != PC_OPERATION_SUCCESS)
 			return ret;
 
@@ -458,7 +430,7 @@ API int perm_app_set_privilege(const char* name, const char* type, const char* p
 	}
 
 	if (path != NULL && !have_smack()) {
-		ret = get_smack_from_binary(&smack_label, path, verify_app_type(type, path));
+		ret = get_smack_from_binary(&smack_label, path);
 		if (ret != PC_OPERATION_SUCCESS)
 			return ret;
 	}
@@ -609,15 +581,21 @@ static int label_links_to_execs(const FTSENT* ftsent)
 }
 
 static int dir_set_smack_r(const char *path, const char* label,
-		enum smack_label_type type, label_decision_fn fn)
+			   const char *xattr_name, label_decision_fn fn)
 {
-	SECURE_C_LOGD("Entering function: %s. Params: path=%s, label=%s, type=%d",
-				__func__, path, label, type);
+	SECURE_C_LOGD("Entering function: %s. Params: path=%s, label=%s, xattr_name=%s",
+				__func__, path, label, xattr_name);
 
 	const char* path_argv[] = {path, NULL};
 	FTS *fts AUTO_FTS_CLOSE;
 	FTSENT *ftsent;
 	int ret;
+
+	int len = strnlen(label, SMACK_LABEL_LEN + 1);
+	if (len > SMACK_LABEL_LEN) {
+		C_LOGE("parameter \"label\" is to long.");
+		return PC_ERR_INVALID_PARAM;
+	}
 
 	fts = fts_open((char * const *) path_argv, FTS_PHYSICAL | FTS_NOCHDIR, NULL);
 	if (fts == NULL) {
@@ -639,9 +617,11 @@ static int dir_set_smack_r(const char *path, const char* label,
 		}
 
 		if (ret == DECISION_LABEL) {
-			C_LOGD("smack_lsetlabel (label: %s (type: %d), path: %s)", label, type, ftsent->fts_path);
-			if (smack_lsetlabel(ftsent->fts_path, label, type) != 0) {
-				C_LOGE("smack_lsetlabel failed.");
+			C_LOGD("lsetxattr (path: %s, xattr_name: %s, label: %s len: %d, 0",
+				ftsent->fts_path, xattr_name, label, len);
+
+			if (lsetxattr(ftsent->fts_path, xattr_name, label, len, 0) != 0) {
+				C_LOGE("lsetxattr failed.");
 				return PC_ERR_FILE_OPERATION;
 			}
 		}
@@ -863,7 +843,7 @@ API int app_label_dir(const char* label, const char* path)//deprecated
 	}
 
 	//setting access label on everything in given directory and below
-	ret = dir_set_smack_r(path, label, SMACK_LABEL_ACCESS, &label_all);
+	ret = dir_set_smack_r(path, label, XATTR_NAME_SMACK, &label_all);
 	if (PC_OPERATION_SUCCESS != ret)
 	{
 		C_LOGE("dir_set_smack_r failed.");
@@ -871,7 +851,7 @@ API int app_label_dir(const char* label, const char* path)//deprecated
 	}
 
 	//setting execute label for everything with permission to execute
-	ret = dir_set_smack_r(path, label, SMACK_LABEL_EXEC, &label_execs);
+	ret = dir_set_smack_r(path, label, XATTR_NAME_SMACKEXEC, &label_execs);
 	if (PC_OPERATION_SUCCESS != ret)
 	{
 		C_LOGE("dir_set_smack_r failed.");
@@ -879,7 +859,7 @@ API int app_label_dir(const char* label, const char* path)//deprecated
 	}
 
 	//setting execute label for everything with permission to execute
-	ret = dir_set_smack_r(path, label, SMACK_LABEL_EXEC, &label_links_to_execs);
+	ret = dir_set_smack_r(path, label, XATTR_NAME_TIZENEXEC, &label_links_to_execs);
 	return ret;
 }
 
@@ -910,14 +890,14 @@ API int app_label_shared_dir(const char* app_label, const char* shared_label, co
 	}
 
 	//setting label on everything in given directory and below
-	ret = dir_set_smack_r(path, shared_label, SMACK_LABEL_ACCESS, label_all);
+	ret = dir_set_smack_r(path, shared_label, XATTR_NAME_SMACK, label_all);
 	if(ret != PC_OPERATION_SUCCESS){
 		C_LOGE("dir_set_smack_r failed.");
 		return ret;
 	}
 
 	//setting transmute on dir
-	ret = dir_set_smack_r(path, "1", SMACK_LABEL_TRANSMUTE, label_dirs);
+	ret = dir_set_smack_r(path, "TRUE", XATTR_NAME_SMACKTRANSMUTE, label_dirs);
 	if (ret != PC_OPERATION_SUCCESS) {
 		C_LOGE("dir_set_smack_r failed");
 		return ret;
