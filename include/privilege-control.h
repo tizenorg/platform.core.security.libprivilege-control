@@ -99,11 +99,7 @@ int set_privilege(const char* pkg_name) DEPRECATED;
  * It must be called with root privileges, which will be dropped in the function.
  *
  * @param name package name
- * @param type application type (currently distinguished types:
- *             "wgt",
- *             "tpk", "osp",
- *             "rpm", "efl")
- *
+ * @param type application type (currently not used)
  * @param path file system path to the binary
  * @return PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
