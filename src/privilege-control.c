@@ -58,16 +58,7 @@
 #define APP_HOME_DIR	TOSTRING(HOMEDIR) "/app"
 #define DEV_HOME_DIR	TOSTRING(HOMEDIR) "/developer"
 
-#define SMACK_SRC_FILE_SUFFIX   "_src_file"
-#define SMACK_SRC_DIR_SUFFIX    "_src_dir"
-#define SMACK_DATA_SUFFIX       "_data"
-#define WRT_BASE_DEVCAP         "WRT"
 #define WRT_CLIENT_PATH         "/usr/bin/wrt-client"
-#define ACC_LEN                 6
-#define TIZEN_PRIVILEGE_ANTIVIRUS  "http://tizen.org/privilege/antivirus"
-#define TIZEN_PRIVILEGE_APPSETTING "http://tizen.org/privilege/appsetting"
-#define PATH_RULES_PUBLIC_RO       "PATH_RULES_PUBLIC_RO.smack"
-#define PATH_RULES_GROUP_RW        "PATH_RULES_GROUP_RW.smack"
 
 typedef struct {
 	char user_name[10];
