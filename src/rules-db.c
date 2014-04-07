@@ -268,43 +268,7 @@ int rdb_remove_application(const char *const s_label_name)
 	ret = add_modified_label_internal(p_db, s_label_name);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
-	ret = add_modified_apps_path_internal(p_db, s_label_name);
-	if(ret != PC_OPERATION_SUCCESS) goto finish;
-
 	ret = remove_app_internal(p_db, s_label_name);
-
-finish:
-	return rdb_finish(p_db, ret);
-}
-
-
-int rdb_add_path(const char *const s_owner_label_name,
-		 const char *const s_path_label_name,
-		 const char *const s_path,
-		 const char *const s_access,
-		 const char *const s_access_reverse,
-		 const char *const s_type)
-{
-	RDB_LOG_ENTRY_PARAM("%s %s %s %s %s %s",
-			    s_owner_label_name, s_path_label_name,
-			    s_path, s_access, s_access_reverse, s_type);
-
-	int ret = PC_ERR_DB_OPERATION;
-	sqlite3 *p_db = NULL;
-
-	ret = rdb_begin(&p_db, RDB_TRANSACTION_EXCLUSIVE);
-	if(ret != PC_OPERATION_SUCCESS) goto finish;
-
-	ret = add_path_internal(p_db,
-				s_owner_label_name,
-				s_path_label_name,
-				s_path,
-				s_access,
-				s_access_reverse,
-				s_type);
-	if(ret != PC_OPERATION_SUCCESS) goto finish;
-
-	ret = add_modified_label_internal(p_db, s_path_label_name);
 
 finish:
 	return rdb_finish(p_db, ret);
@@ -461,9 +425,6 @@ int rdb_revoke_app_permissions(const char *const s_app_label_name)
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = add_modified_label_internal(p_db, s_app_label_name);
-	if(ret != PC_OPERATION_SUCCESS) goto finish;
-
-	ret = add_modified_apps_path_internal(p_db, s_app_label_name);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
 	ret = revoke_app_permissions_internal(p_db, s_app_label_name);
