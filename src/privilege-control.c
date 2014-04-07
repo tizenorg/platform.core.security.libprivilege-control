@@ -845,6 +845,42 @@ API int perm_app_reset_permissions(const char* pkg_id)
 	return PC_OPERATION_SUCCESS;
 }
 
+static int label_user_dir(const char *path)
+{
+	int ret = PC_OPERATION_SUCCESS;
+	const char *label = TD_LABEL_USER;
+
+	SECURE_C_LOGD("Entering function: %s. Params: label=%s, path=%s",
+		      __func__, label, path);
+
+	if(path == NULL) {
+		C_LOGE("Invalid argument path (NULL).");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	// Well, this is unlikely, but just in case...
+	if (!smack_label_is_valid(label)) {
+		C_LOGE("Invalid param label.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	// setting access label on everything in given directory and below
+	ret = dir_set_smack_r(path, label, SMACK_LABEL_ACCESS, label_all);
+	if (PC_OPERATION_SUCCESS != ret) {
+		C_LOGE("dir_set_smack_r failed.");
+		return ret;
+	}
+
+	// setting transmute on dirs
+	ret = dir_set_smack_r(path, "1", SMACK_LABEL_TRANSMUTE, label_dirs);
+	if (PC_OPERATION_SUCCESS != ret) {
+		C_LOGE("dir_set_smack_r failed: %d", ret);
+		return ret;
+	}
+
+	return ret;
+}
+
 API int app_label_dir(const char* label, const char* path)//deprecated
 {
 	SECURE_C_LOGD("Entering function: %s. Params: label=%s, path=%s",
@@ -937,37 +973,6 @@ API int add_shared_dir_readers(const char* shared_label UNUSED, const char** app
 	return PC_ERR_INVALID_OPERATION;
 }
 
-static char* smack_label_for_path(const char *app_id, const char *path)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s, path=%s",
-				__func__, app_id, path);
-
-	char *salt AUTO_FREE;
-	char *label;
-	char *x;
-
-	/* Prefix $1$ causes crypt() to use MD5 function */
-	if (-1 == asprintf(&salt, "$1$%s", app_id)) {
-		C_LOGE("asprintf failed");
-		return NULL;
-	}
-
-	label = crypt(path, salt);
-	if (label == NULL) {
-		C_LOGE("crypt failed");
-		return NULL;
-	}
-
-	/* crypt() output may contain slash character,
-	 * which is not legal in Smack labels */
-	for (x = label; *x; ++x) {
-		if (*x == '/')
-			*x = '%';
-	}
-
-	return label;
-}
-
 /* FIXME: remove this pragma once deprecated API is deleted */
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 static int perm_app_setup_path_internal(const char* pkg_id, const char* path, app_path_type_t app_path_type, va_list ap)
@@ -991,98 +996,36 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 		C_LOGD("app_path_type is APP_PATH_PRIVATE.");
 		return app_label_dir(pkg_id, path);
 
-	case APP_PATH_GROUP_RW: {
-		C_LOGD("app_path_type is APP_PATH_GROUP.");
-		int ret;
-		const char *shared_label;
+	case APP_PATH_SETTINGS_RW:
+	case APP_PATH_PUBLIC_RO:
+	case APP_PATH_GROUP_RW:
+	case APP_PATH_PUBLIC: {
+		int res;
+		const char *perms[] = { "~APP~ " TD_LABEL_USER " rwxatl",
+				       NULL };
 
-		shared_label = va_arg(ap, const char *);
-
-		if (!smack_label_is_valid(shared_label)) {
-			C_LOGE("Invalid shared_label.");
-			return PC_ERR_INVALID_PARAM;
-		}
-
-		if (strcmp(pkg_id, shared_label) == 0) {
-			C_LOGE("pkg_id equals shared_label.");
-			return PC_ERR_INVALID_PARAM;
-		}
-
-		ret = app_label_shared_dir(pkg_id, shared_label, path);
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("app_label_shared_dir failed: %d", ret);
-			return ret;
-		}
-
-		// Add the path to the database:
-		ret = rdb_add_path(pkg_id, shared_label, path, "rwxatl", "-", "GROUP_PATH");
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("RDB rdb_add_path failed with: %d", ret);
-			return ret;
-		}
-
-		return PC_OPERATION_SUCCESS;
-	}
-
-	case APP_PATH_PUBLIC_RO: {
 		C_LOGD("app_path_type is APP_PATH_PUBLIC.");
-		const char *label;
-		int ret;
-
-		C_LOGD("New public RO path %s", path);
-
-		// Generate label:
-		label = smack_label_for_path(pkg_id, path);
-		if (label == NULL) {
-			C_LOGE("smack_label_for_path failed.");
-			return PC_ERR_INVALID_OPERATION;
+		res = label_user_dir(path);
+		if (res != PC_OPERATION_SUCCESS) {
+			C_LOGE("label_user_dir failed: %d", res);
+			return res;
 		}
-		C_LOGD("Generated label '%s' for public RO path %s", label, path);
-
-		ret = app_label_shared_dir(pkg_id, label, path);
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("app_label_shared_dir failed.");
-			return ret;
-		}
-
-		// Add the path to the database:
-		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "-", "PUBLIC_PATH");
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("RDB rdb_add_path failed with: %d", ret);
-			return ret;
+		// Sometimes it may be a case when there will not be any sens
+		// in registering any application with permissions for "User"
+		// label. In that cases, please use "User" (TD_LABEL_USER)
+		// as your pkg_id when calling this function.
+		if (strncmp(pkg_id, TD_LABEL_USER, strnlen(TD_LABEL_USER,
+			    SMACK_LABEL_LEN))) {
+			res = rdb_add_permission_rules("ALL_APPS", "ALL_APPS",
+						       perms);
+			if (res != PC_OPERATION_SUCCESS) {
+				C_LOGE("Adding permissions has failed: %d",
+				       res);
+				return res;
+			}
 		}
 
-		return PC_OPERATION_SUCCESS;
-	}
-
-	case APP_PATH_SETTINGS_RW: {
-		C_LOGD("app_path_type is APP_PATH_SETTINGS.");
-		const char *label;
-		int ret;
-
-		// Generate label:
-		label = smack_label_for_path(pkg_id, path);
-		if (label == NULL) {
-			C_LOGE("smack_label_for_path failed.");
-			return PC_ERR_INVALID_OPERATION;
-		}
-		C_LOGD("Appsetting: generated label '%s' for setting path %s", label, path);
-
-		/*set id for path and all subfolders*/
-		ret = app_label_shared_dir(pkg_id, label, path);
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("Appsetting: app_label_shared_dir failed (%d)", ret);
-			return ret;
-		}
-
-		// Add the path to the database:
-		ret = rdb_add_path(pkg_id, label, path, "rwxatl", "-", "SETTINGS_PATH");
-		if (ret != PC_OPERATION_SUCCESS) {
-			C_LOGE("RDB rdb_add_path failed with: %d", ret);
-			return ret;
-		}
-
-		return PC_OPERATION_SUCCESS;
+		return res;
 	}
 
 	case APP_PATH_ANY_LABEL: {

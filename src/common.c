@@ -431,6 +431,7 @@ const char* app_path_type_name(app_path_type_t app_path_type)
 	switch(app_path_type) {
 	case APP_PATH_GROUP_RW:
 		return "GROUP_PATH";
+	case APP_PATH_PUBLIC:
 	case APP_PATH_PUBLIC_RO:
 		return "PUBLIC_PATH";
 	case APP_PATH_SETTINGS_RW:
