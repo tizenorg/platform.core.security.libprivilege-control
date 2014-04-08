@@ -113,21 +113,6 @@ API int perm_rollback(void)
 	return PC_OPERATION_SUCCESS;
 }
 
-API int control_privilege(void)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s.", __func__);
-
-	if(getuid() == APP_UID)	// current user is 'app'
-		return PC_OPERATION_SUCCESS;
-
-	if(perm_app_set_privilege("org.tizen.", NULL, NULL) == PC_OPERATION_SUCCESS)
-		return PC_OPERATION_SUCCESS;
-	else {
-		C_LOGE("perm_app_set_privilege failed (not permitted).");
-		return PC_ERR_NOT_PERMITTED;
-	}
-}
-
 static int get_user_groups(uid_t user_id, int *nbgroup, gid_t **groups_list)
 {
 	gid_t *groups = NULL;
@@ -425,14 +410,6 @@ static app_type_t verify_app_type(const char* type, const char* path)
 	exit(EXIT_FAILURE);
 }
 
-API int set_app_privilege(const char* name, const char* type, const char* path)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: name=%s, type=%s, path=%s",
-				__func__, name, type, path);
-
-	return perm_app_set_privilege(name, type, path);
-}
-
 API int perm_app_set_privilege(const char* name, const char* type, const char* path)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: name=%s, type=%s, path=%s",
@@ -464,14 +441,6 @@ API int perm_app_set_privilege(const char* name, const char* type, const char* p
 	}
 
 	return set_dac(smack_label, name);
-}
-
-API int set_privilege(const char* pkg_name)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_name=%s",
-				__func__, pkg_name);
-
-	return perm_app_set_privilege(pkg_name, NULL, NULL);
 }
 
 static int perm_file_path(char** path, app_type_t app_type, const char* perm, const char *suffix, bool is_early)
@@ -654,13 +623,6 @@ static int dir_set_smack_r(const char *path, const char* label,
 	}
 	return PC_OPERATION_SUCCESS;
 }
-API char* app_id_from_socket(int sockfd)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: sockfd=%d",
-				__func__, sockfd);
-
-    return perm_app_id_from_socket(sockfd);
-}
 
 API char* perm_app_id_from_socket(int sockfd)
 {
@@ -684,31 +646,6 @@ API char* perm_app_id_from_socket(int sockfd)
 	SECURE_C_LOGD("app_id = %s", app_id);
 
 	return app_id;
-}
-
-
-API int app_add_permissions(const char* app_id, const char** perm_list)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
-				__func__, app_id);
-
-	return perm_app_enable_permissions(app_id, APP_TYPE_OTHER, perm_list, true);
-}
-
-API int app_add_volatile_permissions(const char* app_id, const char** perm_list)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s",
-				__func__, app_id);
-
-	return perm_app_enable_permissions(app_id, APP_TYPE_OTHER, perm_list, false);
-}
-
-API int app_enable_permissions(const char* pkg_id, app_type_t app_type, const char** perm_list, bool persistent)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d, persistent=%d",
-				__func__, pkg_id, app_type, persistent);
-
-	return perm_app_enable_permissions(pkg_id, app_type, perm_list, persistent);
 }
 
 API int perm_app_enable_permissions(const char* pkg_id, app_type_t app_type,
@@ -754,14 +691,6 @@ API int perm_app_enable_permissions(const char* pkg_id, app_type_t app_type,
 	return PC_OPERATION_SUCCESS;
 }
 
-API int app_disable_permissions(const char* pkg_id, app_type_t app_type, const char** perm_list)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d",
-				__func__, pkg_id, app_type);
-
-	return perm_app_disable_permissions(pkg_id, app_type, perm_list);
-}
-
 API int perm_app_disable_permissions(const char* pkg_id, app_type_t app_type, const char** perm_list)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d",
@@ -792,12 +721,6 @@ API int perm_app_disable_permissions(const char* pkg_id, app_type_t app_type, co
 	return PC_OPERATION_SUCCESS;
 }
 
-API int app_revoke_permissions(const char* pkg_id)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s", __func__, pkg_id);
-	return perm_app_revoke_permissions(pkg_id);
-}
-
 API int perm_app_revoke_permissions(const char* pkg_id)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s", __func__, pkg_id);
@@ -815,14 +738,6 @@ API int perm_app_revoke_permissions(const char* pkg_id)
 	}
 
 	return PC_OPERATION_SUCCESS;
-}
-
-API int app_reset_permissions(const char* pkg_id)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s",
-				__func__, pkg_id);
-
-	return perm_app_reset_permissions(pkg_id);
 }
 
 API int perm_app_reset_permissions(const char* pkg_id)
@@ -845,7 +760,8 @@ API int perm_app_reset_permissions(const char* pkg_id)
 	return PC_OPERATION_SUCCESS;
 }
 
-API int app_label_dir(const char* label, const char* path)//deprecated
+/* TODO to be redesigned together with perm_app_setup_path */
+static int app_label_dir(const char* label, const char* path)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: label=%s, path=%s",
 				__func__, label, path);
@@ -883,7 +799,8 @@ API int app_label_dir(const char* label, const char* path)//deprecated
 	return ret;
 }
 
-API int app_label_shared_dir(const char* app_label, const char* shared_label, const char* path)//deprecated
+/* TODO to be redesigned together with perm_app_setup_path */
+static int app_label_shared_dir(const char* app_label, const char* shared_label, const char* path)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: app_label=%s, shared_label=%s, path=%s",
 				__func__, app_label, shared_label, path);
@@ -926,17 +843,6 @@ API int app_label_shared_dir(const char* app_label, const char* shared_label, co
 	return PC_OPERATION_SUCCESS;
 }
 
-API int add_shared_dir_readers(const char* shared_label UNUSED, const char** app_list UNUSED)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: shared_label=%s",
-				__func__, shared_label);
-
-	C_LOGE("add_shared_dir_readers is deprecated and unimplemented!");
-
-	// TODO: This function is not implemented with RDB.
-	return PC_ERR_INVALID_OPERATION;
-}
-
 static char* smack_label_for_path(const char *app_id, const char *path)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: app_id=%s, path=%s",
@@ -968,8 +874,6 @@ static char* smack_label_for_path(const char *app_id, const char *path)
 	return label;
 }
 
-/* FIXME: remove this pragma once deprecated API is deleted */
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 static int perm_app_setup_path_internal(const char* pkg_id, const char* path, app_path_type_t app_path_type, va_list ap)
 {
 	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, path=%s, app_path_type=%d",
@@ -1099,21 +1003,6 @@ static int perm_app_setup_path_internal(const char* pkg_id, const char* path, ap
 
 	return PC_OPERATION_SUCCESS;
 }
-/* FIXME: remove this pragma once deprecated API is deleted */
-#pragma GCC diagnostic warning "-Wdeprecated-declarations"
-
-API int app_setup_path(const char* pkg_id, const char* path, app_path_type_t app_path_type, ...)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, path=%s, app_path_type=%d",
-				__func__, pkg_id, path, app_path_type);
-
-	va_list ap;
-	int ret;
-	va_start( ap, app_path_type );
-	ret = perm_app_setup_path_internal( pkg_id, path, app_path_type, ap );
-	va_end( ap );
-	return ret;
-}
 
 API int perm_app_setup_path(const char* pkg_id, const char* path, app_path_type_t app_path_type, ...)
 {
@@ -1126,33 +1015,6 @@ API int perm_app_setup_path(const char* pkg_id, const char* path, app_path_type_
 	ret = perm_app_setup_path_internal( pkg_id, path, app_path_type, ap );
 	va_end( ap );
 	return ret;
-}
-
-API int app_add_friend(const char* pkg_id1, const char* pkg_id2)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id1=%s, pkg_id2=%s",
-				__func__, pkg_id1, pkg_id2);
-
-	return perm_app_add_friend(pkg_id1, pkg_id2);
-}
-
-API int perm_app_add_friend(const char* pkg_id1 UNUSED, const char* pkg_id2 UNUSED)
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id1=%s, pkg_id2=%s",
-				__func__, pkg_id1, pkg_id2);
-
-	C_LOGE("app_register_av is deprecated and unimplemented!");
-
-	// TODO: This function is not implemented with RDB.
-	return PC_ERR_INVALID_OPERATION;
-}
-
-API int app_install(const char* pkg_id)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s",
-				__func__, pkg_id);
-
-	return perm_app_install(pkg_id);
 }
 
 API int perm_app_install(const char* pkg_id)
@@ -1174,14 +1036,6 @@ API int perm_app_install(const char* pkg_id)
 	}
 
 	return PC_OPERATION_SUCCESS;
-}
-
-API int app_uninstall(const char* pkg_id)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s",
-				__func__, pkg_id);
-
-	return perm_app_uninstall(pkg_id);
 }
 
 API int perm_app_uninstall(const char* pkg_id)
@@ -1230,18 +1084,6 @@ static int save_gids(FILE* file, const gid_t* list_of_db_gids, size_t list_size)
 		}
 	}
 	return ret;
-}
-
-API int add_api_feature(app_type_t app_type,
-                        const char* api_feature_name,
-                        const char** smack_rules,
-                        const gid_t* list_of_db_gids,
-                        size_t list_size)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: app_type=%d, api_feature_name=%s",
-				__func__, app_type, api_feature_name);
-
-    return perm_add_api_feature(app_type, api_feature_name, smack_rules, list_of_db_gids, list_size);
 }
 
 API int perm_add_api_feature(app_type_t app_type,
@@ -1317,20 +1159,6 @@ API int perm_add_api_feature(app_type_t app_type,
 	return ret;
 }
 
-/**
- * This function is marked as deprecated and will be removed
- */
-API int app_register_av(const char* app_av_id UNUSED)//deprecated
-{
-	SECURE_C_LOGD("Entering function: %s. Params: app_av_id=%s",
-				__func__, app_av_id);
-
-	C_LOGE("app_register_av is deprecated and unimplemented!");
-
-	// TODO: This function is not implemented with RDB.
-	return PC_ERR_INVALID_OPERATION;
-}
-
 API const char* perm_strerror(int errnum)
 {
 	switch (errnum) {
@@ -1365,13 +1193,4 @@ API const char* perm_strerror(int errnum)
 	default:
 		return "Unknown error";
 	}
-}
-
-int app_give_access(const char* subject UNUSED, const char* object UNUSED, const char* permission UNUSED) {
-
-    return PC_ERR_INVALID_OPERATION;
-}
-
-int app_revoke_access(const char* subject UNUSED, const char* object UNUSED) {
-    return PC_ERR_INVALID_OPERATION;
 }
