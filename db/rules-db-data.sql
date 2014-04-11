@@ -12,10 +12,6 @@ INSERT OR IGNORE INTO permission_type(type_name) VALUES("ALL_APPS"); -- Automati
 INSERT OR IGNORE INTO permission_type(type_name) VALUES("WRT");
 INSERT OR IGNORE INTO permission_type(type_name) VALUES("OSP");
 INSERT OR IGNORE INTO permission_type(type_name) VALUES("EFL");
-INSERT OR IGNORE INTO permission_type(type_name) VALUES("WRT_partner");
-INSERT OR IGNORE INTO permission_type(type_name) VALUES("WRT_platform");
-INSERT OR IGNORE INTO permission_type(type_name) VALUES("OSP_partner");
-INSERT OR IGNORE INTO permission_type(type_name) VALUES("OSP_platform");
 
 -- APP PATH TYPES ----------------------------------------------------------------------------------
 INSERT OR IGNORE INTO app_path_type(name) VALUES("GROUP_PATH");
@@ -26,11 +22,7 @@ INSERT OR IGNORE INTO app_path_type(name) VALUES("NPRUNTIME_PATH");
 INSERT OR IGNORE INTO permission_view(name, type_name) VALUES
 		("ALL_APPS", 	"ALL_APPS"),
 		("WRT", 	"WRT"),
-		("WRT_partner", "WRT_partner"),
-		("WRT_platform","WRT_platform"),
 		("OSP", 	"OSP"),
-		("OSP_partner", "OSP_partner"),
-		("OSP_platform","OSP_platform"),
 		("EFL", 	"EFL");
 
 -- PUBLIC FOLDERS ----------------------------------------------------------------------------------
