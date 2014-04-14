@@ -73,7 +73,6 @@ api_feature_loader --verbose --rules=/usr/share/privilege-control/ADDITIONAL_RUL
 %manifest %{name}.manifest
 %license LICENSE
 %{_libdir}/*.so.*
-%{_bindir}/slp-su
 %{_libdir}/librules-db-sql-udf.so
 #systemd service
 /usr/lib/systemd/system/smack-rules.service

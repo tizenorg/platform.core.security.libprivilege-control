@@ -68,14 +68,6 @@ ADD_LIBRARY(rules-db-sql-udf MODULE ${rules-db-sql-udf_SOURCES})
 SET_TARGET_PROPERTIES(rules-db-sql-udf PROPERTIES COMPILE_FLAGS "${rules-db-sql-udf_CFLAGS}")
 
 ###################################################################################################
-## for slp-su (excutable)
-SET(slp-su_SOURCES ${src_dir}/slp-su.c)
-SET(slp-su_CFLAGS  " ${CFLAGS} -fPIC -I${include_dir}")
-
-ADD_EXECUTABLE(slp-su ${slp-su_SOURCES})
-TARGET_LINK_LIBRARIES(slp-su ${pkgs_LDFLAGS} ${pkgs_LIBRARIES} ${TARGET_PRIVILEGE_CONTROL})
-SET_TARGET_PROPERTIES(slp-su PROPERTIES COMPILE_FLAGS "${slp-su_CFLAGS}")
-###################################################################################################
 
 
 CONFIGURE_FILE(libprivilege-control.pc.in libprivilege-control.pc @ONLY)
@@ -86,7 +78,6 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libprivilege-control.pc DESTINATION  $
 INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/include/privilege-control.h DESTINATION ${INCLUDE_INSTALL_DIR})
 INSTALL(FILES .privilege_control_app_gids.db DESTINATION /opt/dbspace)
 #INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/udev/ DESTINATION lib/udev)
-INSTALL(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/slp-su DESTINATION bin)
 
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/rules-db.sql DESTINATION /usr/share/privilege-control/db)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/rules-db-data.sql DESTINATION /usr/share/privilege-control/db)
