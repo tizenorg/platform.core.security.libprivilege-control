@@ -4,8 +4,7 @@ Before=starter.service
 
 [Service]
 Type=oneshot
-ExecStartPre =  /bin/bash -c '/usr/bin/sqlite3 /opt/dbspace/.rules-db.db3 < /usr/share/privilege-control/db/load-rules-db.sql'
-ExecStart = /bin/bash -c '/bin/grep ^ /opt/etc/smack/boot-rules.smack --line-buffered > /smack/change-rule'
+ExecStart = /bin/bash -c '/usr/bin/sqlite3 /opt/dbspace/.rules-db.db3 < /usr/share/privilege-control/db/load-rules-db.sql | smackload'
 
 [Install]
 WantedBy=multi-user.target

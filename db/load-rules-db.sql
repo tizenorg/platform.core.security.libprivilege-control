@@ -1,6 +1,7 @@
 .load librules-db-sql-udf.so
 .separator " "
 
+.output /dev/null
 PRAGMA journal_mode = DELETE;
 
 
@@ -10,7 +11,7 @@ BEGIN TRANSACTION;
 DELETE FROM app_permission WHERE is_volatile = 1;
 
 
-.output "/opt/etc/smack/boot-rules.smack"
+.output stdout
 SELECT   subject, object, access_to_str(bitwise_or(access)), "-"
 FROM     all_smack_binary_rules
 WHERE    is_volatile = 0
