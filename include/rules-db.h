@@ -34,9 +34,6 @@
 #include "common.h"
 
 #define RDB_PATH "/opt/dbspace/.rules-db.db3"
-#define RDB_BOOT_FILE_PATH "/opt/etc/smack/boot-rules.smack"
-#define RDB_BOOT_FILE_PATH_NEW "/opt/etc/smack/boot-rules-new.smack"
-
 
 /**
  * Starts a session with the database.
