@@ -134,6 +134,8 @@ int perm_app_install(const char* pkg_id);
 int app_install(const char* pkg_id) DEPRECATED;
 
 /**
+ * TODO: This function currently only validates input param. It will comply
+ *       with its role when db is prepared for single "User" label for all apps.
  * Removes an application from the database with it's permissions, rules and
  * directories, enabling future installation of the application with the same
  * pkg_id. It is needed for tracking lifetime of an application. It must be
@@ -220,6 +222,8 @@ int perm_app_disable_permissions(const char* pkg_id, app_type_t app_type, const 
 int app_disable_permissions(const char* pkg_id, app_type_t app_type, const char** perm_list) DEPRECATED;
 
 /**
+ * TODO: This function currently only validates input param. It will comply
+ *       with its role when db is prepared for single "User" label for all apps.
  * Removes all application's permissions, rules and directories registered in
  * the database. It must be called by privileged user.
  *

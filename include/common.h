@@ -110,6 +110,17 @@ int smack_file_name(const char* app_id, char** path);
 int have_smack(void);
 int base_name_from_perm(const char *perm, char **name);
 
+/* TODO: implement this function correctly using compilation flags for both Tizen IVI and Mobile */
+/**
+ * Generate Smack label for an application basing on its pkg_id.
+ * Caller is responsible for freeing the returned label.
+ *
+ * Currently this function always returns label: "User", param is not used
+ *
+ * @param  pkg_id  application identifier
+ * @return         generated label (currently it is ALWAYS "User"), NULL on failure.
+ */
+const char* generate_app_label(const char *pkg_id);
 
 /**
  * Set EXEC label on executable file or symlink to executable file
