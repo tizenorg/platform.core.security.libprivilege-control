@@ -738,6 +738,56 @@ finish:
 }
 
 
+int check_app_has_permission_internal(sqlite3 *p_db,
+				      const char *const s_app_label_name,
+				      const char *const s_permission_name,
+				      const char *const s_permission_type_name,
+				      bool *const p_is_enabled)
+{
+	RDB_LOG_ENTRY_PARAM("%s %s %s", s_app_label_name,
+			    s_permission_name, s_permission_type_name);
+
+	int ret = PC_ERR_DB_OPERATION;
+	sqlite3_stmt *p_stmt = NULL;
+
+	ret = prepare_stmt(p_db, &p_stmt,
+			   "SELECT is_enabled              \
+			    FROM   app_permission_view     \
+			    WHERE  app_name = %Q AND       \
+			           name = %Q AND           \
+			           type_name = %Q          \
+			    LIMIT  1",
+			   s_app_label_name, s_permission_name, s_permission_type_name);
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = sqlite3_step(p_stmt);
+	if(ret == SQLITE_ROW) {
+		ret = PC_OPERATION_SUCCESS;
+		//store the result
+		*p_is_enabled = (bool)sqlite3_column_int(p_stmt, RDB_FIRST_COLUMN);
+	} else if(ret == SQLITE_DONE) {
+		//no entry == permission not assigned
+		C_LOGD("RDB: Permission: %s of type: %s is not assigned to app: %s",
+		       s_permission_name, s_permission_type_name, s_app_label_name);
+		ret = PC_OPERATION_SUCCESS;
+		*p_is_enabled = false;
+	} else if(ret == SQLITE_BUSY) {
+		//base locked in exclusive mode for too long
+		C_LOGE("RDB: Database is busy. RDB Connection Error returned.");
+		ret = PC_ERR_DB_CONNECTION;
+	} else {
+		C_LOGE("RDB: Error during stepping: %s", sqlite3_errmsg(p_db));
+		ret = PC_ERR_DB_QUERY_STEP;
+	}
+
+finish:
+	if(sqlite3_finalize(p_stmt) != SQLITE_OK)
+		C_LOGE("RDB: Error during finalizing statement: %s",
+		       sqlite3_errmsg(p_db));
+	return ret;
+}
+
+
 int get_app_id_internal(sqlite3 *p_db,
 			int *pi_app_id,
 			const char *const s_app_label_name)

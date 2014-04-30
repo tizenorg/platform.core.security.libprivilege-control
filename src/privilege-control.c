@@ -876,6 +876,39 @@ API int perm_app_reset_permissions(const char* pkg_id)
 	return PC_OPERATION_SUCCESS;
 }
 
+API int perm_app_has_permission(const char *pkg_id,
+				app_type_t app_type,
+				const char *permission_name,
+				bool *is_enabled)
+{
+	SECURE_C_LOGD("Entering function: %s. Params: pkg_id=%s, app_type=%d, permission_name=%s",
+				__func__, pkg_id, app_type, permission_name);
+
+	const char *app_group = app_type_group_name(app_type);
+
+	if (app_group == NULL) {
+		C_LOGE("Unknown param app type.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if (!smack_label_is_valid(pkg_id)) {
+		C_LOGE("Invalid param app_id.");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if (permission_name == NULL) {
+		C_LOGE("Invalid param permission_name (NULL).");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	if (is_enabled == NULL) {
+		C_LOGE("Invalid param is_enabled (NULL).");
+		return PC_ERR_INVALID_PARAM;
+	}
+
+	return rdb_app_has_permission(pkg_id, app_group, permission_name, is_enabled);
+}
+
 API int app_label_dir(const char* label, const char* path)//deprecated
 {
 	SECURE_C_LOGD("Entering function: %s. Params: label=%s, path=%s",

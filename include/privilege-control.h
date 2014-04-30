@@ -244,6 +244,21 @@ int perm_app_reset_permissions(const char* pkg_id);
 int app_reset_permissions(const char* pkg_id) DEPRECATED;
 
 /**
+ * Checks if an application has the privilege that is specified by the name.
+ * It must be called by privileged user.
+ *
+ * @param  pkg_id           application identifier
+ * @param  app_type         application type
+ * @param  permission_name  permission name
+ * @param  is_enabled       buffer for return value
+ * @return                  PC_OPERATION_SUCCESS on success, PC_ERR_* on error
+ */
+int perm_app_has_permission(const char *pkg_id,
+			    app_type_t app_type,
+			    const char *permission_name,
+			    bool *is_enabled);
+
+/**
  * Recursively set SMACK access labels for an application directory
  * and execute labels for executable files.
  * This function should be called once during app installation.
