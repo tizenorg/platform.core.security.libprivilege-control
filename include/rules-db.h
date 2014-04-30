@@ -196,5 +196,22 @@ int rdb_revoke_app_permissions(const char *const s_app_label_name);
  */
 int rdb_reset_app_permissions(const char *const s_app_label_name);
 
+/**
+ * Check if app has the privilege that is specified by the name.
+ *
+ * @ingroup RDB API functions
+ *
+ * @param  s_app_label_name       application's label name
+ * @param  s_permission_type_name permission's type name
+ * @param  s_permission_name      permission name
+ * @param  p_is_enabled           buffer for return value
+ * @return                        PC_OPERATION_SUCCESS on success,
+ *                                error code otherwise
+ */
+int rdb_app_has_permission(const char *const s_app_label_name,
+			   const char *const s_permission_type_name,
+			   const char *const s_permission_name,
+			   bool *const p_is_enabled);
+
 
 #endif /*_RULES_DB_H_*/
