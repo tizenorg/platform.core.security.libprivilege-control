@@ -492,3 +492,26 @@ finish:
 	return rdb_finish(p_db, ret);
 }
 
+int rdb_app_has_permission(const char *const s_app_label_name,
+			   const char *const s_permission_type_name,
+			   const char *const s_permission_name,
+			   bool *const p_is_enabled)
+{
+	RDB_LOG_ENTRY_PARAM("%s %s %s", s_app_label_name,
+			    s_permission_type_name, s_permission_name);
+	int ret = PC_ERR_DB_OPERATION;
+	sqlite3 *p_db = NULL;
+
+	ret = rdb_begin(&p_db, RDB_TRANSACTION_SHARED_READ); //shared readonly transaction
+	if(ret != PC_OPERATION_SUCCESS) goto finish;
+
+	ret = check_app_has_permission_internal(p_db,
+						s_app_label_name,
+						s_permission_name,
+						s_permission_type_name,
+						p_is_enabled);
+
+finish:
+	return rdb_finish(p_db, ret);
+}
+
