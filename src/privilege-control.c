@@ -62,16 +62,6 @@
 /* Macro defined below is used to label links to executables */
 #define XATTR_NAME_TIZENEXEC XATTR_SECURITY_PREFIX "TIZEN_EXEC_LABEL"
 
-#define SMACK_SRC_FILE_SUFFIX   "_src_file"
-#define SMACK_SRC_DIR_SUFFIX    "_src_dir"
-#define SMACK_DATA_SUFFIX       "_data"
-#define WRT_BASE_DEVCAP         "WRT"
-#define ACC_LEN                 6
-#define TIZEN_PRIVILEGE_ANTIVIRUS  "http://tizen.org/privilege/antivirus"
-#define TIZEN_PRIVILEGE_APPSETTING "http://tizen.org/privilege/appsetting"
-#define PATH_RULES_PUBLIC_RO       "PATH_RULES_PUBLIC_RO.smack"
-#define PATH_RULES_GROUP_RW        "PATH_RULES_GROUP_RW.smack"
-
 typedef struct {
 	char user_name[10];
 	int uid;
