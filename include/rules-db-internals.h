@@ -91,20 +91,6 @@ int add_modified_permission_internal(sqlite3 *p_db, sqlite3_int64 i_permission_i
 
 
 /**
- * Adds label names of the application's folders to the modified labels.
- * Used during removing application.
- *
- * @ingroup RDB internal functions
- *
- * @param  p_db             pointer to a SQLite3 database object
- * @param  s_app_label_name label of the application
- * @return                  PC_OPERATION_SUCCESS on success,
- *                          error code otherwise
- */
-int add_modified_apps_path_internal(sqlite3 *p_db, const char *const s_app_label_name);
-
-
-/**
  * Open a connection with the database and perform an initialization.
  *
  * @ingroup RDB internal functions
