@@ -435,25 +435,6 @@ inline const char* app_type_group_name(app_type_t app_type)
 	}
 }
 
-const char* app_path_type_name(app_path_type_t app_path_type)
-{
-	SECURE_C_LOGD("Entering function %s. Params: app_path_type=%d", __func__, app_path_type);
-
-	switch(app_path_type) {
-	case APP_PATH_GROUP_RW:
-		return "GROUP_PATH";
-	case APP_PATH_PUBLIC_RO:
-		return "PUBLIC_PATH";
-	case APP_PATH_SETTINGS_RW:
-		return "SETTINGS_PATH";
-	case APP_PATH_PRIVATE:
-	case APP_PATH_ANY_LABEL:
-	default:
-		// App path type not stored in the database, return NULL;
-		return NULL;
-	}
-}
-
 /**
  * This function changes permission URI to basename for file name.
  * For e.g. from http://tizen.org/privilege/contact.read will be
