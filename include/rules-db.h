@@ -96,28 +96,6 @@ int rdb_remove_application(const char *const s_label_name);
 
 
 /**
- * Add a path to the database.
- *
- * @ingroup RDB API functions
- *
- * @param  s_owner_label_name owner application's label name
- * @param  s_path_label_name  path's label name
- * @param  s_path             the path
- * @param  s_access           owner to path label access rights
- * @param  s_access_reverse   path label to owner access rights
- * @param  s_type             type of path
- * @return                    PC_OPERATION_SUCCESS on success,
- *                            error code otherwise
- */
-int rdb_add_path(const char *const s_owner_label_name,
-		 const char *const s_path_label_name,
-		 const char *const s_path,
-		 const char *const s_access,
-		 const char *const s_access_reverse,
-		 const char *const s_type);
-
-
-/**
  * Add permission with the given name and type and add smack rules.
  *
  * @ingroup RDB API functions
