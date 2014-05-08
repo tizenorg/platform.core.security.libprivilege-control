@@ -243,13 +243,13 @@ int app_reset_permissions(const char* pkg_id) DEPRECATED;
  * Checks if an application has the privilege that is specified by the name.
  * It must be called by privileged user.
  *
- * @param  pkg_id           application identifier
+ * @param  app_label        application smack label
  * @param  app_type         application type
  * @param  permission_name  permission name
  * @param  is_enabled       buffer for return value
  * @return                  PC_OPERATION_SUCCESS on success, PC_ERR_* on error
  */
-int perm_app_has_permission(const char *pkg_id,
+int perm_app_has_permission(const char *app_label,
 			    app_type_t app_type,
 			    const char *permission_name,
 			    bool *is_enabled);
