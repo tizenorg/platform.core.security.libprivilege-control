@@ -60,6 +60,7 @@ mkdir -p %{buildroot}/opt/dbspace
 /sbin/ldconfig
 
 /usr/share/privilege-control/db/updater.sh
+chsmack -a 'System' /opt/dbspace/.rules-db.db3*
 
 %postun -p /sbin/ldconfig
 
