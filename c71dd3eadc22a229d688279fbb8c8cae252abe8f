@@ -1,0 +1,12 @@
+Code-Review+2: Casey Schaufler <casey.schaufler@intel.com>
+Code-Review+2: Bumjin Im <bj.im@samsung.com>
+Verified+1: Bumjin Im <bj.im@samsung.com>
+Verified+1: Marcin Niesluchowski <m.niesluchow@samsung.com>
+Code-Review+2: Zofia Abramowska <z.abramowska@samsung.com>
+Verified+1: Zofia Abramowska <z.abramowska@samsung.com>
+Code-Review+1: Lukasz Wojciechowski <l.wojciechow@partner.samsung.com>
+Submitted-by: Zofia Abramowska <z.abramowska@samsung.com>
+Submitted-at: Mon, 12 May 2014 03:48:50 -0700
+Reviewed-on: https://review.tizen.org/gerrit/20271
+Project: platform/core/security/libprivilege-control
+Branch: refs/heads/tizen
