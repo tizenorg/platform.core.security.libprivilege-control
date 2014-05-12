@@ -100,7 +100,6 @@
 <datatype>INTEGER</datatype>
 <relation table="app_path" row="app_path_type_id" />
 <relation table="permission_app_path_type_rule" row="app_path_type_id" />
-<relation table="label_app_path_type_rule" row="app_path_type_id" />
 </row>
 <row name="name" null="0" autoincrement="0">
 <datatype>MEDIUMTEXT</datatype>
@@ -220,26 +219,6 @@
 <default>0</default></row>
 <key type="PRIMARY" name="">
 <part>permission_id</part>
-<part>app_path_type_id</part>
-<part>is_reverse</part>
-</key>
-</table>
-<table x="849" y="620" name="label_app_path_type_rule">
-<row name="label_id" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-<relation table="label" row="label_id" />
-</row>
-<row name="app_path_type_id" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-</row>
-<row name="access" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>0</default></row>
-<row name="is_reverse" null="1" autoincrement="0">
-<datatype>TINYINT</datatype>
-<default>NULL</default></row>
-<key type="PRIMARY" name="">
-<part>label_id</part>
 <part>app_path_type_id</part>
 <part>is_reverse</part>
 </key>

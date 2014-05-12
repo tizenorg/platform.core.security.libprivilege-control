@@ -64,7 +64,6 @@ mkdir -p %{buildroot}/opt/dbspace
 %postun -p /sbin/ldconfig
 
 api_feature_loader --verbose --dir=/usr/share/privilege-control/
-api_feature_loader --verbose --rules=/usr/share/privilege-control/ADDITIONAL_RULES.smack
 
 %check
 ./db/updater.sh --check-files %{buildroot}
