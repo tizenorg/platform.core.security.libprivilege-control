@@ -3,6 +3,6 @@
     <domain name="_"/>
  </request>
  <assign>
-    <filesystem path="/opt/dbspace/.privilege_control_app_gids.db*" label="System" />
+    <filesystem path="TZ_SYS_DB/.privilege_control_app_gids.db*" label="System" />
  </assign>
 </manifest>
