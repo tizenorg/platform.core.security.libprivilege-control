@@ -2,6 +2,8 @@
 
 #database updater requires making proper sql scripts
 
+source /etc/tizen-platform.conf
+
 if [ $# -eq 2 -a "$1" = "--check-files" ]
 then
     echo "Checking sql update files"
@@ -19,7 +21,7 @@ else
 fi
 
 
-database="$dir/opt/dbspace/.rules-db.db3"
+database="$dir$TZ_SYS_DB/.rules-db.db3"
 scripts_dir="$dir/usr/share/privilege-control/db"
 updates_dir="$dir/usr/share/privilege-control/db/updates"
 

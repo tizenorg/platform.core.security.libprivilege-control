@@ -42,22 +42,23 @@
 #include <sys/mman.h>
 #include <stdbool.h>
 #include <search.h>
+#include <tzplatform_config.h>
 
 #include "privilege-control.h"
 #include "access-db.h"
 #include "common.h"
 #include "rules-db.h"
 
-#define APP_GID	5000
-#define APP_UID	5000
-#define DEVELOPER_GID	5100
-#define DEVELOPER_UID	5100
+#define APP_GID		tzplatform_getgid(TZ_USER_NAME)
+#define APP_UID		tzplatform_getuid(TZ_USER_NAME)
+#define DEVELOPER_GID	tzplatform_getgid(TZ_SDK_USER_NAME)
+#define DEVELOPER_UID	tzplatform_getuid(TZ_SDK_USER_NAME)
 
-#define APP_USER_NAME	"app"
-#define DEV_USER_NAME	"developer"
+#define APP_USER_NAME	tzplatform_getenv(TZ_USER_NAME)
+#define DEV_USER_NAME	tzplatform_getenv(TZ_SDK_USER_NAME)
 
-#define APP_HOME_DIR	TOSTRING(HOMEDIR) "/app"
-#define DEV_HOME_DIR	TOSTRING(HOMEDIR) "/developer"
+#define APP_HOME_DIR	tzplatform_getenv(TZ_USER_HOME)
+#define DEV_HOME_DIR	tzplatform_getenv(TZ_SDK_HOME)
 
 /* Macro defined below is used to label links to executables */
 #define XATTR_NAME_TIZENEXEC XATTR_SECURITY_PREFIX "TIZEN_EXEC_LABEL"
