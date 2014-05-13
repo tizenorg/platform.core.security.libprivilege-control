@@ -30,10 +30,11 @@
 #ifndef _RULES_DB_H_
 #define _RULES_DB_H_
 
+#include <tzplatform_config.h>
 #include "privilege-control.h" // For error codes
 #include "common.h"
 
-#define RDB_PATH "/opt/dbspace/.rules-db.db3"
+#define RDB_PATH tzplatform_mkpath(TZ_SYS_DB,".rules-db.db3")
 
 /**
  * Starts a session with the database.

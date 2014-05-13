@@ -12,6 +12,7 @@ BuildRequires: pkgconfig(libsmack)
 BuildRequires: pkgconfig(dlog)
 BuildRequires: pkgconfig(libiri)
 BuildRequires: pkgconfig(sqlite3)
+BuildRequires: pkgconfig(libtzplatform-config)
 
 %description
 development package of library to control privilege of in-house application
@@ -44,7 +45,9 @@ export FFLAGS="$FFLAGS -DTIZEN_DEBUG_ENABLE"
 
 export CFLAGS="${CFLAGS} -Wno-implicit-function-declaration"
 %cmake . -DCMAKE_BUILD_TYPE=%{?build_type:%build_type}%{!?build_type:RELEASE} \
-         -DCMAKE_VERBOSE_MAKEFILE=ON
+         -DCMAKE_VERBOSE_MAKEFILE=ON \
+	-DTZ_SYS_DB=%TZ_SYS_DB \
+	-DTZ_SYS_HOME=%TZ_SYS_HOME
 
 VERBOSE=1 make %{?jobs:-j%jobs}
 
@@ -54,13 +57,15 @@ mkdir -p %{buildroot}/usr/share/privilege-control/
 
 mkdir -p %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
 ln -sf /usr/lib/systemd/system/smack-rules.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-rules.service
-mkdir -p %{buildroot}/opt/dbspace
+mkdir -p %{buildroot}%{TZ_SYS_DB}
+
+sed -i 's|TZ_SYS_DB|%{TZ_SYS_DB}|g' %{SOURCE1001}
 
 %post
 /sbin/ldconfig
 
 /usr/share/privilege-control/db/updater.sh
-chsmack -a 'System' /opt/dbspace/.rules-db.db3*
+chsmack -a 'System' %{TZ_SYS_DB}/.rules-db.db3*
 
 %postun -p /sbin/ldconfig
 
@@ -85,11 +90,11 @@ api_feature_loader --verbose --dir=/usr/share/privilege-control/
 /usr/share/privilege-control/db/updates/*
 /usr/share/privilege-control/db/load-rules-db.sql
 /etc/opt/upgrade/220.libprivilege-updater.patch.sh
-%attr(755, root, root) %dir /opt/dbspace
+%attr(755, root, root) %dir %{TZ_SYS_DB}
 
 %files conf
 %manifest %{name}.manifest
-/opt/dbspace/.privilege_control*.db
+%{TZ_SYS_DB}/.privilege_control*.db
 
 %files devel
 %manifest %{name}.manifest

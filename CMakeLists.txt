@@ -5,7 +5,7 @@ SET(TARGET_PRIVILEGE_CONTROL "privilege-control")
 SET(PREFIX ${CMAKE_INSTALL_PREFIX})
 SET(EXEC_PREFIX "\${prefix}")
 SET(SHAREDIR "${PREFIX}/share/privilege-control")
-SET(HOMEDIR "/opt/home")
+SET(HOMEDIR "${TZ_SYS_HOME}")
 SET(VERSION 1.0)
 
 SET(VERSION_MAJOR 0)
@@ -14,7 +14,7 @@ SET(VERSION "${VERSION_MAJOR}.0.2")
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
 
 INCLUDE(FindPkgConfig)
-pkg_check_modules(pkgs REQUIRED libsmack libiri dlog sqlite3)
+pkg_check_modules(pkgs REQUIRED libsmack libiri dlog sqlite3 libtzplatform-config)
 
 FOREACH(flag ${pkgs_CFLAGS})
 	SET(EXTRA_CFLAGS "${EXTRA_CFLAGS} ${flag}")
@@ -71,12 +71,14 @@ SET_TARGET_PROPERTIES(rules-db-sql-udf PROPERTIES COMPILE_FLAGS "${rules-db-sql-
 
 
 CONFIGURE_FILE(libprivilege-control.pc.in libprivilege-control.pc @ONLY)
+CONFIGURE_FILE(smack-rules.service.in smack-rules.service)
+
 
 INSTALL(TARGETS ${TARGET_PRIVILEGE_CONTROL} DESTINATION  ${LIB_INSTALL_DIR} COMPONENT RuntimeLibraries)
 INSTALL(TARGETS rules-db-sql-udf DESTINATION  ${LIB_INSTALL_DIR} COMPONENT RuntimeLibraries)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libprivilege-control.pc DESTINATION  ${LIB_INSTALL_DIR}/pkgconfig)
 INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/include/privilege-control.h DESTINATION ${INCLUDE_INSTALL_DIR})
-INSTALL(FILES .privilege_control_app_gids.db DESTINATION /opt/dbspace)
+INSTALL(FILES .privilege_control_app_gids.db DESTINATION ${TZ_SYS_DB})
 #INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/udev/ DESTINATION lib/udev)
 
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/rules-db.sql DESTINATION /usr/share/privilege-control/db)
