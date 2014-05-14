@@ -721,6 +721,8 @@ API int perm_app_enable_permissions(const char* pkg_id, app_type_t app_type,
 	}
 
 	/* Enable the permissions: */
+	//we want persistent to always be true at the moment
+	persistent = true;
 	ret = rdb_enable_app_permissions(app_label, app_type, perm_list,
 					 !((bool)persistent));
 	if (ret != PC_OPERATION_SUCCESS) {
