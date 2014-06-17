@@ -101,13 +101,15 @@ finish:
 
 int add_modified_permission_internal(sqlite3 *p_db, sqlite3_int64 i_permission_id)
 {
+	RDB_LOG_ENTRY_PARAM("%lld", i_permission_id);
+
 	int ret = PC_OPERATION_SUCCESS;
 	sqlite3_stmt *p_stmt = NULL;
 	ret = prepare_stmt(p_db, &p_stmt,
 			   "INSERT OR IGNORE INTO modified_label(name) \
 			    SELECT app_permission_view.app_name        \
 			    FROM   app_permission_view                 \
-			    WHERE  app_permission_view.permission_id = %d",
+			    WHERE  app_permission_view.permission_id = %lld",
 			   i_permission_id);
 	if(ret != PC_OPERATION_SUCCESS) goto finish;
 
@@ -433,7 +435,8 @@ int get_permission_id_internal(sqlite3 *p_db,
 	ret = sqlite3_step(p_stmt);
 	if(ret == SQLITE_ROW) {
 		ret = PC_OPERATION_SUCCESS;
-		*p_permission_id = sqlite3_column_int(p_stmt, RDB_FIRST_COLUMN);
+		*p_permission_id = sqlite3_column_int64(p_stmt, RDB_FIRST_COLUMN);
+		C_LOGD("RDB: Found permission_id = %lld for %s %s", *p_permission_id, s_permission_name, s_permission_type_name);
 	} else if(ret == SQLITE_DONE) {
 		C_LOGW("RDB: There is no permission_id for %s %s", s_permission_name, s_permission_type_name);
 		ret = PC_ERR_DB_OPERATION;
@@ -479,7 +482,7 @@ static int add_permission_label_rule(sqlite3_stmt *p_stmt,
 
 	// Bind values to the statement and run it:
 	// Bind returns SQLITE_OK == 0 on success
-	if(sqlite3_bind_int(p_stmt, 1, i_permission_id) ||
+	if(sqlite3_bind_int64(p_stmt, 1, i_permission_id) ||
 	    sqlite3_bind_text(p_stmt, 2, s_access, RDB_AUTO_DETERM_SIZE, 0) ||
 	    sqlite3_bind_text(p_stmt, 3, s_label_name, RDB_AUTO_DETERM_SIZE, 0) ||
 	    sqlite3_bind_int(p_stmt, 4, i_is_reverse)) {
@@ -506,8 +509,8 @@ static int add_permission_permission_rule(sqlite3_stmt *p_stmt,
 {
 	int ret = PC_OPERATION_SUCCESS;
 
-	if(sqlite3_bind_int(p_stmt, 1, i_permission_id) ||
-	    sqlite3_bind_int(p_stmt, 2, i_target_permission_id)  ||
+	if(sqlite3_bind_int64(p_stmt, 1, i_permission_id) ||
+	    sqlite3_bind_int64(p_stmt, 2, i_target_permission_id)  ||
 	    sqlite3_bind_text(p_stmt, 3, s_access, RDB_AUTO_DETERM_SIZE, 0) ||
 	    sqlite3_bind_int(p_stmt, 4, i_is_reverse)) {
 		C_LOGE("RDB: Error during binding to statement: %s",
@@ -776,11 +779,11 @@ finish:
 
 int update_app_permission_internal(sqlite3 *p_db,
 				   const int i_app_id,
-				   const int i_permission_id,
+				   const sqlite3_int64 i_permission_id,
 				   const bool b_is_volatile_new,
 				   const bool b_is_enabled_new)
 {
-	RDB_LOG_ENTRY_PARAM("%d %d %d %d",
+	RDB_LOG_ENTRY_PARAM("%d %lld %d %d",
 			    i_app_id, i_permission_id,
 			    b_is_volatile_new, b_is_enabled_new);
 
@@ -790,7 +793,7 @@ int update_app_permission_internal(sqlite3 *p_db,
 	ret = prepare_stmt(p_db, &p_stmt,
 			   "UPDATE app_permission \
 			     SET is_volatile = %d, is_enabled=%d \
-			     WHERE app_id = %d AND permission_id = %d",
+			     WHERE app_id = %d AND permission_id = %lld",
 			   b_is_volatile_new, b_is_enabled_new,
 			   i_app_id, i_permission_id);
 
@@ -817,7 +820,8 @@ int change_app_permission_internal(sqlite3 *p_db,
 
 	int ret = PC_ERR_DB_OPERATION;
 	sqlite3_stmt *p_stmt = NULL;
-	int i_is_volatile_old, i_is_enabled_old, i_permission_id;
+	int i_is_volatile_old, i_is_enabled_old;
+	sqlite3_int64 i_permission_id;
 
 	ret = prepare_stmt(p_db, &p_stmt,
 			   "SELECT is_volatile, is_enabled, permission_id      \
@@ -849,7 +853,7 @@ int change_app_permission_internal(sqlite3 *p_db,
 			goto finish;
 		}
 
-		i_permission_id = sqlite3_column_int(p_stmt, RDB_THIRD_COLUMN);
+		i_permission_id = sqlite3_column_int64(p_stmt, RDB_THIRD_COLUMN);
 
 		// Finalize statement
 		if(sqlite3_finalize(p_stmt) != SQLITE_OK)

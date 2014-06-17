@@ -315,7 +315,7 @@ int switch_app_permission_internal(sqlite3 *p_db,
  */
 int update_app_permission_internal(sqlite3 *p_db,
 				   const int i_app_id,
-				   const int i_permission_id,
+				   const sqlite3_int64 i_permission_id,
 				   const bool b_is_volatile_new,
 				   const bool b_is_enabled_new);
 
