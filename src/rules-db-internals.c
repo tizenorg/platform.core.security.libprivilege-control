@@ -177,10 +177,10 @@ int open_rdb_connection(sqlite3 **p_db, bool b_create_temporary_tables)
 	}
 
 	if(sqlite3_load_extension(*p_db,
-				  "/usr/lib/librules-db-sql-udf.so", 0,
+				  LIBDIR "/librules-db-sql-udf.so", 0,
 				  &p_err_msg) != SQLITE_OK) {
 
-		C_LOGE("RDB: Error during loading librules-db-sql-udf.so: %s",
+		C_LOGE("RDB: Error during loading " LIBDIR "/librules-db-sql-udf.so: %s",
 		       p_err_msg);
 		sqlite3_free(p_err_msg);
 		return PC_ERR_DB_CONNECTION;
