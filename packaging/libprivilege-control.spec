@@ -46,17 +46,18 @@ export FFLAGS="$FFLAGS -DTIZEN_DEBUG_ENABLE"
 export CFLAGS="${CFLAGS} -Wno-implicit-function-declaration"
 %cmake . -DCMAKE_BUILD_TYPE=%{?build_type:%build_type}%{!?build_type:RELEASE} \
          -DCMAKE_VERBOSE_MAKEFILE=ON \
-	-DTZ_SYS_DB=%TZ_SYS_DB \
-	-DTZ_SYS_HOME=%TZ_SYS_HOME
+	 -DTZ_SYS_DB=%TZ_SYS_DB \
+	 -DTZ_SYS_HOME=%TZ_SYS_HOME \
+	 -DTZ_SYS_ETC=%TZ_SYS_ETC
 
 VERBOSE=1 make %{?jobs:-j%jobs}
 
 %install
 %make_install
-mkdir -p %{buildroot}/usr/share/privilege-control/
+mkdir -p %{buildroot}%{_datadir}/privilege-control/
 
-mkdir -p %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
-ln -sf /usr/lib/systemd/system/smack-rules.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/smack-rules.service
+mkdir -p %{buildroot}%{_libdir}/systemd/system/multi-user.target.wants
+ln -sf %{_libdir}/systemd/system/smack-rules.service %{buildroot}%{_libdir}/systemd/system/multi-user.target.wants/smack-rules.service
 mkdir -p %{buildroot}%{TZ_SYS_DB}
 
 sed -i 's|TZ_SYS_DB|%{TZ_SYS_DB}|g' %{SOURCE1001}
@@ -64,12 +65,12 @@ sed -i 's|TZ_SYS_DB|%{TZ_SYS_DB}|g' %{SOURCE1001}
 %post
 /sbin/ldconfig
 
-/usr/share/privilege-control/db/updater.sh
+%{_datadir}/privilege-control/db/updater.sh
 chsmack -a 'System' %{TZ_SYS_DB}/.rules-db.db3*
 
 %postun -p /sbin/ldconfig
 
-api_feature_loader --verbose --dir=/usr/share/privilege-control/
+api_feature_loader --verbose --dir=%{_datadir}/privilege-control/
 
 %check
 ./db/updater.sh --check-files %{buildroot}
@@ -80,16 +81,16 @@ api_feature_loader --verbose --dir=/usr/share/privilege-control/
 %{_libdir}/*.so.*
 %{_libdir}/librules-db-sql-udf.so
 #systemd service
-/usr/lib/systemd/system/smack-rules.service
-/usr/bin/api_feature_loader
+%{_libdir}/systemd/system/smack-rules.service
+%{_bindir}/api_feature_loader
 #link to activate systemd service
-/usr/lib/systemd/system/multi-user.target.wants/smack-rules.service
-/usr/share/privilege-control/db/rules-db.sql
-/usr/share/privilege-control/db/rules-db-data.sql
-/usr/share/privilege-control/db/updater.sh
-/usr/share/privilege-control/db/updates/*
-/usr/share/privilege-control/db/load-rules-db.sql
-/etc/opt/upgrade/220.libprivilege-updater.patch.sh
+%{_libdir}/systemd/system/multi-user.target.wants/smack-rules.service
+%{_datadir}/privilege-control/db/rules-db.sql
+%{_datadir}/privilege-control/db/rules-db-data.sql
+%{_datadir}/privilege-control/db/updater.sh
+%{_datadir}/privilege-control/db/updates/*
+%{_datadir}/privilege-control/db/load-rules-db.sql
+%{TZ_SYS_ETC}/opt/upgrade/220.libprivilege-updater.patch.sh
 %attr(755, root, root) %dir %{TZ_SYS_DB}
 
 %files conf
