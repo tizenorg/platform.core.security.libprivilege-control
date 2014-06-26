@@ -82,10 +82,10 @@ INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/include/privilege-control.h DESTINATIO
 INSTALL(FILES .privilege_control_app_gids.db DESTINATION ${TZ_SYS_DB})
 #INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/udev/ DESTINATION lib/udev)
 
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/rules-db.sql DESTINATION /usr/share/privilege-control/db)
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/rules-db-data.sql DESTINATION /usr/share/privilege-control/db)
-INSTALL(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/db/updates/ DESTINATION /usr/share/privilege-control/db/updates)
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/updater.sh DESTINATION /usr/share/privilege-control/db
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/rules-db.sql DESTINATION ${SHAREDIR}/db)
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/rules-db-data.sql DESTINATION ${SHAREDIR}/db)
+INSTALL(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/db/updates/ DESTINATION ${SHAREDIR}/db/updates)
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/updater.sh DESTINATION ${SHAREDIR}/db
      PERMISSIONS OWNER_READ
                  OWNER_WRITE
                  OWNER_EXECUTE
@@ -93,15 +93,15 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/updater.sh DESTINATION /usr/share/p
                  GROUP_EXECUTE
                  WORLD_READ
                  WORLD_EXECUTE)
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/load-rules-db.sql DESTINATION /usr/share/privilege-control/db)
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/220.libprivilege-updater.patch.sh DESTINATION /etc/opt/upgrade
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/load-rules-db.sql DESTINATION ${SHAREDIR}/db)
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/db/220.libprivilege-updater.patch.sh DESTINATION ${TZ_SYS_ETC}/opt/upgrade
      PERMISSIONS OWNER_READ
                  OWNER_WRITE
                  OWNER_EXECUTE)
 
 
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/smack-rules.service
-    DESTINATION /usr/lib/systemd/system
+    DESTINATION ${LIB_INSTALL_DIR}/systemd/system
     PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE)
 
 ADD_SUBDIRECTORY(api_feature_loader)
