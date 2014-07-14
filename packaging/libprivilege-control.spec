@@ -48,7 +48,8 @@ export CFLAGS="${CFLAGS} -Wno-implicit-function-declaration"
          -DCMAKE_VERBOSE_MAKEFILE=ON \
 	 -DTZ_SYS_DB=%TZ_SYS_DB \
 	 -DTZ_SYS_HOME=%TZ_SYS_HOME \
-	 -DTZ_SYS_ETC=%TZ_SYS_ETC
+	 -DTZ_SYS_ETC=%TZ_SYS_ETC \
+	 -DSYSTEMD_UNIT_DIR=%{_unitdir}
 
 VERBOSE=1 make %{?jobs:-j%jobs}
 
@@ -56,8 +57,8 @@ VERBOSE=1 make %{?jobs:-j%jobs}
 %make_install
 mkdir -p %{buildroot}%{_datadir}/privilege-control/
 
-mkdir -p %{buildroot}%{_libdir}/systemd/system/multi-user.target.wants
-ln -sf %{_libdir}/systemd/system/smack-rules.service %{buildroot}%{_libdir}/systemd/system/multi-user.target.wants/smack-rules.service
+mkdir -p %{buildroot}%{_unitdir}/multi-user.target.wants
+ln -sf %{_unitdir}/smack-rules.service %{buildroot}%{_unitdir}/multi-user.target.wants/smack-rules.service
 mkdir -p %{buildroot}%{TZ_SYS_DB}
 
 sed -i 's|TZ_SYS_DB|%{TZ_SYS_DB}|g' %{SOURCE1001}
@@ -81,10 +82,10 @@ api_feature_loader --verbose --dir=%{_datadir}/privilege-control/
 %{_libdir}/*.so.*
 %{_libdir}/librules-db-sql-udf.so
 #systemd service
-%{_libdir}/systemd/system/smack-rules.service
+%{_unitdir}/smack-rules.service
 %{_bindir}/api_feature_loader
 #link to activate systemd service
-%{_libdir}/systemd/system/multi-user.target.wants/smack-rules.service
+%{_unitdir}/multi-user.target.wants/smack-rules.service
 %{_datadir}/privilege-control/db/rules-db.sql
 %{_datadir}/privilege-control/db/rules-db-data.sql
 %{_datadir}/privilege-control/db/updater.sh
