@@ -1,7 +1,7 @@
 Name:       libprivilege-control
 Summary:    Library to control privilege of application
 Version:    0.0.43.TIZEN
-Release:    1
+Release:    0
 Group:      Security/Access Control
 License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
@@ -31,7 +31,6 @@ Requires:   %{name} = %{version}-%{release}
 %description conf
 Library to control privilege of application files
 
-
 %prep
 %setup -q
 cp %{SOURCE1001} .
@@ -46,27 +45,24 @@ export FFLAGS="$FFLAGS -DTIZEN_DEBUG_ENABLE"
 export CFLAGS="${CFLAGS} -Wno-implicit-function-declaration"
 %cmake . -DCMAKE_BUILD_TYPE=%{?build_type:%build_type}%{!?build_type:RELEASE} \
          -DCMAKE_VERBOSE_MAKEFILE=ON \
-	 -DTZ_SYS_DB=%TZ_SYS_DB \
-	 -DTZ_SYS_HOME=%TZ_SYS_HOME \
-	 -DTZ_SYS_ETC=%TZ_SYS_ETC \
-	 -DSYSTEMD_UNIT_DIR=%{_unitdir}
+         -DTZ_SYS_DB=%TZ_SYS_DB \
+         -DTZ_SYS_HOME=%TZ_SYS_HOME \
+         -DTZ_SYS_ETC=%TZ_SYS_ETC \
+         -DSYSTEMD_UNIT_DIR=%{_unitdir}
 
-VERBOSE=1 make %{?jobs:-j%jobs}
+VERBOSE=1 %__make %{?jobs:-j%jobs}
 
 %install
 %make_install
 mkdir -p %{buildroot}%{_datadir}/privilege-control/
-
 mkdir -p %{buildroot}%{_unitdir}/multi-user.target.wants
 ln -sf %{_unitdir}/smack-rules.service %{buildroot}%{_unitdir}/multi-user.target.wants/smack-rules.service
 mkdir -p %{buildroot}%{TZ_SYS_DB}
-
 sed -i 's|TZ_SYS_DB|%{TZ_SYS_DB}|g' %{SOURCE1001}
 
 %post
 /sbin/ldconfig
-
-%{_datadir}/privilege-control/db/updater.sh
+%{TZ_SYS_SHARE}/privilege-control/db/updater.sh
 chsmack -a 'System' %{TZ_SYS_DB}/.rules-db.db3*
 
 %postun -p /sbin/ldconfig
