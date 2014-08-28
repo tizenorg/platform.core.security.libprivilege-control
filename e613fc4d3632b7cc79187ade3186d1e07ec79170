@@ -1,0 +1,10 @@
+Code-Review+2: Casey Schaufler <casey.schaufler@intel.com>
+Code-Review+1: ronan(Eurogiciel) Le Martret <ronan.lemartret@open.eurogiciel.org>
+Verified+1: ronan(Eurogiciel) Le Martret <ronan.lemartret@open.eurogiciel.org>
+Code-Review+1: Kévin THIERRY <kevin.thierry@open.eurogiciel.org>
+Code-Review+1: Build Bot <b.bot@partner.samsung.com>
+Submitted-by: Casey Schaufler <casey.schaufler@intel.com>
+Submitted-at: Thu, 28 Aug 2014 09:33:10 -0700
+Reviewed-on: https://review.tizen.org/gerrit/24508
+Project: platform/core/security/libprivilege-control
+Branch: refs/heads/tizen
