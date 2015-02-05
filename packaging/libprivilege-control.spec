@@ -13,6 +13,8 @@ BuildRequires: pkgconfig(dlog)
 BuildRequires: pkgconfig(libiri)
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: pkgconfig(libtzplatform-config)
+Requires(post): /sbin/ldconfig
+Requires(post): /usr/bin/sqlite3
 
 %description
 development package of library to control privilege of in-house application
