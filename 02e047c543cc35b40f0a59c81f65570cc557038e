@@ -1,0 +1,9 @@
+Verified+1: Vyacheslav Barinov <v.barinov@samsung.com>
+Code-Review+1: Build Bot <b.bot@partner.samsung.com>
+Code-Review+2: Jan Olszak <j.olszak@samsung.com>
+Verified+1: Jan Olszak <j.olszak@samsung.com>
+Submitted-by: Jan Olszak <j.olszak@samsung.com>
+Submitted-at: Fri, 06 Feb 2015 08:58:30 -0800
+Reviewed-on: https://review.tizen.org/gerrit/34974
+Project: platform/core/security/libprivilege-control
+Branch: refs/heads/tizen
