@@ -1,0 +1,10 @@
+Verified+1: José Bollo <jose.bollo@open.eurogiciel.org>
+Code-Review+1: Build Bot <b.bot@partner.samsung.com>
+Code-Review+1: Vyacheslav Barinov <v.barinov@samsung.com>
+Code-Review+1: Chan Lee <chan45.lee@samsung.com>
+Code-Review+2: Bumjin Im <bj.im@samsung.com>
+Submitted-by: Bumjin Im <bj.im@samsung.com>
+Submitted-at: Fri, 12 Jun 2015 00:12:41 -0700
+Reviewed-on: https://review.tizen.org/gerrit/40986
+Project: platform/core/security/libprivilege-control
+Branch: refs/heads/tizen
