@@ -1,3 +1,9 @@
+Code-Review+1: Build Bot <b.bot@partner.samsung.com>
+Verified+1: José Bollo <jose.bollo@open.eurogiciel.org>
+Reviewed-on: https://review.tizen.org/gerrit/42052
+Project: platform/core/security/libprivilege-control
+Branch: refs/heads/tizen
+
 Reviewed-on: https://review.tizen.org/gerrit/42052
 Project: platform/core/security/libprivilege-control
 Branch: refs/heads/tizen
